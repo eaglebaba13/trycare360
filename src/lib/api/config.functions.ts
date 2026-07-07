@@ -26,8 +26,6 @@ export const CONFIG_TABLES = [
   "platform_settings",
   "departments",
   "employees",
-  "org_units",
-  "tenants",
 ] as const;
 export type ConfigTable = (typeof CONFIG_TABLES)[number];
 

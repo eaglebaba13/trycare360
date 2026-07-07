@@ -14,8 +14,6 @@ export type OrgUnitRow = {
   type: string;
   name: string;
   code: string | null;
-  path: string | null;
-  meta: Record<string, unknown>;
 };
 
 export const listOrgUnits = createServerFn({ method: "GET" })
@@ -23,10 +21,10 @@ export const listOrgUnits = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) =>
     z.object({ tenantId: z.string().uuid().nullable().optional() }).parse(d ?? {}),
   )
-  .handler(async ({ context, data }) => {
+  .handler(async ({ context, data }): Promise<OrgUnitRow[]> => {
     let q = context.supabase
       .from("org_units")
-      .select("id, parent_id, tenant_id, type, name, code, path, meta")
+      .select("id, parent_id, tenant_id, type, name, code")
       .order("name", { ascending: true });
     if (data.tenantId) q = q.eq("tenant_id", data.tenantId);
     const { data: rows, error } = await q;
@@ -57,14 +55,16 @@ export const upsertOrgUnit = createServerFn({ method: "POST" })
       })
       .parse(d),
   )
-  .handler(async ({ context, data }) => {
+  .handler(async ({ context, data }): Promise<{ id: string }> => {
+    const payload = { ...data, meta: (data.meta ?? {}) as Record<string, unknown> };
     const { data: row, error } = await context.supabase
       .from("org_units")
-      .upsert(data)
-      .select()
+      // biome-ignore lint/suspicious/noExplicitAny: broad upsert
+      .upsert(payload as any)
+      .select("id")
       .maybeSingle();
     if (error) throw new Error(error.message);
-    return row;
+    return { id: row?.id ?? "" };
   });
 
 export const deleteOrgUnit = createServerFn({ method: "POST" })
