@@ -1,7 +1,5 @@
 /**
  * Role-aware navigation registry.
- * Phase 1 ships only the dashboard entry per role — module entries are added
- * as their phases land.
  */
 import type { LucideIcon } from "lucide-react";
 import {
@@ -19,7 +17,7 @@ export type NavItem = {
   label: string;
   to: string;
   icon: LucideIcon;
-  roles?: RoleCode[]; // if omitted, visible to any authenticated user
+  roles?: RoleCode[];
   permission?: string;
 };
 
@@ -39,53 +37,31 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Administration",
     items: [
-      {
-        label: "Tenants",
-        to: "/admin/tenants",
-        icon: Building2,
-        roles: [ROLES.SUPER_ADMIN],
-      },
+      { label: "Tenants", to: "/admin/tenants", icon: Building2, roles: [ROLES.SUPER_ADMIN] },
       {
         label: "Organization",
         to: "/admin/organization",
         icon: Building2,
-        roles: [
-          ROLES.SUPER_ADMIN,
-          ROLES.CORPORATE_ADMIN,
-          ROLES.MASTER_FRANCHISE,
-          ROLES.FRANCHISE_OWNER,
-        ],
+        roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER],
       },
-      {
-        label: "Users & Roles",
-        to: "/admin/users",
-        icon: Users,
-        permission: "user_roles:read",
-      },
-      {
-        label: "Audit Log",
-        to: "/admin/audit",
-        icon: FileText,
-        permission: "audit:read",
-      },
-      {
-        label: "Roles & Permissions",
-        to: "/admin/rbac",
-        icon: ShieldCheck,
-        roles: [ROLES.SUPER_ADMIN],
-      },
+      { label: "Users & Roles", to: "/admin/users", icon: Users, permission: "user_roles:read" },
+      { label: "Audit Log", to: "/admin/audit", icon: FileText, permission: "audit:read" },
+      { label: "Roles & Permissions", to: "/admin/rbac", icon: ShieldCheck, roles: [ROLES.SUPER_ADMIN] },
     ],
   },
   {
-    label: "Account",
-    items: [{ label: "Settings", to: "/settings", icon: Settings }],
+    label: "Configuration",
+    items: [
+      {
+        label: "Settings",
+        to: "/settings",
+        icon: Settings,
+        roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
+      },
+    ],
   },
 ];
 
-/**
- * Default landing route per role. Phase 1 lands every role on /dashboard.
- * Role-specific dashboards are added in Phase 2+.
- */
 export const ROLE_HOME: Record<RoleCode, string> = {
   super_admin: "/dashboard",
   corporate_admin: "/dashboard",
@@ -110,11 +86,7 @@ export const ROLE_HOME: Record<RoleCode, string> = {
   customer: "/dashboard",
 };
 
-export function filterNav(
-  groups: NavGroup[],
-  roles: string[],
-  permissions: string[],
-): NavGroup[] {
+export function filterNav(groups: NavGroup[], roles: string[], permissions: string[]): NavGroup[] {
   const isSuper = roles.includes(ROLES.SUPER_ADMIN);
   return groups
     .map((g) => ({

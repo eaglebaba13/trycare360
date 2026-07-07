@@ -50,6 +50,50 @@ export type Database = {
         }
         Relationships: []
       }
+      areas: {
+        Row: {
+          city_id: string
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          city_id: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          city_id?: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "areas_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -92,6 +136,550 @@ export type Database = {
         }
         Relationships: []
       }
+      bank_accounts: {
+        Row: {
+          account_name: string
+          account_number: string
+          account_type: string | null
+          bank_name: string
+          branch: string | null
+          company_id: string
+          created_at: string
+          created_by: string | null
+          currency_code: string | null
+          display_order: number
+          id: string
+          ifsc: string | null
+          is_active: boolean
+          is_primary: boolean
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          account_type?: string | null
+          bank_name: string
+          branch?: string | null
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          currency_code?: string | null
+          display_order?: number
+          id?: string
+          ifsc?: string | null
+          is_active?: boolean
+          is_primary?: boolean
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          account_type?: string | null
+          bank_name?: string
+          branch?: string | null
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          currency_code?: string | null
+          display_order?: number
+          id?: string
+          ifsc?: string | null
+          is_active?: boolean
+          is_primary?: boolean
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bank_accounts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bank_accounts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      branches: {
+        Row: {
+          address_id: string | null
+          bank_account_id: string | null
+          code: string
+          company_id: string
+          created_at: string
+          created_by: string | null
+          display_order: number
+          email: string | null
+          gst_registration_id: string | null
+          id: string
+          is_active: boolean
+          name: string
+          org_unit_id: string | null
+          phone: string | null
+          settings: Json
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address_id?: string | null
+          bank_account_id?: string | null
+          code: string
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          email?: string | null
+          gst_registration_id?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          org_unit_id?: string | null
+          phone?: string | null
+          settings?: Json
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address_id?: string | null
+          bank_account_id?: string | null
+          code?: string
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          email?: string | null
+          gst_registration_id?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          org_unit_id?: string | null
+          phone?: string | null
+          settings?: Json
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "branches_address_id_fkey"
+            columns: ["address_id"]
+            isOneToOne: false
+            referencedRelation: "company_addresses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branches_bank_account_id_fkey"
+            columns: ["bank_account_id"]
+            isOneToOne: false
+            referencedRelation: "bank_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branches_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branches_gst_registration_id_fkey"
+            columns: ["gst_registration_id"]
+            isOneToOne: false
+            referencedRelation: "gst_registrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branches_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branches_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brands: {
+        Row: {
+          code: string
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          meta: Json
+          name: string
+          primary_color: string | null
+          secondary_color: string | null
+          tagline: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          meta?: Json
+          name: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          tagline?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          meta?: Json
+          name?: string
+          primary_color?: string | null
+          secondary_color?: string | null
+          tagline?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brands_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "brands_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cities: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          display_order: number
+          district_id: string
+          id: string
+          is_active: boolean
+          is_metro: boolean
+          name: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          district_id: string
+          id?: string
+          is_active?: boolean
+          is_metro?: boolean
+          name: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          district_id?: string
+          id?: string
+          is_active?: boolean
+          is_metro?: boolean
+          name?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cities_district_id_fkey"
+            columns: ["district_id"]
+            isOneToOne: false
+            referencedRelation: "districts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      companies: {
+        Row: {
+          brand_name: string | null
+          cin: string | null
+          code: string
+          created_at: string
+          created_by: string | null
+          display_order: number
+          email: string | null
+          id: string
+          is_active: boolean
+          legal_name: string
+          logo_url: string | null
+          meta: Json
+          pan: string | null
+          phone: string | null
+          tan: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          website: string | null
+        }
+        Insert: {
+          brand_name?: string | null
+          cin?: string | null
+          code: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          legal_name: string
+          logo_url?: string | null
+          meta?: Json
+          pan?: string | null
+          phone?: string | null
+          tan?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+        }
+        Update: {
+          brand_name?: string | null
+          cin?: string | null
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          legal_name?: string
+          logo_url?: string | null
+          meta?: Json
+          pan?: string | null
+          phone?: string | null
+          tan?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          website?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "companies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_addresses: {
+        Row: {
+          area_id: string | null
+          city_id: string | null
+          company_id: string
+          country_id: string | null
+          created_at: string
+          created_by: string | null
+          district_id: string | null
+          id: string
+          is_active: boolean
+          is_primary: boolean
+          kind: string
+          label: string | null
+          landmark: string | null
+          line1: string
+          line2: string | null
+          pincode: string | null
+          state_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          area_id?: string | null
+          city_id?: string | null
+          company_id: string
+          country_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          district_id?: string | null
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          kind: string
+          label?: string | null
+          landmark?: string | null
+          line1: string
+          line2?: string | null
+          pincode?: string | null
+          state_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          area_id?: string | null
+          city_id?: string | null
+          company_id?: string
+          country_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          district_id?: string | null
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          kind?: string
+          label?: string | null
+          landmark?: string | null
+          line1?: string
+          line2?: string | null
+          pincode?: string | null
+          state_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_addresses_area_id_fkey"
+            columns: ["area_id"]
+            isOneToOne: false
+            referencedRelation: "areas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_country_id_fkey"
+            columns: ["country_id"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_district_id_fkey"
+            columns: ["district_id"]
+            isOneToOne: false
+            referencedRelation: "districts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_state_id_fkey"
+            columns: ["state_id"]
+            isOneToOne: false
+            referencedRelation: "states"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_addresses_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      countries: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          currency_code: string | null
+          currency_symbol: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          iso2: string | null
+          iso3: string | null
+          name: string
+          phone_code: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          currency_code?: string | null
+          currency_symbol?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          iso2?: string | null
+          iso3?: string | null
+          name: string
+          phone_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          currency_code?: string | null
+          currency_symbol?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          iso2?: string | null
+          iso3?: string | null
+          name?: string
+          phone_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       device_logs: {
         Row: {
           app: string | null
@@ -121,6 +709,53 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      districts: {
+        Row: {
+          code: string | null
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          name: string
+          state_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          name: string
+          state_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          name?: string
+          state_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "districts_state_id_fkey"
+            columns: ["state_id"]
+            isOneToOne: false
+            referencedRelation: "states"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       feature_flags: {
         Row: {
@@ -211,6 +846,129 @@ export type Database = {
           },
         ]
       }
+      global_settings: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          key: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          key: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          key?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "global_settings_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gst_registrations: {
+        Row: {
+          address: Json
+          company_id: string
+          created_at: string
+          created_by: string | null
+          effective_from: string | null
+          effective_to: string | null
+          gstin: string
+          id: string
+          is_active: boolean
+          is_primary: boolean
+          legal_name: string | null
+          state_id: string | null
+          tenant_id: string
+          trade_name: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address?: Json
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          effective_from?: string | null
+          effective_to?: string | null
+          gstin: string
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          legal_name?: string | null
+          state_id?: string | null
+          tenant_id: string
+          trade_name?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address?: Json
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          effective_from?: string | null
+          effective_to?: string | null
+          gstin?: string
+          id?: string
+          is_active?: boolean
+          is_primary?: boolean
+          legal_name?: string | null
+          state_id?: string | null
+          tenant_id?: string
+          trade_name?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gst_registrations_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gst_registrations_state_id_fkey"
+            columns: ["state_id"]
+            isOneToOne: false
+            referencedRelation: "states"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gst_registrations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ip_logs: {
         Row: {
           event: string | null
@@ -237,6 +995,130 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      master_types: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          icon: string | null
+          is_system: boolean
+          name: string
+          supports_hierarchy: boolean
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          is_system?: boolean
+          name: string
+          supports_hierarchy?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          is_system?: boolean
+          name?: string
+          supports_hierarchy?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      masters: {
+        Row: {
+          code: string
+          color: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          icon: string | null
+          id: string
+          is_active: boolean
+          is_system: boolean
+          meta: Json
+          name: string
+          parent_id: string | null
+          tenant_id: string | null
+          type_code: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          color?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          meta?: Json
+          name: string
+          parent_id?: string | null
+          tenant_id?: string | null
+          type_code: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          color?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          meta?: Json
+          name?: string
+          parent_id?: string | null
+          tenant_id?: string | null
+          type_code?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "masters_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "masters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "masters_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "masters_type_code_fkey"
+            columns: ["type_code"]
+            isOneToOne: false
+            referencedRelation: "master_types"
+            referencedColumns: ["code"]
+          },
+        ]
       }
       notification_prefs: {
         Row: {
@@ -397,6 +1279,90 @@ export type Database = {
         }
         Relationships: []
       }
+      pincodes: {
+        Row: {
+          area_id: string | null
+          city_id: string
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          area_id?: string | null
+          city_id: string
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          area_id?: string | null
+          city_id?: string
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pincodes_area_id_fkey"
+            columns: ["area_id"]
+            isOneToOne: false
+            referencedRelation: "areas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pincodes_city_id_fkey"
+            columns: ["city_id"]
+            isOneToOne: false
+            referencedRelation: "cities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      platform_settings: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           active_org_unit_id: string | null
@@ -550,6 +1516,56 @@ export type Database = {
         }
         Relationships: []
       }
+      states: {
+        Row: {
+          code: string
+          country_id: string
+          created_at: string
+          created_by: string | null
+          display_order: number
+          gst_state_code: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          country_id: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          gst_state_code?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          country_id?: string
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          gst_state_code?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "states_country_id_fkey"
+            columns: ["country_id"]
+            isOneToOne: false
+            referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tenant_features: {
         Row: {
           config: Json
@@ -695,6 +1711,7 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      is_config_admin: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
