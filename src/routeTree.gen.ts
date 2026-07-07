@@ -16,6 +16,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
+import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
@@ -57,6 +58,12 @@ const AuthenticatedSettingsTerritoryRoute =
     path: '/territory',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSettingsPlatformRoute =
+  AuthenticatedSettingsPlatformRouteImport.update({
+    id: '/platform',
+    path: '/platform',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
 const AuthenticatedSettingsMastersRoute =
   AuthenticatedSettingsMastersRouteImport.update({
     id: '/masters',
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -100,6 +108,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -114,6 +123,7 @@ export interface FileRoutesById {
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/settings/global'
     | '/settings/masters'
+    | '/settings/platform'
     | '/settings/territory'
     | '/settings/'
     | '/settings/companies/$companyId'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/settings/global'
     | '/settings/masters'
+    | '/settings/platform'
     | '/settings/territory'
     | '/settings'
     | '/settings/companies/$companyId'
@@ -152,6 +164,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/masters'
+    | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
@@ -215,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsTerritoryRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/settings/platform': {
+      id: '/_authenticated/settings/platform'
+      path: '/platform'
+      fullPath: '/settings/platform'
+      preLoaderRoute: typeof AuthenticatedSettingsPlatformRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
     '/_authenticated/settings/masters': {
       id: '/_authenticated/settings/masters'
       path: '/masters'
@@ -249,6 +269,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedSettingsRouteChildren {
   AuthenticatedSettingsGlobalRoute: typeof AuthenticatedSettingsGlobalRoute
   AuthenticatedSettingsMastersRoute: typeof AuthenticatedSettingsMastersRoute
+  AuthenticatedSettingsPlatformRoute: typeof AuthenticatedSettingsPlatformRoute
   AuthenticatedSettingsTerritoryRoute: typeof AuthenticatedSettingsTerritoryRoute
   AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
   AuthenticatedSettingsCompaniesCompanyIdRoute: typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -258,6 +279,7 @@ interface AuthenticatedSettingsRouteChildren {
 const AuthenticatedSettingsRouteChildren: AuthenticatedSettingsRouteChildren = {
   AuthenticatedSettingsGlobalRoute: AuthenticatedSettingsGlobalRoute,
   AuthenticatedSettingsMastersRoute: AuthenticatedSettingsMastersRoute,
+  AuthenticatedSettingsPlatformRoute: AuthenticatedSettingsPlatformRoute,
   AuthenticatedSettingsTerritoryRoute: AuthenticatedSettingsTerritoryRoute,
   AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
   AuthenticatedSettingsCompaniesCompanyIdRoute:
