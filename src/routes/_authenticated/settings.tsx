@@ -14,14 +14,22 @@ export const Route = createFileRoute("/_authenticated/settings")({
   component: SettingsLayout,
 });
 
-const SETTINGS_NAV = [
+type SettingsNavItem = {
+  to: string;
+  label: string;
+  icon: typeof Cog;
+  exact?: boolean;
+  superAdmin?: boolean;
+};
+
+const SETTINGS_NAV: SettingsNavItem[] = [
   { to: "/settings", label: "Overview", icon: Cog, exact: true },
   { to: "/settings/masters", label: "Master Lists", icon: Database },
   { to: "/settings/territory", label: "Territory", icon: Map },
   { to: "/settings/companies", label: "Companies", icon: Building2 },
   { to: "/settings/global", label: "Global Settings", icon: Settings2 },
   { to: "/settings/platform", label: "Platform Settings", icon: Layers, superAdmin: true },
-] as const;
+];
 
 function SettingsLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
