@@ -245,7 +245,7 @@ export const listUsers = createServerFn({ method: "GET" })
       const { data: canManage } = await context.supabase.rpc("has_permission", {
         _user_id: context.userId,
         _permission: "users:manage",
-        _org_unit_id: null,
+        _org_unit_id: undefined as unknown as string,
       });
       if (!canManage) throw new Error("Not authorized");
     }
