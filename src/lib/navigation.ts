@@ -37,16 +37,15 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Administration",
     items: [
-      { label: "Tenants", to: "/admin/tenants", icon: Building2, roles: [ROLES.SUPER_ADMIN] },
       {
         label: "Organization",
-        to: "/admin/organization",
+        to: "/organization",
         icon: Building2,
         roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER],
       },
-      { label: "Users & Roles", to: "/admin/users", icon: Users, permission: "user_roles:read" },
+      { label: "Users", to: "/organization/users", icon: Users, permission: "users:manage" },
+      { label: "Roles & Permissions", to: "/organization/roles", icon: ShieldCheck, roles: [ROLES.SUPER_ADMIN] },
       { label: "Audit Log", to: "/admin/audit", icon: FileText, permission: "audit:read" },
-      { label: "Roles & Permissions", to: "/admin/rbac", icon: ShieldCheck, roles: [ROLES.SUPER_ADMIN] },
     ],
   },
   {

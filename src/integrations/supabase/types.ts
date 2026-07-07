@@ -680,6 +680,92 @@ export type Database = {
         }
         Relationships: []
       }
+      departments: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          display_order: number
+          head_employee_id: string | null
+          id: string
+          is_active: boolean
+          kind: string | null
+          meta: Json
+          name: string
+          org_unit_id: string | null
+          parent_id: string | null
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          head_employee_id?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string | null
+          meta?: Json
+          name: string
+          org_unit_id?: string | null
+          parent_id?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          display_order?: number
+          head_employee_id?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string | null
+          meta?: Json
+          name?: string
+          org_unit_id?: string | null
+          parent_id?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "departments_head_fk"
+            columns: ["head_employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "departments_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "departments_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "departments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       device_logs: {
         Row: {
           app: string | null
@@ -753,6 +839,107 @@ export type Database = {
             columns: ["state_id"]
             isOneToOne: false
             referencedRelation: "states"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employees: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          designation: string | null
+          display_order: number
+          email: string | null
+          employee_code: string
+          exited_at: string | null
+          full_name: string
+          id: string
+          is_active: boolean
+          joined_at: string | null
+          meta: Json
+          org_unit_id: string | null
+          phone: string | null
+          reporting_manager_id: string | null
+          status: string
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          designation?: string | null
+          display_order?: number
+          email?: string | null
+          employee_code: string
+          exited_at?: string | null
+          full_name: string
+          id?: string
+          is_active?: boolean
+          joined_at?: string | null
+          meta?: Json
+          org_unit_id?: string | null
+          phone?: string | null
+          reporting_manager_id?: string | null
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          designation?: string | null
+          display_order?: number
+          email?: string | null
+          employee_code?: string
+          exited_at?: string | null
+          full_name?: string
+          id?: string
+          is_active?: boolean
+          joined_at?: string | null
+          meta?: Json
+          org_unit_id?: string | null
+          phone?: string | null
+          reporting_manager_id?: string | null
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employees_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employees_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employees_reporting_manager_id_fkey"
+            columns: ["reporting_manager_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "employees_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -1426,6 +1613,45 @@ export type Database = {
           },
         ]
       }
+      role_history: {
+        Row: {
+          action: string
+          id: string
+          meta: Json
+          notes: string | null
+          org_unit_id: string | null
+          performed_at: string
+          performed_by: string | null
+          role_code: string
+          tenant_id: string | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          org_unit_id?: string | null
+          performed_at?: string
+          performed_by?: string | null
+          role_code: string
+          tenant_id?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          org_unit_id?: string | null
+          performed_at?: string
+          performed_by?: string | null
+          role_code?: string
+          tenant_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       role_permissions: {
         Row: {
           permission_code: string
@@ -1713,6 +1939,10 @@ export type Database = {
       }
       is_config_admin: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      move_org_unit: {
+        Args: { _new_parent_id: string; _unit_id: string }
+        Returns: undefined
+      }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       text2ltree: { Args: { "": string }; Returns: unknown }
