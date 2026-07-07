@@ -13,12 +13,19 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
+import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
+import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
+import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
+import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
+import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 
@@ -41,6 +48,12 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedOrganizationRoute =
+  AuthenticatedOrganizationRouteImport.update({
+    id: '/organization',
+    path: '/organization',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -51,6 +64,12 @@ const AuthenticatedSettingsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedOrganizationIndexRoute =
+  AuthenticatedOrganizationIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
 const AuthenticatedSettingsTerritoryRoute =
   AuthenticatedSettingsTerritoryRouteImport.update({
@@ -76,6 +95,36 @@ const AuthenticatedSettingsGlobalRoute =
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedOrganizationUsersRoute =
+  AuthenticatedOrganizationUsersRouteImport.update({
+    id: '/users',
+    path: '/users',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedOrganizationTreeRoute =
+  AuthenticatedOrganizationTreeRouteImport.update({
+    id: '/tree',
+    path: '/tree',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedOrganizationRolesRoute =
+  AuthenticatedOrganizationRolesRouteImport.update({
+    id: '/roles',
+    path: '/roles',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedOrganizationEmployeesRoute =
+  AuthenticatedOrganizationEmployeesRouteImport.update({
+    id: '/employees',
+    path: '/employees',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedOrganizationDepartmentsRoute =
+  AuthenticatedOrganizationDepartmentsRouteImport.update({
+    id: '/departments',
+    path: '/departments',
+    getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
 const AuthenticatedSettingsCompaniesIndexRoute =
   AuthenticatedSettingsCompaniesIndexRouteImport.update({
     id: '/companies/',
@@ -93,11 +142,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
+  '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
+  '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
+  '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
+  '/organization/users': typeof AuthenticatedOrganizationUsersRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -106,10 +162,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
+  '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
+  '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
+  '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
+  '/organization/users': typeof AuthenticatedOrganizationUsersRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -120,11 +182,18 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
+  '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
+  '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
+  '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
+  '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -135,11 +204,18 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/organization'
     | '/settings'
+    | '/organization/departments'
+    | '/organization/employees'
+    | '/organization/roles'
+    | '/organization/tree'
+    | '/organization/users'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
     | '/settings/companies/'
@@ -148,10 +224,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/organization/departments'
+    | '/organization/employees'
+    | '/organization/roles'
+    | '/organization/tree'
+    | '/organization/users'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
     | '/settings/companies'
@@ -161,11 +243,18 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/dashboard'
+    | '/_authenticated/organization'
     | '/_authenticated/settings'
+    | '/_authenticated/organization/departments'
+    | '/_authenticated/organization/employees'
+    | '/_authenticated/organization/roles'
+    | '/_authenticated/organization/tree'
+    | '/_authenticated/organization/users'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/masters'
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
+    | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
     | '/_authenticated/settings/companies/'
@@ -207,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/organization': {
+      id: '/_authenticated/organization'
+      path: '/organization'
+      fullPath: '/organization'
+      preLoaderRoute: typeof AuthenticatedOrganizationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -220,6 +316,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/organization/': {
+      id: '/_authenticated/organization/'
+      path: '/'
+      fullPath: '/organization/'
+      preLoaderRoute: typeof AuthenticatedOrganizationIndexRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
     }
     '/_authenticated/settings/territory': {
       id: '/_authenticated/settings/territory'
@@ -249,6 +352,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/organization/users': {
+      id: '/_authenticated/organization/users'
+      path: '/users'
+      fullPath: '/organization/users'
+      preLoaderRoute: typeof AuthenticatedOrganizationUsersRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/organization/tree': {
+      id: '/_authenticated/organization/tree'
+      path: '/tree'
+      fullPath: '/organization/tree'
+      preLoaderRoute: typeof AuthenticatedOrganizationTreeRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/organization/roles': {
+      id: '/_authenticated/organization/roles'
+      path: '/roles'
+      fullPath: '/organization/roles'
+      preLoaderRoute: typeof AuthenticatedOrganizationRolesRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/organization/employees': {
+      id: '/_authenticated/organization/employees'
+      path: '/employees'
+      fullPath: '/organization/employees'
+      preLoaderRoute: typeof AuthenticatedOrganizationEmployeesRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/organization/departments': {
+      id: '/_authenticated/organization/departments'
+      path: '/departments'
+      fullPath: '/organization/departments'
+      preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
+      parentRoute: typeof AuthenticatedOrganizationRoute
+    }
     '/_authenticated/settings/companies/': {
       id: '/_authenticated/settings/companies/'
       path: '/companies'
@@ -265,6 +403,32 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedOrganizationRouteChildren {
+  AuthenticatedOrganizationDepartmentsRoute: typeof AuthenticatedOrganizationDepartmentsRoute
+  AuthenticatedOrganizationEmployeesRoute: typeof AuthenticatedOrganizationEmployeesRoute
+  AuthenticatedOrganizationRolesRoute: typeof AuthenticatedOrganizationRolesRoute
+  AuthenticatedOrganizationTreeRoute: typeof AuthenticatedOrganizationTreeRoute
+  AuthenticatedOrganizationUsersRoute: typeof AuthenticatedOrganizationUsersRoute
+  AuthenticatedOrganizationIndexRoute: typeof AuthenticatedOrganizationIndexRoute
+}
+
+const AuthenticatedOrganizationRouteChildren: AuthenticatedOrganizationRouteChildren =
+  {
+    AuthenticatedOrganizationDepartmentsRoute:
+      AuthenticatedOrganizationDepartmentsRoute,
+    AuthenticatedOrganizationEmployeesRoute:
+      AuthenticatedOrganizationEmployeesRoute,
+    AuthenticatedOrganizationRolesRoute: AuthenticatedOrganizationRolesRoute,
+    AuthenticatedOrganizationTreeRoute: AuthenticatedOrganizationTreeRoute,
+    AuthenticatedOrganizationUsersRoute: AuthenticatedOrganizationUsersRoute,
+    AuthenticatedOrganizationIndexRoute: AuthenticatedOrganizationIndexRoute,
+  }
+
+const AuthenticatedOrganizationRouteWithChildren =
+  AuthenticatedOrganizationRoute._addFileChildren(
+    AuthenticatedOrganizationRouteChildren,
+  )
 
 interface AuthenticatedSettingsRouteChildren {
   AuthenticatedSettingsGlobalRoute: typeof AuthenticatedSettingsGlobalRoute
@@ -295,11 +459,13 @@ const AuthenticatedSettingsRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
 }
 
