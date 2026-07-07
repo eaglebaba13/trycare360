@@ -433,10 +433,11 @@ export const orgSummary = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const countOf = async (table: string, filters?: Record<string, unknown>) => {
-      let q = context.supabase.from(table).select("id", { head: true, count: "exact" });
+      // biome-ignore lint/suspicious/noExplicitAny: generic count across many tables
+      let q: any = (context.supabase as any).from(table).select("id", { head: true, count: "exact" });
       if (filters) for (const [k, v] of Object.entries(filters)) q = q.eq(k, v);
       const { count } = await q;
-      return count ?? 0;
+      return (count as number | null) ?? 0;
     };
     const [
       companies,
