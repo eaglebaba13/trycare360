@@ -87,10 +87,11 @@ export const moveOrgUnit = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ context, data }) => {
+    // biome-ignore lint/suspicious/noExplicitAny: rpc arg widening for nullable uuid
     const { error } = await context.supabase.rpc("move_org_unit", {
       _unit_id: data.unitId,
-      _new_parent_id: data.newParentId,
-    });
+      _new_parent_id: data.newParentId as unknown as string,
+    } as any);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
