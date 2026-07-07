@@ -15,6 +15,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
+import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
+import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
+import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedSettingsCompaniesRouteImport } from './routes/_authenticated/settings.companies'
+import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -46,19 +51,59 @@ const AuthenticatedSettingsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSettingsTerritoryRoute =
+  AuthenticatedSettingsTerritoryRouteImport.update({
+    id: '/territory',
+    path: '/territory',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSettingsMastersRoute =
+  AuthenticatedSettingsMastersRouteImport.update({
+    id: '/masters',
+    path: '/masters',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSettingsGlobalRoute =
+  AuthenticatedSettingsGlobalRouteImport.update({
+    id: '/global',
+    path: '/global',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSettingsCompaniesRoute =
+  AuthenticatedSettingsCompaniesRouteImport.update({
+    id: '/companies',
+    path: '/companies',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSettingsCompaniesCompanyIdRoute =
+  AuthenticatedSettingsCompaniesCompanyIdRouteImport.update({
+    id: '/$companyId',
+    path: '/$companyId',
+    getParentRoute: () => AuthenticatedSettingsCompaniesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/settings/companies': typeof AuthenticatedSettingsCompaniesRouteWithChildren
+  '/settings/global': typeof AuthenticatedSettingsGlobalRoute
+  '/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/settings/companies': typeof AuthenticatedSettingsCompaniesRouteWithChildren
+  '/settings/global': typeof AuthenticatedSettingsGlobalRoute
+  '/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -67,13 +112,37 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/_authenticated/settings/companies': typeof AuthenticatedSettingsCompaniesRouteWithChildren
+  '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
+  '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
+  '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/settings' | '/settings/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/settings'
+    | '/settings/companies'
+    | '/settings/global'
+    | '/settings/masters'
+    | '/settings/territory'
+    | '/settings/'
+    | '/settings/companies/$companyId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/settings'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/settings/companies'
+    | '/settings/global'
+    | '/settings/masters'
+    | '/settings/territory'
+    | '/settings'
+    | '/settings/companies/$companyId'
   id:
     | '__root__'
     | '/'
@@ -81,7 +150,12 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/settings'
+    | '/_authenticated/settings/companies'
+    | '/_authenticated/settings/global'
+    | '/_authenticated/settings/masters'
+    | '/_authenticated/settings/territory'
     | '/_authenticated/settings/'
+    | '/_authenticated/settings/companies/$companyId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -134,14 +208,73 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/settings/territory': {
+      id: '/_authenticated/settings/territory'
+      path: '/territory'
+      fullPath: '/settings/territory'
+      preLoaderRoute: typeof AuthenticatedSettingsTerritoryRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/settings/masters': {
+      id: '/_authenticated/settings/masters'
+      path: '/masters'
+      fullPath: '/settings/masters'
+      preLoaderRoute: typeof AuthenticatedSettingsMastersRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/settings/global': {
+      id: '/_authenticated/settings/global'
+      path: '/global'
+      fullPath: '/settings/global'
+      preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/settings/companies': {
+      id: '/_authenticated/settings/companies'
+      path: '/companies'
+      fullPath: '/settings/companies'
+      preLoaderRoute: typeof AuthenticatedSettingsCompaniesRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/settings/companies/$companyId': {
+      id: '/_authenticated/settings/companies/$companyId'
+      path: '/$companyId'
+      fullPath: '/settings/companies/$companyId'
+      preLoaderRoute: typeof AuthenticatedSettingsCompaniesCompanyIdRouteImport
+      parentRoute: typeof AuthenticatedSettingsCompaniesRoute
+    }
   }
 }
 
+interface AuthenticatedSettingsCompaniesRouteChildren {
+  AuthenticatedSettingsCompaniesCompanyIdRoute: typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+}
+
+const AuthenticatedSettingsCompaniesRouteChildren: AuthenticatedSettingsCompaniesRouteChildren =
+  {
+    AuthenticatedSettingsCompaniesCompanyIdRoute:
+      AuthenticatedSettingsCompaniesCompanyIdRoute,
+  }
+
+const AuthenticatedSettingsCompaniesRouteWithChildren =
+  AuthenticatedSettingsCompaniesRoute._addFileChildren(
+    AuthenticatedSettingsCompaniesRouteChildren,
+  )
+
 interface AuthenticatedSettingsRouteChildren {
+  AuthenticatedSettingsCompaniesRoute: typeof AuthenticatedSettingsCompaniesRouteWithChildren
+  AuthenticatedSettingsGlobalRoute: typeof AuthenticatedSettingsGlobalRoute
+  AuthenticatedSettingsMastersRoute: typeof AuthenticatedSettingsMastersRoute
+  AuthenticatedSettingsTerritoryRoute: typeof AuthenticatedSettingsTerritoryRoute
   AuthenticatedSettingsIndexRoute: typeof AuthenticatedSettingsIndexRoute
 }
 
 const AuthenticatedSettingsRouteChildren: AuthenticatedSettingsRouteChildren = {
+  AuthenticatedSettingsCompaniesRoute:
+    AuthenticatedSettingsCompaniesRouteWithChildren,
+  AuthenticatedSettingsGlobalRoute: AuthenticatedSettingsGlobalRoute,
+  AuthenticatedSettingsMastersRoute: AuthenticatedSettingsMastersRoute,
+  AuthenticatedSettingsTerritoryRoute: AuthenticatedSettingsTerritoryRoute,
   AuthenticatedSettingsIndexRoute: AuthenticatedSettingsIndexRoute,
 }
 
