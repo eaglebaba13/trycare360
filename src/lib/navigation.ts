@@ -1,0 +1,130 @@
+/**
+ * Role-aware navigation registry.
+ * Phase 1 ships only the dashboard entry per role — module entries are added
+ * as their phases land.
+ */
+import type { LucideIcon } from "lucide-react";
+import {
+  LayoutDashboard,
+  Building2,
+  Users,
+  ShieldCheck,
+  Bell,
+  FileText,
+  Settings,
+} from "lucide-react";
+import { ROLES, type RoleCode } from "./rbac";
+
+export type NavItem = {
+  label: string;
+  to: string;
+  icon: LucideIcon;
+  roles?: RoleCode[]; // if omitted, visible to any authenticated user
+  permission?: string;
+};
+
+export type NavGroup = {
+  label: string;
+  items: NavItem[];
+};
+
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    label: "Overview",
+    items: [
+      { label: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      { label: "Notifications", to: "/notifications", icon: Bell },
+    ],
+  },
+  {
+    label: "Administration",
+    items: [
+      {
+        label: "Tenants",
+        to: "/admin/tenants",
+        icon: Building2,
+        roles: [ROLES.SUPER_ADMIN],
+      },
+      {
+        label: "Organization",
+        to: "/admin/organization",
+        icon: Building2,
+        roles: [
+          ROLES.SUPER_ADMIN,
+          ROLES.CORPORATE_ADMIN,
+          ROLES.MASTER_FRANCHISE,
+          ROLES.FRANCHISE_OWNER,
+        ],
+      },
+      {
+        label: "Users & Roles",
+        to: "/admin/users",
+        icon: Users,
+        permission: "user_roles:read",
+      },
+      {
+        label: "Audit Log",
+        to: "/admin/audit",
+        icon: FileText,
+        permission: "audit:read",
+      },
+      {
+        label: "Roles & Permissions",
+        to: "/admin/rbac",
+        icon: ShieldCheck,
+        roles: [ROLES.SUPER_ADMIN],
+      },
+    ],
+  },
+  {
+    label: "Account",
+    items: [{ label: "Settings", to: "/settings", icon: Settings }],
+  },
+];
+
+/**
+ * Default landing route per role. Phase 1 lands every role on /dashboard.
+ * Role-specific dashboards are added in Phase 2+.
+ */
+export const ROLE_HOME: Record<RoleCode, string> = {
+  super_admin: "/dashboard",
+  corporate_admin: "/dashboard",
+  master_franchise: "/dashboard",
+  franchise_owner: "/dashboard",
+  center_manager: "/dashboard",
+  doctor: "/dashboard",
+  hair_consultant: "/dashboard",
+  skin_consultant: "/dashboard",
+  nutritionist: "/dashboard",
+  therapist: "/dashboard",
+  telecaller: "/dashboard",
+  sales_executive: "/dashboard",
+  marketing: "/dashboard",
+  accounts: "/dashboard",
+  hr: "/dashboard",
+  inventory_manager: "/dashboard",
+  purchase_manager: "/dashboard",
+  vendor: "/dashboard",
+  academy_trainer: "/dashboard",
+  student: "/dashboard",
+  customer: "/dashboard",
+};
+
+export function filterNav(
+  groups: NavGroup[],
+  roles: string[],
+  permissions: string[],
+): NavGroup[] {
+  const isSuper = roles.includes(ROLES.SUPER_ADMIN);
+  return groups
+    .map((g) => ({
+      ...g,
+      items: g.items.filter((i) => {
+        if (isSuper) return true;
+        if (i.roles && !i.roles.some((r) => roles.includes(r))) return false;
+        if (i.permission && !permissions.includes(i.permission)) return false;
+        return true;
+      }),
+    }))
+    .filter((g) => g.items.length > 0);
+}
