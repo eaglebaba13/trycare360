@@ -1,50 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageContainer } from "@/components/app-shell";
-import { CrudTable } from "@/components/settings/crud-table";
-import { useSession } from "@/hooks/use-session";
-import { Card } from "@/components/ui/card";
-
-export const Route = createFileRoute("/_authenticated/settings/companies/$companyId")({
-  component: CompanyDetailRoute,
-});
-
-function CompanyDetailRoute() {
-  // Delegate to the companies route which reads $companyId from params.
-  // Kept as a distinct file so the URL /settings/companies/:id renders directly.
-  const { data: session } = useSession();
-  const tenantId = session?.profile?.active_tenant_id ?? null;
-
-  if (!tenantId) {
-    return (
-      <PageContainer title="Company">
-        <Card className="p-4 text-sm text-muted-foreground">
-          You must have an active tenant to view this company.
-        </Card>
-      </PageContainer>
-    );
-  }
-
-  return <CompanyDetailInline />;
-}
-
-// This lightweight component re-renders the shared CrudTable-based UI.
-// Actual detail is rendered from the parent /settings/companies route because
-// the router matches this URL and passes companyId via params — imported there.
-import { Link, useParams } from "@tanstack/react-router";
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { PageContainer } from "@/components/app-shell";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CrudTable, type FieldSpec } from "@/components/settings/crud-table";
 import { listRows } from "@/lib/api/config.functions";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-import type { FieldSpec } from "@/components/settings/crud-table";
+import { useSession } from "@/hooks/use-session";
 
-function CompanyDetailInline() {
+export const Route = createFileRoute("/_authenticated/settings/companies/$companyId")({
+  component: CompanyDetail,
+});
+
+function CompanyDetail() {
   const { companyId } = useParams({ from: "/_authenticated/settings/companies/$companyId" });
   const { data: session } = useSession();
   const tenantId = session?.profile?.active_tenant_id ?? null;
@@ -77,7 +47,9 @@ function CompanyDetailInline() {
       description={`Code ${String(company.code)}`}
       actions={
         <Link to="/settings/companies">
-          <Button variant="outline" size="sm"><ArrowLeft className="h-4 w-4 mr-1" /> Back</Button>
+          <Button variant="outline" size="sm">
+            <ArrowLeft className="h-4 w-4 mr-1" /> Back
+          </Button>
         </Link>
       }
     >
@@ -89,40 +61,61 @@ function CompanyDetailInline() {
           <TabsTrigger value="addresses">Addresses</TabsTrigger>
           <TabsTrigger value="branches">Branches</TabsTrigger>
         </TabsList>
+
         <TabsContent value="brands" className="mt-4">
-          <CrudTable table="brands" title="Brands"
+          <CrudTable
+            table="brands"
+            title="Brands"
             fields={brandFields()}
             filters={{ company_id: companyId }}
             contextValues={{ company_id: companyId, tenant_id: tenantId }}
-            queryKeyExtra={[companyId]} orderBy={{ column: "display_order" }} />
+            queryKeyExtra={[companyId]}
+            orderBy={{ column: "display_order" }}
+          />
         </TabsContent>
+
         <TabsContent value="gst" className="mt-4">
-          <CrudTable table="gst_registrations" title="GST Registrations"
+          <CrudTable
+            table="gst_registrations"
+            title="GST Registrations"
             fields={gstFields(states)}
             filters={{ company_id: companyId }}
             contextValues={{ company_id: companyId, tenant_id: tenantId }}
-            queryKeyExtra={[companyId, states.length]} />
+            queryKeyExtra={[companyId, states.length]}
+          />
         </TabsContent>
+
         <TabsContent value="banks" className="mt-4">
-          <CrudTable table="bank_accounts" title="Bank Accounts"
+          <CrudTable
+            table="bank_accounts"
+            title="Bank Accounts"
             fields={bankFields()}
             filters={{ company_id: companyId }}
             contextValues={{ company_id: companyId, tenant_id: tenantId }}
-            queryKeyExtra={[companyId]} />
+            queryKeyExtra={[companyId]}
+          />
         </TabsContent>
+
         <TabsContent value="addresses" className="mt-4">
-          <CrudTable table="company_addresses" title="Addresses"
+          <CrudTable
+            table="company_addresses"
+            title="Addresses"
             fields={addressFields(states)}
             filters={{ company_id: companyId }}
             contextValues={{ company_id: companyId, tenant_id: tenantId }}
-            queryKeyExtra={[companyId, states.length]} />
+            queryKeyExtra={[companyId, states.length]}
+          />
         </TabsContent>
+
         <TabsContent value="branches" className="mt-4">
-          <CrudTable table="branches" title="Branches"
+          <CrudTable
+            table="branches"
+            title="Branches"
             fields={branchFields()}
             filters={{ company_id: companyId }}
             contextValues={{ company_id: companyId, tenant_id: tenantId }}
-            queryKeyExtra={[companyId]} />
+            queryKeyExtra={[companyId]}
+          />
         </TabsContent>
       </Tabs>
     </PageContainer>
@@ -140,19 +133,23 @@ function brandFields(): FieldSpec[] {
     { key: "is_active", label: "Status", type: "boolean", defaultValue: true, width: "100px" },
   ];
 }
+
 function gstFields(states: Array<{ id: string; name: string }>): FieldSpec[] {
   return [
     { key: "gstin", label: "GSTIN", type: "text", required: true, width: "180px" },
     { key: "legal_name", label: "Legal Name", type: "text" },
     { key: "trade_name", label: "Trade Name", type: "text", hideInTable: true },
     {
-      key: "state_id", label: "State", type: "select",
+      key: "state_id",
+      label: "State",
+      type: "select",
       options: [{ value: "", label: "—" }, ...states.map((s) => ({ value: s.id, label: s.name }))],
     },
     { key: "is_primary", label: "Primary", type: "boolean", defaultValue: false, width: "100px" },
     { key: "is_active", label: "Status", type: "boolean", defaultValue: true, width: "100px" },
   ];
 }
+
 function bankFields(): FieldSpec[] {
   return [
     { key: "account_name", label: "Account Name", type: "text", required: true },
@@ -166,6 +163,7 @@ function bankFields(): FieldSpec[] {
     { key: "is_active", label: "Status", type: "boolean", defaultValue: true, width: "100px" },
   ];
 }
+
 function addressFields(states: Array<{ id: string; name: string }>): FieldSpec[] {
   return [
     { key: "kind", label: "Kind", type: "text", required: true, placeholder: "registered / billing / shipping", width: "160px" },
@@ -175,13 +173,17 @@ function addressFields(states: Array<{ id: string; name: string }>): FieldSpec[]
     { key: "landmark", label: "Landmark", type: "text", hideInTable: true },
     { key: "pincode", label: "PIN", type: "text", width: "100px" },
     {
-      key: "state_id", label: "State", type: "select", hideInTable: true,
+      key: "state_id",
+      label: "State",
+      type: "select",
+      hideInTable: true,
       options: [{ value: "", label: "—" }, ...states.map((s) => ({ value: s.id, label: s.name }))],
     },
     { key: "is_primary", label: "Primary", type: "boolean", defaultValue: false, width: "100px" },
     { key: "is_active", label: "Status", type: "boolean", defaultValue: true, width: "100px" },
   ];
 }
+
 function branchFields(): FieldSpec[] {
   return [
     { key: "code", label: "Code", type: "text", required: true, width: "120px" },
