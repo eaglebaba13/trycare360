@@ -290,20 +290,16 @@ export const listUsers = createServerFn({ method: "GET" })
     });
   });
 
-async function assertUsersManage(context: {
-  supabase: { rpc: (...args: unknown[]) => unknown };
-  userId: string;
-}) {
-  const rpc = context.supabase.rpc as (
-    fn: string,
-    args: Record<string, unknown>,
-  ) => Promise<{ data: unknown }>;
-  const { data: isSuper } = await rpc("is_super_admin", { _user_id: context.userId });
+// biome-ignore lint/suspicious/noExplicitAny: broadly-typed context to accept auth-middleware ctx
+async function assertUsersManage(context: any) {
+  const { data: isSuper } = await context.supabase.rpc("is_super_admin", {
+    _user_id: context.userId,
+  });
   if (isSuper) return;
-  const { data: can } = await rpc("has_permission", {
+  const { data: can } = await context.supabase.rpc("has_permission", {
     _user_id: context.userId,
     _permission: "users:manage",
-    _org_unit_id: null,
+    _org_unit_id: undefined as unknown as string,
   });
   if (!can) throw new Error("Not authorized");
 }
