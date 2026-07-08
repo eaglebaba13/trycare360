@@ -27,6 +27,8 @@ import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_au
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
+import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
+import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 
 const AuthRoute = AuthRouteImport.update({
@@ -131,6 +133,17 @@ const AuthenticatedSettingsCompaniesIndexRoute =
     path: '/companies/',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const ApiPublicWebhooksSlugRoute = ApiPublicWebhooksSlugRouteImport.update({
+  id: '/api/public/webhooks/$slug',
+  path: '/api/public/webhooks/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicIntegrationsProcessJobsRoute =
+  ApiPublicIntegrationsProcessJobsRouteImport.update({
+    id: '/api/public/integrations/process-jobs',
+    path: '/api/public/integrations/process-jobs',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedSettingsCompaniesCompanyIdRoute =
   AuthenticatedSettingsCompaniesCompanyIdRouteImport.update({
     id: '/companies/$companyId',
@@ -156,6 +169,8 @@ export interface FileRoutesByFullPath {
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
+  '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -174,6 +189,8 @@ export interface FileRoutesByTo {
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
+  '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
 }
 export interface FileRoutesById {
@@ -196,6 +213,8 @@ export interface FileRoutesById {
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
+  '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
 }
 export interface FileRouteTypes {
@@ -218,6 +237,8 @@ export interface FileRouteTypes {
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
+    | '/api/public/integrations/process-jobs'
+    | '/api/public/webhooks/$slug'
     | '/settings/companies/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -236,6 +257,8 @@ export interface FileRouteTypes {
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
+    | '/api/public/integrations/process-jobs'
+    | '/api/public/webhooks/$slug'
     | '/settings/companies'
   id:
     | '__root__'
@@ -257,6 +280,8 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
+    | '/api/public/integrations/process-jobs'
+    | '/api/public/webhooks/$slug'
     | '/_authenticated/settings/companies/'
   fileRoutesById: FileRoutesById
 }
@@ -264,6 +289,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  ApiPublicIntegrationsProcessJobsRoute: typeof ApiPublicIntegrationsProcessJobsRoute
+  ApiPublicWebhooksSlugRoute: typeof ApiPublicWebhooksSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -394,6 +421,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsCompaniesIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/api/public/webhooks/$slug': {
+      id: '/api/public/webhooks/$slug'
+      path: '/api/public/webhooks/$slug'
+      fullPath: '/api/public/webhooks/$slug'
+      preLoaderRoute: typeof ApiPublicWebhooksSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/integrations/process-jobs': {
+      id: '/api/public/integrations/process-jobs'
+      path: '/api/public/integrations/process-jobs'
+      fullPath: '/api/public/integrations/process-jobs'
+      preLoaderRoute: typeof ApiPublicIntegrationsProcessJobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/settings/companies/$companyId': {
       id: '/_authenticated/settings/companies/$companyId'
       path: '/companies/$companyId'
@@ -476,6 +517,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  ApiPublicIntegrationsProcessJobsRoute: ApiPublicIntegrationsProcessJobsRoute,
+  ApiPublicWebhooksSlugRoute: ApiPublicWebhooksSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

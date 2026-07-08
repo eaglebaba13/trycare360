@@ -7,18 +7,9 @@ import { ADAPTERS, type AdapterContext } from "./providers";
 import type { DispatchResult } from "./registry";
 import { log } from "@/lib/logger";
 
-type SupabaseLike = {
-  from: (t: string) => {
-    select: (c: string) => {
-      eq: (col: string, v: unknown) => {
-        eq: (col: string, v: unknown) => {
-          eq: (col: string, v: unknown) => { maybeSingle: () => Promise<{ data: unknown; error: unknown }> };
-        };
-      };
-    };
-    insert: (rows: unknown) => Promise<{ error: unknown }>;
-  };
-};
+// Accept any Supabase client shape — deep Database generics blow up TS depth otherwise.
+// biome-ignore lint/suspicious/noExplicitAny: intentional escape from PostgREST generics
+type SupabaseLike = any;
 
 export async function dispatch(args: {
   supabase: SupabaseLike;

@@ -52,7 +52,8 @@ export const upsertConnection = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { data: row, error } = await context.supabase
       .from("integration_connections")
-      .upsert(data)
+      // biome-ignore lint/suspicious/noExplicitAny: generic upsert
+      .upsert(data as any)
       .select()
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -89,9 +90,10 @@ export const testConnection = createServerFn({ method: "POST" })
     const newStatus = result.ok ? "connected" : "error";
     await context.supabase
       .from("integration_connections")
-      .update({ status: newStatus, last_sync_at: new Date().toISOString(), last_error: result.ok ? null : result.error })
+      .update({ status: newStatus, last_sync_at: new Date().toISOString(), last_error: result.ok ? null : "error" in result ? result.error : null })
       .eq("id", data.id);
-    return result;
+    // Serialize `result` as JSON-safe.
+    return JSON.parse(JSON.stringify(result)) as { ok: boolean; latencyMs: number; error?: string; result?: unknown };
   });
 
 // ---------- Webhooks ----------

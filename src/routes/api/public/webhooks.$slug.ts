@@ -69,7 +69,8 @@ export const Route = createFileRoute("/api/public/webhooks/$slug")({
           tenant_id: webhook.tenant_id,
           webhook_id: webhook.id,
           event_type: eventType,
-          payload,
+          // biome-ignore lint/suspicious/noExplicitAny: JSON payload
+          payload: payload as any,
           headers: headersObj,
           signature_valid: signatureValid,
           processed_at: new Date().toISOString(),
