@@ -761,36 +761,33 @@ export const dataFoundationDashboard = createServerFn({ method: "GET" })
         counts("documents"),
         counts("notes"),
         counts("search_index"),
-        // biome-ignore lint/suspicious/noExplicitAny: dynamic
         (async () => {
-          const { count } = await (context.supabase.from("dashboard_layouts") as any)
+          const { count } = await sb.from("dashboard_layouts")
             .select("*", { count: "exact", head: true })
             .or(`tenant_id.eq.${tenant},tenant_id.is.null`);
-          return count ?? 0;
+          return (count ?? 0) as number;
         })(),
-        // biome-ignore lint/suspicious/noExplicitAny: dynamic
         (async () => {
-          const { count } = await (context.supabase.from("report_definitions") as any)
+          const { count } = await sb.from("report_definitions")
             .select("*", { count: "exact", head: true })
             .or(`tenant_id.eq.${tenant},tenant_id.is.null`);
-          return count ?? 0;
+          return (count ?? 0) as number;
         })(),
-        // biome-ignore lint/suspicious/noExplicitAny: dynamic
         (async () => {
-          const { count } = await (context.supabase.from("analytics_kpis") as any)
+          const { count } = await sb.from("analytics_kpis")
             .select("*", { count: "exact", head: true })
             .or(`tenant_id.eq.${tenant},tenant_id.is.null`);
-          return count ?? 0;
+          return (count ?? 0) as number;
         })(),
         counts("analytics_snapshots"),
-        // biome-ignore lint/suspicious/noExplicitAny: dynamic
         (async () => {
           const since = new Date(Date.now() - 24 * 3600 * 1000).toISOString();
-          const { count } = await (context.supabase.from("audit_logs") as any)
+          const { count } = await sb.from("audit_logs")
             .select("*", { count: "exact", head: true })
             .eq("tenant_id", tenant).gte("ts", since);
-          return count ?? 0;
+          return (count ?? 0) as number;
         })(),
       ]);
     return { timeline, documents, notes, indexed, layouts, reports, kpis, snapshots, audit24h };
   });
+
