@@ -84,6 +84,8 @@ export const NAV_GROUPS: NavGroup[] = [
 
 export const ROLE_HOME: Record<RoleCode, string> = {
   super_admin: "/dashboard",
+  platform_admin: "/dashboard",
+  admin: "/dashboard",
   corporate_admin: "/dashboard",
   master_franchise: "/dashboard",
   franchise_owner: "/dashboard",
