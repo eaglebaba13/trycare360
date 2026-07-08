@@ -60,14 +60,14 @@ function PlatformSettingsPage() {
   });
 
   return (
-    <PermissionGuard roles={["super_admin"]} fallback={
+    <PermissionGuard roles={["super_admin", "platform_admin", "admin"]} fallback={
       <PageContainer title="Platform Settings">
-        <Card className="p-6 text-sm text-muted-foreground">Only super admins can access platform settings.</Card>
+        <Card className="p-6 text-sm text-muted-foreground">Only administrators can access platform settings.</Card>
       </PageContainer>
     }>
       <PageContainer
         title="Platform Settings"
-        description="Cross-tenant platform-level settings. Only super admins can view or edit."
+        description="Cross-tenant platform-level settings. Only administrators can view or edit."
       >
         <Card className="p-4 mb-4">
           <div className="grid gap-3 md:grid-cols-[1fr_1fr_2fr_auto] md:items-end">
