@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageContainer } from "@/components/app-shell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Database, Map, Building2, Settings2, ArrowRight } from "lucide-react";
+import { Database, Map, Building2, Settings2, ArrowRight, Plug } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/settings/")({
   component: SettingsOverview,
@@ -25,6 +25,12 @@ const SECTIONS = [
     icon: Building2,
     title: "Companies & Branches",
     body: "Multi-company, multi-brand, multi-GST setup. Bank accounts, addresses and operating branches per company.",
+  },
+  {
+    to: "/settings/integrations",
+    icon: Plug,
+    title: "Integrations",
+    body: "Meta, Google, WhatsApp, Razorpay, SMTP, SMS, Push, AI, Courier — one dispatcher for every third-party call.",
   },
   {
     to: "/settings/global",
