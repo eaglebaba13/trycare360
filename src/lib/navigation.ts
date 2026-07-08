@@ -11,7 +11,9 @@ import {
   FileText,
   Settings,
   Workflow,
+  Database,
 } from "lucide-react";
+
 import { ROLES, type RoleCode } from "./rbac";
 
 export type NavItem = {
