@@ -31,9 +31,13 @@ import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './ro
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
+import { Route as AuthenticatedSettingsIntegrationsWebhooksRouteImport } from './routes/_authenticated/settings.integrations.webhooks'
+import { Route as AuthenticatedSettingsIntegrationsLogsRouteImport } from './routes/_authenticated/settings.integrations.logs'
 import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './routes/_authenticated/settings.integrations.catalog'
+import { Route as AuthenticatedSettingsIntegrationsApiKeysRouteImport } from './routes/_authenticated/settings.integrations.api-keys'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
+import { Route as AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport } from './routes/_authenticated/settings.integrations.connections.$providerCode'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -160,10 +164,28 @@ const ApiPublicIntegrationsProcessJobsRoute =
     path: '/api/public/integrations/process-jobs',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedSettingsIntegrationsWebhooksRoute =
+  AuthenticatedSettingsIntegrationsWebhooksRouteImport.update({
+    id: '/webhooks',
+    path: '/webhooks',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
+const AuthenticatedSettingsIntegrationsLogsRoute =
+  AuthenticatedSettingsIntegrationsLogsRouteImport.update({
+    id: '/logs',
+    path: '/logs',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
 const AuthenticatedSettingsIntegrationsCatalogRoute =
   AuthenticatedSettingsIntegrationsCatalogRouteImport.update({
     id: '/catalog',
     path: '/catalog',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
+const AuthenticatedSettingsIntegrationsApiKeysRoute =
+  AuthenticatedSettingsIntegrationsApiKeysRouteImport.update({
+    id: '/api-keys',
+    path: '/api-keys',
     getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
   } as any)
 const AuthenticatedSettingsCompaniesCompanyIdRoute =
@@ -176,6 +198,12 @@ const AuthenticatedSettingsIntegrationsConnectionsIndexRoute =
   AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport.update({
     id: '/connections/',
     path: '/connections/',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
+const AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute =
+  AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport.update({
+    id: '/connections/$providerCode',
+    path: '/connections/$providerCode',
     getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
   } as any)
 
@@ -198,11 +226,15 @@ export interface FileRoutesByFullPath {
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
+  '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
+  '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
   '/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -221,11 +253,15 @@ export interface FileRoutesByTo {
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
+  '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
+  '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
   '/settings/integrations/connections': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesById {
@@ -249,11 +285,15 @@ export interface FileRoutesById {
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/_authenticated/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
+  '/_authenticated/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
+  '/_authenticated/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/_authenticated/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/_authenticated/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
   '/_authenticated/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -277,11 +317,15 @@ export interface FileRouteTypes {
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
+    | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
+    | '/settings/integrations/logs'
+    | '/settings/integrations/webhooks'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies/'
     | '/settings/integrations/'
+    | '/settings/integrations/connections/$providerCode'
     | '/settings/integrations/connections/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -300,11 +344,15 @@ export interface FileRouteTypes {
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
+    | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
+    | '/settings/integrations/logs'
+    | '/settings/integrations/webhooks'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies'
     | '/settings/integrations'
+    | '/settings/integrations/connections/$providerCode'
     | '/settings/integrations/connections'
   id:
     | '__root__'
@@ -327,11 +375,15 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
+    | '/_authenticated/settings/integrations/api-keys'
     | '/_authenticated/settings/integrations/catalog'
+    | '/_authenticated/settings/integrations/logs'
+    | '/_authenticated/settings/integrations/webhooks'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/_authenticated/settings/companies/'
     | '/_authenticated/settings/integrations/'
+    | '/_authenticated/settings/integrations/connections/$providerCode'
     | '/_authenticated/settings/integrations/connections/'
   fileRoutesById: FileRoutesById
 }
@@ -499,11 +551,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicIntegrationsProcessJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/settings/integrations/webhooks': {
+      id: '/_authenticated/settings/integrations/webhooks'
+      path: '/webhooks'
+      fullPath: '/settings/integrations/webhooks'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsWebhooksRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
+    '/_authenticated/settings/integrations/logs': {
+      id: '/_authenticated/settings/integrations/logs'
+      path: '/logs'
+      fullPath: '/settings/integrations/logs'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsLogsRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
     '/_authenticated/settings/integrations/catalog': {
       id: '/_authenticated/settings/integrations/catalog'
       path: '/catalog'
       fullPath: '/settings/integrations/catalog'
       preLoaderRoute: typeof AuthenticatedSettingsIntegrationsCatalogRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
+    '/_authenticated/settings/integrations/api-keys': {
+      id: '/_authenticated/settings/integrations/api-keys'
+      path: '/api-keys'
+      fullPath: '/settings/integrations/api-keys'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsApiKeysRouteImport
       parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
     }
     '/_authenticated/settings/companies/$companyId': {
@@ -518,6 +591,13 @@ declare module '@tanstack/react-router' {
       path: '/connections'
       fullPath: '/settings/integrations/connections/'
       preLoaderRoute: typeof AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
+    '/_authenticated/settings/integrations/connections/$providerCode': {
+      id: '/_authenticated/settings/integrations/connections/$providerCode'
+      path: '/connections/$providerCode'
+      fullPath: '/settings/integrations/connections/$providerCode'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport
       parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
     }
   }
@@ -550,17 +630,29 @@ const AuthenticatedOrganizationRouteWithChildren =
   )
 
 interface AuthenticatedSettingsIntegrationsRouteChildren {
+  AuthenticatedSettingsIntegrationsApiKeysRoute: typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   AuthenticatedSettingsIntegrationsCatalogRoute: typeof AuthenticatedSettingsIntegrationsCatalogRoute
+  AuthenticatedSettingsIntegrationsLogsRoute: typeof AuthenticatedSettingsIntegrationsLogsRoute
+  AuthenticatedSettingsIntegrationsWebhooksRoute: typeof AuthenticatedSettingsIntegrationsWebhooksRoute
   AuthenticatedSettingsIntegrationsIndexRoute: typeof AuthenticatedSettingsIntegrationsIndexRoute
+  AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute: typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
   AuthenticatedSettingsIntegrationsConnectionsIndexRoute: typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 
 const AuthenticatedSettingsIntegrationsRouteChildren: AuthenticatedSettingsIntegrationsRouteChildren =
   {
+    AuthenticatedSettingsIntegrationsApiKeysRoute:
+      AuthenticatedSettingsIntegrationsApiKeysRoute,
     AuthenticatedSettingsIntegrationsCatalogRoute:
       AuthenticatedSettingsIntegrationsCatalogRoute,
+    AuthenticatedSettingsIntegrationsLogsRoute:
+      AuthenticatedSettingsIntegrationsLogsRoute,
+    AuthenticatedSettingsIntegrationsWebhooksRoute:
+      AuthenticatedSettingsIntegrationsWebhooksRoute,
     AuthenticatedSettingsIntegrationsIndexRoute:
       AuthenticatedSettingsIntegrationsIndexRoute,
+    AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute:
+      AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute,
     AuthenticatedSettingsIntegrationsConnectionsIndexRoute:
       AuthenticatedSettingsIntegrationsConnectionsIndexRoute,
   }
