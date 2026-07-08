@@ -293,7 +293,7 @@ function EditorBody({
                 }
               }}
             />
-            {f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
+            {"help" in f && f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
           </div>
         );
       })}
