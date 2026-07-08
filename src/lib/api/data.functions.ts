@@ -657,8 +657,9 @@ export const listAuditLogs = createServerFn({ method: "GET" })
     if (data.q) q = q.or(`table_name.ilike.%${data.q}%,action.ilike.%${data.q}%,row_id.ilike.%${data.q}%`);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return (rows ?? []).map((r) => ({ ...r, ip: r.ip == null ? null : String(r.ip) }));
   });
+
 
 export const listActivityLogs = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
