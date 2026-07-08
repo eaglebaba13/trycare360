@@ -35,7 +35,8 @@ function CmsLayout() {
         </div>
         <nav className="flex flex-col gap-0.5">
           {NAV.map((n) => {
-            const active = n.exact ? loc.pathname === n.to : loc.pathname.startsWith(n.to);
+            const isExact = "exact" in n && n.exact;
+            const active = isExact ? loc.pathname === n.to : loc.pathname.startsWith(n.to);
             return (
               <Link
                 key={n.to}
