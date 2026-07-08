@@ -92,8 +92,12 @@ export const testConnection = createServerFn({ method: "POST" })
       .from("integration_connections")
       .update({ status: newStatus, last_sync_at: new Date().toISOString(), last_error: result.ok ? null : "error" in result ? result.error : null })
       .eq("id", data.id);
-    // Serialize `result` as JSON-safe.
-    return JSON.parse(JSON.stringify(result)) as { ok: boolean; latencyMs: number; error?: string; result?: unknown } as never;
+    return {
+      ok: result.ok,
+      latencyMs: result.latencyMs,
+      error: "error" in result ? result.error : null,
+      preview: JSON.stringify(("result" in result ? result.result : null) ?? null).slice(0, 500),
+    };
   });
 
 // ---------- Webhooks ----------
