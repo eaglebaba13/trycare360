@@ -59,6 +59,7 @@ import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authen
 import { Route as AuthenticatedDataAuditRouteImport } from './routes/_authenticated/data.audit'
 import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
 import { Route as AuthenticatedCmsTreatmentsRouteImport } from './routes/_authenticated/cms.treatments'
+import { Route as AuthenticatedCmsSettingsRouteImport } from './routes/_authenticated/cms.settings'
 import { Route as AuthenticatedCmsRedirectsRouteImport } from './routes/_authenticated/cms.redirects'
 import { Route as AuthenticatedCmsProductsRouteImport } from './routes/_authenticated/cms.products'
 import { Route as AuthenticatedCmsPagesRouteImport } from './routes/_authenticated/cms.pages'
@@ -359,6 +360,12 @@ const AuthenticatedCmsTreatmentsRoute =
     path: '/treatments',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
+const AuthenticatedCmsSettingsRoute =
+  AuthenticatedCmsSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
 const AuthenticatedCmsRedirectsRoute =
   AuthenticatedCmsRedirectsRouteImport.update({
     id: '/redirects',
@@ -575,6 +582,7 @@ export interface FileRoutesByFullPath {
   '/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/cms/products': typeof AuthenticatedCmsProductsRoute
   '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/settings': typeof AuthenticatedCmsSettingsRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
@@ -651,6 +659,7 @@ export interface FileRoutesByTo {
   '/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/cms/products': typeof AuthenticatedCmsProductsRoute
   '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/settings': typeof AuthenticatedCmsSettingsRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
@@ -734,6 +743,7 @@ export interface FileRoutesById {
   '/_authenticated/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/_authenticated/cms/products': typeof AuthenticatedCmsProductsRoute
   '/_authenticated/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/_authenticated/cms/settings': typeof AuthenticatedCmsSettingsRoute
   '/_authenticated/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/_authenticated/data/audit': typeof AuthenticatedDataAuditRoute
@@ -817,6 +827,7 @@ export interface FileRouteTypes {
     | '/cms/pages'
     | '/cms/products'
     | '/cms/redirects'
+    | '/cms/settings'
     | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
@@ -893,6 +904,7 @@ export interface FileRouteTypes {
     | '/cms/pages'
     | '/cms/products'
     | '/cms/redirects'
+    | '/cms/settings'
     | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
@@ -975,6 +987,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cms/pages'
     | '/_authenticated/cms/products'
     | '/_authenticated/cms/redirects'
+    | '/_authenticated/cms/settings'
     | '/_authenticated/cms/treatments'
     | '/_authenticated/data/analytics'
     | '/_authenticated/data/audit'
@@ -1383,6 +1396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsTreatmentsRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/cms/settings': {
+      id: '/_authenticated/cms/settings'
+      path: '/settings'
+      fullPath: '/cms/settings'
+      preLoaderRoute: typeof AuthenticatedCmsSettingsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/cms/redirects': {
       id: '/_authenticated/cms/redirects'
       path: '/redirects'
@@ -1652,6 +1672,7 @@ interface AuthenticatedCmsRouteChildren {
   AuthenticatedCmsPagesRoute: typeof AuthenticatedCmsPagesRoute
   AuthenticatedCmsProductsRoute: typeof AuthenticatedCmsProductsRoute
   AuthenticatedCmsRedirectsRoute: typeof AuthenticatedCmsRedirectsRoute
+  AuthenticatedCmsSettingsRoute: typeof AuthenticatedCmsSettingsRoute
   AuthenticatedCmsTreatmentsRoute: typeof AuthenticatedCmsTreatmentsRoute
   AuthenticatedCmsIndexRoute: typeof AuthenticatedCmsIndexRoute
 }
@@ -1667,6 +1688,7 @@ const AuthenticatedCmsRouteChildren: AuthenticatedCmsRouteChildren = {
   AuthenticatedCmsPagesRoute: AuthenticatedCmsPagesRoute,
   AuthenticatedCmsProductsRoute: AuthenticatedCmsProductsRoute,
   AuthenticatedCmsRedirectsRoute: AuthenticatedCmsRedirectsRoute,
+  AuthenticatedCmsSettingsRoute: AuthenticatedCmsSettingsRoute,
   AuthenticatedCmsTreatmentsRoute: AuthenticatedCmsTreatmentsRoute,
   AuthenticatedCmsIndexRoute: AuthenticatedCmsIndexRoute,
 }

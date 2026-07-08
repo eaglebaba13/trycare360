@@ -71,6 +71,18 @@ export const NAV_GROUPS: NavGroup[] = [
   },
 
   {
+    label: "Website",
+    items: [
+      {
+        label: "Enterprise CMS",
+        to: "/cms",
+        icon: Globe,
+        permission: "cms:manage",
+      },
+    ],
+  },
+
+  {
     label: "Configuration",
     items: [
       {
