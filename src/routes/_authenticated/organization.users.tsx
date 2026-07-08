@@ -218,7 +218,7 @@ function UsersPage() {
                   <SelectValue placeholder="Optional" />
                 </SelectTrigger>
                 <SelectContent>
-                  {(roles.data ?? []).map((r) => (
+                  {(roles.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                     <SelectItem key={r.code} value={r.code}>
                       {r.name}
                     </SelectItem>
