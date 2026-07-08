@@ -115,7 +115,7 @@ function RolesPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {(roles.data ?? []).map((r) => (
+                {(roles.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                   <TableRow key={r.code}>
                     <TableCell className="font-mono text-xs">{r.code}</TableCell>
                     <TableCell>{r.name}</TableCell>
