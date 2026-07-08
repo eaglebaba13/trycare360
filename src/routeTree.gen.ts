@@ -31,6 +31,7 @@ import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_aut
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -176,6 +177,12 @@ const AuthenticatedOrganizationDepartmentsRoute =
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
+const AuthenticatedDataTimelineRoute =
+  AuthenticatedDataTimelineRouteImport.update({
+    id: '/timeline',
+    path: '/timeline',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
 const AuthenticatedAutomationWorkflowsRoute =
   AuthenticatedAutomationWorkflowsRouteImport.update({
     id: '/workflows',
@@ -320,6 +327,7 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -360,6 +368,7 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -405,6 +414,7 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -451,6 +461,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/timeline'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -491,6 +502,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/timeline'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -535,6 +547,7 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/data/timeline'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
     | '/_authenticated/organization/roles'
@@ -726,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
     }
+    '/_authenticated/data/timeline': {
+      id: '/_authenticated/data/timeline'
+      path: '/timeline'
+      fullPath: '/data/timeline'
+      preLoaderRoute: typeof AuthenticatedDataTimelineRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
     '/_authenticated/automation/workflows': {
       id: '/_authenticated/automation/workflows'
       path: '/workflows'
@@ -915,10 +935,12 @@ const AuthenticatedAutomationRouteWithChildren =
   )
 
 interface AuthenticatedDataRouteChildren {
+  AuthenticatedDataTimelineRoute: typeof AuthenticatedDataTimelineRoute
   AuthenticatedDataIndexRoute: typeof AuthenticatedDataIndexRoute
 }
 
 const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
+  AuthenticatedDataTimelineRoute: AuthenticatedDataTimelineRoute,
   AuthenticatedDataIndexRoute: AuthenticatedDataIndexRoute,
 }
 
