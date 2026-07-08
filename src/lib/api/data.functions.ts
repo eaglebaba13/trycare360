@@ -694,7 +694,8 @@ export const listIpLogs = createServerFn({ method: "GET" })
     if (data.userId) q = q.eq("user_id", data.userId);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return (rows ?? []).map((r) => ({ ...r, ip: r.ip == null ? null : String(r.ip) }));
+
   });
 
 export const listDeviceLogs = createServerFn({ method: "GET" })
