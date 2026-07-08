@@ -292,35 +292,38 @@ function RolesDialog({ userId, onClose }: { userId: string | null; onClose: () =
           <div className="rounded-md border">
             <Table>
               <TableBody>
-                {(q.data ?? []).length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center text-sm text-muted-foreground py-6">
-                      No roles assigned.
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  q.data!.map((r) => (
-                    <TableRow key={r.id}>
-                      <TableCell>
-                        <div className="font-medium">{r.role_code}</div>
-                        {r.org_unit_id && (
-                          <div className="text-[10px] text-muted-foreground font-mono">
-                            org {r.org_unit_id}
-                          </div>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => revokeMut.mutate(r.id)}
-                        >
-                          <Trash2 className="h-3.5 w-3.5 text-destructive" />
-                        </Button>
+                {(() => {
+                  const rows = (q.data ?? []).filter((r) => !isHiddenRole(r.role_code));
+                  return rows.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={2} className="text-center text-sm text-muted-foreground py-6">
+                        No roles assigned.
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
+                  ) : (
+                    rows.map((r) => (
+                      <TableRow key={r.id}>
+                        <TableCell>
+                          <div className="font-medium">{r.role_code}</div>
+                          {r.org_unit_id && (
+                            <div className="text-[10px] text-muted-foreground font-mono">
+                              org {r.org_unit_id}
+                            </div>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => revokeMut.mutate(r.id)}
+                          >
+                            <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  );
+                })()}
               </TableBody>
             </Table>
           </div>
