@@ -55,6 +55,8 @@ export type PermissionCode = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
 
 export const ROLE_LABELS: Record<RoleCode, string> = {
   super_admin: "Super Admin",
+  platform_admin: "Platform Admin",
+  admin: "Administrator",
   corporate_admin: "Corporate Admin",
   master_franchise: "Master Franchise",
   franchise_owner: "Franchise Owner",
