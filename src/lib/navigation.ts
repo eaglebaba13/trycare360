@@ -50,6 +50,17 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    label: "Automation",
+    items: [
+      {
+        label: "Workflows & Automation",
+        to: "/automation",
+        icon: Workflow,
+        roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
+      },
+    ],
+  },
+  {
     label: "Configuration",
     items: [
       {
