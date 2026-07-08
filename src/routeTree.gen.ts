@@ -36,6 +36,7 @@ import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authent
 import { Route as AuthenticatedDataSearchRouteImport } from './routes/_authenticated/data.search'
 import { Route as AuthenticatedDataReportsRouteImport } from './routes/_authenticated/data.reports'
 import { Route as AuthenticatedDataNotesRouteImport } from './routes/_authenticated/data.notes'
+import { Route as AuthenticatedDataFilesRouteImport } from './routes/_authenticated/data.files'
 import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authenticated/data.documents'
 import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
@@ -211,6 +212,11 @@ const AuthenticatedDataNotesRoute = AuthenticatedDataNotesRouteImport.update({
   path: '/notes',
   getParentRoute: () => AuthenticatedDataRoute,
 } as any)
+const AuthenticatedDataFilesRoute = AuthenticatedDataFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
 const AuthenticatedDataDocumentsRoute =
   AuthenticatedDataDocumentsRouteImport.update({
     id: '/documents',
@@ -369,6 +375,7 @@ export interface FileRoutesByFullPath {
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/data/files': typeof AuthenticatedDataFilesRoute
   '/data/notes': typeof AuthenticatedDataNotesRoute
   '/data/reports': typeof AuthenticatedDataReportsRoute
   '/data/search': typeof AuthenticatedDataSearchRoute
@@ -416,6 +423,7 @@ export interface FileRoutesByTo {
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/data/files': typeof AuthenticatedDataFilesRoute
   '/data/notes': typeof AuthenticatedDataNotesRoute
   '/data/reports': typeof AuthenticatedDataReportsRoute
   '/data/search': typeof AuthenticatedDataSearchRoute
@@ -468,6 +476,7 @@ export interface FileRoutesById {
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/_authenticated/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/_authenticated/data/files': typeof AuthenticatedDataFilesRoute
   '/_authenticated/data/notes': typeof AuthenticatedDataNotesRoute
   '/_authenticated/data/reports': typeof AuthenticatedDataReportsRoute
   '/_authenticated/data/search': typeof AuthenticatedDataSearchRoute
@@ -521,6 +530,7 @@ export interface FileRouteTypes {
     | '/automation/workflows'
     | '/data/analytics'
     | '/data/documents'
+    | '/data/files'
     | '/data/notes'
     | '/data/reports'
     | '/data/search'
@@ -568,6 +578,7 @@ export interface FileRouteTypes {
     | '/automation/workflows'
     | '/data/analytics'
     | '/data/documents'
+    | '/data/files'
     | '/data/notes'
     | '/data/reports'
     | '/data/search'
@@ -619,6 +630,7 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/workflows'
     | '/_authenticated/data/analytics'
     | '/_authenticated/data/documents'
+    | '/_authenticated/data/files'
     | '/_authenticated/data/notes'
     | '/_authenticated/data/reports'
     | '/_authenticated/data/search'
@@ -850,6 +862,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataNotesRouteImport
       parentRoute: typeof AuthenticatedDataRoute
     }
+    '/_authenticated/data/files': {
+      id: '/_authenticated/data/files'
+      path: '/files'
+      fullPath: '/data/files'
+      preLoaderRoute: typeof AuthenticatedDataFilesRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
     '/_authenticated/data/documents': {
       id: '/_authenticated/data/documents'
       path: '/documents'
@@ -1055,6 +1074,7 @@ const AuthenticatedAutomationRouteWithChildren =
 interface AuthenticatedDataRouteChildren {
   AuthenticatedDataAnalyticsRoute: typeof AuthenticatedDataAnalyticsRoute
   AuthenticatedDataDocumentsRoute: typeof AuthenticatedDataDocumentsRoute
+  AuthenticatedDataFilesRoute: typeof AuthenticatedDataFilesRoute
   AuthenticatedDataNotesRoute: typeof AuthenticatedDataNotesRoute
   AuthenticatedDataReportsRoute: typeof AuthenticatedDataReportsRoute
   AuthenticatedDataSearchRoute: typeof AuthenticatedDataSearchRoute
@@ -1066,6 +1086,7 @@ interface AuthenticatedDataRouteChildren {
 const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
   AuthenticatedDataAnalyticsRoute: AuthenticatedDataAnalyticsRoute,
   AuthenticatedDataDocumentsRoute: AuthenticatedDataDocumentsRoute,
+  AuthenticatedDataFilesRoute: AuthenticatedDataFilesRoute,
   AuthenticatedDataNotesRoute: AuthenticatedDataNotesRoute,
   AuthenticatedDataReportsRoute: AuthenticatedDataReportsRoute,
   AuthenticatedDataSearchRoute: AuthenticatedDataSearchRoute,
