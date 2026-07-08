@@ -58,6 +58,17 @@ import { Route as AuthenticatedDataFilesRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authenticated/data.documents'
 import { Route as AuthenticatedDataAuditRouteImport } from './routes/_authenticated/data.audit'
 import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
+import { Route as AuthenticatedCmsTreatmentsRouteImport } from './routes/_authenticated/cms.treatments'
+import { Route as AuthenticatedCmsRedirectsRouteImport } from './routes/_authenticated/cms.redirects'
+import { Route as AuthenticatedCmsProductsRouteImport } from './routes/_authenticated/cms.products'
+import { Route as AuthenticatedCmsPagesRouteImport } from './routes/_authenticated/cms.pages'
+import { Route as AuthenticatedCmsMenusRouteImport } from './routes/_authenticated/cms.menus'
+import { Route as AuthenticatedCmsMediaRouteImport } from './routes/_authenticated/cms.media'
+import { Route as AuthenticatedCmsFranchiseRouteImport } from './routes/_authenticated/cms.franchise'
+import { Route as AuthenticatedCmsDoctorsRouteImport } from './routes/_authenticated/cms.doctors'
+import { Route as AuthenticatedCmsBlogRouteImport } from './routes/_authenticated/cms.blog'
+import { Route as AuthenticatedCmsAppointmentsRouteImport } from './routes/_authenticated/cms.appointments'
+import { Route as AuthenticatedCmsAcademyRouteImport } from './routes/_authenticated/cms.academy'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -342,6 +353,66 @@ const AuthenticatedDataAnalyticsRoute =
     path: '/analytics',
     getParentRoute: () => AuthenticatedDataRoute,
   } as any)
+const AuthenticatedCmsTreatmentsRoute =
+  AuthenticatedCmsTreatmentsRouteImport.update({
+    id: '/treatments',
+    path: '/treatments',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsRedirectsRoute =
+  AuthenticatedCmsRedirectsRouteImport.update({
+    id: '/redirects',
+    path: '/redirects',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsProductsRoute =
+  AuthenticatedCmsProductsRouteImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsPagesRoute = AuthenticatedCmsPagesRouteImport.update({
+  id: '/pages',
+  path: '/pages',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsMenusRoute = AuthenticatedCmsMenusRouteImport.update({
+  id: '/menus',
+  path: '/menus',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsMediaRoute = AuthenticatedCmsMediaRouteImport.update({
+  id: '/media',
+  path: '/media',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsFranchiseRoute =
+  AuthenticatedCmsFranchiseRouteImport.update({
+    id: '/franchise',
+    path: '/franchise',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsDoctorsRoute = AuthenticatedCmsDoctorsRouteImport.update({
+  id: '/doctors',
+  path: '/doctors',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsBlogRoute = AuthenticatedCmsBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsAppointmentsRoute =
+  AuthenticatedCmsAppointmentsRouteImport.update({
+    id: '/appointments',
+    path: '/appointments',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsAcademyRoute = AuthenticatedCmsAcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
 const AuthenticatedAutomationWorkflowsRoute =
   AuthenticatedAutomationWorkflowsRouteImport.update({
     id: '/workflows',
@@ -494,6 +565,17 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
+  '/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
+  '/cms/media': typeof AuthenticatedCmsMediaRoute
+  '/cms/menus': typeof AuthenticatedCmsMenusRoute
+  '/cms/pages': typeof AuthenticatedCmsPagesRoute
+  '/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -559,6 +641,17 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
+  '/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
+  '/cms/media': typeof AuthenticatedCmsMediaRoute
+  '/cms/menus': typeof AuthenticatedCmsMenusRoute
+  '/cms/pages': typeof AuthenticatedCmsPagesRoute
+  '/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -631,6 +724,17 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/_authenticated/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
+  '/_authenticated/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/_authenticated/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/_authenticated/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
+  '/_authenticated/cms/media': typeof AuthenticatedCmsMediaRoute
+  '/_authenticated/cms/menus': typeof AuthenticatedCmsMenusRoute
+  '/_authenticated/cms/pages': typeof AuthenticatedCmsPagesRoute
+  '/_authenticated/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/_authenticated/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/_authenticated/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/_authenticated/data/audit': typeof AuthenticatedDataAuditRoute
   '/_authenticated/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -703,6 +807,17 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/cms/academy'
+    | '/cms/appointments'
+    | '/cms/blog'
+    | '/cms/doctors'
+    | '/cms/franchise'
+    | '/cms/media'
+    | '/cms/menus'
+    | '/cms/pages'
+    | '/cms/products'
+    | '/cms/redirects'
+    | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
     | '/data/documents'
@@ -768,6 +883,17 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/cms/academy'
+    | '/cms/appointments'
+    | '/cms/blog'
+    | '/cms/doctors'
+    | '/cms/franchise'
+    | '/cms/media'
+    | '/cms/menus'
+    | '/cms/pages'
+    | '/cms/products'
+    | '/cms/redirects'
+    | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
     | '/data/documents'
@@ -839,6 +965,17 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/cms/academy'
+    | '/_authenticated/cms/appointments'
+    | '/_authenticated/cms/blog'
+    | '/_authenticated/cms/doctors'
+    | '/_authenticated/cms/franchise'
+    | '/_authenticated/cms/media'
+    | '/_authenticated/cms/menus'
+    | '/_authenticated/cms/pages'
+    | '/_authenticated/cms/products'
+    | '/_authenticated/cms/redirects'
+    | '/_authenticated/cms/treatments'
     | '/_authenticated/data/analytics'
     | '/_authenticated/data/audit'
     | '/_authenticated/data/documents'
@@ -1239,6 +1376,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataAnalyticsRouteImport
       parentRoute: typeof AuthenticatedDataRoute
     }
+    '/_authenticated/cms/treatments': {
+      id: '/_authenticated/cms/treatments'
+      path: '/treatments'
+      fullPath: '/cms/treatments'
+      preLoaderRoute: typeof AuthenticatedCmsTreatmentsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/redirects': {
+      id: '/_authenticated/cms/redirects'
+      path: '/redirects'
+      fullPath: '/cms/redirects'
+      preLoaderRoute: typeof AuthenticatedCmsRedirectsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/products': {
+      id: '/_authenticated/cms/products'
+      path: '/products'
+      fullPath: '/cms/products'
+      preLoaderRoute: typeof AuthenticatedCmsProductsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/pages': {
+      id: '/_authenticated/cms/pages'
+      path: '/pages'
+      fullPath: '/cms/pages'
+      preLoaderRoute: typeof AuthenticatedCmsPagesRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/menus': {
+      id: '/_authenticated/cms/menus'
+      path: '/menus'
+      fullPath: '/cms/menus'
+      preLoaderRoute: typeof AuthenticatedCmsMenusRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/media': {
+      id: '/_authenticated/cms/media'
+      path: '/media'
+      fullPath: '/cms/media'
+      preLoaderRoute: typeof AuthenticatedCmsMediaRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/franchise': {
+      id: '/_authenticated/cms/franchise'
+      path: '/franchise'
+      fullPath: '/cms/franchise'
+      preLoaderRoute: typeof AuthenticatedCmsFranchiseRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/doctors': {
+      id: '/_authenticated/cms/doctors'
+      path: '/doctors'
+      fullPath: '/cms/doctors'
+      preLoaderRoute: typeof AuthenticatedCmsDoctorsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/blog': {
+      id: '/_authenticated/cms/blog'
+      path: '/blog'
+      fullPath: '/cms/blog'
+      preLoaderRoute: typeof AuthenticatedCmsBlogRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/appointments': {
+      id: '/_authenticated/cms/appointments'
+      path: '/appointments'
+      fullPath: '/cms/appointments'
+      preLoaderRoute: typeof AuthenticatedCmsAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/academy': {
+      id: '/_authenticated/cms/academy'
+      path: '/academy'
+      fullPath: '/cms/academy'
+      preLoaderRoute: typeof AuthenticatedCmsAcademyRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/automation/workflows': {
       id: '/_authenticated/automation/workflows'
       path: '/workflows'
@@ -1428,10 +1642,32 @@ const AuthenticatedAutomationRouteWithChildren =
   )
 
 interface AuthenticatedCmsRouteChildren {
+  AuthenticatedCmsAcademyRoute: typeof AuthenticatedCmsAcademyRoute
+  AuthenticatedCmsAppointmentsRoute: typeof AuthenticatedCmsAppointmentsRoute
+  AuthenticatedCmsBlogRoute: typeof AuthenticatedCmsBlogRoute
+  AuthenticatedCmsDoctorsRoute: typeof AuthenticatedCmsDoctorsRoute
+  AuthenticatedCmsFranchiseRoute: typeof AuthenticatedCmsFranchiseRoute
+  AuthenticatedCmsMediaRoute: typeof AuthenticatedCmsMediaRoute
+  AuthenticatedCmsMenusRoute: typeof AuthenticatedCmsMenusRoute
+  AuthenticatedCmsPagesRoute: typeof AuthenticatedCmsPagesRoute
+  AuthenticatedCmsProductsRoute: typeof AuthenticatedCmsProductsRoute
+  AuthenticatedCmsRedirectsRoute: typeof AuthenticatedCmsRedirectsRoute
+  AuthenticatedCmsTreatmentsRoute: typeof AuthenticatedCmsTreatmentsRoute
   AuthenticatedCmsIndexRoute: typeof AuthenticatedCmsIndexRoute
 }
 
 const AuthenticatedCmsRouteChildren: AuthenticatedCmsRouteChildren = {
+  AuthenticatedCmsAcademyRoute: AuthenticatedCmsAcademyRoute,
+  AuthenticatedCmsAppointmentsRoute: AuthenticatedCmsAppointmentsRoute,
+  AuthenticatedCmsBlogRoute: AuthenticatedCmsBlogRoute,
+  AuthenticatedCmsDoctorsRoute: AuthenticatedCmsDoctorsRoute,
+  AuthenticatedCmsFranchiseRoute: AuthenticatedCmsFranchiseRoute,
+  AuthenticatedCmsMediaRoute: AuthenticatedCmsMediaRoute,
+  AuthenticatedCmsMenusRoute: AuthenticatedCmsMenusRoute,
+  AuthenticatedCmsPagesRoute: AuthenticatedCmsPagesRoute,
+  AuthenticatedCmsProductsRoute: AuthenticatedCmsProductsRoute,
+  AuthenticatedCmsRedirectsRoute: AuthenticatedCmsRedirectsRoute,
+  AuthenticatedCmsTreatmentsRoute: AuthenticatedCmsTreatmentsRoute,
   AuthenticatedCmsIndexRoute: AuthenticatedCmsIndexRoute,
 }
 
