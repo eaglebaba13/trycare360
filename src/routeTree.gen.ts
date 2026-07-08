@@ -31,6 +31,7 @@ import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_aut
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedDataWidgetsRouteImport } from './routes/_authenticated/data.widgets'
 import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
 import { Route as AuthenticatedDataSearchRouteImport } from './routes/_authenticated/data.search'
 import { Route as AuthenticatedDataNotesRouteImport } from './routes/_authenticated/data.notes'
@@ -179,6 +180,12 @@ const AuthenticatedOrganizationDepartmentsRoute =
     id: '/departments',
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedDataWidgetsRoute =
+  AuthenticatedDataWidgetsRouteImport.update({
+    id: '/widgets',
+    path: '/widgets',
+    getParentRoute: () => AuthenticatedDataRoute,
   } as any)
 const AuthenticatedDataTimelineRoute =
   AuthenticatedDataTimelineRouteImport.update({
@@ -350,6 +357,7 @@ export interface FileRoutesByFullPath {
   '/data/notes': typeof AuthenticatedDataNotesRoute
   '/data/search': typeof AuthenticatedDataSearchRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -394,6 +402,7 @@ export interface FileRoutesByTo {
   '/data/notes': typeof AuthenticatedDataNotesRoute
   '/data/search': typeof AuthenticatedDataSearchRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -443,6 +452,7 @@ export interface FileRoutesById {
   '/_authenticated/data/notes': typeof AuthenticatedDataNotesRoute
   '/_authenticated/data/search': typeof AuthenticatedDataSearchRoute
   '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/_authenticated/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -493,6 +503,7 @@ export interface FileRouteTypes {
     | '/data/notes'
     | '/data/search'
     | '/data/timeline'
+    | '/data/widgets'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -537,6 +548,7 @@ export interface FileRouteTypes {
     | '/data/notes'
     | '/data/search'
     | '/data/timeline'
+    | '/data/widgets'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -585,6 +597,7 @@ export interface FileRouteTypes {
     | '/_authenticated/data/notes'
     | '/_authenticated/data/search'
     | '/_authenticated/data/timeline'
+    | '/_authenticated/data/widgets'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
     | '/_authenticated/organization/roles'
@@ -775,6 +788,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/departments'
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/data/widgets': {
+      id: '/_authenticated/data/widgets'
+      path: '/widgets'
+      fullPath: '/data/widgets'
+      preLoaderRoute: typeof AuthenticatedDataWidgetsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
     }
     '/_authenticated/data/timeline': {
       id: '/_authenticated/data/timeline'
@@ -997,6 +1017,7 @@ interface AuthenticatedDataRouteChildren {
   AuthenticatedDataNotesRoute: typeof AuthenticatedDataNotesRoute
   AuthenticatedDataSearchRoute: typeof AuthenticatedDataSearchRoute
   AuthenticatedDataTimelineRoute: typeof AuthenticatedDataTimelineRoute
+  AuthenticatedDataWidgetsRoute: typeof AuthenticatedDataWidgetsRoute
   AuthenticatedDataIndexRoute: typeof AuthenticatedDataIndexRoute
 }
 
@@ -1005,6 +1026,7 @@ const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
   AuthenticatedDataNotesRoute: AuthenticatedDataNotesRoute,
   AuthenticatedDataSearchRoute: AuthenticatedDataSearchRoute,
   AuthenticatedDataTimelineRoute: AuthenticatedDataTimelineRoute,
+  AuthenticatedDataWidgetsRoute: AuthenticatedDataWidgetsRoute,
   AuthenticatedDataIndexRoute: AuthenticatedDataIndexRoute,
 }
 
