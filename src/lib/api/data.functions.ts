@@ -275,7 +275,7 @@ export const searchGlobal = createServerFn({ method: "POST" })
     const { data: rows, error } = await context.supabase.rpc("search_global", {
       _tenant_id: data.tenantId,
       _query: data.query,
-      _entity_types: data.entityTypes ?? null,
+      _entity_types: data.entityTypes ?? undefined,
       _limit: data.limit,
     });
     if (error) throw new Error(error.message);
