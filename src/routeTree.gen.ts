@@ -32,6 +32,7 @@ import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_au
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
 import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
+import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authenticated/data.documents'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -183,6 +184,12 @@ const AuthenticatedDataTimelineRoute =
     path: '/timeline',
     getParentRoute: () => AuthenticatedDataRoute,
   } as any)
+const AuthenticatedDataDocumentsRoute =
+  AuthenticatedDataDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
 const AuthenticatedAutomationWorkflowsRoute =
   AuthenticatedAutomationWorkflowsRouteImport.update({
     id: '/workflows',
@@ -327,6 +334,7 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/documents': typeof AuthenticatedDataDocumentsRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
@@ -368,6 +376,7 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/documents': typeof AuthenticatedDataDocumentsRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
@@ -414,6 +423,7 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/data/documents': typeof AuthenticatedDataDocumentsRoute
   '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
@@ -461,6 +471,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/documents'
     | '/data/timeline'
     | '/organization/departments'
     | '/organization/employees'
@@ -502,6 +513,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/documents'
     | '/data/timeline'
     | '/organization/departments'
     | '/organization/employees'
@@ -547,6 +559,7 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/data/documents'
     | '/_authenticated/data/timeline'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
@@ -746,6 +759,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataTimelineRouteImport
       parentRoute: typeof AuthenticatedDataRoute
     }
+    '/_authenticated/data/documents': {
+      id: '/_authenticated/data/documents'
+      path: '/documents'
+      fullPath: '/data/documents'
+      preLoaderRoute: typeof AuthenticatedDataDocumentsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
     '/_authenticated/automation/workflows': {
       id: '/_authenticated/automation/workflows'
       path: '/workflows'
@@ -935,11 +955,13 @@ const AuthenticatedAutomationRouteWithChildren =
   )
 
 interface AuthenticatedDataRouteChildren {
+  AuthenticatedDataDocumentsRoute: typeof AuthenticatedDataDocumentsRoute
   AuthenticatedDataTimelineRoute: typeof AuthenticatedDataTimelineRoute
   AuthenticatedDataIndexRoute: typeof AuthenticatedDataIndexRoute
 }
 
 const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
+  AuthenticatedDataDocumentsRoute: AuthenticatedDataDocumentsRoute,
   AuthenticatedDataTimelineRoute: AuthenticatedDataTimelineRoute,
   AuthenticatedDataIndexRoute: AuthenticatedDataIndexRoute,
 }
