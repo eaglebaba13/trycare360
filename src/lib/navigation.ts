@@ -10,6 +10,7 @@ import {
   Bell,
   FileText,
   Settings,
+  Workflow,
 } from "lucide-react";
 import { ROLES, type RoleCode } from "./rbac";
 
