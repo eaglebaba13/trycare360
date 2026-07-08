@@ -303,10 +303,11 @@ export const indexSearchEntity = createServerFn({ method: "POST" })
       _entity_type: data.entityType,
       _entity_id: data.entityId,
       _title: data.title,
-      _subtitle: data.subtitle ?? null,
-      _body: data.body ?? null,
-      _keywords: data.keywords ?? null,
-      _url: data.url ?? null,
+      _subtitle: data.subtitle ?? undefined,
+      _body: data.body ?? undefined,
+      _keywords: data.keywords ?? undefined,
+      _url: data.url ?? undefined,
+
       _meta: (data.meta ?? {}) as never,
     });
     if (error) throw new Error(error.message);
