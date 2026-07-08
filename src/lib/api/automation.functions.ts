@@ -86,8 +86,8 @@ export const submitForm = createServerFn({ method: "POST" })
       .from("form_submissions").insert({
         tenant_id: data.tenantId,
         form_id: data.formId,
-        data: data.data,
-        entity_ref: data.entityRef ?? null,
+        data: data.data as never,
+        entity_ref: (data.entityRef ?? null) as never,
         submitted_by: context.userId,
       }).select().maybeSingle();
     if (error) throw new Error(error.message);
@@ -203,8 +203,8 @@ export const startWorkflowRun = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { data: row, error } = await context.supabase.rpc("start_workflow_run", {
       _workflow_id: data.workflowId,
-      _context: data.context,
-      _entity_ref: data.entityRef ?? null,
+      _context: data.context as never,
+      _entity_ref: (data.entityRef ?? null) as never,
     });
     if (error) throw new Error(error.message);
     return { runId: row };
@@ -303,8 +303,8 @@ export const emitEvent = createServerFn({ method: "POST" })
     const { data: fired, error } = await context.supabase.rpc("emit_automation_event", {
       _tenant_id: data.tenantId,
       _event_type: data.eventType,
-      _payload: data.payload,
-      _entity_ref: data.entityRef ?? null,
+      _payload: data.payload as never,
+      _entity_ref: (data.entityRef ?? null) as never,
     });
     if (error) throw new Error(error.message);
     return { runsCreated: fired ?? 0 };
@@ -437,8 +437,8 @@ export const submitApproval = createServerFn({ method: "POST" })
     const { data: row, error } = await context.supabase.from("approval_requests").insert({
       tenant_id: data.tenantId,
       definition_id: data.definitionId,
-      payload: data.payload,
-      entity_ref: data.entityRef ?? null,
+      payload: data.payload as never,
+      entity_ref: (data.entityRef ?? null) as never,
       submitted_by: context.userId,
       status: "pending",
       current_level: 1,
@@ -470,7 +470,7 @@ export const actOnApproval = createServerFn({ method: "POST" })
       actor_id: context.userId,
       action: data.action,
       comment: data.comment ?? null,
-      meta: data.meta ?? null,
+      meta: (data.meta ?? null) as never,
     });
 
     // Load definition to advance levels
@@ -495,7 +495,7 @@ export const actOnApproval = createServerFn({ method: "POST" })
     }
 
     if (Object.keys(update).length) {
-      const { error } = await context.supabase.from("approval_requests").update(update).eq("id", data.requestId);
+      const { error } = await context.supabase.from("approval_requests").update(update as never).eq("id", data.requestId);
       if (error) throw new Error(error.message);
     }
     return { ok: true };
