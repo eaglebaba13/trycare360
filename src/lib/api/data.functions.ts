@@ -58,8 +58,9 @@ export const logTimelineEvent = createServerFn({ method: "POST" })
       _entity_id: data.entityId,
       _event_type: data.eventType,
       _title: data.title,
-      _body: data.body ?? null,
+      _body: data.body ?? undefined,
       _meta: (data.meta ?? {}) as never,
+
     });
     if (error) throw new Error(error.message);
     return { id };
