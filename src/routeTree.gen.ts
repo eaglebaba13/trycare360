@@ -9,18 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicFranchiseRouteImport } from './routes/_public.franchise'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as PublicBookRouteImport } from './routes/_public.book'
+import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
+import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCmsRouteImport } from './routes/_authenticated/cms'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
+import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
+import { Route as PublicProductsIndexRouteImport } from './routes/_public.products.index'
+import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
+import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
+import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
+import { Route as PublicTreatmentsSlugRouteImport } from './routes/_public.treatments.$slug'
+import { Route as PublicProductsSlugRouteImport } from './routes/_public.products.$slug'
+import { Route as PublicDoctorsSlugRouteImport } from './routes/_public.doctors.$slug'
+import { Route as PublicBlogSlugRouteImport } from './routes/_public.blog.$slug'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
@@ -62,19 +80,58 @@ import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './r
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport } from './routes/_authenticated/settings.integrations.connections.$providerCode'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RssDotxmlRoute = RssDotxmlRouteImport.update({
+  id: '/rss.xml',
+  path: '/rss.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicFranchiseRoute = PublicFranchiseRouteImport.update({
+  id: '/franchise',
+  path: '/franchise',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicBookRoute = PublicBookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAcademyRoute = PublicAcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PublicRoute,
 } as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
@@ -97,10 +154,35 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCmsRoute = AuthenticatedCmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAutomationRoute = AuthenticatedAutomationRouteImport.update({
   id: '/automation',
   path: '/automation',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const PublicTreatmentsIndexRoute = PublicTreatmentsIndexRouteImport.update({
+  id: '/treatments/',
+  path: '/treatments/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicProductsIndexRoute = PublicProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicDoctorsIndexRoute = PublicDoctorsIndexRouteImport.update({
+  id: '/doctors/',
+  path: '/doctors/',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicBlogIndexRoute = PublicBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => PublicRoute,
 } as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
@@ -119,12 +201,37 @@ const AuthenticatedDataIndexRoute = AuthenticatedDataIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedDataRoute,
 } as any)
+const AuthenticatedCmsIndexRoute = AuthenticatedCmsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
 const AuthenticatedAutomationIndexRoute =
   AuthenticatedAutomationIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedAutomationRoute,
   } as any)
+const PublicTreatmentsSlugRoute = PublicTreatmentsSlugRouteImport.update({
+  id: '/treatments/$slug',
+  path: '/treatments/$slug',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicProductsSlugRoute = PublicProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicDoctorsSlugRoute = PublicDoctorsSlugRouteImport.update({
+  id: '/doctors/$slug',
+  path: '/doctors/$slug',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicBlogSlugRoute = PublicBlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => PublicRoute,
+} as any)
 const AuthenticatedSettingsTerritoryRoute =
   AuthenticatedSettingsTerritoryRouteImport.update({
     id: '/territory',
@@ -362,13 +469,21 @@ const AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PublicIndexRoute
   '/auth': typeof AuthRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
+  '/cms': typeof AuthenticatedCmsRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/about': typeof PublicAboutRoute
+  '/academy': typeof PublicAcademyRoute
+  '/book': typeof PublicBookRoute
+  '/contact': typeof PublicContactRoute
+  '/franchise': typeof PublicFranchiseRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -398,10 +513,19 @@ export interface FileRoutesByFullPath {
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/blog/$slug': typeof PublicBlogSlugRoute
+  '/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/products/$slug': typeof PublicProductsSlugRoute
+  '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/cms/': typeof AuthenticatedCmsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/blog/': typeof PublicBlogIndexRoute
+  '/doctors/': typeof PublicDoctorsIndexRoute
+  '/products/': typeof PublicProductsIndexRoute
+  '/treatments/': typeof PublicTreatmentsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -415,9 +539,16 @@ export interface FileRoutesByFullPath {
   '/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof PublicIndexRoute
   '/auth': typeof AuthRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/about': typeof PublicAboutRoute
+  '/academy': typeof PublicAcademyRoute
+  '/book': typeof PublicBookRoute
+  '/contact': typeof PublicContactRoute
+  '/franchise': typeof PublicFranchiseRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -446,10 +577,19 @@ export interface FileRoutesByTo {
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/blog/$slug': typeof PublicBlogSlugRoute
+  '/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/products/$slug': typeof PublicProductsSlugRoute
+  '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
+  '/cms': typeof AuthenticatedCmsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/blog': typeof PublicBlogIndexRoute
+  '/doctors': typeof PublicDoctorsIndexRoute
+  '/products': typeof PublicProductsIndexRoute
+  '/treatments': typeof PublicTreatmentsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -464,14 +604,23 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/_public': typeof PublicRouteWithChildren
   '/auth': typeof AuthRoute
+  '/rss.xml': typeof RssDotxmlRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
+  '/_authenticated/cms': typeof AuthenticatedCmsRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/academy': typeof PublicAcademyRoute
+  '/_public/book': typeof PublicBookRoute
+  '/_public/contact': typeof PublicContactRoute
+  '/_public/franchise': typeof PublicFranchiseRoute
+  '/_public/': typeof PublicIndexRoute
   '/_authenticated/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/_authenticated/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/_authenticated/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -501,10 +650,19 @@ export interface FileRoutesById {
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/_public/blog/$slug': typeof PublicBlogSlugRoute
+  '/_public/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/_public/products/$slug': typeof PublicProductsSlugRoute
+  '/_public/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_public/blog/': typeof PublicBlogIndexRoute
+  '/_public/doctors/': typeof PublicDoctorsIndexRoute
+  '/_public/products/': typeof PublicProductsIndexRoute
+  '/_public/treatments/': typeof PublicTreatmentsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/_authenticated/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -522,11 +680,19 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/rss.xml'
+    | '/sitemap.xml'
     | '/automation'
+    | '/cms'
     | '/dashboard'
     | '/data'
     | '/organization'
     | '/settings'
+    | '/about'
+    | '/academy'
+    | '/book'
+    | '/contact'
+    | '/franchise'
     | '/automation/approvals'
     | '/automation/forms'
     | '/automation/notifications'
@@ -556,10 +722,19 @@ export interface FileRouteTypes {
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/blog/$slug'
+    | '/doctors/$slug'
+    | '/products/$slug'
+    | '/treatments/$slug'
     | '/automation/'
+    | '/cms/'
     | '/data/'
     | '/organization/'
     | '/settings/'
+    | '/blog/'
+    | '/doctors/'
+    | '/products/'
+    | '/treatments/'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
@@ -575,7 +750,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/rss.xml'
+    | '/sitemap.xml'
     | '/dashboard'
+    | '/about'
+    | '/academy'
+    | '/book'
+    | '/contact'
+    | '/franchise'
     | '/automation/approvals'
     | '/automation/forms'
     | '/automation/notifications'
@@ -604,10 +786,19 @@ export interface FileRouteTypes {
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/blog/$slug'
+    | '/doctors/$slug'
+    | '/products/$slug'
+    | '/treatments/$slug'
     | '/automation'
+    | '/cms'
     | '/data'
     | '/organization'
     | '/settings'
+    | '/blog'
+    | '/doctors'
+    | '/products'
+    | '/treatments'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
@@ -621,14 +812,23 @@ export interface FileRouteTypes {
     | '/settings/integrations/connections'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
+    | '/_public'
     | '/auth'
+    | '/rss.xml'
+    | '/sitemap.xml'
     | '/_authenticated/automation'
+    | '/_authenticated/cms'
     | '/_authenticated/dashboard'
     | '/_authenticated/data'
     | '/_authenticated/organization'
     | '/_authenticated/settings'
+    | '/_public/about'
+    | '/_public/academy'
+    | '/_public/book'
+    | '/_public/contact'
+    | '/_public/franchise'
+    | '/_public/'
     | '/_authenticated/automation/approvals'
     | '/_authenticated/automation/forms'
     | '/_authenticated/automation/notifications'
@@ -658,10 +858,19 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/masters'
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
+    | '/_public/blog/$slug'
+    | '/_public/doctors/$slug'
+    | '/_public/products/$slug'
+    | '/_public/treatments/$slug'
     | '/_authenticated/automation/'
+    | '/_authenticated/cms/'
     | '/_authenticated/data/'
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
+    | '/_public/blog/'
+    | '/_public/doctors/'
+    | '/_public/products/'
+    | '/_public/treatments/'
     | '/_authenticated/settings/companies/$companyId'
     | '/_authenticated/settings/integrations/api-keys'
     | '/_authenticated/settings/integrations/catalog'
@@ -676,20 +885,43 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  PublicRoute: typeof PublicRouteWithChildren
   AuthRoute: typeof AuthRoute
+  RssDotxmlRoute: typeof RssDotxmlRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPublicIntegrationsProcessJobsRoute: typeof ApiPublicIntegrationsProcessJobsRoute
   ApiPublicWebhooksSlugRoute: typeof ApiPublicWebhooksSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rss.xml': {
+      id: '/rss.xml'
+      path: '/rss.xml'
+      fullPath: '/rss.xml'
+      preLoaderRoute: typeof RssDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -699,12 +931,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/franchise': {
+      id: '/_public/franchise'
+      path: '/franchise'
+      fullPath: '/franchise'
+      preLoaderRoute: typeof PublicFranchiseRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/book': {
+      id: '/_public/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof PublicBookRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/academy': {
+      id: '/_public/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof PublicAcademyRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/_authenticated/settings': {
       id: '/_authenticated/settings'
@@ -734,12 +1001,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/cms': {
+      id: '/_authenticated/cms'
+      path: '/cms'
+      fullPath: '/cms'
+      preLoaderRoute: typeof AuthenticatedCmsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/automation': {
       id: '/_authenticated/automation'
       path: '/automation'
       fullPath: '/automation'
       preLoaderRoute: typeof AuthenticatedAutomationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_public/treatments/': {
+      id: '/_public/treatments/'
+      path: '/treatments'
+      fullPath: '/treatments/'
+      preLoaderRoute: typeof PublicTreatmentsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/products/': {
+      id: '/_public/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof PublicProductsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/doctors/': {
+      id: '/_public/doctors/'
+      path: '/doctors'
+      fullPath: '/doctors/'
+      preLoaderRoute: typeof PublicDoctorsIndexRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/blog/': {
+      id: '/_public/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof PublicBlogIndexRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
@@ -762,12 +1064,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataIndexRouteImport
       parentRoute: typeof AuthenticatedDataRoute
     }
+    '/_authenticated/cms/': {
+      id: '/_authenticated/cms/'
+      path: '/'
+      fullPath: '/cms/'
+      preLoaderRoute: typeof AuthenticatedCmsIndexRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/automation/': {
       id: '/_authenticated/automation/'
       path: '/'
       fullPath: '/automation/'
       preLoaderRoute: typeof AuthenticatedAutomationIndexRouteImport
       parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_public/treatments/$slug': {
+      id: '/_public/treatments/$slug'
+      path: '/treatments/$slug'
+      fullPath: '/treatments/$slug'
+      preLoaderRoute: typeof PublicTreatmentsSlugRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/products/$slug': {
+      id: '/_public/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof PublicProductsSlugRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/doctors/$slug': {
+      id: '/_public/doctors/$slug'
+      path: '/doctors/$slug'
+      fullPath: '/doctors/$slug'
+      preLoaderRoute: typeof PublicDoctorsSlugRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/blog/$slug': {
+      id: '/_public/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof PublicBlogSlugRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/_authenticated/settings/territory': {
       id: '/_authenticated/settings/territory'
@@ -1090,6 +1427,17 @@ const AuthenticatedAutomationRouteWithChildren =
     AuthenticatedAutomationRouteChildren,
   )
 
+interface AuthenticatedCmsRouteChildren {
+  AuthenticatedCmsIndexRoute: typeof AuthenticatedCmsIndexRoute
+}
+
+const AuthenticatedCmsRouteChildren: AuthenticatedCmsRouteChildren = {
+  AuthenticatedCmsIndexRoute: AuthenticatedCmsIndexRoute,
+}
+
+const AuthenticatedCmsRouteWithChildren =
+  AuthenticatedCmsRoute._addFileChildren(AuthenticatedCmsRouteChildren)
+
 interface AuthenticatedDataRouteChildren {
   AuthenticatedDataAnalyticsRoute: typeof AuthenticatedDataAnalyticsRoute
   AuthenticatedDataAuditRoute: typeof AuthenticatedDataAuditRoute
@@ -1210,6 +1558,7 @@ const AuthenticatedSettingsRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
+  AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
@@ -1218,6 +1567,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
+  AuthenticatedCmsRoute: AuthenticatedCmsRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
@@ -1227,10 +1577,49 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface PublicRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicAcademyRoute: typeof PublicAcademyRoute
+  PublicBookRoute: typeof PublicBookRoute
+  PublicContactRoute: typeof PublicContactRoute
+  PublicFranchiseRoute: typeof PublicFranchiseRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicBlogSlugRoute: typeof PublicBlogSlugRoute
+  PublicDoctorsSlugRoute: typeof PublicDoctorsSlugRoute
+  PublicProductsSlugRoute: typeof PublicProductsSlugRoute
+  PublicTreatmentsSlugRoute: typeof PublicTreatmentsSlugRoute
+  PublicBlogIndexRoute: typeof PublicBlogIndexRoute
+  PublicDoctorsIndexRoute: typeof PublicDoctorsIndexRoute
+  PublicProductsIndexRoute: typeof PublicProductsIndexRoute
+  PublicTreatmentsIndexRoute: typeof PublicTreatmentsIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
+  PublicAcademyRoute: PublicAcademyRoute,
+  PublicBookRoute: PublicBookRoute,
+  PublicContactRoute: PublicContactRoute,
+  PublicFranchiseRoute: PublicFranchiseRoute,
+  PublicIndexRoute: PublicIndexRoute,
+  PublicBlogSlugRoute: PublicBlogSlugRoute,
+  PublicDoctorsSlugRoute: PublicDoctorsSlugRoute,
+  PublicProductsSlugRoute: PublicProductsSlugRoute,
+  PublicTreatmentsSlugRoute: PublicTreatmentsSlugRoute,
+  PublicBlogIndexRoute: PublicBlogIndexRoute,
+  PublicDoctorsIndexRoute: PublicDoctorsIndexRoute,
+  PublicProductsIndexRoute: PublicProductsIndexRoute,
+  PublicTreatmentsIndexRoute: PublicTreatmentsIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  PublicRoute: PublicRouteWithChildren,
   AuthRoute: AuthRoute,
+  RssDotxmlRoute: RssDotxmlRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPublicIntegrationsProcessJobsRoute: ApiPublicIntegrationsProcessJobsRoute,
   ApiPublicWebhooksSlugRoute: ApiPublicWebhooksSlugRoute,
 }

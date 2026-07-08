@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Disallow: /auth
+Disallow: /dashboard
+Disallow: /organization
+Disallow: /automation
+Disallow: /settings
+Disallow: /data
+Disallow: /admin
+Disallow: /cms
+Disallow: /notifications
+Disallow: /api/
+
+Sitemap: https://trycare360.lovable.app/sitemap.xml
