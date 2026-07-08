@@ -19,6 +19,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
+import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
@@ -104,6 +105,11 @@ const AuthenticatedOrganizationIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
+const AuthenticatedDataIndexRoute = AuthenticatedDataIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
 const AuthenticatedAutomationIndexRoute =
   AuthenticatedAutomationIndexRouteImport.update({
     id: '/',
@@ -301,7 +307,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/data': typeof AuthenticatedDataRoute
+  '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -325,6 +331,7 @@ export interface FileRoutesByFullPath {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -343,7 +350,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/data': typeof AuthenticatedDataRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -364,6 +370,7 @@ export interface FileRoutesByTo {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
+  '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -385,7 +392,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/data': typeof AuthenticatedDataRoute
+  '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -409,6 +416,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -454,6 +462,7 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/automation/'
+    | '/data/'
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
@@ -472,7 +481,6 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
-    | '/data'
     | '/automation/approvals'
     | '/automation/forms'
     | '/automation/notifications'
@@ -493,6 +501,7 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/automation'
+    | '/data'
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
@@ -537,6 +546,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
     | '/_authenticated/automation/'
+    | '/_authenticated/data/'
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
@@ -631,6 +641,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/'
       preLoaderRoute: typeof AuthenticatedOrganizationIndexRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/data/': {
+      id: '/_authenticated/data/'
+      path: '/'
+      fullPath: '/data/'
+      preLoaderRoute: typeof AuthenticatedDataIndexRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
     }
     '/_authenticated/automation/': {
       id: '/_authenticated/automation/'
@@ -897,6 +914,17 @@ const AuthenticatedAutomationRouteWithChildren =
     AuthenticatedAutomationRouteChildren,
   )
 
+interface AuthenticatedDataRouteChildren {
+  AuthenticatedDataIndexRoute: typeof AuthenticatedDataIndexRoute
+}
+
+const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
+  AuthenticatedDataIndexRoute: AuthenticatedDataIndexRoute,
+}
+
+const AuthenticatedDataRouteWithChildren =
+  AuthenticatedDataRoute._addFileChildren(AuthenticatedDataRouteChildren)
+
 interface AuthenticatedOrganizationRouteChildren {
   AuthenticatedOrganizationDepartmentsRoute: typeof AuthenticatedOrganizationDepartmentsRoute
   AuthenticatedOrganizationEmployeesRoute: typeof AuthenticatedOrganizationEmployeesRoute
@@ -989,7 +1017,7 @@ const AuthenticatedSettingsRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedDataRoute: typeof AuthenticatedDataRoute
+  AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
@@ -997,7 +1025,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedDataRoute: AuthenticatedDataRoute,
+  AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
 }
