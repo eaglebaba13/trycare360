@@ -335,7 +335,7 @@ function RolesDialog({ userId, onClose }: { userId: string | null; onClose: () =
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
-                  {(rolesQ.data ?? []).map((r) => (
+                  {(rolesQ.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                     <SelectItem key={r.code} value={r.code}>
                       {r.name}
                     </SelectItem>
