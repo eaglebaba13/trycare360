@@ -42,6 +42,7 @@ import {
   listUserRoles,
   listRoles,
 } from "@/lib/api/organization.functions";
+import { isHiddenRole } from "@/lib/rbac";
 
 export const Route = createFileRoute("/_authenticated/organization/users")({
   component: UsersPage,
@@ -129,15 +130,18 @@ function UsersPage() {
                   <TableCell className="font-mono text-xs">{u.email}</TableCell>
                   <TableCell>
                     <div className="flex flex-wrap gap-1">
-                      {u.roles.length === 0 ? (
-                        <span className="text-xs text-muted-foreground">no roles</span>
-                      ) : (
-                        u.roles.map((r, i) => (
-                          <Badge key={`${r.role_code}-${i}`} variant="secondary" className="text-[10px]">
-                            {r.role_code}
-                          </Badge>
-                        ))
-                      )}
+                      {(() => {
+                        const visible = u.roles.filter((r) => !isHiddenRole(r.role_code));
+                        return visible.length === 0 ? (
+                          <span className="text-xs text-muted-foreground">no roles</span>
+                        ) : (
+                          visible.map((r, i) => (
+                            <Badge key={`${r.role_code}-${i}`} variant="secondary" className="text-[10px]">
+                              {r.role_code}
+                            </Badge>
+                          ))
+                        );
+                      })()}
                     </div>
                   </TableCell>
                   <TableCell>
@@ -214,7 +218,7 @@ function UsersPage() {
                   <SelectValue placeholder="Optional" />
                 </SelectTrigger>
                 <SelectContent>
-                  {(roles.data ?? []).map((r) => (
+                  {(roles.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                     <SelectItem key={r.code} value={r.code}>
                       {r.name}
                     </SelectItem>
@@ -288,35 +292,38 @@ function RolesDialog({ userId, onClose }: { userId: string | null; onClose: () =
           <div className="rounded-md border">
             <Table>
               <TableBody>
-                {(q.data ?? []).length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center text-sm text-muted-foreground py-6">
-                      No roles assigned.
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  q.data!.map((r) => (
-                    <TableRow key={r.id}>
-                      <TableCell>
-                        <div className="font-medium">{r.role_code}</div>
-                        {r.org_unit_id && (
-                          <div className="text-[10px] text-muted-foreground font-mono">
-                            org {r.org_unit_id}
-                          </div>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => revokeMut.mutate(r.id)}
-                        >
-                          <Trash2 className="h-3.5 w-3.5 text-destructive" />
-                        </Button>
+                {(() => {
+                  const rows = (q.data ?? []).filter((r) => !isHiddenRole(r.role_code));
+                  return rows.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={2} className="text-center text-sm text-muted-foreground py-6">
+                        No roles assigned.
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
+                  ) : (
+                    rows.map((r) => (
+                      <TableRow key={r.id}>
+                        <TableCell>
+                          <div className="font-medium">{r.role_code}</div>
+                          {r.org_unit_id && (
+                            <div className="text-[10px] text-muted-foreground font-mono">
+                              org {r.org_unit_id}
+                            </div>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => revokeMut.mutate(r.id)}
+                          >
+                            <Trash2 className="h-3.5 w-3.5 text-destructive" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  );
+                })()}
               </TableBody>
             </Table>
           </div>
@@ -328,7 +335,7 @@ function RolesDialog({ userId, onClose }: { userId: string | null; onClose: () =
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
-                  {(rolesQ.data ?? []).map((r) => (
+                  {(rolesQ.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                     <SelectItem key={r.code} value={r.code}>
                       {r.name}
                     </SelectItem>

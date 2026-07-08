@@ -32,7 +32,7 @@ function DashboardPage() {
           <CardContent>
             {data?.roles.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No roles assigned yet. Ask a Super Admin to grant you access.
+                No roles assigned yet. Ask an administrator to grant you access.
               </p>
             ) : (
               <div className="flex flex-wrap gap-2">

@@ -32,6 +32,7 @@ import {
   createOrCloneRole,
   listRoleHistory,
 } from "@/lib/api/organization.functions";
+import { isHiddenRole } from "@/lib/rbac";
 
 export const Route = createFileRoute("/_authenticated/organization/roles")({
   component: RolesPage,
@@ -114,7 +115,7 @@ function RolesPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {(roles.data ?? []).map((r) => (
+                {(roles.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                   <TableRow key={r.code}>
                     <TableCell className="font-mono text-xs">{r.code}</TableCell>
                     <TableCell>{r.name}</TableCell>
@@ -145,34 +146,37 @@ function RolesPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {(history.data ?? []).length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-sm text-muted-foreground">
-                      No role changes recorded yet.
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  history.data!.map((h) => (
-                    <TableRow key={h.id}>
-                      <TableCell className="text-xs">
-                        {new Date(h.performed_at).toLocaleString()}
-                      </TableCell>
-                      <TableCell className="font-mono text-[10px]">{h.user_id}</TableCell>
-                      <TableCell>{h.role_code}</TableCell>
-                      <TableCell>
-                        <Badge variant={h.action === "grant" ? "default" : "outline"}>
-                          {h.action}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="font-mono text-[10px]">
-                        {h.org_unit_id ?? "—"}
-                      </TableCell>
-                      <TableCell className="font-mono text-[10px]">
-                        {h.performed_by ?? "—"}
+                {(() => {
+                  const rows = (history.data ?? []).filter((h) => !isHiddenRole(h.role_code));
+                  return rows.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center py-8 text-sm text-muted-foreground">
+                        No role changes recorded yet.
                       </TableCell>
                     </TableRow>
-                  ))
-                )}
+                  ) : (
+                    rows.map((h) => (
+                      <TableRow key={h.id}>
+                        <TableCell className="text-xs">
+                          {new Date(h.performed_at).toLocaleString()}
+                        </TableCell>
+                        <TableCell className="font-mono text-[10px]">{h.user_id}</TableCell>
+                        <TableCell>{h.role_code}</TableCell>
+                        <TableCell>
+                          <Badge variant={h.action === "grant" ? "default" : "outline"}>
+                            {h.action}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="font-mono text-[10px]">
+                          {h.org_unit_id ?? "—"}
+                        </TableCell>
+                        <TableCell className="font-mono text-[10px]">
+                          {h.performed_by ?? "—"}
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  );
+                })()}
               </TableBody>
             </Table>
           </Card>
@@ -225,7 +229,7 @@ function RolesPage() {
                   <SelectValue placeholder="Start empty" />
                 </SelectTrigger>
                 <SelectContent>
-                  {(roles.data ?? []).map((r) => (
+                  {(roles.data ?? []).filter((r) => !isHiddenRole(r.code)).map((r) => (
                     <SelectItem key={r.code} value={r.code}>
                       {r.name}
                     </SelectItem>
