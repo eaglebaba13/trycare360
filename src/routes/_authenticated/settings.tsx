@@ -6,6 +6,7 @@ import {
   Settings2,
   Cog,
   Layers,
+  Plug,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PermissionGuard } from "@/components/permission-guard";
@@ -27,6 +28,7 @@ const SETTINGS_NAV: SettingsNavItem[] = [
   { to: "/settings/masters", label: "Master Lists", icon: Database },
   { to: "/settings/territory", label: "Territory", icon: Map },
   { to: "/settings/companies", label: "Companies", icon: Building2 },
+  { to: "/settings/integrations", label: "Integrations", icon: Plug },
   { to: "/settings/global", label: "Global Settings", icon: Settings2 },
   { to: "/settings/platform", label: "Platform Settings", icon: Layers, superAdmin: true },
 ];
