@@ -124,20 +124,22 @@ function AuditPage() {
           <Table>
             <TableHeader><TableRow>
               <TableHead>Time</TableHead><TableHead>User</TableHead>
-              <TableHead>Device</TableHead><TableHead>UA</TableHead>
+              <TableHead>Device</TableHead><TableHead>OS</TableHead><TableHead>App</TableHead>
             </TableRow></TableHeader>
             <TableBody>
-              {devices.length === 0 && <TableRow><TableCell colSpan={4} className="text-center text-muted-foreground py-6">No entries.</TableCell></TableRow>}
+              {devices.length === 0 && <TableRow><TableCell colSpan={5} className="text-center text-muted-foreground py-6">No entries.</TableCell></TableRow>}
               {devices.map((d) => (
                 <TableRow key={d.id}>
                   <TableCell className="text-xs">{new Date(d.ts).toLocaleString()}</TableCell>
                   <TableCell className="font-mono text-xs">{d.user_id?.slice(0, 8)}</TableCell>
                   <TableCell className="text-xs">{d.device_id}</TableCell>
-                  <TableCell className="text-xs truncate max-w-md">{d.ua}</TableCell>
+                  <TableCell className="text-xs">{d.os}</TableCell>
+                  <TableCell className="text-xs">{d.app}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+
         </TabsContent>
       </Tabs>
     </Card>
