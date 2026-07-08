@@ -836,6 +836,1164 @@ export type Database = {
           },
         ]
       }
+      cms_academy_courses: {
+        Row: {
+          brochure_url: string | null
+          cover_url: string | null
+          created_at: string
+          currency: string | null
+          duration: string | null
+          faculty: Json | null
+          id: string
+          level: string | null
+          outline: Json | null
+          price: number | null
+          published_at: string | null
+          seo: Json | null
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["cms_status"]
+          subtitle: string | null
+          summary: string | null
+          tenant_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          brochure_url?: string | null
+          cover_url?: string | null
+          created_at?: string
+          currency?: string | null
+          duration?: string | null
+          faculty?: Json | null
+          id?: string
+          level?: string | null
+          outline?: Json | null
+          price?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          subtitle?: string | null
+          summary?: string | null
+          tenant_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          brochure_url?: string | null
+          cover_url?: string | null
+          created_at?: string
+          currency?: string | null
+          duration?: string | null
+          faculty?: Json | null
+          id?: string
+          level?: string | null
+          outline?: Json | null
+          price?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          subtitle?: string | null
+          summary?: string | null
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_academy_courses_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_appointment_requests: {
+        Row: {
+          city: string | null
+          created_at: string
+          doctor_slug: string | null
+          email: string | null
+          full_name: string
+          id: string
+          message: string | null
+          meta: Json | null
+          phone: string
+          preferred_at: string | null
+          source: string | null
+          status: Database["public"]["Enums"]["cms_appointment_status"]
+          tenant_id: string
+          treatment_slug: string | null
+          updated_at: string
+          utm: Json | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          doctor_slug?: string | null
+          email?: string | null
+          full_name: string
+          id?: string
+          message?: string | null
+          meta?: Json | null
+          phone: string
+          preferred_at?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["cms_appointment_status"]
+          tenant_id: string
+          treatment_slug?: string | null
+          updated_at?: string
+          utm?: Json | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          doctor_slug?: string | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          message?: string | null
+          meta?: Json | null
+          phone?: string
+          preferred_at?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["cms_appointment_status"]
+          tenant_id?: string
+          treatment_slug?: string | null
+          updated_at?: string
+          utm?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_appointment_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_block_types: {
+        Row: {
+          category: string
+          code: string
+          created_at: string
+          description: string | null
+          icon: string | null
+          is_active: boolean
+          name: string
+          schema: Json
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          code: string
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          is_active?: boolean
+          name: string
+          schema?: Json
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          code?: string
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          is_active?: boolean
+          name?: string
+          schema?: Json
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_blog_authors: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          employee_id: string | null
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          socials: Json | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          employee_id?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          socials?: Json | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          employee_id?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          socials?: Json | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_blog_authors_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_blog_authors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_blog_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          parent_id: string | null
+          seo: Json | null
+          slug: string
+          sort_order: number
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          parent_id?: string | null
+          seo?: Json | null
+          slug: string
+          sort_order?: number
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          parent_id?: string | null
+          seo?: Json | null
+          slug?: string
+          sort_order?: number
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_blog_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "cms_blog_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_blog_categories_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_blog_post_tags: {
+        Row: {
+          post_id: string
+          tag_id: string
+        }
+        Insert: {
+          post_id: string
+          tag_id: string
+        }
+        Update: {
+          post_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_blog_post_tags_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "cms_blog_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_blog_post_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "cms_blog_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_blog_posts: {
+        Row: {
+          author_id: string | null
+          body_blocks: Json
+          body_text: string | null
+          category_id: string | null
+          cover_url: string | null
+          created_at: string
+          created_by: string | null
+          excerpt: string | null
+          id: string
+          publish_at: string | null
+          published_at: string | null
+          reading_minutes: number | null
+          seo: Json | null
+          slug: string
+          status: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          author_id?: string | null
+          body_blocks?: Json
+          body_text?: string | null
+          category_id?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          excerpt?: string | null
+          id?: string
+          publish_at?: string | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          seo?: Json | null
+          slug: string
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          author_id?: string | null
+          body_blocks?: Json
+          body_text?: string | null
+          category_id?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          excerpt?: string | null
+          id?: string
+          publish_at?: string | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          seo?: Json | null
+          slug?: string
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "cms_blog_authors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_blog_posts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "cms_blog_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_blog_posts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_blog_tags: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_blog_tags_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_doctors: {
+        Row: {
+          bio: string | null
+          clinics: Json | null
+          created_at: string
+          credentials: string[] | null
+          employee_id: string | null
+          gallery: Json | null
+          id: string
+          languages: string[] | null
+          name: string
+          photo_url: string | null
+          published_at: string | null
+          seo: Json | null
+          slug: string
+          sort_order: number
+          specialties: string[] | null
+          status: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          title: string | null
+          updated_at: string
+          years_experience: number | null
+        }
+        Insert: {
+          bio?: string | null
+          clinics?: Json | null
+          created_at?: string
+          credentials?: string[] | null
+          employee_id?: string | null
+          gallery?: Json | null
+          id?: string
+          languages?: string[] | null
+          name: string
+          photo_url?: string | null
+          published_at?: string | null
+          seo?: Json | null
+          slug: string
+          sort_order?: number
+          specialties?: string[] | null
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          title?: string | null
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Update: {
+          bio?: string | null
+          clinics?: Json | null
+          created_at?: string
+          credentials?: string[] | null
+          employee_id?: string | null
+          gallery?: Json | null
+          id?: string
+          languages?: string[] | null
+          name?: string
+          photo_url?: string | null
+          published_at?: string | null
+          seo?: Json | null
+          slug?: string
+          sort_order?: number
+          specialties?: string[] | null
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id?: string
+          title?: string | null
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_doctors_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_doctors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_franchise_offers: {
+        Row: {
+          area_sqft_max: number | null
+          area_sqft_min: number | null
+          benefits: Json | null
+          brochure_url: string | null
+          cities: string[] | null
+          cover_url: string | null
+          created_at: string
+          currency: string | null
+          description_blocks: Json
+          id: string
+          investment_max: number | null
+          investment_min: number | null
+          published_at: string | null
+          seo: Json | null
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["cms_status"]
+          summary: string | null
+          tenant_id: string
+          tier: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          area_sqft_max?: number | null
+          area_sqft_min?: number | null
+          benefits?: Json | null
+          brochure_url?: string | null
+          cities?: string[] | null
+          cover_url?: string | null
+          created_at?: string
+          currency?: string | null
+          description_blocks?: Json
+          id?: string
+          investment_max?: number | null
+          investment_min?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          summary?: string | null
+          tenant_id: string
+          tier?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          area_sqft_max?: number | null
+          area_sqft_min?: number | null
+          benefits?: Json | null
+          brochure_url?: string | null
+          cities?: string[] | null
+          cover_url?: string | null
+          created_at?: string
+          currency?: string | null
+          description_blocks?: Json
+          id?: string
+          investment_max?: number | null
+          investment_min?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          summary?: string | null
+          tenant_id?: string
+          tier?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_franchise_offers_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_media_assets: {
+        Row: {
+          alt_text: string | null
+          bucket: string
+          caption: string | null
+          created_at: string
+          created_by: string | null
+          document_id: string | null
+          focal_point: Json | null
+          folder: string | null
+          height: number | null
+          id: string
+          is_public: boolean
+          mime_type: string | null
+          size_bytes: number | null
+          storage_path: string
+          tags: string[] | null
+          tenant_id: string
+          updated_at: string
+          variants: Json | null
+          width: number | null
+        }
+        Insert: {
+          alt_text?: string | null
+          bucket?: string
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_id?: string | null
+          focal_point?: Json | null
+          folder?: string | null
+          height?: number | null
+          id?: string
+          is_public?: boolean
+          mime_type?: string | null
+          size_bytes?: number | null
+          storage_path: string
+          tags?: string[] | null
+          tenant_id: string
+          updated_at?: string
+          variants?: Json | null
+          width?: number | null
+        }
+        Update: {
+          alt_text?: string | null
+          bucket?: string
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_id?: string | null
+          focal_point?: Json | null
+          folder?: string | null
+          height?: number | null
+          id?: string
+          is_public?: boolean
+          mime_type?: string | null
+          size_bytes?: number | null
+          storage_path?: string
+          tags?: string[] | null
+          tenant_id?: string
+          updated_at?: string
+          variants?: Json | null
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_media_assets_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_media_assets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_navigation_menus: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          items: Json
+          location: string
+          name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items?: Json
+          location: string
+          name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items?: Json
+          location?: string
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_navigation_menus_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_page_revisions: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          page_id: string
+          snapshot: Json
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          page_id: string
+          snapshot: Json
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          page_id?: string
+          snapshot?: Json
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_page_revisions_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_pages: {
+        Row: {
+          blocks: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          og_image_url: string | null
+          parent_id: string | null
+          path: string
+          publish_at: string | null
+          published_at: string | null
+          seo: Json
+          slug: string
+          status: Database["public"]["Enums"]["cms_status"]
+          template: string
+          tenant_id: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          blocks?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          og_image_url?: string | null
+          parent_id?: string | null
+          path: string
+          publish_at?: string | null
+          published_at?: string | null
+          seo?: Json
+          slug: string
+          status?: Database["public"]["Enums"]["cms_status"]
+          template?: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          blocks?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          og_image_url?: string | null
+          parent_id?: string | null
+          path?: string
+          publish_at?: string | null
+          published_at?: string | null
+          seo?: Json
+          slug?: string
+          status?: Database["public"]["Enums"]["cms_status"]
+          template?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_pages_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_pages_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_products: {
+        Row: {
+          benefits: Json | null
+          brand: string | null
+          category: string | null
+          compare_at_price: number | null
+          cover_url: string | null
+          created_at: string
+          cta_url: string | null
+          currency: string | null
+          description_blocks: Json
+          gallery: Json | null
+          id: string
+          ingredients: Json | null
+          name: string
+          price: number | null
+          published_at: string | null
+          seo: Json | null
+          short_description: string | null
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          updated_at: string
+          usage: string | null
+        }
+        Insert: {
+          benefits?: Json | null
+          brand?: string | null
+          category?: string | null
+          compare_at_price?: number | null
+          cover_url?: string | null
+          created_at?: string
+          cta_url?: string | null
+          currency?: string | null
+          description_blocks?: Json
+          gallery?: Json | null
+          id?: string
+          ingredients?: Json | null
+          name: string
+          price?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          short_description?: string | null
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id: string
+          updated_at?: string
+          usage?: string | null
+        }
+        Update: {
+          benefits?: Json | null
+          brand?: string | null
+          category?: string | null
+          compare_at_price?: number | null
+          cover_url?: string | null
+          created_at?: string
+          cta_url?: string | null
+          currency?: string | null
+          description_blocks?: Json
+          gallery?: Json | null
+          id?: string
+          ingredients?: Json | null
+          name?: string
+          price?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          short_description?: string | null
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          tenant_id?: string
+          updated_at?: string
+          usage?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_products_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_redirects: {
+        Row: {
+          created_at: string
+          from_path: string
+          id: string
+          is_active: boolean
+          notes: string | null
+          status_code: number
+          tenant_id: string
+          to_path: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          from_path: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          status_code?: number
+          tenant_id: string
+          to_path: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          from_path?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          status_code?: number
+          tenant_id?: string
+          to_path?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_redirects_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_sites: {
+        Row: {
+          accent_color: string | null
+          address: Json | null
+          brand_name: string
+          contact_email: string | null
+          contact_phone: string | null
+          created_at: string
+          default_seo: Json | null
+          favicon_url: string | null
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          primary_color: string | null
+          robots_directives: string | null
+          socials: Json | null
+          tagline: string | null
+          tenant_id: string
+          tracking: Json | null
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string | null
+          address?: Json | null
+          brand_name?: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          default_seo?: Json | null
+          favicon_url?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          primary_color?: string | null
+          robots_directives?: string | null
+          socials?: Json | null
+          tagline?: string | null
+          tenant_id: string
+          tracking?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string | null
+          address?: Json | null
+          brand_name?: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          default_seo?: Json | null
+          favicon_url?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          primary_color?: string | null
+          robots_directives?: string | null
+          socials?: Json | null
+          tagline?: string | null
+          tenant_id?: string
+          tracking?: Json | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_sites_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: true
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_treatment_doctors: {
+        Row: {
+          doctor_id: string
+          treatment_id: string
+        }
+        Insert: {
+          doctor_id: string
+          treatment_id: string
+        }
+        Update: {
+          doctor_id?: string
+          treatment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_treatment_doctors_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "cms_doctors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_treatment_doctors_treatment_id_fkey"
+            columns: ["treatment_id"]
+            isOneToOne: false
+            referencedRelation: "cms_treatments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_treatments: {
+        Row: {
+          before_after: Json | null
+          benefits: Json | null
+          category: string | null
+          cover_url: string | null
+          created_at: string
+          description_blocks: Json
+          duration_minutes: number | null
+          faq: Json | null
+          gallery: Json | null
+          id: string
+          name: string
+          price_currency: string | null
+          price_from: number | null
+          price_to: number | null
+          published_at: string | null
+          seo: Json | null
+          slug: string
+          sort_order: number
+          status: Database["public"]["Enums"]["cms_status"]
+          summary: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          before_after?: Json | null
+          benefits?: Json | null
+          category?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description_blocks?: Json
+          duration_minutes?: number | null
+          faq?: Json | null
+          gallery?: Json | null
+          id?: string
+          name: string
+          price_currency?: string | null
+          price_from?: number | null
+          price_to?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          summary?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          before_after?: Json | null
+          benefits?: Json | null
+          category?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description_blocks?: Json
+          duration_minutes?: number | null
+          faq?: Json | null
+          gallery?: Json | null
+          id?: string
+          name?: string
+          price_currency?: string | null
+          price_from?: number | null
+          price_to?: number | null
+          published_at?: string | null
+          seo?: Json | null
+          slug?: string
+          sort_order?: number
+          status?: Database["public"]["Enums"]["cms_status"]
+          summary?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_treatments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           brand_name: string | null
@@ -4174,6 +5332,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_manage_cms: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       current_tenant_id: { Args: never; Returns: string }
       emit_automation_event: {
         Args: {
@@ -4257,6 +5419,13 @@ export type Database = {
       text2ltree: { Args: { "": string }; Returns: unknown }
     }
     Enums: {
+      cms_appointment_status:
+        | "new"
+        | "contacted"
+        | "scheduled"
+        | "cancelled"
+        | "converted"
+      cms_status: "draft" | "scheduled" | "published" | "archived"
       org_unit_type:
         | "platform"
         | "corporate"
@@ -4393,6 +5562,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      cms_appointment_status: [
+        "new",
+        "contacted",
+        "scheduled",
+        "cancelled",
+        "converted",
+      ],
+      cms_status: ["draft", "scheduled", "published", "archived"],
       org_unit_type: [
         "platform",
         "corporate",

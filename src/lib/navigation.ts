@@ -12,6 +12,7 @@ import {
   Settings,
   Workflow,
   Database,
+  Globe,
 } from "lucide-react";
 
 import { ROLES, type RoleCode } from "./rbac";
@@ -65,6 +66,18 @@ export const NAV_GROUPS: NavGroup[] = [
         to: "/data",
         icon: Database,
         roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
+      },
+    ],
+  },
+
+  {
+    label: "Website",
+    items: [
+      {
+        label: "Enterprise CMS",
+        to: "/cms",
+        icon: Globe,
+        permission: "cms:manage",
       },
     ],
   },
