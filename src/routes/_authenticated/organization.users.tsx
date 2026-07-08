@@ -130,15 +130,18 @@ function UsersPage() {
                   <TableCell className="font-mono text-xs">{u.email}</TableCell>
                   <TableCell>
                     <div className="flex flex-wrap gap-1">
-                      {u.roles.length === 0 ? (
-                        <span className="text-xs text-muted-foreground">no roles</span>
-                      ) : (
-                        u.roles.map((r, i) => (
-                          <Badge key={`${r.role_code}-${i}`} variant="secondary" className="text-[10px]">
-                            {r.role_code}
-                          </Badge>
-                        ))
-                      )}
+                      {(() => {
+                        const visible = u.roles.filter((r) => !isHiddenRole(r.role_code));
+                        return visible.length === 0 ? (
+                          <span className="text-xs text-muted-foreground">no roles</span>
+                        ) : (
+                          visible.map((r, i) => (
+                            <Badge key={`${r.role_code}-${i}`} variant="secondary" className="text-[10px]">
+                              {r.role_code}
+                            </Badge>
+                          ))
+                        );
+                      })()}
                     </div>
                   </TableCell>
                   <TableCell>
