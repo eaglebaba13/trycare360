@@ -745,14 +745,16 @@ export const dataFoundationDashboard = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => z.object({ tenantId: z.string().uuid() }).parse(d))
   .handler(async ({ context, data }) => {
     const tenant = data.tenantId;
-    const counts = async (table: string, filter?: (q: unknown) => unknown) => {
-      // biome-ignore lint/suspicious/noExplicitAny: dynamic table
-      let q: any = context.supabase.from(table).select("*", { count: "exact", head: true }).eq("tenant_id", tenant);
-      if (filter) q = filter(q);
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic-table counts
+    const sb = context.supabase as any;
+    const counts = async (table: string, tenantScoped = true) => {
+      let q = sb.from(table).select("*", { count: "exact", head: true });
+      if (tenantScoped) q = q.eq("tenant_id", tenant);
       const { count, error } = await q;
       if (error) throw new Error(`${table}: ${error.message}`);
-      return count ?? 0;
+      return (count ?? 0) as number;
     };
+
     const [timeline, documents, notes, indexed, layouts, reports, kpis, snapshots, audit24h] =
       await Promise.all([
         counts("timeline_events"),
