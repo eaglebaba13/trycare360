@@ -12,6 +12,7 @@ import {
   Settings,
   Workflow,
   Database,
+  Globe,
 } from "lucide-react";
 
 import { ROLES, type RoleCode } from "./rbac";
