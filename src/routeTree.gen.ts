@@ -20,16 +20,20 @@ import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_au
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
+import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
 import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
 import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './routes/_authenticated/settings.integrations.index'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
+import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './routes/_authenticated/settings.integrations.catalog'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
+import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -91,6 +95,12 @@ const AuthenticatedSettingsMastersRoute =
     path: '/masters',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSettingsIntegrationsRoute =
+  AuthenticatedSettingsIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
+    getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
 const AuthenticatedSettingsGlobalRoute =
   AuthenticatedSettingsGlobalRouteImport.update({
     id: '/global',
@@ -127,6 +137,12 @@ const AuthenticatedOrganizationDepartmentsRoute =
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
+const AuthenticatedSettingsIntegrationsIndexRoute =
+  AuthenticatedSettingsIntegrationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
 const AuthenticatedSettingsCompaniesIndexRoute =
   AuthenticatedSettingsCompaniesIndexRouteImport.update({
     id: '/companies/',
@@ -144,11 +160,23 @@ const ApiPublicIntegrationsProcessJobsRoute =
     path: '/api/public/integrations/process-jobs',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedSettingsIntegrationsCatalogRoute =
+  AuthenticatedSettingsIntegrationsCatalogRouteImport.update({
+    id: '/catalog',
+    path: '/catalog',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
+  } as any)
 const AuthenticatedSettingsCompaniesCompanyIdRoute =
   AuthenticatedSettingsCompaniesCompanyIdRouteImport.update({
     id: '/companies/$companyId',
     path: '/companies/$companyId',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSettingsIntegrationsConnectionsIndexRoute =
+  AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport.update({
+    id: '/connections/',
+    path: '/connections/',
+    getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -163,15 +191,19 @@ export interface FileRoutesByFullPath {
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
+  '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
+  '/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -189,9 +221,12 @@ export interface FileRoutesByTo {
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
+  '/settings/integrations': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/settings/integrations/connections': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -207,15 +242,19 @@ export interface FileRoutesById {
   '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
+  '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
+  '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
+  '/_authenticated/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
+  '/_authenticated/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -231,15 +270,19 @@ export interface FileRouteTypes {
     | '/organization/tree'
     | '/organization/users'
     | '/settings/global'
+    | '/settings/integrations'
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
+    | '/settings/integrations/catalog'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies/'
+    | '/settings/integrations/'
+    | '/settings/integrations/connections/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -257,9 +300,12 @@ export interface FileRouteTypes {
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
+    | '/settings/integrations/catalog'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies'
+    | '/settings/integrations'
+    | '/settings/integrations/connections'
   id:
     | '__root__'
     | '/'
@@ -274,15 +320,19 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/tree'
     | '/_authenticated/organization/users'
     | '/_authenticated/settings/global'
+    | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
+    | '/_authenticated/settings/integrations/catalog'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/_authenticated/settings/companies/'
+    | '/_authenticated/settings/integrations/'
+    | '/_authenticated/settings/integrations/connections/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -372,6 +422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsMastersRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/settings/integrations': {
+      id: '/_authenticated/settings/integrations'
+      path: '/integrations'
+      fullPath: '/settings/integrations'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsRouteImport
+      parentRoute: typeof AuthenticatedSettingsRoute
+    }
     '/_authenticated/settings/global': {
       id: '/_authenticated/settings/global'
       path: '/global'
@@ -414,6 +471,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
     }
+    '/_authenticated/settings/integrations/': {
+      id: '/_authenticated/settings/integrations/'
+      path: '/'
+      fullPath: '/settings/integrations/'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsIndexRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
     '/_authenticated/settings/companies/': {
       id: '/_authenticated/settings/companies/'
       path: '/companies'
@@ -435,12 +499,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicIntegrationsProcessJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/settings/integrations/catalog': {
+      id: '/_authenticated/settings/integrations/catalog'
+      path: '/catalog'
+      fullPath: '/settings/integrations/catalog'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsCatalogRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
+    }
     '/_authenticated/settings/companies/$companyId': {
       id: '/_authenticated/settings/companies/$companyId'
       path: '/companies/$companyId'
       fullPath: '/settings/companies/$companyId'
       preLoaderRoute: typeof AuthenticatedSettingsCompaniesCompanyIdRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/settings/integrations/connections/': {
+      id: '/_authenticated/settings/integrations/connections/'
+      path: '/connections'
+      fullPath: '/settings/integrations/connections/'
+      preLoaderRoute: typeof AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport
+      parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
     }
   }
 }
@@ -471,8 +549,30 @@ const AuthenticatedOrganizationRouteWithChildren =
     AuthenticatedOrganizationRouteChildren,
   )
 
+interface AuthenticatedSettingsIntegrationsRouteChildren {
+  AuthenticatedSettingsIntegrationsCatalogRoute: typeof AuthenticatedSettingsIntegrationsCatalogRoute
+  AuthenticatedSettingsIntegrationsIndexRoute: typeof AuthenticatedSettingsIntegrationsIndexRoute
+  AuthenticatedSettingsIntegrationsConnectionsIndexRoute: typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
+}
+
+const AuthenticatedSettingsIntegrationsRouteChildren: AuthenticatedSettingsIntegrationsRouteChildren =
+  {
+    AuthenticatedSettingsIntegrationsCatalogRoute:
+      AuthenticatedSettingsIntegrationsCatalogRoute,
+    AuthenticatedSettingsIntegrationsIndexRoute:
+      AuthenticatedSettingsIntegrationsIndexRoute,
+    AuthenticatedSettingsIntegrationsConnectionsIndexRoute:
+      AuthenticatedSettingsIntegrationsConnectionsIndexRoute,
+  }
+
+const AuthenticatedSettingsIntegrationsRouteWithChildren =
+  AuthenticatedSettingsIntegrationsRoute._addFileChildren(
+    AuthenticatedSettingsIntegrationsRouteChildren,
+  )
+
 interface AuthenticatedSettingsRouteChildren {
   AuthenticatedSettingsGlobalRoute: typeof AuthenticatedSettingsGlobalRoute
+  AuthenticatedSettingsIntegrationsRoute: typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   AuthenticatedSettingsMastersRoute: typeof AuthenticatedSettingsMastersRoute
   AuthenticatedSettingsPlatformRoute: typeof AuthenticatedSettingsPlatformRoute
   AuthenticatedSettingsTerritoryRoute: typeof AuthenticatedSettingsTerritoryRoute
@@ -483,6 +583,8 @@ interface AuthenticatedSettingsRouteChildren {
 
 const AuthenticatedSettingsRouteChildren: AuthenticatedSettingsRouteChildren = {
   AuthenticatedSettingsGlobalRoute: AuthenticatedSettingsGlobalRoute,
+  AuthenticatedSettingsIntegrationsRoute:
+    AuthenticatedSettingsIntegrationsRouteWithChildren,
   AuthenticatedSettingsMastersRoute: AuthenticatedSettingsMastersRoute,
   AuthenticatedSettingsPlatformRoute: AuthenticatedSettingsPlatformRoute,
   AuthenticatedSettingsTerritoryRoute: AuthenticatedSettingsTerritoryRoute,
