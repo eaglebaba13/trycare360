@@ -50,6 +50,121 @@ export type Database = {
         }
         Relationships: []
       }
+      analytics_kpis: {
+        Row: {
+          category: string
+          code: string
+          created_at: string
+          created_by: string | null
+          data_source: string | null
+          direction: string | null
+          formula: string | null
+          id: string
+          is_active: boolean
+          is_system: boolean
+          meta: Json
+          name: string
+          target: number | null
+          tenant_id: string | null
+          unit: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category: string
+          code: string
+          created_at?: string
+          created_by?: string | null
+          data_source?: string | null
+          direction?: string | null
+          formula?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          meta?: Json
+          name: string
+          target?: number | null
+          tenant_id?: string | null
+          unit?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          data_source?: string | null
+          direction?: string | null
+          formula?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          meta?: Json
+          name?: string
+          target?: number | null
+          tenant_id?: string | null
+          unit?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_kpis_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analytics_snapshots: {
+        Row: {
+          captured_at: string
+          dimensions: Json
+          id: number
+          kpi_code: string
+          period: string
+          period_end: string
+          period_start: string
+          target: number | null
+          tenant_id: string
+          value: number
+        }
+        Insert: {
+          captured_at?: string
+          dimensions?: Json
+          id?: number
+          kpi_code: string
+          period: string
+          period_end: string
+          period_start: string
+          target?: number | null
+          tenant_id: string
+          value: number
+        }
+        Update: {
+          captured_at?: string
+          dimensions?: Json
+          id?: number
+          kpi_code?: string
+          period?: string
+          period_end?: string
+          period_start?: string
+          target?: number | null
+          tenant_id?: string
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_snapshots_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       api_keys: {
         Row: {
           created_at: string
@@ -965,6 +1080,115 @@ export type Database = {
         }
         Relationships: []
       }
+      dashboard_layouts: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          is_default: boolean
+          name: string
+          role_code: string | null
+          scope: string
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+          user_id: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name: string
+          role_code?: string | null
+          scope?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name?: string
+          role_code?: string | null
+          scope?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_layouts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      dashboard_widgets: {
+        Row: {
+          config: Json
+          created_at: string
+          created_by: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          layout_id: string
+          position: Json
+          title: string
+          updated_at: string
+          updated_by: string | null
+          widget_type: string
+        }
+        Insert: {
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          layout_id: string
+          position?: Json
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+          widget_type: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          layout_id?: string
+          position?: Json
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+          widget_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dashboard_widgets_layout_id_fkey"
+            columns: ["layout_id"]
+            isOneToOne: false
+            referencedRelation: "dashboard_layouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       departments: {
         Row: {
           code: string
@@ -1124,6 +1348,284 @@ export type Database = {
             columns: ["state_id"]
             isOneToOne: false
             referencedRelation: "states"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_folders: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          is_system: boolean
+          name: string
+          parent_id: string | null
+          path: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_system?: boolean
+          name: string
+          parent_id?: string | null
+          path?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_system?: boolean
+          name?: string
+          parent_id?: string | null
+          path?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "document_folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_folders_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_links: {
+        Row: {
+          created_at: string
+          document_id: string
+          entity_id: string
+          entity_type: string
+          id: number
+        }
+        Insert: {
+          created_at?: string
+          document_id: string
+          entity_id: string
+          entity_type: string
+          id?: number
+        }
+        Update: {
+          created_at?: string
+          document_id?: string
+          entity_id?: string
+          entity_type?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_links_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_tag_map: {
+        Row: {
+          document_id: string
+          tag_id: string
+        }
+        Insert: {
+          document_id: string
+          tag_id: string
+        }
+        Update: {
+          document_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_tag_map_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_tag_map_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "document_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_tags: {
+        Row: {
+          color: string | null
+          id: string
+          name: string
+          tenant_id: string
+        }
+        Insert: {
+          color?: string | null
+          id?: string
+          name: string
+          tenant_id: string
+        }
+        Update: {
+          color?: string | null
+          id?: string
+          name?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_tags_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_versions: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          document_id: string
+          file_id: string | null
+          id: string
+          note: string | null
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          document_id: string
+          file_id?: string | null
+          id?: string
+          note?: string | null
+          version: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          document_id?: string
+          file_id?: string | null
+          id?: string
+          note?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_versions_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "document_versions_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "files"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          current_version: number
+          entity_id: string | null
+          entity_type: string | null
+          file_id: string | null
+          folder_id: string | null
+          id: string
+          meta: Json
+          name: string
+          ocr_text: string | null
+          signed_at: string | null
+          signed_by: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          visibility: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_version?: number
+          entity_id?: string | null
+          entity_type?: string | null
+          file_id?: string | null
+          folder_id?: string | null
+          id?: string
+          meta?: Json
+          name: string
+          ocr_text?: string | null
+          signed_at?: string | null
+          signed_by?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          visibility?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          current_version?: number
+          entity_id?: string | null
+          entity_type?: string | null
+          file_id?: string | null
+          folder_id?: string | null
+          id?: string
+          meta?: Json
+          name?: string
+          ocr_text?: string | null
+          signed_at?: string | null
+          signed_by?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "document_folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -2071,6 +2573,62 @@ export type Database = {
           },
         ]
       }
+      notes: {
+        Row: {
+          attachments: Json
+          body: string
+          created_at: string
+          created_by: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          mentions: string[]
+          pinned: boolean
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          visibility: string
+        }
+        Insert: {
+          attachments?: Json
+          body: string
+          created_at?: string
+          created_by?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          mentions?: string[]
+          pinned?: boolean
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          visibility?: string
+        }
+        Update: {
+          attachments?: Json
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          mentions?: string[]
+          pinned?: boolean
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          visibility?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notes_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notification_prefs: {
         Row: {
           channel: string
@@ -2436,6 +2994,213 @@ export type Database = {
           },
         ]
       }
+      report_definitions: {
+        Row: {
+          code: string
+          columns: Json
+          created_at: string
+          created_by: string | null
+          data_source: string
+          description: string | null
+          filters: Json
+          group_by: Json
+          id: string
+          is_active: boolean
+          is_system: boolean
+          layout: Json
+          module: string | null
+          name: string
+          sort: Json
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          columns?: Json
+          created_at?: string
+          created_by?: string | null
+          data_source: string
+          description?: string | null
+          filters?: Json
+          group_by?: Json
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          layout?: Json
+          module?: string | null
+          name: string
+          sort?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          columns?: Json
+          created_at?: string
+          created_by?: string | null
+          data_source?: string
+          description?: string | null
+          filters?: Json
+          group_by?: Json
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          layout?: Json
+          module?: string | null
+          name?: string
+          sort?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_definitions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      report_runs: {
+        Row: {
+          created_at: string
+          error: string | null
+          file_id: string | null
+          finished_at: string | null
+          format: string
+          id: string
+          params: Json
+          report_id: string
+          requested_by: string | null
+          row_count: number | null
+          started_at: string | null
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          file_id?: string | null
+          finished_at?: string | null
+          format?: string
+          id?: string
+          params?: Json
+          report_id: string
+          requested_by?: string | null
+          row_count?: number | null
+          started_at?: string | null
+          status?: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          file_id?: string | null
+          finished_at?: string | null
+          format?: string
+          id?: string
+          params?: Json
+          report_id?: string
+          requested_by?: string | null
+          row_count?: number | null
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_runs_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_runs_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "report_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_runs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      report_schedules: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          cron: string
+          format: string
+          id: string
+          is_active: boolean
+          last_run_at: string | null
+          next_run_at: string | null
+          params: Json
+          recipients: Json
+          report_id: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          cron: string
+          format?: string
+          id?: string
+          is_active?: boolean
+          last_run_at?: string | null
+          next_run_at?: string | null
+          params?: Json
+          recipients?: Json
+          report_id: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          cron?: string
+          format?: string
+          id?: string
+          is_active?: boolean
+          last_run_at?: string | null
+          next_run_at?: string | null
+          params?: Json
+          recipients?: Json
+          report_id?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_schedules_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "report_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_schedules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       role_history: {
         Row: {
           action: string
@@ -2575,6 +3340,59 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "rule_sets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      search_index: {
+        Row: {
+          body: string | null
+          entity_id: string
+          entity_type: string
+          id: number
+          keywords: string | null
+          meta: Json
+          subtitle: string | null
+          tenant_id: string
+          title: string
+          tsv: unknown
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          body?: string | null
+          entity_id: string
+          entity_type: string
+          id?: number
+          keywords?: string | null
+          meta?: Json
+          subtitle?: string | null
+          tenant_id: string
+          title: string
+          tsv?: unknown
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          body?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: number
+          keywords?: string | null
+          meta?: Json
+          subtitle?: string | null
+          tenant_id?: string
+          title?: string
+          tsv?: unknown
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "search_index_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -3059,6 +3877,56 @@ export type Database = {
         }
         Relationships: []
       }
+      timeline_events: {
+        Row: {
+          actor_id: string | null
+          actor_label: string | null
+          body: string | null
+          entity_id: string
+          entity_type: string
+          event_type: string
+          id: number
+          meta: Json
+          tenant_id: string
+          title: string
+          ts: string
+        }
+        Insert: {
+          actor_id?: string | null
+          actor_label?: string | null
+          body?: string | null
+          entity_id: string
+          entity_type: string
+          event_type: string
+          id?: number
+          meta?: Json
+          tenant_id: string
+          title: string
+          ts?: string
+        }
+        Update: {
+          actor_id?: string | null
+          actor_label?: string | null
+          body?: string | null
+          entity_id?: string
+          entity_type?: string
+          event_type?: string
+          id?: number
+          meta?: Json
+          tenant_id?: string
+          title?: string
+          ts?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "timeline_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -3332,11 +4200,53 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      index_search_entity: {
+        Args: {
+          _body?: string
+          _entity_id: string
+          _entity_type: string
+          _keywords?: string
+          _meta?: Json
+          _subtitle?: string
+          _tenant_id: string
+          _title: string
+          _url?: string
+        }
+        Returns: undefined
+      }
       is_config_admin: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      log_timeline_event: {
+        Args: {
+          _body?: string
+          _entity_id: string
+          _entity_type: string
+          _event_type: string
+          _meta?: Json
+          _tenant_id: string
+          _title: string
+        }
+        Returns: number
+      }
       move_org_unit: {
         Args: { _new_parent_id: string; _unit_id: string }
         Returns: undefined
+      }
+      search_global: {
+        Args: {
+          _entity_types?: string[]
+          _limit?: number
+          _query: string
+          _tenant_id: string
+        }
+        Returns: {
+          entity_id: string
+          entity_type: string
+          rank: number
+          subtitle: string
+          title: string
+          url: string
+        }[]
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }

@@ -14,10 +14,12 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
+import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
+import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
@@ -29,6 +31,15 @@ import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_aut
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedDataWidgetsRouteImport } from './routes/_authenticated/data.widgets'
+import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
+import { Route as AuthenticatedDataSearchRouteImport } from './routes/_authenticated/data.search'
+import { Route as AuthenticatedDataReportsRouteImport } from './routes/_authenticated/data.reports'
+import { Route as AuthenticatedDataNotesRouteImport } from './routes/_authenticated/data.notes'
+import { Route as AuthenticatedDataFilesRouteImport } from './routes/_authenticated/data.files'
+import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authenticated/data.documents'
+import { Route as AuthenticatedDataAuditRouteImport } from './routes/_authenticated/data.audit'
+import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -76,6 +87,11 @@ const AuthenticatedOrganizationRoute =
     path: '/organization',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedDataRoute = AuthenticatedDataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -98,6 +114,11 @@ const AuthenticatedOrganizationIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
+const AuthenticatedDataIndexRoute = AuthenticatedDataIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
 const AuthenticatedAutomationIndexRoute =
   AuthenticatedAutomationIndexRouteImport.update({
     id: '/',
@@ -163,6 +184,56 @@ const AuthenticatedOrganizationDepartmentsRoute =
     id: '/departments',
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedDataWidgetsRoute =
+  AuthenticatedDataWidgetsRouteImport.update({
+    id: '/widgets',
+    path: '/widgets',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
+const AuthenticatedDataTimelineRoute =
+  AuthenticatedDataTimelineRouteImport.update({
+    id: '/timeline',
+    path: '/timeline',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
+const AuthenticatedDataSearchRoute = AuthenticatedDataSearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
+const AuthenticatedDataReportsRoute =
+  AuthenticatedDataReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
+const AuthenticatedDataNotesRoute = AuthenticatedDataNotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
+const AuthenticatedDataFilesRoute = AuthenticatedDataFilesRouteImport.update({
+  id: '/files',
+  path: '/files',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
+const AuthenticatedDataDocumentsRoute =
+  AuthenticatedDataDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
+const AuthenticatedDataAuditRoute = AuthenticatedDataAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AuthenticatedDataRoute,
+} as any)
+const AuthenticatedDataAnalyticsRoute =
+  AuthenticatedDataAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedDataRoute,
   } as any)
 const AuthenticatedAutomationWorkflowsRoute =
   AuthenticatedAutomationWorkflowsRouteImport.update({
@@ -295,6 +366,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -307,6 +379,15 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
+  '/data/audit': typeof AuthenticatedDataAuditRoute
+  '/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/data/files': typeof AuthenticatedDataFilesRoute
+  '/data/notes': typeof AuthenticatedDataNotesRoute
+  '/data/reports': typeof AuthenticatedDataReportsRoute
+  '/data/search': typeof AuthenticatedDataSearchRoute
+  '/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -318,6 +399,7 @@ export interface FileRoutesByFullPath {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -346,6 +428,15 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
+  '/data/audit': typeof AuthenticatedDataAuditRoute
+  '/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/data/files': typeof AuthenticatedDataFilesRoute
+  '/data/notes': typeof AuthenticatedDataNotesRoute
+  '/data/reports': typeof AuthenticatedDataReportsRoute
+  '/data/search': typeof AuthenticatedDataSearchRoute
+  '/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -356,6 +447,7 @@ export interface FileRoutesByTo {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
+  '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -377,6 +469,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -389,6 +482,15 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
+  '/_authenticated/data/audit': typeof AuthenticatedDataAuditRoute
+  '/_authenticated/data/documents': typeof AuthenticatedDataDocumentsRoute
+  '/_authenticated/data/files': typeof AuthenticatedDataFilesRoute
+  '/_authenticated/data/notes': typeof AuthenticatedDataNotesRoute
+  '/_authenticated/data/reports': typeof AuthenticatedDataReportsRoute
+  '/_authenticated/data/search': typeof AuthenticatedDataSearchRoute
+  '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
+  '/_authenticated/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -400,6 +502,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -421,6 +524,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/automation'
     | '/dashboard'
+    | '/data'
     | '/organization'
     | '/settings'
     | '/automation/approvals'
@@ -433,6 +537,15 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/analytics'
+    | '/data/audit'
+    | '/data/documents'
+    | '/data/files'
+    | '/data/notes'
+    | '/data/reports'
+    | '/data/search'
+    | '/data/timeline'
+    | '/data/widgets'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -444,6 +557,7 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/automation/'
+    | '/data/'
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
@@ -472,6 +586,15 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/data/analytics'
+    | '/data/audit'
+    | '/data/documents'
+    | '/data/files'
+    | '/data/notes'
+    | '/data/reports'
+    | '/data/search'
+    | '/data/timeline'
+    | '/data/widgets'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -482,6 +605,7 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/automation'
+    | '/data'
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
@@ -502,6 +626,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/automation'
     | '/_authenticated/dashboard'
+    | '/_authenticated/data'
     | '/_authenticated/organization'
     | '/_authenticated/settings'
     | '/_authenticated/automation/approvals'
@@ -514,6 +639,15 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/data/analytics'
+    | '/_authenticated/data/audit'
+    | '/_authenticated/data/documents'
+    | '/_authenticated/data/files'
+    | '/_authenticated/data/notes'
+    | '/_authenticated/data/reports'
+    | '/_authenticated/data/search'
+    | '/_authenticated/data/timeline'
+    | '/_authenticated/data/widgets'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
     | '/_authenticated/organization/roles'
@@ -525,6 +659,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
     | '/_authenticated/automation/'
+    | '/_authenticated/data/'
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
@@ -585,6 +720,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/data': {
+      id: '/_authenticated/data'
+      path: '/data'
+      fullPath: '/data'
+      preLoaderRoute: typeof AuthenticatedDataRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -612,6 +754,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/'
       preLoaderRoute: typeof AuthenticatedOrganizationIndexRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/data/': {
+      id: '/_authenticated/data/'
+      path: '/'
+      fullPath: '/data/'
+      preLoaderRoute: typeof AuthenticatedDataIndexRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
     }
     '/_authenticated/automation/': {
       id: '/_authenticated/automation/'
@@ -689,6 +838,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/departments'
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/data/widgets': {
+      id: '/_authenticated/data/widgets'
+      path: '/widgets'
+      fullPath: '/data/widgets'
+      preLoaderRoute: typeof AuthenticatedDataWidgetsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/timeline': {
+      id: '/_authenticated/data/timeline'
+      path: '/timeline'
+      fullPath: '/data/timeline'
+      preLoaderRoute: typeof AuthenticatedDataTimelineRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/search': {
+      id: '/_authenticated/data/search'
+      path: '/search'
+      fullPath: '/data/search'
+      preLoaderRoute: typeof AuthenticatedDataSearchRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/reports': {
+      id: '/_authenticated/data/reports'
+      path: '/reports'
+      fullPath: '/data/reports'
+      preLoaderRoute: typeof AuthenticatedDataReportsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/notes': {
+      id: '/_authenticated/data/notes'
+      path: '/notes'
+      fullPath: '/data/notes'
+      preLoaderRoute: typeof AuthenticatedDataNotesRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/files': {
+      id: '/_authenticated/data/files'
+      path: '/files'
+      fullPath: '/data/files'
+      preLoaderRoute: typeof AuthenticatedDataFilesRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/documents': {
+      id: '/_authenticated/data/documents'
+      path: '/documents'
+      fullPath: '/data/documents'
+      preLoaderRoute: typeof AuthenticatedDataDocumentsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/audit': {
+      id: '/_authenticated/data/audit'
+      path: '/audit'
+      fullPath: '/data/audit'
+      preLoaderRoute: typeof AuthenticatedDataAuditRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/data/analytics': {
+      id: '/_authenticated/data/analytics'
+      path: '/analytics'
+      fullPath: '/data/analytics'
+      preLoaderRoute: typeof AuthenticatedDataAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedDataRoute
     }
     '/_authenticated/automation/workflows': {
       id: '/_authenticated/automation/workflows'
@@ -878,6 +1090,35 @@ const AuthenticatedAutomationRouteWithChildren =
     AuthenticatedAutomationRouteChildren,
   )
 
+interface AuthenticatedDataRouteChildren {
+  AuthenticatedDataAnalyticsRoute: typeof AuthenticatedDataAnalyticsRoute
+  AuthenticatedDataAuditRoute: typeof AuthenticatedDataAuditRoute
+  AuthenticatedDataDocumentsRoute: typeof AuthenticatedDataDocumentsRoute
+  AuthenticatedDataFilesRoute: typeof AuthenticatedDataFilesRoute
+  AuthenticatedDataNotesRoute: typeof AuthenticatedDataNotesRoute
+  AuthenticatedDataReportsRoute: typeof AuthenticatedDataReportsRoute
+  AuthenticatedDataSearchRoute: typeof AuthenticatedDataSearchRoute
+  AuthenticatedDataTimelineRoute: typeof AuthenticatedDataTimelineRoute
+  AuthenticatedDataWidgetsRoute: typeof AuthenticatedDataWidgetsRoute
+  AuthenticatedDataIndexRoute: typeof AuthenticatedDataIndexRoute
+}
+
+const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
+  AuthenticatedDataAnalyticsRoute: AuthenticatedDataAnalyticsRoute,
+  AuthenticatedDataAuditRoute: AuthenticatedDataAuditRoute,
+  AuthenticatedDataDocumentsRoute: AuthenticatedDataDocumentsRoute,
+  AuthenticatedDataFilesRoute: AuthenticatedDataFilesRoute,
+  AuthenticatedDataNotesRoute: AuthenticatedDataNotesRoute,
+  AuthenticatedDataReportsRoute: AuthenticatedDataReportsRoute,
+  AuthenticatedDataSearchRoute: AuthenticatedDataSearchRoute,
+  AuthenticatedDataTimelineRoute: AuthenticatedDataTimelineRoute,
+  AuthenticatedDataWidgetsRoute: AuthenticatedDataWidgetsRoute,
+  AuthenticatedDataIndexRoute: AuthenticatedDataIndexRoute,
+}
+
+const AuthenticatedDataRouteWithChildren =
+  AuthenticatedDataRoute._addFileChildren(AuthenticatedDataRouteChildren)
+
 interface AuthenticatedOrganizationRouteChildren {
   AuthenticatedOrganizationDepartmentsRoute: typeof AuthenticatedOrganizationDepartmentsRoute
   AuthenticatedOrganizationEmployeesRoute: typeof AuthenticatedOrganizationEmployeesRoute
@@ -970,6 +1211,7 @@ const AuthenticatedSettingsRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
@@ -977,6 +1219,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
 }

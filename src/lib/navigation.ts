@@ -11,7 +11,9 @@ import {
   FileText,
   Settings,
   Workflow,
+  Database,
 } from "lucide-react";
+
 import { ROLES, type RoleCode } from "./rbac";
 
 export type NavItem = {
@@ -58,8 +60,15 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Workflow,
         roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
       },
+      {
+        label: "Data Foundation",
+        to: "/data",
+        icon: Database,
+        roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
+      },
     ],
   },
+
   {
     label: "Configuration",
     items: [
