@@ -93,7 +93,7 @@ export const testConnection = createServerFn({ method: "POST" })
       .update({ status: newStatus, last_sync_at: new Date().toISOString(), last_error: result.ok ? null : "error" in result ? result.error : null })
       .eq("id", data.id);
     // Serialize `result` as JSON-safe.
-    return JSON.parse(JSON.stringify(result)) as { ok: boolean; latencyMs: number; error?: string; result?: unknown };
+    return JSON.parse(JSON.stringify(result)) as { ok: boolean; latencyMs: number; error?: string; result?: unknown } as never;
   });
 
 // ---------- Webhooks ----------
