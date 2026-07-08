@@ -10,6 +10,7 @@ import {
   Bell,
   FileText,
   Settings,
+  Workflow,
 } from "lucide-react";
 import { ROLES, type RoleCode } from "./rbac";
 
@@ -46,6 +47,17 @@ export const NAV_GROUPS: NavGroup[] = [
       { label: "Users", to: "/organization/users", icon: Users, permission: "users:manage" },
       { label: "Roles & Permissions", to: "/organization/roles", icon: ShieldCheck, roles: [ROLES.SUPER_ADMIN] },
       { label: "Audit Log", to: "/admin/audit", icon: FileText, permission: "audit:read" },
+    ],
+  },
+  {
+    label: "Automation",
+    items: [
+      {
+        label: "Workflows & Automation",
+        to: "/automation",
+        icon: Workflow,
+        roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN],
+      },
     ],
   },
   {

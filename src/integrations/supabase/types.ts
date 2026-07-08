@@ -106,6 +106,166 @@ export type Database = {
           },
         ]
       }
+      approval_actions: {
+        Row: {
+          acted_at: string
+          action: string
+          actor_id: string | null
+          comment: string | null
+          id: string
+          level: number
+          meta: Json | null
+          request_id: string
+        }
+        Insert: {
+          acted_at?: string
+          action: string
+          actor_id?: string | null
+          comment?: string | null
+          id?: string
+          level: number
+          meta?: Json | null
+          request_id: string
+        }
+        Update: {
+          acted_at?: string
+          action?: string
+          actor_id?: string | null
+          comment?: string | null
+          id?: string
+          level?: number
+          meta?: Json | null
+          request_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_actions_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_definitions: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          entity: string | null
+          id: string
+          is_active: boolean
+          levels: Json
+          module: string | null
+          name: string
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          entity?: string | null
+          id?: string
+          is_active?: boolean
+          levels?: Json
+          module?: string | null
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          entity?: string | null
+          id?: string
+          is_active?: boolean
+          levels?: Json
+          module?: string | null
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_definitions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      approval_requests: {
+        Row: {
+          created_at: string
+          current_level: number
+          decided_at: string | null
+          definition_id: string
+          entity_ref: Json | null
+          id: string
+          payload: Json
+          reason: string | null
+          status: string
+          submitted_by: string | null
+          tenant_id: string
+          timeout_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_level?: number
+          decided_at?: string | null
+          definition_id: string
+          entity_ref?: Json | null
+          id?: string
+          payload?: Json
+          reason?: string | null
+          status?: string
+          submitted_by?: string | null
+          tenant_id: string
+          timeout_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_level?: number
+          decided_at?: string | null
+          definition_id?: string
+          entity_ref?: Json | null
+          id?: string
+          payload?: Json
+          reason?: string | null
+          status?: string
+          submitted_by?: string | null
+          tenant_id?: string
+          timeout_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "approval_requests_definition_id_fkey"
+            columns: ["definition_id"]
+            isOneToOne: false
+            referencedRelation: "approval_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "approval_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       areas: {
         Row: {
           city_id: string
@@ -191,6 +351,75 @@ export type Database = {
           user_agent?: string | null
         }
         Relationships: []
+      }
+      automation_triggers: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          event_filter: Json
+          event_type: string | null
+          id: string
+          is_active: boolean
+          last_fired_at: string | null
+          name: string
+          schedule_cron: string | null
+          tenant_id: string | null
+          trigger_type: string
+          updated_at: string
+          updated_by: string | null
+          workflow_id: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          event_filter?: Json
+          event_type?: string | null
+          id?: string
+          is_active?: boolean
+          last_fired_at?: string | null
+          name: string
+          schedule_cron?: string | null
+          tenant_id?: string | null
+          trigger_type: string
+          updated_at?: string
+          updated_by?: string | null
+          workflow_id?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          event_filter?: Json
+          event_type?: string | null
+          id?: string
+          is_active?: boolean
+          last_fired_at?: string | null
+          name?: string
+          schedule_cron?: string | null
+          tenant_id?: string | null
+          trigger_type?: string
+          updated_at?: string
+          updated_by?: string | null
+          workflow_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "automation_triggers_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "automation_triggers_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       bank_accounts: {
         Row: {
@@ -1089,6 +1318,116 @@ export type Database = {
           },
         ]
       }
+      form_definitions: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          entity: string | null
+          id: string
+          is_active: boolean
+          is_system: boolean
+          module: string | null
+          name: string
+          schema: Json
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          entity?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          module?: string | null
+          name: string
+          schema?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          entity?: string | null
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          module?: string | null
+          name?: string
+          schema?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_definitions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      form_submissions: {
+        Row: {
+          created_at: string
+          data: Json
+          entity_ref: Json | null
+          form_id: string
+          id: string
+          submitted_by: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json
+          entity_ref?: Json | null
+          form_id: string
+          id?: string
+          submitted_by?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          entity_ref?: Json | null
+          form_id?: string
+          id?: string
+          submitted_by?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_submissions_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "form_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "form_submissions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       global_settings: {
         Row: {
           category: string | null
@@ -1753,6 +2092,65 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_rules: {
+        Row: {
+          channels: string[]
+          code: string
+          condition: Json
+          created_at: string
+          created_by: string | null
+          event_type: string
+          id: string
+          is_active: boolean
+          name: string
+          recipients: Json
+          template_ids: Json
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          channels?: string[]
+          code: string
+          condition?: Json
+          created_at?: string
+          created_by?: string | null
+          event_type: string
+          id?: string
+          is_active?: boolean
+          name: string
+          recipients?: Json
+          template_ids?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          channels?: string[]
+          code?: string
+          condition?: Json
+          created_at?: string
+          created_by?: string | null
+          event_type?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          recipients?: Json
+          template_ids?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_rules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           action_url: string | null
@@ -2134,6 +2532,56 @@ export type Database = {
         }
         Relationships: []
       }
+      rule_sets: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          definition: Json
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          definition?: Json
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          definition?: Json
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rule_sets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sessions: {
         Row: {
           created_at: string
@@ -2166,6 +2614,137 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      sla_events: {
+        Row: {
+          breach_type: string | null
+          created_at: string
+          entity_ref: Json
+          escalated_at: string | null
+          id: string
+          policy_id: string
+          resolution_due_at: string | null
+          resolution_met_at: string | null
+          response_due_at: string | null
+          response_met_at: string | null
+          started_at: string
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          breach_type?: string | null
+          created_at?: string
+          entity_ref: Json
+          escalated_at?: string | null
+          id?: string
+          policy_id: string
+          resolution_due_at?: string | null
+          resolution_met_at?: string | null
+          response_due_at?: string | null
+          response_met_at?: string | null
+          started_at?: string
+          status?: string
+          tenant_id: string
+        }
+        Update: {
+          breach_type?: string | null
+          created_at?: string
+          entity_ref?: Json
+          escalated_at?: string | null
+          id?: string
+          policy_id?: string
+          resolution_due_at?: string | null
+          resolution_met_at?: string | null
+          response_due_at?: string | null
+          response_met_at?: string | null
+          started_at?: string
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sla_events_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "sla_policies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sla_events_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sla_policies: {
+        Row: {
+          applies_when: Json | null
+          breach_notify: Json
+          business_hours: Json
+          code: string
+          created_at: string
+          created_by: string | null
+          entity: string | null
+          escalation: Json
+          id: string
+          is_active: boolean
+          module: string | null
+          name: string
+          resolution_minutes: number | null
+          response_minutes: number | null
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          applies_when?: Json | null
+          breach_notify?: Json
+          business_hours?: Json
+          code: string
+          created_at?: string
+          created_by?: string | null
+          entity?: string | null
+          escalation?: Json
+          id?: string
+          is_active?: boolean
+          module?: string | null
+          name: string
+          resolution_minutes?: number | null
+          response_minutes?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          applies_when?: Json | null
+          breach_notify?: Json
+          business_hours?: Json
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          entity?: string | null
+          escalation?: Json
+          id?: string
+          is_active?: boolean
+          module?: string | null
+          name?: string
+          resolution_minutes?: number | null
+          response_minutes?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sla_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       states: {
         Row: {
@@ -2213,6 +2792,204 @@ export type Database = {
             columns: ["country_id"]
             isOneToOne: false
             referencedRelation: "countries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      task_comments: {
+        Row: {
+          author_id: string | null
+          body: string
+          created_at: string
+          id: string
+          task_id: string
+        }
+        Insert: {
+          author_id?: string | null
+          body: string
+          created_at?: string
+          id?: string
+          task_id: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: string
+          created_at?: string
+          id?: string
+          task_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_comments_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assignee_id: string | null
+          checklist: Json
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          description: string | null
+          due_at: string | null
+          entity_ref: Json | null
+          id: string
+          org_unit_id: string | null
+          parent_task_id: string | null
+          priority: string
+          recurrence: Json | null
+          reminder_at: string | null
+          source: string | null
+          source_ref: Json | null
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          assignee_id?: string | null
+          checklist?: Json
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          due_at?: string | null
+          entity_ref?: Json | null
+          id?: string
+          org_unit_id?: string | null
+          parent_task_id?: string | null
+          priority?: string
+          recurrence?: Json | null
+          reminder_at?: string | null
+          source?: string | null
+          source_ref?: Json | null
+          status?: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          assignee_id?: string | null
+          checklist?: Json
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          description?: string | null
+          due_at?: string | null
+          entity_ref?: Json | null
+          id?: string
+          org_unit_id?: string | null
+          parent_task_id?: string | null
+          priority?: string
+          recurrence?: Json | null
+          reminder_at?: string | null
+          source?: string | null
+          source_ref?: Json | null
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      templates: {
+        Row: {
+          body: string
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          provider_template_id: string | null
+          subject: string | null
+          tenant_id: string | null
+          type: string
+          updated_at: string
+          updated_by: string | null
+          variables: Json
+        }
+        Insert: {
+          body: string
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          provider_template_id?: string | null
+          subject?: string | null
+          tenant_id?: string | null
+          type: string
+          updated_at?: string
+          updated_by?: string | null
+          variables?: Json
+        }
+        Update: {
+          body?: string
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          provider_template_id?: string | null
+          subject?: string | null
+          tenant_id?: string | null
+          type?: string
+          updated_at?: string
+          updated_by?: string | null
+          variables?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
         ]
@@ -2340,12 +3117,205 @@ export type Database = {
           },
         ]
       }
+      workflow_definitions: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          graph: Json
+          id: string
+          is_active: boolean
+          is_system: boolean
+          module: string | null
+          name: string
+          tenant_id: string | null
+          trigger_config: Json
+          trigger_type: string
+          updated_at: string
+          updated_by: string | null
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          graph?: Json
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          module?: string | null
+          name: string
+          tenant_id?: string | null
+          trigger_config?: Json
+          trigger_type?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          graph?: Json
+          id?: string
+          is_active?: boolean
+          is_system?: boolean
+          module?: string | null
+          name?: string
+          tenant_id?: string | null
+          trigger_config?: Json
+          trigger_type?: string
+          updated_at?: string
+          updated_by?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_definitions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_runs: {
+        Row: {
+          context: Json
+          created_at: string
+          current_node_id: string | null
+          entity_ref: Json | null
+          error: string | null
+          finished_at: string | null
+          id: string
+          started_at: string
+          status: string
+          tenant_id: string
+          trigger_source: string | null
+          triggered_by: string | null
+          updated_at: string
+          workflow_id: string
+        }
+        Insert: {
+          context?: Json
+          created_at?: string
+          current_node_id?: string | null
+          entity_ref?: Json | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          started_at?: string
+          status?: string
+          tenant_id: string
+          trigger_source?: string | null
+          triggered_by?: string | null
+          updated_at?: string
+          workflow_id: string
+        }
+        Update: {
+          context?: Json
+          created_at?: string
+          current_node_id?: string | null
+          entity_ref?: Json | null
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          started_at?: string
+          status?: string
+          tenant_id?: string
+          trigger_source?: string | null
+          triggered_by?: string | null
+          updated_at?: string
+          workflow_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_runs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflow_runs_workflow_id_fkey"
+            columns: ["workflow_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_steps: {
+        Row: {
+          created_at: string
+          error: string | null
+          finished_at: string | null
+          id: string
+          input: Json | null
+          node_id: string
+          node_type: string
+          output: Json | null
+          run_id: string
+          started_at: string | null
+          status: string
+          wait_until: string | null
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          input?: Json | null
+          node_id: string
+          node_type: string
+          output?: Json | null
+          run_id: string
+          started_at?: string | null
+          status?: string
+          wait_until?: string | null
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          finished_at?: string | null
+          id?: string
+          input?: Json | null
+          node_id?: string
+          node_type?: string
+          output?: Json | null
+          run_id?: string
+          started_at?: string | null
+          status?: string
+          wait_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_steps_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       current_tenant_id: { Args: never; Returns: string }
+      emit_automation_event: {
+        Args: {
+          _entity_ref?: Json
+          _event_type: string
+          _payload?: Json
+          _tenant_id: string
+        }
+        Returns: number
+      }
       has_org_access: {
         Args: { _org_unit_id: string; _user_id: string }
         Returns: boolean
@@ -2370,6 +3340,10 @@ export type Database = {
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      start_workflow_run: {
+        Args: { _context?: Json; _entity_ref?: Json; _workflow_id: string }
+        Returns: string
+      }
       text2ltree: { Args: { "": string }; Returns: unknown }
     }
     Enums: {

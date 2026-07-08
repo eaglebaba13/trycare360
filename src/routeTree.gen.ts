@@ -15,8 +15,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
+import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
@@ -27,6 +29,16 @@ import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_aut
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
+import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
+import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
+import { Route as AuthenticatedAutomationTasksRouteImport } from './routes/_authenticated/automation.tasks'
+import { Route as AuthenticatedAutomationSlaRouteImport } from './routes/_authenticated/automation.sla'
+import { Route as AuthenticatedAutomationRunsRouteImport } from './routes/_authenticated/automation.runs'
+import { Route as AuthenticatedAutomationRulesRouteImport } from './routes/_authenticated/automation.rules'
+import { Route as AuthenticatedAutomationNotificationsRouteImport } from './routes/_authenticated/automation.notifications'
+import { Route as AuthenticatedAutomationFormsRouteImport } from './routes/_authenticated/automation.forms'
+import { Route as AuthenticatedAutomationApprovalsRouteImport } from './routes/_authenticated/automation.approvals'
 import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './routes/_authenticated/settings.integrations.index'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
@@ -69,6 +81,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAutomationRoute = AuthenticatedAutomationRouteImport.update({
+  id: '/automation',
+  path: '/automation',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
     id: '/',
@@ -80,6 +97,12 @@ const AuthenticatedOrganizationIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedAutomationIndexRoute =
+  AuthenticatedAutomationIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAutomationRoute,
   } as any)
 const AuthenticatedSettingsTerritoryRoute =
   AuthenticatedSettingsTerritoryRouteImport.update({
@@ -140,6 +163,66 @@ const AuthenticatedOrganizationDepartmentsRoute =
     id: '/departments',
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedAutomationWorkflowsRoute =
+  AuthenticatedAutomationWorkflowsRouteImport.update({
+    id: '/workflows',
+    path: '/workflows',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationTriggersRoute =
+  AuthenticatedAutomationTriggersRouteImport.update({
+    id: '/triggers',
+    path: '/triggers',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationTemplatesRoute =
+  AuthenticatedAutomationTemplatesRouteImport.update({
+    id: '/templates',
+    path: '/templates',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationTasksRoute =
+  AuthenticatedAutomationTasksRouteImport.update({
+    id: '/tasks',
+    path: '/tasks',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationSlaRoute =
+  AuthenticatedAutomationSlaRouteImport.update({
+    id: '/sla',
+    path: '/sla',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationRunsRoute =
+  AuthenticatedAutomationRunsRouteImport.update({
+    id: '/runs',
+    path: '/runs',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationRulesRoute =
+  AuthenticatedAutomationRulesRouteImport.update({
+    id: '/rules',
+    path: '/rules',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationNotificationsRoute =
+  AuthenticatedAutomationNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationFormsRoute =
+  AuthenticatedAutomationFormsRouteImport.update({
+    id: '/forms',
+    path: '/forms',
+    getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAutomationApprovalsRoute =
+  AuthenticatedAutomationApprovalsRouteImport.update({
+    id: '/approvals',
+    path: '/approvals',
+    getParentRoute: () => AuthenticatedAutomationRoute,
   } as any)
 const AuthenticatedSettingsIntegrationsIndexRoute =
   AuthenticatedSettingsIntegrationsIndexRouteImport.update({
@@ -210,9 +293,20 @@ const AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
+  '/automation/forms': typeof AuthenticatedAutomationFormsRoute
+  '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
+  '/automation/rules': typeof AuthenticatedAutomationRulesRoute
+  '/automation/runs': typeof AuthenticatedAutomationRunsRoute
+  '/automation/sla': typeof AuthenticatedAutomationSlaRoute
+  '/automation/tasks': typeof AuthenticatedAutomationTasksRoute
+  '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
+  '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
+  '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -223,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/automation/': typeof AuthenticatedAutomationIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -241,6 +336,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
+  '/automation/forms': typeof AuthenticatedAutomationFormsRoute
+  '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
+  '/automation/rules': typeof AuthenticatedAutomationRulesRoute
+  '/automation/runs': typeof AuthenticatedAutomationRunsRoute
+  '/automation/sla': typeof AuthenticatedAutomationSlaRoute
+  '/automation/tasks': typeof AuthenticatedAutomationTasksRoute
+  '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
+  '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
+  '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -250,6 +355,7 @@ export interface FileRoutesByTo {
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/automation': typeof AuthenticatedAutomationIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -269,9 +375,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/_authenticated/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
+  '/_authenticated/automation/forms': typeof AuthenticatedAutomationFormsRoute
+  '/_authenticated/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
+  '/_authenticated/automation/rules': typeof AuthenticatedAutomationRulesRoute
+  '/_authenticated/automation/runs': typeof AuthenticatedAutomationRunsRoute
+  '/_authenticated/automation/sla': typeof AuthenticatedAutomationSlaRoute
+  '/_authenticated/automation/tasks': typeof AuthenticatedAutomationTasksRoute
+  '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
+  '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
+  '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -282,6 +399,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
@@ -301,9 +419,20 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/automation'
     | '/dashboard'
     | '/organization'
     | '/settings'
+    | '/automation/approvals'
+    | '/automation/forms'
+    | '/automation/notifications'
+    | '/automation/rules'
+    | '/automation/runs'
+    | '/automation/sla'
+    | '/automation/tasks'
+    | '/automation/templates'
+    | '/automation/triggers'
+    | '/automation/workflows'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -314,6 +443,7 @@ export interface FileRouteTypes {
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/automation/'
     | '/organization/'
     | '/settings/'
     | '/settings/companies/$companyId'
@@ -332,6 +462,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/automation/approvals'
+    | '/automation/forms'
+    | '/automation/notifications'
+    | '/automation/rules'
+    | '/automation/runs'
+    | '/automation/sla'
+    | '/automation/tasks'
+    | '/automation/templates'
+    | '/automation/triggers'
+    | '/automation/workflows'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -341,6 +481,7 @@ export interface FileRouteTypes {
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/automation'
     | '/organization'
     | '/settings'
     | '/settings/companies/$companyId'
@@ -359,9 +500,20 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/automation'
     | '/_authenticated/dashboard'
     | '/_authenticated/organization'
     | '/_authenticated/settings'
+    | '/_authenticated/automation/approvals'
+    | '/_authenticated/automation/forms'
+    | '/_authenticated/automation/notifications'
+    | '/_authenticated/automation/rules'
+    | '/_authenticated/automation/runs'
+    | '/_authenticated/automation/sla'
+    | '/_authenticated/automation/tasks'
+    | '/_authenticated/automation/templates'
+    | '/_authenticated/automation/triggers'
+    | '/_authenticated/automation/workflows'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
     | '/_authenticated/organization/roles'
@@ -372,6 +524,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/masters'
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
+    | '/_authenticated/automation/'
     | '/_authenticated/organization/'
     | '/_authenticated/settings/'
     | '/_authenticated/settings/companies/$companyId'
@@ -439,6 +592,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/automation': {
+      id: '/_authenticated/automation'
+      path: '/automation'
+      fullPath: '/automation'
+      preLoaderRoute: typeof AuthenticatedAutomationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
       path: '/'
@@ -452,6 +612,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/'
       preLoaderRoute: typeof AuthenticatedOrganizationIndexRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/automation/': {
+      id: '/_authenticated/automation/'
+      path: '/'
+      fullPath: '/automation/'
+      preLoaderRoute: typeof AuthenticatedAutomationIndexRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
     }
     '/_authenticated/settings/territory': {
       id: '/_authenticated/settings/territory'
@@ -522,6 +689,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/departments'
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/automation/workflows': {
+      id: '/_authenticated/automation/workflows'
+      path: '/workflows'
+      fullPath: '/automation/workflows'
+      preLoaderRoute: typeof AuthenticatedAutomationWorkflowsRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/triggers': {
+      id: '/_authenticated/automation/triggers'
+      path: '/triggers'
+      fullPath: '/automation/triggers'
+      preLoaderRoute: typeof AuthenticatedAutomationTriggersRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/templates': {
+      id: '/_authenticated/automation/templates'
+      path: '/templates'
+      fullPath: '/automation/templates'
+      preLoaderRoute: typeof AuthenticatedAutomationTemplatesRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/tasks': {
+      id: '/_authenticated/automation/tasks'
+      path: '/tasks'
+      fullPath: '/automation/tasks'
+      preLoaderRoute: typeof AuthenticatedAutomationTasksRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/sla': {
+      id: '/_authenticated/automation/sla'
+      path: '/sla'
+      fullPath: '/automation/sla'
+      preLoaderRoute: typeof AuthenticatedAutomationSlaRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/runs': {
+      id: '/_authenticated/automation/runs'
+      path: '/runs'
+      fullPath: '/automation/runs'
+      preLoaderRoute: typeof AuthenticatedAutomationRunsRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/rules': {
+      id: '/_authenticated/automation/rules'
+      path: '/rules'
+      fullPath: '/automation/rules'
+      preLoaderRoute: typeof AuthenticatedAutomationRulesRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/notifications': {
+      id: '/_authenticated/automation/notifications'
+      path: '/notifications'
+      fullPath: '/automation/notifications'
+      preLoaderRoute: typeof AuthenticatedAutomationNotificationsRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/forms': {
+      id: '/_authenticated/automation/forms'
+      path: '/forms'
+      fullPath: '/automation/forms'
+      preLoaderRoute: typeof AuthenticatedAutomationFormsRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/automation/approvals': {
+      id: '/_authenticated/automation/approvals'
+      path: '/approvals'
+      fullPath: '/automation/approvals'
+      preLoaderRoute: typeof AuthenticatedAutomationApprovalsRouteImport
+      parentRoute: typeof AuthenticatedAutomationRoute
     }
     '/_authenticated/settings/integrations/': {
       id: '/_authenticated/settings/integrations/'
@@ -602,6 +839,44 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAutomationRouteChildren {
+  AuthenticatedAutomationApprovalsRoute: typeof AuthenticatedAutomationApprovalsRoute
+  AuthenticatedAutomationFormsRoute: typeof AuthenticatedAutomationFormsRoute
+  AuthenticatedAutomationNotificationsRoute: typeof AuthenticatedAutomationNotificationsRoute
+  AuthenticatedAutomationRulesRoute: typeof AuthenticatedAutomationRulesRoute
+  AuthenticatedAutomationRunsRoute: typeof AuthenticatedAutomationRunsRoute
+  AuthenticatedAutomationSlaRoute: typeof AuthenticatedAutomationSlaRoute
+  AuthenticatedAutomationTasksRoute: typeof AuthenticatedAutomationTasksRoute
+  AuthenticatedAutomationTemplatesRoute: typeof AuthenticatedAutomationTemplatesRoute
+  AuthenticatedAutomationTriggersRoute: typeof AuthenticatedAutomationTriggersRoute
+  AuthenticatedAutomationWorkflowsRoute: typeof AuthenticatedAutomationWorkflowsRoute
+  AuthenticatedAutomationIndexRoute: typeof AuthenticatedAutomationIndexRoute
+}
+
+const AuthenticatedAutomationRouteChildren: AuthenticatedAutomationRouteChildren =
+  {
+    AuthenticatedAutomationApprovalsRoute:
+      AuthenticatedAutomationApprovalsRoute,
+    AuthenticatedAutomationFormsRoute: AuthenticatedAutomationFormsRoute,
+    AuthenticatedAutomationNotificationsRoute:
+      AuthenticatedAutomationNotificationsRoute,
+    AuthenticatedAutomationRulesRoute: AuthenticatedAutomationRulesRoute,
+    AuthenticatedAutomationRunsRoute: AuthenticatedAutomationRunsRoute,
+    AuthenticatedAutomationSlaRoute: AuthenticatedAutomationSlaRoute,
+    AuthenticatedAutomationTasksRoute: AuthenticatedAutomationTasksRoute,
+    AuthenticatedAutomationTemplatesRoute:
+      AuthenticatedAutomationTemplatesRoute,
+    AuthenticatedAutomationTriggersRoute: AuthenticatedAutomationTriggersRoute,
+    AuthenticatedAutomationWorkflowsRoute:
+      AuthenticatedAutomationWorkflowsRoute,
+    AuthenticatedAutomationIndexRoute: AuthenticatedAutomationIndexRoute,
+  }
+
+const AuthenticatedAutomationRouteWithChildren =
+  AuthenticatedAutomationRoute._addFileChildren(
+    AuthenticatedAutomationRouteChildren,
+  )
 
 interface AuthenticatedOrganizationRouteChildren {
   AuthenticatedOrganizationDepartmentsRoute: typeof AuthenticatedOrganizationDepartmentsRoute
@@ -693,12 +968,14 @@ const AuthenticatedSettingsRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
