@@ -32,6 +32,7 @@ import {
   createOrCloneRole,
   listRoleHistory,
 } from "@/lib/api/organization.functions";
+import { isHiddenRole } from "@/lib/rbac";
 
 export const Route = createFileRoute("/_authenticated/organization/roles")({
   component: RolesPage,
