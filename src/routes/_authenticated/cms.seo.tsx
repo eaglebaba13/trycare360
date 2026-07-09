@@ -41,7 +41,7 @@ function SeoPage() {
         Meta checker, alt/canonical/schema validation and Core Web Vitals-ready scoring per page.
       </p>
       <div className="grid gap-2">
-        {pages.map((p) => (
+        {(pages as Array<Record<string, unknown>>).map((p) => (
           <Card key={p.id as string} className="flex items-center justify-between p-4">
             <div>
               <div className="font-semibold">{p.title as string}</div>

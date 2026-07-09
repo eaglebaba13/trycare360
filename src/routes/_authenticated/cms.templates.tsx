@@ -36,8 +36,8 @@ function TemplatesPage() {
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {templates.map((t) => (
-          <TemplateCard key={t.id} template={t} tenantId={tenantId} />
+        {(templates as Array<Record<string, unknown>>).map((t) => (
+          <TemplateCard key={t.id as string} template={t} tenantId={tenantId} />
         ))}
       </div>
     </div>

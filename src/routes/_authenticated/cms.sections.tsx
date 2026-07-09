@@ -59,7 +59,7 @@ function SectionsPage() {
           </div>
         </Card>
         <div className="grid gap-3">
-          {sections.map((s) => (
+          {(sections as Array<Record<string, unknown>>).map((s) => (
             <Card key={s.id as string} className="flex items-center justify-between p-4">
               <div>
                 <div className="font-semibold">{s.name as string}</div>
