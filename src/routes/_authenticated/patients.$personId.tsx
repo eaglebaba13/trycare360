@@ -226,13 +226,14 @@ function Patient360() {
                       <li key={a.id} className="flex items-start gap-2 rounded-md border p-3">
                         <AlertTriangle className="h-4 w-4 text-rose-500 mt-0.5" />
                         <div className="min-w-0">
-                          <div className="text-sm font-medium">{a.title ?? "Alert"}</div>
-                          {a.notes && <div className="text-xs text-muted-foreground">{a.notes}</div>}
+                          <div className="text-sm font-medium">{a.alert_code}</div>
+                          {a.details && <div className="text-xs text-muted-foreground">{a.details}</div>}
                           <div className="text-[11px] text-muted-foreground mt-1">Severity: {a.severity ?? "—"}</div>
                         </div>
                       </li>
                     ))}
                   </ul>
+
                 )}
               </CardContent>
             </Card>
@@ -344,7 +345,7 @@ function OverviewTab({
         <CardHeader><CardTitle className="text-sm">Tags</CardTitle></CardHeader>
         <CardContent className="flex flex-wrap gap-1.5">
           {tags.length === 0 ? <p className="text-xs text-muted-foreground">No tags.</p> :
-            tags.map((t) => <Badge key={t.id} variant="outline">{t.tag_def_id.slice(0, 6)}</Badge>)}
+            tags.map((t) => <Badge key={`${t.person_id}-${t.tag_def_id}`} variant="outline">{t.tag_def_id.slice(0, 6)}</Badge>)}
         </CardContent>
       </Card>
     </div>

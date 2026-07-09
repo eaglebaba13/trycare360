@@ -22,6 +22,7 @@ import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
+import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -33,6 +34,7 @@ import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors
 import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
+import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
@@ -56,6 +58,7 @@ import { Route as AuthenticatedPeopleImportRouteImport } from './routes/_authent
 import { Route as AuthenticatedPeopleDuplicatesRouteImport } from './routes/_authenticated/people.duplicates'
 import { Route as AuthenticatedPeopleAuditRouteImport } from './routes/_authenticated/people.audit'
 import { Route as AuthenticatedPeoplePersonIdRouteImport } from './routes/_authenticated/people.$personId'
+import { Route as AuthenticatedPatientsPersonIdRouteImport } from './routes/_authenticated/patients.$personId'
 import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
 import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
@@ -167,6 +170,11 @@ const AuthenticatedPeopleRoute = AuthenticatedPeopleRouteImport.update({
   path: '/people',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPatientsRoute = AuthenticatedPatientsRouteImport.update({
+  id: '/patients',
+  path: '/patients',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOrganizationRoute =
   AuthenticatedOrganizationRouteImport.update({
     id: '/organization',
@@ -224,6 +232,12 @@ const AuthenticatedPeopleIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPatientsIndexRoute =
+  AuthenticatedPatientsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPatientsRoute,
   } as any)
 const AuthenticatedOrganizationIndexRoute =
   AuthenticatedOrganizationIndexRouteImport.update({
@@ -353,6 +367,12 @@ const AuthenticatedPeoplePersonIdRoute =
     id: '/$personId',
     path: '/$personId',
     getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPatientsPersonIdRoute =
+  AuthenticatedPatientsPersonIdRouteImport.update({
+    id: '/$personId',
+    path: '/$personId',
+    getParentRoute: () => AuthenticatedPatientsRoute,
   } as any)
 const AuthenticatedOrganizationUsersRoute =
   AuthenticatedOrganizationUsersRouteImport.update({
@@ -636,6 +656,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/people': typeof AuthenticatedPeopleRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/about': typeof PublicAboutRoute
@@ -679,6 +700,7 @@ export interface FileRoutesByFullPath {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/people/audit': typeof AuthenticatedPeopleAuditRoute
   '/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
@@ -702,6 +724,7 @@ export interface FileRoutesByFullPath {
   '/cms/': typeof AuthenticatedCmsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/patients/': typeof AuthenticatedPatientsIndexRoute
   '/people/': typeof AuthenticatedPeopleIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/blog/': typeof PublicBlogIndexRoute
@@ -767,6 +790,7 @@ export interface FileRoutesByTo {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/people/audit': typeof AuthenticatedPeopleAuditRoute
   '/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
@@ -789,6 +813,7 @@ export interface FileRoutesByTo {
   '/cms': typeof AuthenticatedCmsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
+  '/patients': typeof AuthenticatedPatientsIndexRoute
   '/people': typeof AuthenticatedPeopleIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/blog': typeof PublicBlogIndexRoute
@@ -819,6 +844,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
@@ -863,6 +889,7 @@ export interface FileRoutesById {
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/_authenticated/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/_authenticated/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/_authenticated/people/audit': typeof AuthenticatedPeopleAuditRoute
   '/_authenticated/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
@@ -886,6 +913,7 @@ export interface FileRoutesById {
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_public/blog/': typeof PublicBlogIndexRoute
@@ -916,6 +944,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/data'
     | '/organization'
+    | '/patients'
     | '/people'
     | '/settings'
     | '/about'
@@ -959,6 +988,7 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/patients/$personId'
     | '/people/$personId'
     | '/people/audit'
     | '/people/duplicates'
@@ -982,6 +1012,7 @@ export interface FileRouteTypes {
     | '/cms/'
     | '/data/'
     | '/organization/'
+    | '/patients/'
     | '/people/'
     | '/settings/'
     | '/blog/'
@@ -1047,6 +1078,7 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/patients/$personId'
     | '/people/$personId'
     | '/people/audit'
     | '/people/duplicates'
@@ -1069,6 +1101,7 @@ export interface FileRouteTypes {
     | '/cms'
     | '/data'
     | '/organization'
+    | '/patients'
     | '/people'
     | '/settings'
     | '/blog'
@@ -1098,6 +1131,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/data'
     | '/_authenticated/organization'
+    | '/_authenticated/patients'
     | '/_authenticated/people'
     | '/_authenticated/settings'
     | '/_public/about'
@@ -1142,6 +1176,7 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/roles'
     | '/_authenticated/organization/tree'
     | '/_authenticated/organization/users'
+    | '/_authenticated/patients/$personId'
     | '/_authenticated/people/$personId'
     | '/_authenticated/people/audit'
     | '/_authenticated/people/duplicates'
@@ -1165,6 +1200,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cms/'
     | '/_authenticated/data/'
     | '/_authenticated/organization/'
+    | '/_authenticated/patients/'
     | '/_authenticated/people/'
     | '/_authenticated/settings/'
     | '/_public/blog/'
@@ -1287,6 +1323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPeopleRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/patients': {
+      id: '/_authenticated/patients'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof AuthenticatedPatientsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/organization': {
       id: '/_authenticated/organization'
       path: '/organization'
@@ -1363,6 +1406,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/people/'
       preLoaderRoute: typeof AuthenticatedPeopleIndexRouteImport
       parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/patients/': {
+      id: '/_authenticated/patients/'
+      path: '/'
+      fullPath: '/patients/'
+      preLoaderRoute: typeof AuthenticatedPatientsIndexRouteImport
+      parentRoute: typeof AuthenticatedPatientsRoute
     }
     '/_authenticated/organization/': {
       id: '/_authenticated/organization/'
@@ -1524,6 +1574,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/people/$personId'
       preLoaderRoute: typeof AuthenticatedPeoplePersonIdRouteImport
       parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/patients/$personId': {
+      id: '/_authenticated/patients/$personId'
+      path: '/$personId'
+      fullPath: '/patients/$personId'
+      preLoaderRoute: typeof AuthenticatedPatientsPersonIdRouteImport
+      parentRoute: typeof AuthenticatedPatientsRoute
     }
     '/_authenticated/organization/users': {
       id: '/_authenticated/organization/users'
@@ -1985,6 +2042,21 @@ const AuthenticatedOrganizationRouteWithChildren =
     AuthenticatedOrganizationRouteChildren,
   )
 
+interface AuthenticatedPatientsRouteChildren {
+  AuthenticatedPatientsPersonIdRoute: typeof AuthenticatedPatientsPersonIdRoute
+  AuthenticatedPatientsIndexRoute: typeof AuthenticatedPatientsIndexRoute
+}
+
+const AuthenticatedPatientsRouteChildren: AuthenticatedPatientsRouteChildren = {
+  AuthenticatedPatientsPersonIdRoute: AuthenticatedPatientsPersonIdRoute,
+  AuthenticatedPatientsIndexRoute: AuthenticatedPatientsIndexRoute,
+}
+
+const AuthenticatedPatientsRouteWithChildren =
+  AuthenticatedPatientsRoute._addFileChildren(
+    AuthenticatedPatientsRouteChildren,
+  )
+
 interface AuthenticatedPeopleRouteChildren {
   AuthenticatedPeoplePersonIdRoute: typeof AuthenticatedPeoplePersonIdRoute
   AuthenticatedPeopleAuditRoute: typeof AuthenticatedPeopleAuditRoute
@@ -2085,6 +2157,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
+  AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
@@ -2095,6 +2168,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
+  AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
 }
