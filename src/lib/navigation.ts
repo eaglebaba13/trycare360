@@ -41,6 +41,17 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    label: "Identity",
+    items: [
+      {
+        label: "People",
+        to: "/people",
+        icon: UserRound,
+        roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER],
+      },
+    ],
+  },
+  {
     label: "Administration",
     items: [
       {
@@ -49,6 +60,7 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Building2,
         roles: [ROLES.SUPER_ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER],
       },
+
       { label: "Users", to: "/organization/users", icon: Users, permission: "users:manage" },
       { label: "Roles & Permissions", to: "/organization/roles", icon: ShieldCheck, roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN] },
       { label: "Audit Log", to: "/admin/audit", icon: FileText, permission: "audit:read" },
