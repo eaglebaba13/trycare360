@@ -58,7 +58,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-6 text-xs text-muted-foreground lg:px-6">
-          <div>© {YEAR} TryCare360. All rights reserved.</div>
+          <div>© {useCurrentYear()} TryCare360. All rights reserved.</div>
           <div>Made with care in India.</div>
         </div>
       </div>
