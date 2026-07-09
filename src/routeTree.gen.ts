@@ -21,6 +21,7 @@ import { Route as PublicBookRouteImport } from './routes/_public.book'
 import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -31,6 +32,7 @@ import { Route as PublicProductsIndexRouteImport } from './routes/_public.produc
 import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
+import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
@@ -44,6 +46,7 @@ import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_aut
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedPeopleListRouteImport } from './routes/_authenticated/people.list'
 import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
 import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
@@ -150,6 +153,11 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPeopleRoute = AuthenticatedPeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOrganizationRoute =
   AuthenticatedOrganizationRouteImport.update({
     id: '/organization',
@@ -201,6 +209,12 @@ const AuthenticatedSettingsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedPeopleIndexRoute =
+  AuthenticatedPeopleIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPeopleRoute,
   } as any)
 const AuthenticatedOrganizationIndexRoute =
   AuthenticatedOrganizationIndexRouteImport.update({
@@ -274,6 +288,11 @@ const AuthenticatedSettingsGlobalRoute =
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedPeopleListRoute = AuthenticatedPeopleListRouteImport.update({
+  id: '/list',
+  path: '/list',
+  getParentRoute: () => AuthenticatedPeopleRoute,
+} as any)
 const AuthenticatedOrganizationUsersRoute =
   AuthenticatedOrganizationUsersRouteImport.update({
     id: '/users',
@@ -556,6 +575,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/people': typeof AuthenticatedPeopleRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
@@ -598,6 +618,7 @@ export interface FileRoutesByFullPath {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/people/list': typeof AuthenticatedPeopleListRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -611,6 +632,7 @@ export interface FileRoutesByFullPath {
   '/cms/': typeof AuthenticatedCmsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/people/': typeof AuthenticatedPeopleIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/blog/': typeof PublicBlogIndexRoute
   '/doctors/': typeof PublicDoctorsIndexRoute
@@ -675,6 +697,7 @@ export interface FileRoutesByTo {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/people/list': typeof AuthenticatedPeopleListRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
@@ -687,6 +710,7 @@ export interface FileRoutesByTo {
   '/cms': typeof AuthenticatedCmsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
+  '/people': typeof AuthenticatedPeopleIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/blog': typeof PublicBlogIndexRoute
   '/doctors': typeof PublicDoctorsIndexRoute
@@ -716,6 +740,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
   '/_public/academy': typeof PublicAcademyRoute
@@ -759,6 +784,7 @@ export interface FileRoutesById {
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/_authenticated/people/list': typeof AuthenticatedPeopleListRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -772,6 +798,7 @@ export interface FileRoutesById {
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_public/blog/': typeof PublicBlogIndexRoute
   '/_public/doctors/': typeof PublicDoctorsIndexRoute
@@ -801,6 +828,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/data'
     | '/organization'
+    | '/people'
     | '/settings'
     | '/about'
     | '/academy'
@@ -843,6 +871,7 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/people/list'
     | '/settings/global'
     | '/settings/integrations'
     | '/settings/masters'
@@ -856,6 +885,7 @@ export interface FileRouteTypes {
     | '/cms/'
     | '/data/'
     | '/organization/'
+    | '/people/'
     | '/settings/'
     | '/blog/'
     | '/doctors/'
@@ -920,6 +950,7 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/people/list'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
@@ -932,6 +963,7 @@ export interface FileRouteTypes {
     | '/cms'
     | '/data'
     | '/organization'
+    | '/people'
     | '/settings'
     | '/blog'
     | '/doctors'
@@ -960,6 +992,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/data'
     | '/_authenticated/organization'
+    | '/_authenticated/people'
     | '/_authenticated/settings'
     | '/_public/about'
     | '/_public/academy'
@@ -1003,6 +1036,7 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/roles'
     | '/_authenticated/organization/tree'
     | '/_authenticated/organization/users'
+    | '/_authenticated/people/list'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
@@ -1016,6 +1050,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cms/'
     | '/_authenticated/data/'
     | '/_authenticated/organization/'
+    | '/_authenticated/people/'
     | '/_authenticated/settings/'
     | '/_public/blog/'
     | '/_public/doctors/'
@@ -1130,6 +1165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/people': {
+      id: '/_authenticated/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof AuthenticatedPeopleRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/organization': {
       id: '/_authenticated/organization'
       path: '/organization'
@@ -1199,6 +1241,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/people/': {
+      id: '/_authenticated/people/'
+      path: '/'
+      fullPath: '/people/'
+      preLoaderRoute: typeof AuthenticatedPeopleIndexRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
     }
     '/_authenticated/organization/': {
       id: '/_authenticated/organization/'
@@ -1290,6 +1339,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/global'
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/people/list': {
+      id: '/_authenticated/people/list'
+      path: '/list'
+      fullPath: '/people/list'
+      preLoaderRoute: typeof AuthenticatedPeopleListRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
     }
     '/_authenticated/organization/users': {
       id: '/_authenticated/organization/users'
@@ -1751,6 +1807,19 @@ const AuthenticatedOrganizationRouteWithChildren =
     AuthenticatedOrganizationRouteChildren,
   )
 
+interface AuthenticatedPeopleRouteChildren {
+  AuthenticatedPeopleListRoute: typeof AuthenticatedPeopleListRoute
+  AuthenticatedPeopleIndexRoute: typeof AuthenticatedPeopleIndexRoute
+}
+
+const AuthenticatedPeopleRouteChildren: AuthenticatedPeopleRouteChildren = {
+  AuthenticatedPeopleListRoute: AuthenticatedPeopleListRoute,
+  AuthenticatedPeopleIndexRoute: AuthenticatedPeopleIndexRoute,
+}
+
+const AuthenticatedPeopleRouteWithChildren =
+  AuthenticatedPeopleRoute._addFileChildren(AuthenticatedPeopleRouteChildren)
+
 interface AuthenticatedSettingsIntegrationsRouteChildren {
   AuthenticatedSettingsIntegrationsApiKeysRoute: typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   AuthenticatedSettingsIntegrationsCatalogRoute: typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -1820,6 +1889,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
+  AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
 }
 
@@ -1829,6 +1899,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
+  AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
 }
 

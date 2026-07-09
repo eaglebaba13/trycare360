@@ -90,8 +90,8 @@ function PeopleList() {
       id: "verified",
       header: "Verified",
       cell: (r) =>
-        r.verification_state && r.verification_state !== "unverified" ? (
-          <Badge variant="outline" className="capitalize">{r.verification_state}</Badge>
+        r.verification_status && r.verification_status !== "unverified" ? (
+          <Badge variant="outline" className="capitalize">{r.verification_status}</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
         ),
