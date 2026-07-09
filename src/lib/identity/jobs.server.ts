@@ -19,8 +19,7 @@
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import { DedupEngine } from "./matchers.server";
-import { DuplicateCandidateRepository, scanPerson } from "./dedup.server";
+import { scanPerson } from "./dedup.server";
 import { HealthCheckService } from "./health.server";
 import { PersonCache } from "./cache.server";
 
