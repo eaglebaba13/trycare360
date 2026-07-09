@@ -4,22 +4,22 @@
  * Returns a chronologically ordered feed of events for a person by
  * reading the existing `timeline_events` table, plus lightweight
  * synthesized entries derived from identity-domain tables
- * (verifications, merge history, role attachments) so the timeline
- * remains useful before every producer has been migrated to emit into
+ * (verifications, merge history) so the timeline remains useful
+ * before every producer has been migrated to emit into
  * `timeline_events` directly.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Tables } from "@/integrations/supabase/types";
+import type { Database, Json, Tables } from "@/integrations/supabase/types";
 
 type SB = SupabaseClient<Database>;
 
 export interface TimelineEntry {
   ts: string;
-  source: "timeline_events" | "verification" | "merge" | "role";
+  source: "timeline_events" | "verification" | "merge";
   event_type: string;
   title: string;
   body: string | null;
-  meta: Record<string, unknown>;
+  meta: Json;
 }
 
 export class TimelineService {
@@ -47,7 +47,7 @@ export class TimelineService {
         .select("*")
         .eq("tenant_id", tenantId)
         .or(`source_person_id.eq.${personId},target_person_id.eq.${personId}`)
-        .order("created_at", { ascending: false })
+        .order("performed_at", { ascending: false })
         .limit(50),
     ]);
 
@@ -60,7 +60,7 @@ export class TimelineService {
         event_type: e.event_type,
         title: e.title,
         body: e.body,
-        meta: (e.meta as Record<string, unknown>) ?? {},
+        meta: (e.meta ?? {}) as Json,
       });
     }
     for (const v of (verifs.data ?? []) as Tables<"person_verifications">[]) {
@@ -69,25 +69,30 @@ export class TimelineService {
         source: "verification",
         event_type: `verification.${v.status}`,
         title: `Verification (${v.method}) — ${v.status}`,
-        body: v.notes ?? null,
-        meta: { method: v.method, provider: v.provider, level: v.level },
+        body: null,
+        meta: {
+          method: v.method,
+          provider: v.provider ?? null,
+          document_type: v.document_type ?? null,
+          metadata: v.metadata as Json,
+        } as Json,
       });
     }
     for (const m of (merges.data ?? []) as Tables<"person_merge_history">[]) {
       out.push({
-        ts: m.created_at,
+        ts: m.performed_at,
         source: "merge",
-        event_type: `merge.${m.operation}`,
+        event_type: `merge.${m.action}`,
         title:
-          m.operation === "merge"
+          m.action === "merge"
             ? `Merged into ${m.target_person_id}`
             : `Unmerged from ${m.target_person_id}`,
-        body: m.reason ?? null,
+        body: null,
         meta: {
           source_person_id: m.source_person_id,
           target_person_id: m.target_person_id,
-          rows_repointed: m.rows_repointed,
-        },
+          fk_repoint_summary: m.fk_repoint_summary as Json,
+        } as Json,
       });
     }
 

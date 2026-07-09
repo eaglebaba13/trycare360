@@ -16,6 +16,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database, Tables, TablesInsert } from "@/integrations/supabase/types";
 import { makeIdentityRepos } from "./repositories.server";
+import type { PersonRepository, PatientRepository, RelationshipRepository, ConsentRepository, VerificationRepository } from "./repositories.server";
 import {
   invalidatePerson,
   invalidatePersons,
@@ -33,23 +34,27 @@ type SB = SupabaseClient<Database>;
 // =====================================================================
 
 export class PersonService {
-  private repos = makeIdentityRepos(this.sb);
-  private cache = new PersonCache(this.sb);
-  private features = new FeatureService(this.sb);
+  private readonly persons: PersonRepository;
+  private readonly cache: PersonCache;
+  private readonly features: FeatureService;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.persons = makeIdentityRepos(sb).persons;
+    this.cache = new PersonCache(sb);
+    this.features = new FeatureService(sb);
+  }
 
   async create(input: PersonCreateInput): Promise<{ person: Tables<"persons">; deduped: boolean }> {
     const phone = normalizePhone(input.phone, { defaultDial: input.default_dial });
     const email = normalizeEmail(input.email);
 
     if (phone || email) {
-      const existing = await this.repos.persons.findByPhoneOrEmail(input.tenant_id, phone, email);
+      const existing = await this.persons.findByPhoneOrEmail(input.tenant_id, phone, email);
       if (existing) return { person: existing, deduped: true };
     }
 
     const useNationalId = await this.features.isEnabled(input.tenant_id, "identity.national_id");
-    const row = await this.repos.persons.insert({
+    const row = await this.persons.insert({
       tenant_id: input.tenant_id,
       full_name: input.full_name,
       first_name: input.first_name ?? null,
@@ -98,7 +103,7 @@ export class PersonService {
       patch.national_id_hash = hashNationalId(input.national_id as string | null);
       delete patch.national_id;
     }
-    const row = await this.repos.persons.update(input.tenant_id, input.id, patch);
+    const row = await this.persons.update(input.tenant_id, input.id, patch);
     await emitIdentityEvent(this.sb, {
       tenantId: input.tenant_id,
       eventType: "person.updated",
@@ -110,7 +115,7 @@ export class PersonService {
   }
 
   async archive(tenantId: string, id: string, reason: string | null): Promise<Tables<"persons">> {
-    const row = await this.repos.persons.archive(tenantId, id);
+    const row = await this.persons.archive(tenantId, id);
     await emitIdentityEvent(this.sb, {
       tenantId,
       eventType: "person.archived",
@@ -135,9 +140,11 @@ export class PersonService {
 // =====================================================================
 
 export class PatientService {
-  private repos = makeIdentityRepos(this.sb);
+  private readonly patients: PatientRepository;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.patients = makeIdentityRepos(sb).patients;
+  }
 
   async createFromPerson(input: {
     tenant_id: string;
@@ -147,9 +154,9 @@ export class PatientService {
     membership_tier?: string | null;
     status?: string;
   }): Promise<Tables<"patients">> {
-    const existing = await this.repos.patients.getByPerson(input.tenant_id, input.person_id);
+    const existing = await this.patients.getByPerson(input.tenant_id, input.person_id);
     if (existing) return existing;
-    const row = await this.repos.patients.create({
+    const row = await this.patients.create({
       tenant_id: input.tenant_id,
       person_id: input.person_id,
       home_branch_id: input.home_branch_id ?? null,
@@ -172,24 +179,27 @@ export class PatientService {
 // =====================================================================
 
 export class RelationshipService {
-  private repos = makeIdentityRepos(this.sb);
-  private features = new FeatureService(this.sb);
+  private readonly relationships: RelationshipRepository;
+  private readonly features: FeatureService;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.relationships = makeIdentityRepos(sb).relationships;
+    this.features = new FeatureService(sb);
+  }
 
   async link(input: TablesInsert<"person_relationships">): Promise<Tables<"person_relationships">> {
     await this.features.assertEnabled(input.tenant_id, "identity.family_relationships");
-    const row = await this.repos.relationships.upsert(input);
+    const row = await this.relationships.upsert(input);
     invalidatePersons(input.tenant_id, [input.from_person_id, input.to_person_id]);
     return row;
   }
 
   list(tenantId: string, personId: string) {
-    return this.repos.relationships.listForPerson(tenantId, personId);
+    return this.relationships.listForPerson(tenantId, personId);
   }
 
   async unlink(tenantId: string, id: string): Promise<void> {
-    await this.repos.relationships.delete(tenantId, id);
+    await this.relationships.delete(tenantId, id);
   }
 }
 
@@ -198,20 +208,22 @@ export class RelationshipService {
 // =====================================================================
 
 export class ConsentService {
-  private repos = makeIdentityRepos(this.sb);
+  private readonly consents: ConsentRepository;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.consents = makeIdentityRepos(sb).consents;
+  }
 
   record(input: TablesInsert<"person_consents">) {
-    return this.repos.consents.record(input);
+    return this.consents.record(input);
   }
 
   list(tenantId: string, personId: string) {
-    return this.repos.consents.listByPerson(tenantId, personId);
+    return this.consents.listByPerson(tenantId, personId);
   }
 
   revoke(tenantId: string, personId: string, purposeCode: string) {
-    return this.repos.consents.revokeLatest(tenantId, personId, purposeCode);
+    return this.consents.revokeLatest(tenantId, personId, purposeCode);
   }
 }
 
@@ -220,9 +232,11 @@ export class ConsentService {
 // =====================================================================
 
 export class CommunicationPreferenceService {
-  private repos = makeIdentityRepos(this.sb);
+  private readonly persons: PersonRepository;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.persons = makeIdentityRepos(sb).persons;
+  }
 
   async setPreferences(input: {
     tenant_id: string;
@@ -243,7 +257,7 @@ export class CommunicationPreferenceService {
     ] as const) {
       if (k in input && input[k] !== undefined) patch[k] = input[k];
     }
-    const row = await this.repos.persons.update(input.tenant_id, input.person_id, patch);
+    const row = await this.persons.update(input.tenant_id, input.person_id, patch);
     invalidatePerson(input.tenant_id, input.person_id);
     return row;
   }
@@ -254,17 +268,19 @@ export class CommunicationPreferenceService {
 // =====================================================================
 
 export class VerificationService {
-  private repos = makeIdentityRepos(this.sb);
+  private readonly verifications: VerificationRepository;
 
-  constructor(private readonly sb: SB) {}
+  constructor(private readonly sb: SB) {
+    this.verifications = makeIdentityRepos(sb).verifications;
+  }
 
   record(input: TablesInsert<"person_verifications">) {
     invalidatePerson(input.tenant_id, input.person_id);
-    return this.repos.verifications.record(input);
+    return this.verifications.record(input);
   }
 
   list(tenantId: string, personId: string) {
-    return this.repos.verifications.listByPerson(tenantId, personId);
+    return this.verifications.listByPerson(tenantId, personId);
   }
 }
 
@@ -274,15 +290,17 @@ export class VerificationService {
 // =====================================================================
 
 export class MergeService {
-  private features = new FeatureService(this.sb);
-  constructor(private readonly sb: SB) {}
+  private readonly features: FeatureService;
+
+  constructor(private readonly sb: SB) {
+    this.features = new FeatureService(sb);
+  }
 
   async preview(tenantId: string, sourceId: string, targetId: string) {
     await this.features.assertEnabled(tenantId, "identity.merge");
     const { data, error } = await this.sb.rpc("person_merge_preview", {
-      _tenant_id: tenantId,
-      _source_person_id: sourceId,
-      _target_person_id: targetId,
+      _source_id: sourceId,
+      _target_id: targetId,
     });
     if (error) throw new Error(error.message);
     return data;
@@ -295,23 +313,22 @@ export class MergeService {
     reason?: string | null;
   }) {
     await this.features.assertEnabled(input.tenant_id, "identity.merge");
-    const { data, error } = await this.sb.rpc("person_merge_execute", {
-      _tenant_id: input.tenant_id,
-      _source_person_id: input.source_person_id,
-      _target_person_id: input.target_person_id,
-      _reason: input.reason ?? null,
-    });
+    const args: { _source_id: string; _target_id: string; _reason?: string } = {
+      _source_id: input.source_person_id,
+      _target_id: input.target_person_id,
+    };
+    if (input.reason) args._reason = input.reason;
+    const { data, error } = await this.sb.rpc("person_merge_execute", args);
     if (error) throw new Error(error.message);
     invalidatePersons(input.tenant_id, [input.source_person_id, input.target_person_id]);
     return data;
   }
 
-  async unmerge(tenantId: string, historyId: string) {
+  async unmerge(tenantId: string, historyId: string, reason?: string) {
     await this.features.assertEnabled(tenantId, "identity.merge");
-    const { data, error } = await this.sb.rpc("person_merge_unmerge", {
-      _tenant_id: tenantId,
-      _history_id: historyId,
-    });
+    const args: { _history_id: string; _reason?: string } = { _history_id: historyId };
+    if (reason) args._reason = reason;
+    const { data, error } = await this.sb.rpc("person_merge_unmerge", args);
     if (error) throw new Error(error.message);
     return data;
   }
@@ -322,16 +339,25 @@ export class MergeService {
 // =====================================================================
 
 export class IdentityService {
-  readonly persons = new PersonService(this.sb);
-  readonly patients = new PatientService(this.sb);
-  readonly relationships = new RelationshipService(this.sb);
-  readonly consents = new ConsentService(this.sb);
-  readonly communication = new CommunicationPreferenceService(this.sb);
-  readonly verifications = new VerificationService(this.sb);
-  readonly merge = new MergeService(this.sb);
-  readonly features = new FeatureService(this.sb);
+  readonly persons: PersonService;
+  readonly patients: PatientService;
+  readonly relationships: RelationshipService;
+  readonly consents: ConsentService;
+  readonly communication: CommunicationPreferenceService;
+  readonly verifications: VerificationService;
+  readonly merge: MergeService;
+  readonly features: FeatureService;
 
-  constructor(private readonly sb: SB) {}
+  constructor(sb: SB) {
+    this.persons = new PersonService(sb);
+    this.patients = new PatientService(sb);
+    this.relationships = new RelationshipService(sb);
+    this.consents = new ConsentService(sb);
+    this.communication = new CommunicationPreferenceService(sb);
+    this.verifications = new VerificationService(sb);
+    this.merge = new MergeService(sb);
+    this.features = new FeatureService(sb);
+  }
 }
 
 export function makeIdentityServices(sb: SB): IdentityService {
