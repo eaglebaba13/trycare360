@@ -3211,6 +3211,116 @@ export type Database = {
           },
         ]
       }
+      household_members: {
+        Row: {
+          household_id: string
+          is_primary_payer: boolean
+          joined_at: string
+          person_id: string
+          role_in_household: string | null
+          tenant_id: string
+        }
+        Insert: {
+          household_id: string
+          is_primary_payer?: boolean
+          joined_at?: string
+          person_id: string
+          role_in_household?: string | null
+          tenant_id: string
+        }
+        Update: {
+          household_id?: string
+          is_primary_payer?: boolean
+          joined_at?: string
+          person_id?: string
+          role_in_household?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_members_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "household_members_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      households: {
+        Row: {
+          address_id: string | null
+          created_at: string
+          created_by: string | null
+          head_person_id: string | null
+          id: string
+          name: string
+          notes: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          head_person_id?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          head_person_id?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "households_address_id_fkey"
+            columns: ["address_id"]
+            isOneToOne: false
+            referencedRelation: "person_addresses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "households_head_person_id_fkey"
+            columns: ["head_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "households_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       integration_api_logs: {
         Row: {
           connection_id: string | null
@@ -3981,6 +4091,91 @@ export type Database = {
           },
         ]
       }
+      patients: {
+        Row: {
+          allergies: Json
+          barcode_value: string | null
+          blood_group: string | null
+          chronic_conditions: Json
+          created_at: string
+          created_by: string | null
+          current_medications: Json
+          family_history: Json
+          home_branch_id: string | null
+          id: string
+          mrn: string | null
+          person_id: string
+          primary_doctor_id: string | null
+          qr_payload: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          allergies?: Json
+          barcode_value?: string | null
+          blood_group?: string | null
+          chronic_conditions?: Json
+          created_at?: string
+          created_by?: string | null
+          current_medications?: Json
+          family_history?: Json
+          home_branch_id?: string | null
+          id?: string
+          mrn?: string | null
+          person_id: string
+          primary_doctor_id?: string | null
+          qr_payload?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          allergies?: Json
+          barcode_value?: string | null
+          blood_group?: string | null
+          chronic_conditions?: Json
+          created_at?: string
+          created_by?: string | null
+          current_medications?: Json
+          family_history?: Json
+          home_branch_id?: string | null
+          id?: string
+          mrn?: string | null
+          person_id?: string
+          primary_doctor_id?: string | null
+          qr_payload?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patients_home_branch_id_fkey"
+            columns: ["home_branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patients_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patients_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       permissions: {
         Row: {
           action: string
@@ -4004,6 +4199,1949 @@ export type Database = {
           resource?: string
         }
         Relationships: []
+      }
+      person_academy_students: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          enrollment_code: string | null
+          id: string
+          person_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          enrollment_code?: string | null
+          id?: string
+          person_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          enrollment_code?: string | null
+          id?: string
+          person_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_academy_students_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_academy_students_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_address_types: {
+        Row: {
+          code: string
+          label: string
+          sort_order: number
+        }
+        Insert: {
+          code: string
+          label: string
+          sort_order?: number
+        }
+        Update: {
+          code?: string
+          label?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      person_addresses: {
+        Row: {
+          address_type: string
+          area: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          created_by: string | null
+          district: string | null
+          geohash: string | null
+          id: string
+          is_primary: boolean
+          is_verified: boolean
+          landmark: string | null
+          lat: number | null
+          line1: string
+          line2: string | null
+          lng: number | null
+          person_id: string
+          pincode: string | null
+          state: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          address_type: string
+          area?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          district?: string | null
+          geohash?: string | null
+          id?: string
+          is_primary?: boolean
+          is_verified?: boolean
+          landmark?: string | null
+          lat?: number | null
+          line1: string
+          line2?: string | null
+          lng?: number | null
+          person_id: string
+          pincode?: string | null
+          state?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          address_type?: string
+          area?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string | null
+          district?: string | null
+          geohash?: string | null
+          id?: string
+          is_primary?: boolean
+          is_verified?: boolean
+          landmark?: string | null
+          lat?: number | null
+          line1?: string
+          line2?: string | null
+          lng?: number | null
+          person_id?: string
+          pincode?: string | null
+          state?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_addresses_address_type_fkey"
+            columns: ["address_type"]
+            isOneToOne: false
+            referencedRelation: "person_address_types"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "person_addresses_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_addresses_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_consent_purposes: {
+        Row: {
+          code: string
+          is_required: boolean
+          label: string
+          sort_order: number
+        }
+        Insert: {
+          code: string
+          is_required?: boolean
+          label: string
+          sort_order?: number
+        }
+        Update: {
+          code?: string
+          is_required?: boolean
+          label?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      person_consents: {
+        Row: {
+          consent_version: string
+          created_at: string
+          created_by: string | null
+          evidence_url: string | null
+          granted: boolean
+          granted_at: string | null
+          id: string
+          ip: string | null
+          person_id: string
+          purpose_code: string
+          revoked_at: string | null
+          source: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          consent_version: string
+          created_at?: string
+          created_by?: string | null
+          evidence_url?: string | null
+          granted: boolean
+          granted_at?: string | null
+          id?: string
+          ip?: string | null
+          person_id: string
+          purpose_code: string
+          revoked_at?: string | null
+          source?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          consent_version?: string
+          created_at?: string
+          created_by?: string | null
+          evidence_url?: string | null
+          granted?: boolean
+          granted_at?: string | null
+          id?: string
+          ip?: string | null
+          person_id?: string
+          purpose_code?: string
+          revoked_at?: string | null
+          source?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_consents_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_consents_purpose_code_fkey"
+            columns: ["purpose_code"]
+            isOneToOne: false
+            referencedRelation: "person_consent_purposes"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "person_consents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_contact_channels: {
+        Row: {
+          code: string
+          is_email: boolean
+          is_phone: boolean
+          label: string
+          sort_order: number
+        }
+        Insert: {
+          code: string
+          is_email?: boolean
+          is_phone?: boolean
+          label: string
+          sort_order?: number
+        }
+        Update: {
+          code?: string
+          is_email?: boolean
+          is_phone?: boolean
+          label?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      person_contacts: {
+        Row: {
+          channel: string
+          country_code: string | null
+          created_at: string
+          created_by: string | null
+          do_not_contact: boolean
+          id: string
+          is_primary: boolean
+          is_verified: boolean
+          label: string | null
+          opt_in: boolean
+          person_id: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+          value_normalized: string
+          value_raw: string
+          verified_at: string | null
+        }
+        Insert: {
+          channel: string
+          country_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          do_not_contact?: boolean
+          id?: string
+          is_primary?: boolean
+          is_verified?: boolean
+          label?: string | null
+          opt_in?: boolean
+          person_id: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+          value_normalized: string
+          value_raw: string
+          verified_at?: string | null
+        }
+        Update: {
+          channel?: string
+          country_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          do_not_contact?: boolean
+          id?: string
+          is_primary?: boolean
+          is_verified?: boolean
+          label?: string | null
+          opt_in?: boolean
+          person_id?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+          value_normalized?: string
+          value_raw?: string
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_contacts_channel_fkey"
+            columns: ["channel"]
+            isOneToOne: false
+            referencedRelation: "person_contact_channels"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "person_contacts_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_contacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_corporate_contacts: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          person_id: string
+          role_at_company: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id: string
+          role_at_company?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id?: string
+          role_at_company?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_corporate_contacts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_corporate_contacts_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_corporate_contacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_corporate_enrollments: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          enrolled_at: string | null
+          id: string
+          metadata: Json
+          person_id: string
+          program: string | null
+          tenant_id: string
+          updated_at: string
+          valid_to: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          enrolled_at?: string | null
+          id?: string
+          metadata?: Json
+          person_id: string
+          program?: string | null
+          tenant_id: string
+          updated_at?: string
+          valid_to?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          enrolled_at?: string | null
+          id?: string
+          metadata?: Json
+          person_id?: string
+          program?: string | null
+          tenant_id?: string
+          updated_at?: string
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_corporate_enrollments_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_corporate_enrollments_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_corporate_enrollments_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_data_requests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          export_url: string | null
+          id: string
+          notes: string | null
+          person_id: string
+          request_type: string
+          requested_at: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          export_url?: string | null
+          id?: string
+          notes?: string | null
+          person_id: string
+          request_type: string
+          requested_at?: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          export_url?: string | null
+          id?: string
+          notes?: string | null
+          person_id?: string
+          request_type?: string
+          requested_at?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_data_requests_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_data_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_doctors: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          person_id: string
+          primary_branch_id: string | null
+          registration_number: string | null
+          specialty: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id: string
+          primary_branch_id?: string | null
+          registration_number?: string | null
+          specialty?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id?: string
+          primary_branch_id?: string | null
+          registration_number?: string | null
+          specialty?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_doctors_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_doctors_primary_branch_id_fkey"
+            columns: ["primary_branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_doctors_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_duplicate_candidates: {
+        Row: {
+          created_at: string
+          id: string
+          match_signals: Json
+          person_a_id: string
+          person_b_id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          score: number
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          match_signals?: Json
+          person_a_id: string
+          person_b_id: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          score: number
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          match_signals?: Json
+          person_a_id?: string
+          person_b_id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          score?: number
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_duplicate_candidates_person_a_id_fkey"
+            columns: ["person_a_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_duplicate_candidates_person_b_id_fkey"
+            columns: ["person_b_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_duplicate_candidates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_employees: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          designation: string | null
+          employee_code: string | null
+          id: string
+          person_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          designation?: string | null
+          employee_code?: string | null
+          id?: string
+          person_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          designation?: string | null
+          employee_code?: string | null
+          id?: string
+          person_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_employees_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_employees_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_employees_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_erasure_log: {
+        Row: {
+          column_name: string
+          erased_at: string
+          id: string
+          performed_by: string | null
+          person_id: string
+          reason: string | null
+          table_name: string
+          tenant_id: string
+        }
+        Insert: {
+          column_name: string
+          erased_at?: string
+          id?: string
+          performed_by?: string | null
+          person_id: string
+          reason?: string | null
+          table_name: string
+          tenant_id: string
+        }
+        Update: {
+          column_name?: string
+          erased_at?: string
+          id?: string
+          performed_by?: string | null
+          person_id?: string
+          reason?: string | null
+          table_name?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_erasure_log_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_fk_registry: {
+        Row: {
+          column_name: string
+          id: string
+          is_active: boolean
+          notes: string | null
+          registered_at: string
+          table_name: string
+          table_schema: string
+        }
+        Insert: {
+          column_name: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          registered_at?: string
+          table_name: string
+          table_schema?: string
+        }
+        Update: {
+          column_name?: string
+          id?: string
+          is_active?: boolean
+          notes?: string | null
+          registered_at?: string
+          table_name?: string
+          table_schema?: string
+        }
+        Relationships: []
+      }
+      person_franchise_owners: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          franchise_tier: string | null
+          id: string
+          person_id: string
+          primary_branch_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          franchise_tier?: string | null
+          id?: string
+          person_id: string
+          primary_branch_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          franchise_tier?: string | null
+          id?: string
+          person_id?: string
+          primary_branch_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_franchise_owners_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_franchise_owners_primary_branch_id_fkey"
+            columns: ["primary_branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_franchise_owners_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_government_ids: {
+        Row: {
+          country: string | null
+          created_at: string
+          id: string
+          id_number_hash: string
+          id_type: string
+          metadata: Json
+          person_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          id_number_hash: string
+          id_type: string
+          metadata?: Json
+          person_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          id_number_hash?: string
+          id_type?: string
+          metadata?: Json
+          person_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_government_ids_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_government_ids_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_insurance_policies: {
+        Row: {
+          created_at: string
+          id: string
+          metadata: Json
+          person_id: string
+          plan: string | null
+          policy_number_hash: string | null
+          provider: string | null
+          tenant_id: string
+          updated_at: string
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          metadata?: Json
+          person_id: string
+          plan?: string | null
+          policy_number_hash?: string | null
+          provider?: string | null
+          tenant_id: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          metadata?: Json
+          person_id?: string
+          plan?: string | null
+          policy_number_hash?: string | null
+          provider?: string | null
+          tenant_id?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_insurance_policies_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_insurance_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_iot_devices: {
+        Row: {
+          created_at: string
+          device_ref: string | null
+          id: string
+          kind: string | null
+          linked_at: string | null
+          metadata: Json
+          person_id: string
+          tenant_id: string
+          updated_at: string
+          vendor: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_ref?: string | null
+          id?: string
+          kind?: string | null
+          linked_at?: string | null
+          metadata?: Json
+          person_id: string
+          tenant_id: string
+          updated_at?: string
+          vendor?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_ref?: string | null
+          id?: string
+          kind?: string | null
+          linked_at?: string | null
+          metadata?: Json
+          person_id?: string
+          tenant_id?: string
+          updated_at?: string
+          vendor?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_iot_devices_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_iot_devices_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_lab_orders_ref: {
+        Row: {
+          created_at: string
+          external_ref: string | null
+          id: string
+          lab_provider: string | null
+          metadata: Json
+          ordered_at: string | null
+          person_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          external_ref?: string | null
+          id?: string
+          lab_provider?: string | null
+          metadata?: Json
+          ordered_at?: string | null
+          person_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          external_ref?: string | null
+          id?: string
+          lab_provider?: string | null
+          metadata?: Json
+          ordered_at?: string | null
+          person_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_lab_orders_ref_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_lab_orders_ref_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_leads: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          owner_id: string | null
+          person_id: string
+          source: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          owner_id?: string | null
+          person_id: string
+          source?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          owner_id?: string | null
+          person_id?: string
+          source?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_leads_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_leads_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_medical_alert_types: {
+        Row: {
+          code: string
+          default_severity: string
+          label: string
+          sort_order: number
+        }
+        Insert: {
+          code: string
+          default_severity?: string
+          label: string
+          sort_order?: number
+        }
+        Update: {
+          code?: string
+          default_severity?: string
+          label?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      person_medical_alerts: {
+        Row: {
+          alert_code: string
+          created_at: string
+          created_by: string | null
+          details: string | null
+          id: string
+          is_active: boolean
+          onset_date: string | null
+          person_id: string
+          recorded_by: string | null
+          resolved_date: string | null
+          severity: string
+          source: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          alert_code: string
+          created_at?: string
+          created_by?: string | null
+          details?: string | null
+          id?: string
+          is_active?: boolean
+          onset_date?: string | null
+          person_id: string
+          recorded_by?: string | null
+          resolved_date?: string | null
+          severity?: string
+          source?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          alert_code?: string
+          created_at?: string
+          created_by?: string | null
+          details?: string | null
+          id?: string
+          is_active?: boolean
+          onset_date?: string | null
+          person_id?: string
+          recorded_by?: string | null
+          resolved_date?: string | null
+          severity?: string
+          source?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_medical_alerts_alert_code_fkey"
+            columns: ["alert_code"]
+            isOneToOne: false
+            referencedRelation: "person_medical_alert_types"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "person_medical_alerts_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_medical_alerts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_merge_history: {
+        Row: {
+          action: string
+          fk_repoint_summary: Json
+          id: string
+          merge_request_id: string | null
+          performed_at: string
+          performed_by: string | null
+          source_person_id: string
+          source_snapshot: Json
+          target_person_id: string
+          target_snapshot: Json
+          tenant_id: string
+        }
+        Insert: {
+          action: string
+          fk_repoint_summary?: Json
+          id?: string
+          merge_request_id?: string | null
+          performed_at?: string
+          performed_by?: string | null
+          source_person_id: string
+          source_snapshot: Json
+          target_person_id: string
+          target_snapshot: Json
+          tenant_id: string
+        }
+        Update: {
+          action?: string
+          fk_repoint_summary?: Json
+          id?: string
+          merge_request_id?: string | null
+          performed_at?: string
+          performed_by?: string | null
+          source_person_id?: string
+          source_snapshot?: Json
+          target_person_id?: string
+          target_snapshot?: Json
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_merge_history_merge_request_id_fkey"
+            columns: ["merge_request_id"]
+            isOneToOne: false
+            referencedRelation: "person_merge_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_merge_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_merge_requests: {
+        Row: {
+          created_at: string
+          executed_at: string | null
+          id: string
+          reason: string | null
+          requested_by: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          source_person_id: string
+          status: string
+          target_person_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          reason?: string | null
+          requested_by?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_person_id: string
+          status?: string
+          target_person_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          executed_at?: string | null
+          id?: string
+          reason?: string | null
+          requested_by?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_person_id?: string
+          status?: string
+          target_person_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_merge_requests_source_person_id_fkey"
+            columns: ["source_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_merge_requests_target_person_id_fkey"
+            columns: ["target_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_merge_requests_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_relationship_types: {
+        Row: {
+          category: string | null
+          code: string
+          inverse_code: string | null
+          is_reciprocal: boolean
+          label: string
+          sort_order: number
+        }
+        Insert: {
+          category?: string | null
+          code: string
+          inverse_code?: string | null
+          is_reciprocal?: boolean
+          label: string
+          sort_order?: number
+        }
+        Update: {
+          category?: string | null
+          code?: string
+          inverse_code?: string | null
+          is_reciprocal?: boolean
+          label?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      person_relationships: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          from_person_id: string
+          id: string
+          is_emergency: boolean
+          is_primary: boolean
+          notes: string | null
+          relationship_code: string
+          tenant_id: string
+          to_person_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          from_person_id: string
+          id?: string
+          is_emergency?: boolean
+          is_primary?: boolean
+          notes?: string | null
+          relationship_code: string
+          tenant_id: string
+          to_person_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          from_person_id?: string
+          id?: string
+          is_emergency?: boolean
+          is_primary?: boolean
+          notes?: string | null
+          relationship_code?: string
+          tenant_id?: string
+          to_person_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_relationships_from_person_id_fkey"
+            columns: ["from_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_relationships_relationship_code_fkey"
+            columns: ["relationship_code"]
+            isOneToOne: false
+            referencedRelation: "person_relationship_types"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "person_relationships_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_relationships_to_person_id_fkey"
+            columns: ["to_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_tag_defs: {
+        Row: {
+          category: string | null
+          code: string
+          color: string | null
+          created_at: string
+          id: string
+          is_system: boolean
+          label: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          code: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          label: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          code?: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_system?: boolean
+          label?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_tag_defs_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_tags: {
+        Row: {
+          assigned_at: string
+          assigned_by: string | null
+          person_id: string
+          tag_def_id: string
+          tenant_id: string
+        }
+        Insert: {
+          assigned_at?: string
+          assigned_by?: string | null
+          person_id: string
+          tag_def_id: string
+          tenant_id: string
+        }
+        Update: {
+          assigned_at?: string
+          assigned_by?: string | null
+          person_id?: string
+          tag_def_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_tags_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_tags_tag_def_id_fkey"
+            columns: ["tag_def_id"]
+            isOneToOne: false
+            referencedRelation: "person_tag_defs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_tags_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_vendor_contacts: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          person_id: string
+          role_at_vendor: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          vendor_company_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id: string
+          role_at_vendor?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_company_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          person_id?: string
+          role_at_vendor?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_company_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_vendor_contacts_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: true
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_vendor_contacts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_vendor_contacts_vendor_company_id_fkey"
+            columns: ["vendor_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_verifications: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          document_number_hash: string | null
+          document_type: string | null
+          document_url: string | null
+          expires_at: string | null
+          id: string
+          initiated_at: string
+          metadata: Json
+          method: string
+          person_id: string
+          provider: string | null
+          provider_ref: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          verified_at: string | null
+          verifier_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          document_number_hash?: string | null
+          document_type?: string | null
+          document_url?: string | null
+          expires_at?: string | null
+          id?: string
+          initiated_at?: string
+          metadata?: Json
+          method: string
+          person_id: string
+          provider?: string | null
+          provider_ref?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          verified_at?: string | null
+          verifier_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          document_number_hash?: string | null
+          document_type?: string | null
+          document_url?: string | null
+          expires_at?: string | null
+          id?: string
+          initiated_at?: string
+          metadata?: Json
+          method?: string
+          person_id?: string
+          provider?: string | null
+          provider_ref?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          verified_at?: string | null
+          verifier_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_verifications_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_verifications_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      person_wearable_devices: {
+        Row: {
+          created_at: string
+          device_ref: string | null
+          id: string
+          linked_at: string | null
+          metadata: Json
+          model: string | null
+          person_id: string
+          tenant_id: string
+          updated_at: string
+          vendor: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_ref?: string | null
+          id?: string
+          linked_at?: string | null
+          metadata?: Json
+          model?: string | null
+          person_id: string
+          tenant_id: string
+          updated_at?: string
+          vendor?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_ref?: string | null
+          id?: string
+          linked_at?: string | null
+          metadata?: Json
+          model?: string | null
+          person_id?: string
+          tenant_id?: string
+          updated_at?: string
+          vendor?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "person_wearable_devices_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "person_wearable_devices_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      persons: {
+        Row: {
+          archived_at: string | null
+          created_at: string
+          created_by: string | null
+          display_name: string | null
+          dnd_enabled: boolean
+          dnd_reason: string | null
+          do_not_contact: boolean
+          dob: string | null
+          duplicate_status: string
+          email_normalized: string | null
+          erasure_state: string
+          first_name: string | null
+          full_name: string
+          gender: string | null
+          id: string
+          identity_status: string
+          last_name: string | null
+          marketing_opt_in: boolean
+          merged_into_person_id: string | null
+          middle_name: string | null
+          national_id_hash: string | null
+          phone_e164: string | null
+          photo_url: string | null
+          preferred_channel_code: string | null
+          preferred_contact_end: string | null
+          preferred_contact_start: string | null
+          preferred_language: string | null
+          primary_address_city: string | null
+          primary_address_country: string | null
+          primary_address_line1: string | null
+          primary_address_pincode: string | null
+          primary_address_state: string | null
+          primary_lat: number | null
+          primary_lng: number | null
+          retention_policy_code: string | null
+          retention_until: string | null
+          salutation: string | null
+          service_opt_in: boolean
+          tenant_id: string
+          timezone: string | null
+          transactional_opt_in: boolean
+          updated_at: string
+          updated_by: string | null
+          verification_status: string
+          vip_flag: boolean
+        }
+        Insert: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_name?: string | null
+          dnd_enabled?: boolean
+          dnd_reason?: string | null
+          do_not_contact?: boolean
+          dob?: string | null
+          duplicate_status?: string
+          email_normalized?: string | null
+          erasure_state?: string
+          first_name?: string | null
+          full_name: string
+          gender?: string | null
+          id?: string
+          identity_status?: string
+          last_name?: string | null
+          marketing_opt_in?: boolean
+          merged_into_person_id?: string | null
+          middle_name?: string | null
+          national_id_hash?: string | null
+          phone_e164?: string | null
+          photo_url?: string | null
+          preferred_channel_code?: string | null
+          preferred_contact_end?: string | null
+          preferred_contact_start?: string | null
+          preferred_language?: string | null
+          primary_address_city?: string | null
+          primary_address_country?: string | null
+          primary_address_line1?: string | null
+          primary_address_pincode?: string | null
+          primary_address_state?: string | null
+          primary_lat?: number | null
+          primary_lng?: number | null
+          retention_policy_code?: string | null
+          retention_until?: string | null
+          salutation?: string | null
+          service_opt_in?: boolean
+          tenant_id: string
+          timezone?: string | null
+          transactional_opt_in?: boolean
+          updated_at?: string
+          updated_by?: string | null
+          verification_status?: string
+          vip_flag?: boolean
+        }
+        Update: {
+          archived_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          display_name?: string | null
+          dnd_enabled?: boolean
+          dnd_reason?: string | null
+          do_not_contact?: boolean
+          dob?: string | null
+          duplicate_status?: string
+          email_normalized?: string | null
+          erasure_state?: string
+          first_name?: string | null
+          full_name?: string
+          gender?: string | null
+          id?: string
+          identity_status?: string
+          last_name?: string | null
+          marketing_opt_in?: boolean
+          merged_into_person_id?: string | null
+          middle_name?: string | null
+          national_id_hash?: string | null
+          phone_e164?: string | null
+          photo_url?: string | null
+          preferred_channel_code?: string | null
+          preferred_contact_end?: string | null
+          preferred_contact_start?: string | null
+          preferred_language?: string | null
+          primary_address_city?: string | null
+          primary_address_country?: string | null
+          primary_address_line1?: string | null
+          primary_address_pincode?: string | null
+          primary_address_state?: string | null
+          primary_lat?: number | null
+          primary_lng?: number | null
+          retention_policy_code?: string | null
+          retention_until?: string | null
+          salutation?: string | null
+          service_opt_in?: boolean
+          tenant_id?: string
+          timezone?: string | null
+          transactional_opt_in?: boolean
+          updated_at?: string
+          updated_by?: string | null
+          verification_status?: string
+          vip_flag?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "persons_merged_into_person_id_fkey"
+            columns: ["merged_into_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "persons_preferred_channel_code_fkey"
+            columns: ["preferred_channel_code"]
+            isOneToOne: false
+            referencedRelation: "person_contact_channels"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "persons_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pincodes: {
         Row: {
