@@ -1,7 +1,14 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Stethoscope } from "lucide-react";
 
-const YEAR = new Date().getFullYear();
+const INITIAL_YEAR = 2026;
+
+function useCurrentYear() {
+  const [year, setYear] = useState(INITIAL_YEAR);
+  useEffect(() => setYear(new Date().getFullYear()), []);
+  return year;
+}
 
 export function SiteFooter() {
   return (
