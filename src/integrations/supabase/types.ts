@@ -7470,6 +7470,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      _person_merge_repoint_table: {
+        Args: {
+          _column: string
+          _dry_run: boolean
+          _schema: string
+          _source_id: string
+          _table: string
+          _target_id: string
+          _tenant_id: string
+        }
+        Returns: Json
+      }
       can_manage_cms: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
@@ -7531,6 +7543,27 @@ export type Database = {
       move_org_unit: {
         Args: { _new_parent_id: string; _unit_id: string }
         Returns: undefined
+      }
+      person_merge_execute: {
+        Args: {
+          _reason?: string
+          _request_id?: string
+          _source_id: string
+          _target_id: string
+        }
+        Returns: Json
+      }
+      person_merge_preview: {
+        Args: { _source_id: string; _target_id: string }
+        Returns: Json
+      }
+      person_merge_unmerge: {
+        Args: { _history_id: string; _reason?: string }
+        Returns: Json
+      }
+      person_merge_validate: {
+        Args: { _source_id: string; _target_id: string }
+        Returns: Json
       }
       search_global: {
         Args: {
