@@ -66,11 +66,9 @@ export async function nightlyDuplicateScan(
       .limit(batch);
 
     const ids = (data ?? []).map((r) => r.id);
-    const engine = new DedupEngine();
-    const repo = new DuplicateCandidateRepository(sb);
     for (const id of ids) {
       try {
-        const res = await scanPerson(sb, engine, repo, tenantId, id);
+        const res = await scanPerson(sb, { tenantId, personId: id });
         scanned++;
         candidates += res.persisted;
       } catch (e) {
