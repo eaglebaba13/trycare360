@@ -187,7 +187,9 @@ export class SearchService {
       .range(offset, offset + limit - 1);
 
     q = q.eq("identity_status", f.identityStatus ?? "active");
-    if (f.membershipTier) q = q.eq("membership_tier", f.membershipTier);
+    // `membership_tier` is intentionally ignored here — patients/persons do not
+    // carry a tier column yet. When Stage F introduces the membership table,
+    // filter by joining candidate ids from that source above.
     if (candidateIds) q = q.in("id", candidateIds.slice(0, 1000));
     if (f.query && f.query.trim()) {
       const like = `%${f.query.trim().replace(/[%_]/g, "\\$&")}%`;
