@@ -23,8 +23,8 @@ type Row = {
   target_person_id: string;
   performed_at: string;
   performed_by: string | null;
-  execution_ms: number | null;
-  reason: string | null;
+  execution_ms?: number | null;
+  reason?: string | null;
 };
 
 function MergeHistoryPage() {

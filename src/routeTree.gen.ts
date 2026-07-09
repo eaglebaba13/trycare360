@@ -46,7 +46,16 @@ import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_aut
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedPeopleVerificationRouteImport } from './routes/_authenticated/people.verification'
+import { Route as AuthenticatedPeopleTagsRouteImport } from './routes/_authenticated/people.tags'
+import { Route as AuthenticatedPeopleRelationshipsRouteImport } from './routes/_authenticated/people.relationships'
+import { Route as AuthenticatedPeopleNewRouteImport } from './routes/_authenticated/people.new'
+import { Route as AuthenticatedPeopleMergesRouteImport } from './routes/_authenticated/people.merges'
 import { Route as AuthenticatedPeopleListRouteImport } from './routes/_authenticated/people.list'
+import { Route as AuthenticatedPeopleImportRouteImport } from './routes/_authenticated/people.import'
+import { Route as AuthenticatedPeopleDuplicatesRouteImport } from './routes/_authenticated/people.duplicates'
+import { Route as AuthenticatedPeopleAuditRouteImport } from './routes/_authenticated/people.audit'
+import { Route as AuthenticatedPeoplePersonIdRouteImport } from './routes/_authenticated/people.$personId'
 import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
 import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
@@ -288,11 +297,63 @@ const AuthenticatedSettingsGlobalRoute =
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedPeopleVerificationRoute =
+  AuthenticatedPeopleVerificationRouteImport.update({
+    id: '/verification',
+    path: '/verification',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPeopleTagsRoute = AuthenticatedPeopleTagsRouteImport.update({
+  id: '/tags',
+  path: '/tags',
+  getParentRoute: () => AuthenticatedPeopleRoute,
+} as any)
+const AuthenticatedPeopleRelationshipsRoute =
+  AuthenticatedPeopleRelationshipsRouteImport.update({
+    id: '/relationships',
+    path: '/relationships',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPeopleNewRoute = AuthenticatedPeopleNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AuthenticatedPeopleRoute,
+} as any)
+const AuthenticatedPeopleMergesRoute =
+  AuthenticatedPeopleMergesRouteImport.update({
+    id: '/merges',
+    path: '/merges',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
 const AuthenticatedPeopleListRoute = AuthenticatedPeopleListRouteImport.update({
   id: '/list',
   path: '/list',
   getParentRoute: () => AuthenticatedPeopleRoute,
 } as any)
+const AuthenticatedPeopleImportRoute =
+  AuthenticatedPeopleImportRouteImport.update({
+    id: '/import',
+    path: '/import',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPeopleDuplicatesRoute =
+  AuthenticatedPeopleDuplicatesRouteImport.update({
+    id: '/duplicates',
+    path: '/duplicates',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPeopleAuditRoute =
+  AuthenticatedPeopleAuditRouteImport.update({
+    id: '/audit',
+    path: '/audit',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
+const AuthenticatedPeoplePersonIdRoute =
+  AuthenticatedPeoplePersonIdRouteImport.update({
+    id: '/$personId',
+    path: '/$personId',
+    getParentRoute: () => AuthenticatedPeopleRoute,
+  } as any)
 const AuthenticatedOrganizationUsersRoute =
   AuthenticatedOrganizationUsersRouteImport.update({
     id: '/users',
@@ -618,7 +679,16 @@ export interface FileRoutesByFullPath {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
+  '/people/audit': typeof AuthenticatedPeopleAuditRoute
+  '/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
+  '/people/import': typeof AuthenticatedPeopleImportRoute
   '/people/list': typeof AuthenticatedPeopleListRoute
+  '/people/merges': typeof AuthenticatedPeopleMergesRoute
+  '/people/new': typeof AuthenticatedPeopleNewRoute
+  '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
+  '/people/tags': typeof AuthenticatedPeopleTagsRoute
+  '/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -697,7 +767,16 @@ export interface FileRoutesByTo {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
+  '/people/audit': typeof AuthenticatedPeopleAuditRoute
+  '/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
+  '/people/import': typeof AuthenticatedPeopleImportRoute
   '/people/list': typeof AuthenticatedPeopleListRoute
+  '/people/merges': typeof AuthenticatedPeopleMergesRoute
+  '/people/new': typeof AuthenticatedPeopleNewRoute
+  '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
+  '/people/tags': typeof AuthenticatedPeopleTagsRoute
+  '/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
@@ -784,7 +863,16 @@ export interface FileRoutesById {
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/_authenticated/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
+  '/_authenticated/people/audit': typeof AuthenticatedPeopleAuditRoute
+  '/_authenticated/people/duplicates': typeof AuthenticatedPeopleDuplicatesRoute
+  '/_authenticated/people/import': typeof AuthenticatedPeopleImportRoute
   '/_authenticated/people/list': typeof AuthenticatedPeopleListRoute
+  '/_authenticated/people/merges': typeof AuthenticatedPeopleMergesRoute
+  '/_authenticated/people/new': typeof AuthenticatedPeopleNewRoute
+  '/_authenticated/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
+  '/_authenticated/people/tags': typeof AuthenticatedPeopleTagsRoute
+  '/_authenticated/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -871,7 +959,16 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/people/$personId'
+    | '/people/audit'
+    | '/people/duplicates'
+    | '/people/import'
     | '/people/list'
+    | '/people/merges'
+    | '/people/new'
+    | '/people/relationships'
+    | '/people/tags'
+    | '/people/verification'
     | '/settings/global'
     | '/settings/integrations'
     | '/settings/masters'
@@ -950,7 +1047,16 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/people/$personId'
+    | '/people/audit'
+    | '/people/duplicates'
+    | '/people/import'
     | '/people/list'
+    | '/people/merges'
+    | '/people/new'
+    | '/people/relationships'
+    | '/people/tags'
+    | '/people/verification'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
@@ -1036,7 +1142,16 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/roles'
     | '/_authenticated/organization/tree'
     | '/_authenticated/organization/users'
+    | '/_authenticated/people/$personId'
+    | '/_authenticated/people/audit'
+    | '/_authenticated/people/duplicates'
+    | '/_authenticated/people/import'
     | '/_authenticated/people/list'
+    | '/_authenticated/people/merges'
+    | '/_authenticated/people/new'
+    | '/_authenticated/people/relationships'
+    | '/_authenticated/people/tags'
+    | '/_authenticated/people/verification'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
@@ -1340,11 +1455,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/people/verification': {
+      id: '/_authenticated/people/verification'
+      path: '/verification'
+      fullPath: '/people/verification'
+      preLoaderRoute: typeof AuthenticatedPeopleVerificationRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/tags': {
+      id: '/_authenticated/people/tags'
+      path: '/tags'
+      fullPath: '/people/tags'
+      preLoaderRoute: typeof AuthenticatedPeopleTagsRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/relationships': {
+      id: '/_authenticated/people/relationships'
+      path: '/relationships'
+      fullPath: '/people/relationships'
+      preLoaderRoute: typeof AuthenticatedPeopleRelationshipsRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/new': {
+      id: '/_authenticated/people/new'
+      path: '/new'
+      fullPath: '/people/new'
+      preLoaderRoute: typeof AuthenticatedPeopleNewRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/merges': {
+      id: '/_authenticated/people/merges'
+      path: '/merges'
+      fullPath: '/people/merges'
+      preLoaderRoute: typeof AuthenticatedPeopleMergesRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
     '/_authenticated/people/list': {
       id: '/_authenticated/people/list'
       path: '/list'
       fullPath: '/people/list'
       preLoaderRoute: typeof AuthenticatedPeopleListRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/import': {
+      id: '/_authenticated/people/import'
+      path: '/import'
+      fullPath: '/people/import'
+      preLoaderRoute: typeof AuthenticatedPeopleImportRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/duplicates': {
+      id: '/_authenticated/people/duplicates'
+      path: '/duplicates'
+      fullPath: '/people/duplicates'
+      preLoaderRoute: typeof AuthenticatedPeopleDuplicatesRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/audit': {
+      id: '/_authenticated/people/audit'
+      path: '/audit'
+      fullPath: '/people/audit'
+      preLoaderRoute: typeof AuthenticatedPeopleAuditRouteImport
+      parentRoute: typeof AuthenticatedPeopleRoute
+    }
+    '/_authenticated/people/$personId': {
+      id: '/_authenticated/people/$personId'
+      path: '/$personId'
+      fullPath: '/people/$personId'
+      preLoaderRoute: typeof AuthenticatedPeoplePersonIdRouteImport
       parentRoute: typeof AuthenticatedPeopleRoute
     }
     '/_authenticated/organization/users': {
@@ -1808,12 +1986,30 @@ const AuthenticatedOrganizationRouteWithChildren =
   )
 
 interface AuthenticatedPeopleRouteChildren {
+  AuthenticatedPeoplePersonIdRoute: typeof AuthenticatedPeoplePersonIdRoute
+  AuthenticatedPeopleAuditRoute: typeof AuthenticatedPeopleAuditRoute
+  AuthenticatedPeopleDuplicatesRoute: typeof AuthenticatedPeopleDuplicatesRoute
+  AuthenticatedPeopleImportRoute: typeof AuthenticatedPeopleImportRoute
   AuthenticatedPeopleListRoute: typeof AuthenticatedPeopleListRoute
+  AuthenticatedPeopleMergesRoute: typeof AuthenticatedPeopleMergesRoute
+  AuthenticatedPeopleNewRoute: typeof AuthenticatedPeopleNewRoute
+  AuthenticatedPeopleRelationshipsRoute: typeof AuthenticatedPeopleRelationshipsRoute
+  AuthenticatedPeopleTagsRoute: typeof AuthenticatedPeopleTagsRoute
+  AuthenticatedPeopleVerificationRoute: typeof AuthenticatedPeopleVerificationRoute
   AuthenticatedPeopleIndexRoute: typeof AuthenticatedPeopleIndexRoute
 }
 
 const AuthenticatedPeopleRouteChildren: AuthenticatedPeopleRouteChildren = {
+  AuthenticatedPeoplePersonIdRoute: AuthenticatedPeoplePersonIdRoute,
+  AuthenticatedPeopleAuditRoute: AuthenticatedPeopleAuditRoute,
+  AuthenticatedPeopleDuplicatesRoute: AuthenticatedPeopleDuplicatesRoute,
+  AuthenticatedPeopleImportRoute: AuthenticatedPeopleImportRoute,
   AuthenticatedPeopleListRoute: AuthenticatedPeopleListRoute,
+  AuthenticatedPeopleMergesRoute: AuthenticatedPeopleMergesRoute,
+  AuthenticatedPeopleNewRoute: AuthenticatedPeopleNewRoute,
+  AuthenticatedPeopleRelationshipsRoute: AuthenticatedPeopleRelationshipsRoute,
+  AuthenticatedPeopleTagsRoute: AuthenticatedPeopleTagsRoute,
+  AuthenticatedPeopleVerificationRoute: AuthenticatedPeopleVerificationRoute,
   AuthenticatedPeopleIndexRoute: AuthenticatedPeopleIndexRoute,
 }
 

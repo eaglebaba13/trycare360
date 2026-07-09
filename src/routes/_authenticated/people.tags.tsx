@@ -28,9 +28,9 @@ function TagsPage() {
         .from("person_tag_defs")
         .select("*")
         .eq("tenant_id", activeTenantId!)
-        .order("name", { ascending: true })
+        .order("label", { ascending: true })
         .limit(500);
-      if (search) qb = qb.ilike("name", `%${search}%`);
+      if (search) qb = qb.ilike("label", `%${search}%`);
       const { data, error } = await qb;
       if (error) throw new Error(error.message);
       return data as Tag[];
@@ -45,8 +45,8 @@ function TagsPage() {
       width: "40px",
       cell: (r) => <span className="h-4 w-4 rounded-full inline-block" style={{ backgroundColor: r.color ?? "#94a3b8" }} />,
     },
-    { id: "name", header: "Name", cell: (r) => <span className="font-medium">{r.name}</span> },
-    { id: "slug", header: "Slug", cell: (r) => <span className="text-xs font-mono">{r.slug}</span> },
+    { id: "name", header: "Name", cell: (r) => <span className="font-medium">{r.label}</span> },
+    { id: "slug", header: "Slug", cell: (r) => <span className="text-xs font-mono">{r.code}</span> },
     { id: "category", header: "Category", cell: (r) => r.category ? <Badge variant="outline">{r.category}</Badge> : <span className="text-muted-foreground">—</span> },
     { id: "created", header: "Created", cell: (r) => formatDate(r.created_at) },
     { id: "actions", header: "", cell: () => (
