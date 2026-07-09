@@ -14,7 +14,9 @@ import {
   Database,
   Globe,
   UserRound,
+  HeartPulse,
 } from "lucide-react";
+
 
 
 import { ROLES, type RoleCode } from "./rbac";
@@ -49,8 +51,15 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: UserRound,
         roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER],
       },
+      {
+        label: "Patient 360",
+        to: "/patients",
+        icon: HeartPulse,
+        roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER, ROLES.DOCTOR, ROLES.HAIR_CONSULTANT, ROLES.SKIN_CONSULTANT, ROLES.NUTRITIONIST, ROLES.THERAPIST, ROLES.TELECALLER],
+      },
     ],
   },
+
   {
     label: "Administration",
     items: [
