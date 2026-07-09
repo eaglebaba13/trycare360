@@ -253,24 +253,23 @@ class BaseRoleRepo<T extends RoleTable> {
   constructor(protected readonly sb: SB, protected readonly table: T) {}
 
   async getByPerson(tenantId: string, personId: string) {
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic table over union
+    const b: any = this.sb.from(this.table);
     return unwrapMaybe(
-      await this.sb
-        .from(this.table)
-        .select("*")
-        .eq("tenant_id", tenantId)
-        .eq("person_id", personId)
-        .maybeSingle(),
+      await b.select("*").eq("tenant_id", tenantId).eq("person_id", personId).maybeSingle(),
     );
   }
 
   async attach(row: TablesInsert<T>) {
-    // biome-ignore lint/suspicious/noExplicitAny: generic upsert over union
-    return unwrap(await (this.sb.from(this.table).insert(row as any).select("*").single()));
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic table over union
+    const b: any = this.sb.from(this.table);
+    return unwrap(await b.insert(row).select("*").single());
   }
 
   async detach(tenantId: string, personId: string): Promise<void> {
-    const { error } = await this.sb
-      .from(this.table)
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic table over union
+    const b: any = this.sb.from(this.table);
+    const { error } = await b
       .update({ status: "inactive" })
       .eq("tenant_id", tenantId)
       .eq("person_id", personId);
