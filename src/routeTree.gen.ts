@@ -74,16 +74,24 @@ import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authen
 import { Route as AuthenticatedDataAuditRouteImport } from './routes/_authenticated/data.audit'
 import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
 import { Route as AuthenticatedCmsTreatmentsRouteImport } from './routes/_authenticated/cms.treatments'
+import { Route as AuthenticatedCmsTrackingRouteImport } from './routes/_authenticated/cms.tracking'
+import { Route as AuthenticatedCmsTemplatesRouteImport } from './routes/_authenticated/cms.templates'
 import { Route as AuthenticatedCmsSettingsRouteImport } from './routes/_authenticated/cms.settings'
+import { Route as AuthenticatedCmsSeoRouteImport } from './routes/_authenticated/cms.seo'
+import { Route as AuthenticatedCmsSectionsRouteImport } from './routes/_authenticated/cms.sections'
 import { Route as AuthenticatedCmsRedirectsRouteImport } from './routes/_authenticated/cms.redirects'
+import { Route as AuthenticatedCmsPublishingRouteImport } from './routes/_authenticated/cms.publishing'
 import { Route as AuthenticatedCmsProductsRouteImport } from './routes/_authenticated/cms.products'
 import { Route as AuthenticatedCmsPagesRouteImport } from './routes/_authenticated/cms.pages'
 import { Route as AuthenticatedCmsMenusRouteImport } from './routes/_authenticated/cms.menus'
 import { Route as AuthenticatedCmsMediaRouteImport } from './routes/_authenticated/cms.media'
 import { Route as AuthenticatedCmsFranchiseRouteImport } from './routes/_authenticated/cms.franchise'
+import { Route as AuthenticatedCmsExperimentsRouteImport } from './routes/_authenticated/cms.experiments'
 import { Route as AuthenticatedCmsDoctorsRouteImport } from './routes/_authenticated/cms.doctors'
+import { Route as AuthenticatedCmsCampaignsRouteImport } from './routes/_authenticated/cms.campaigns'
 import { Route as AuthenticatedCmsBlogRouteImport } from './routes/_authenticated/cms.blog'
 import { Route as AuthenticatedCmsAppointmentsRouteImport } from './routes/_authenticated/cms.appointments'
+import { Route as AuthenticatedCmsAnalyticsRouteImport } from './routes/_authenticated/cms.analytics'
 import { Route as AuthenticatedCmsAcademyRouteImport } from './routes/_authenticated/cms.academy'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
@@ -99,11 +107,15 @@ import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './ro
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
+import { Route as ApiPublicCmsTrackRouteImport } from './routes/api/public/cms.track'
+import { Route as ApiPublicCmsFormSubmitRouteImport } from './routes/api/public/cms.form-submit'
+import { Route as ApiPublicCmsAbAssignRouteImport } from './routes/api/public/cms.ab-assign'
 import { Route as AuthenticatedSettingsIntegrationsWebhooksRouteImport } from './routes/_authenticated/settings.integrations.webhooks'
 import { Route as AuthenticatedSettingsIntegrationsLogsRouteImport } from './routes/_authenticated/settings.integrations.logs'
 import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './routes/_authenticated/settings.integrations.catalog'
 import { Route as AuthenticatedSettingsIntegrationsApiKeysRouteImport } from './routes/_authenticated/settings.integrations.api-keys'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
+import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport } from './routes/_authenticated/settings.integrations.connections.$providerCode'
 
@@ -460,16 +472,45 @@ const AuthenticatedCmsTreatmentsRoute =
     path: '/treatments',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
+const AuthenticatedCmsTrackingRoute =
+  AuthenticatedCmsTrackingRouteImport.update({
+    id: '/tracking',
+    path: '/tracking',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsTemplatesRoute =
+  AuthenticatedCmsTemplatesRouteImport.update({
+    id: '/templates',
+    path: '/templates',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
 const AuthenticatedCmsSettingsRoute =
   AuthenticatedCmsSettingsRouteImport.update({
     id: '/settings',
     path: '/settings',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
+const AuthenticatedCmsSeoRoute = AuthenticatedCmsSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AuthenticatedCmsRoute,
+} as any)
+const AuthenticatedCmsSectionsRoute =
+  AuthenticatedCmsSectionsRouteImport.update({
+    id: '/sections',
+    path: '/sections',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
 const AuthenticatedCmsRedirectsRoute =
   AuthenticatedCmsRedirectsRouteImport.update({
     id: '/redirects',
     path: '/redirects',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsPublishingRoute =
+  AuthenticatedCmsPublishingRouteImport.update({
+    id: '/publishing',
+    path: '/publishing',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
 const AuthenticatedCmsProductsRoute =
@@ -499,11 +540,23 @@ const AuthenticatedCmsFranchiseRoute =
     path: '/franchise',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
+const AuthenticatedCmsExperimentsRoute =
+  AuthenticatedCmsExperimentsRouteImport.update({
+    id: '/experiments',
+    path: '/experiments',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
 const AuthenticatedCmsDoctorsRoute = AuthenticatedCmsDoctorsRouteImport.update({
   id: '/doctors',
   path: '/doctors',
   getParentRoute: () => AuthenticatedCmsRoute,
 } as any)
+const AuthenticatedCmsCampaignsRoute =
+  AuthenticatedCmsCampaignsRouteImport.update({
+    id: '/campaigns',
+    path: '/campaigns',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
 const AuthenticatedCmsBlogRoute = AuthenticatedCmsBlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -513,6 +566,12 @@ const AuthenticatedCmsAppointmentsRoute =
   AuthenticatedCmsAppointmentsRouteImport.update({
     id: '/appointments',
     path: '/appointments',
+    getParentRoute: () => AuthenticatedCmsRoute,
+  } as any)
+const AuthenticatedCmsAnalyticsRoute =
+  AuthenticatedCmsAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
 const AuthenticatedCmsAcademyRoute = AuthenticatedCmsAcademyRouteImport.update({
@@ -603,6 +662,21 @@ const ApiPublicIntegrationsProcessJobsRoute =
     path: '/api/public/integrations/process-jobs',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicCmsTrackRoute = ApiPublicCmsTrackRouteImport.update({
+  id: '/api/public/cms/track',
+  path: '/api/public/cms/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCmsFormSubmitRoute = ApiPublicCmsFormSubmitRouteImport.update({
+  id: '/api/public/cms/form-submit',
+  path: '/api/public/cms/form-submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCmsAbAssignRoute = ApiPublicCmsAbAssignRouteImport.update({
+  id: '/api/public/cms/ab-assign',
+  path: '/api/public/cms/ab-assign',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedSettingsIntegrationsWebhooksRoute =
   AuthenticatedSettingsIntegrationsWebhooksRouteImport.update({
     id: '/webhooks',
@@ -632,6 +706,12 @@ const AuthenticatedSettingsCompaniesCompanyIdRoute =
     id: '/companies/$companyId',
     path: '/companies/$companyId',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedCmsBuilderPageIdRoute =
+  AuthenticatedCmsBuilderPageIdRouteImport.update({
+    id: '/builder/$pageId',
+    path: '/builder/$pageId',
+    getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
 const AuthenticatedSettingsIntegrationsConnectionsIndexRoute =
   AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport.update({
@@ -675,16 +755,24 @@ export interface FileRoutesByFullPath {
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
   '/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/cms/campaigns': typeof AuthenticatedCmsCampaignsRoute
   '/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/cms/experiments': typeof AuthenticatedCmsExperimentsRoute
   '/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
   '/cms/media': typeof AuthenticatedCmsMediaRoute
   '/cms/menus': typeof AuthenticatedCmsMenusRoute
   '/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/cms/publishing': typeof AuthenticatedCmsPublishingRoute
   '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/sections': typeof AuthenticatedCmsSectionsRoute
+  '/cms/seo': typeof AuthenticatedCmsSeoRoute
   '/cms/settings': typeof AuthenticatedCmsSettingsRoute
+  '/cms/templates': typeof AuthenticatedCmsTemplatesRoute
+  '/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
@@ -731,11 +819,15 @@ export interface FileRoutesByFullPath {
   '/doctors/': typeof PublicDoctorsIndexRoute
   '/products/': typeof PublicProductsIndexRoute
   '/treatments/': typeof PublicTreatmentsIndexRoute
+  '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
+  '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
+  '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -765,16 +857,24 @@ export interface FileRoutesByTo {
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
   '/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/cms/campaigns': typeof AuthenticatedCmsCampaignsRoute
   '/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/cms/experiments': typeof AuthenticatedCmsExperimentsRoute
   '/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
   '/cms/media': typeof AuthenticatedCmsMediaRoute
   '/cms/menus': typeof AuthenticatedCmsMenusRoute
   '/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/cms/publishing': typeof AuthenticatedCmsPublishingRoute
   '/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/cms/sections': typeof AuthenticatedCmsSectionsRoute
+  '/cms/seo': typeof AuthenticatedCmsSeoRoute
   '/cms/settings': typeof AuthenticatedCmsSettingsRoute
+  '/cms/templates': typeof AuthenticatedCmsTemplatesRoute
+  '/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
@@ -820,11 +920,15 @@ export interface FileRoutesByTo {
   '/doctors': typeof PublicDoctorsIndexRoute
   '/products': typeof PublicProductsIndexRoute
   '/treatments': typeof PublicTreatmentsIndexRoute
+  '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
+  '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
+  '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -864,16 +968,24 @@ export interface FileRoutesById {
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
   '/_authenticated/cms/academy': typeof AuthenticatedCmsAcademyRoute
+  '/_authenticated/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/_authenticated/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
   '/_authenticated/cms/blog': typeof AuthenticatedCmsBlogRoute
+  '/_authenticated/cms/campaigns': typeof AuthenticatedCmsCampaignsRoute
   '/_authenticated/cms/doctors': typeof AuthenticatedCmsDoctorsRoute
+  '/_authenticated/cms/experiments': typeof AuthenticatedCmsExperimentsRoute
   '/_authenticated/cms/franchise': typeof AuthenticatedCmsFranchiseRoute
   '/_authenticated/cms/media': typeof AuthenticatedCmsMediaRoute
   '/_authenticated/cms/menus': typeof AuthenticatedCmsMenusRoute
   '/_authenticated/cms/pages': typeof AuthenticatedCmsPagesRoute
   '/_authenticated/cms/products': typeof AuthenticatedCmsProductsRoute
+  '/_authenticated/cms/publishing': typeof AuthenticatedCmsPublishingRoute
   '/_authenticated/cms/redirects': typeof AuthenticatedCmsRedirectsRoute
+  '/_authenticated/cms/sections': typeof AuthenticatedCmsSectionsRoute
+  '/_authenticated/cms/seo': typeof AuthenticatedCmsSeoRoute
   '/_authenticated/cms/settings': typeof AuthenticatedCmsSettingsRoute
+  '/_authenticated/cms/templates': typeof AuthenticatedCmsTemplatesRoute
+  '/_authenticated/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/_authenticated/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
   '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/_authenticated/data/audit': typeof AuthenticatedDataAuditRoute
@@ -920,11 +1032,15 @@ export interface FileRoutesById {
   '/_public/doctors/': typeof PublicDoctorsIndexRoute
   '/_public/products/': typeof PublicProductsIndexRoute
   '/_public/treatments/': typeof PublicTreatmentsIndexRoute
+  '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/_authenticated/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/_authenticated/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/_authenticated/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
+  '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
+  '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -963,16 +1079,24 @@ export interface FileRouteTypes {
     | '/automation/triggers'
     | '/automation/workflows'
     | '/cms/academy'
+    | '/cms/analytics'
     | '/cms/appointments'
     | '/cms/blog'
+    | '/cms/campaigns'
     | '/cms/doctors'
+    | '/cms/experiments'
     | '/cms/franchise'
     | '/cms/media'
     | '/cms/menus'
     | '/cms/pages'
     | '/cms/products'
+    | '/cms/publishing'
     | '/cms/redirects'
+    | '/cms/sections'
+    | '/cms/seo'
     | '/cms/settings'
+    | '/cms/templates'
+    | '/cms/tracking'
     | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
@@ -1019,11 +1143,15 @@ export interface FileRouteTypes {
     | '/doctors/'
     | '/products/'
     | '/treatments/'
+    | '/cms/builder/$pageId'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/api/public/cms/ab-assign'
+    | '/api/public/cms/form-submit'
+    | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies/'
@@ -1053,16 +1181,24 @@ export interface FileRouteTypes {
     | '/automation/triggers'
     | '/automation/workflows'
     | '/cms/academy'
+    | '/cms/analytics'
     | '/cms/appointments'
     | '/cms/blog'
+    | '/cms/campaigns'
     | '/cms/doctors'
+    | '/cms/experiments'
     | '/cms/franchise'
     | '/cms/media'
     | '/cms/menus'
     | '/cms/pages'
     | '/cms/products'
+    | '/cms/publishing'
     | '/cms/redirects'
+    | '/cms/sections'
+    | '/cms/seo'
     | '/cms/settings'
+    | '/cms/templates'
+    | '/cms/tracking'
     | '/cms/treatments'
     | '/data/analytics'
     | '/data/audit'
@@ -1108,11 +1244,15 @@ export interface FileRouteTypes {
     | '/doctors'
     | '/products'
     | '/treatments'
+    | '/cms/builder/$pageId'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/api/public/cms/ab-assign'
+    | '/api/public/cms/form-submit'
+    | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/settings/companies'
@@ -1151,16 +1291,24 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
     | '/_authenticated/cms/academy'
+    | '/_authenticated/cms/analytics'
     | '/_authenticated/cms/appointments'
     | '/_authenticated/cms/blog'
+    | '/_authenticated/cms/campaigns'
     | '/_authenticated/cms/doctors'
+    | '/_authenticated/cms/experiments'
     | '/_authenticated/cms/franchise'
     | '/_authenticated/cms/media'
     | '/_authenticated/cms/menus'
     | '/_authenticated/cms/pages'
     | '/_authenticated/cms/products'
+    | '/_authenticated/cms/publishing'
     | '/_authenticated/cms/redirects'
+    | '/_authenticated/cms/sections'
+    | '/_authenticated/cms/seo'
     | '/_authenticated/cms/settings'
+    | '/_authenticated/cms/templates'
+    | '/_authenticated/cms/tracking'
     | '/_authenticated/cms/treatments'
     | '/_authenticated/data/analytics'
     | '/_authenticated/data/audit'
@@ -1207,11 +1355,15 @@ export interface FileRouteTypes {
     | '/_public/doctors/'
     | '/_public/products/'
     | '/_public/treatments/'
+    | '/_authenticated/cms/builder/$pageId'
     | '/_authenticated/settings/companies/$companyId'
     | '/_authenticated/settings/integrations/api-keys'
     | '/_authenticated/settings/integrations/catalog'
     | '/_authenticated/settings/integrations/logs'
     | '/_authenticated/settings/integrations/webhooks'
+    | '/api/public/cms/ab-assign'
+    | '/api/public/cms/form-submit'
+    | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/_authenticated/settings/companies/'
@@ -1226,6 +1378,9 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiPublicCmsAbAssignRoute: typeof ApiPublicCmsAbAssignRoute
+  ApiPublicCmsFormSubmitRoute: typeof ApiPublicCmsFormSubmitRoute
+  ApiPublicCmsTrackRoute: typeof ApiPublicCmsTrackRoute
   ApiPublicIntegrationsProcessJobsRoute: typeof ApiPublicIntegrationsProcessJobsRoute
   ApiPublicWebhooksSlugRoute: typeof ApiPublicWebhooksSlugRoute
 }
@@ -1687,6 +1842,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsTreatmentsRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/cms/tracking': {
+      id: '/_authenticated/cms/tracking'
+      path: '/tracking'
+      fullPath: '/cms/tracking'
+      preLoaderRoute: typeof AuthenticatedCmsTrackingRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/templates': {
+      id: '/_authenticated/cms/templates'
+      path: '/templates'
+      fullPath: '/cms/templates'
+      preLoaderRoute: typeof AuthenticatedCmsTemplatesRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/cms/settings': {
       id: '/_authenticated/cms/settings'
       path: '/settings'
@@ -1694,11 +1863,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsSettingsRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/cms/seo': {
+      id: '/_authenticated/cms/seo'
+      path: '/seo'
+      fullPath: '/cms/seo'
+      preLoaderRoute: typeof AuthenticatedCmsSeoRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/sections': {
+      id: '/_authenticated/cms/sections'
+      path: '/sections'
+      fullPath: '/cms/sections'
+      preLoaderRoute: typeof AuthenticatedCmsSectionsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/cms/redirects': {
       id: '/_authenticated/cms/redirects'
       path: '/redirects'
       fullPath: '/cms/redirects'
       preLoaderRoute: typeof AuthenticatedCmsRedirectsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/publishing': {
+      id: '/_authenticated/cms/publishing'
+      path: '/publishing'
+      fullPath: '/cms/publishing'
+      preLoaderRoute: typeof AuthenticatedCmsPublishingRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
     '/_authenticated/cms/products': {
@@ -1736,11 +1926,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsFranchiseRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/cms/experiments': {
+      id: '/_authenticated/cms/experiments'
+      path: '/experiments'
+      fullPath: '/cms/experiments'
+      preLoaderRoute: typeof AuthenticatedCmsExperimentsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
     '/_authenticated/cms/doctors': {
       id: '/_authenticated/cms/doctors'
       path: '/doctors'
       fullPath: '/cms/doctors'
       preLoaderRoute: typeof AuthenticatedCmsDoctorsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/campaigns': {
+      id: '/_authenticated/cms/campaigns'
+      path: '/campaigns'
+      fullPath: '/cms/campaigns'
+      preLoaderRoute: typeof AuthenticatedCmsCampaignsRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
     '/_authenticated/cms/blog': {
@@ -1755,6 +1959,13 @@ declare module '@tanstack/react-router' {
       path: '/appointments'
       fullPath: '/cms/appointments'
       preLoaderRoute: typeof AuthenticatedCmsAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/cms/analytics': {
+      id: '/_authenticated/cms/analytics'
+      path: '/analytics'
+      fullPath: '/cms/analytics'
+      preLoaderRoute: typeof AuthenticatedCmsAnalyticsRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
     '/_authenticated/cms/academy': {
@@ -1862,6 +2073,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicIntegrationsProcessJobsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/cms/track': {
+      id: '/api/public/cms/track'
+      path: '/api/public/cms/track'
+      fullPath: '/api/public/cms/track'
+      preLoaderRoute: typeof ApiPublicCmsTrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cms/form-submit': {
+      id: '/api/public/cms/form-submit'
+      path: '/api/public/cms/form-submit'
+      fullPath: '/api/public/cms/form-submit'
+      preLoaderRoute: typeof ApiPublicCmsFormSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cms/ab-assign': {
+      id: '/api/public/cms/ab-assign'
+      path: '/api/public/cms/ab-assign'
+      fullPath: '/api/public/cms/ab-assign'
+      preLoaderRoute: typeof ApiPublicCmsAbAssignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/settings/integrations/webhooks': {
       id: '/_authenticated/settings/integrations/webhooks'
       path: '/webhooks'
@@ -1896,6 +2128,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/companies/$companyId'
       preLoaderRoute: typeof AuthenticatedSettingsCompaniesCompanyIdRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/cms/builder/$pageId': {
+      id: '/_authenticated/cms/builder/$pageId'
+      path: '/builder/$pageId'
+      fullPath: '/cms/builder/$pageId'
+      preLoaderRoute: typeof AuthenticatedCmsBuilderPageIdRouteImport
+      parentRoute: typeof AuthenticatedCmsRoute
     }
     '/_authenticated/settings/integrations/connections/': {
       id: '/_authenticated/settings/integrations/connections/'
@@ -1954,34 +2193,52 @@ const AuthenticatedAutomationRouteWithChildren =
 
 interface AuthenticatedCmsRouteChildren {
   AuthenticatedCmsAcademyRoute: typeof AuthenticatedCmsAcademyRoute
+  AuthenticatedCmsAnalyticsRoute: typeof AuthenticatedCmsAnalyticsRoute
   AuthenticatedCmsAppointmentsRoute: typeof AuthenticatedCmsAppointmentsRoute
   AuthenticatedCmsBlogRoute: typeof AuthenticatedCmsBlogRoute
+  AuthenticatedCmsCampaignsRoute: typeof AuthenticatedCmsCampaignsRoute
   AuthenticatedCmsDoctorsRoute: typeof AuthenticatedCmsDoctorsRoute
+  AuthenticatedCmsExperimentsRoute: typeof AuthenticatedCmsExperimentsRoute
   AuthenticatedCmsFranchiseRoute: typeof AuthenticatedCmsFranchiseRoute
   AuthenticatedCmsMediaRoute: typeof AuthenticatedCmsMediaRoute
   AuthenticatedCmsMenusRoute: typeof AuthenticatedCmsMenusRoute
   AuthenticatedCmsPagesRoute: typeof AuthenticatedCmsPagesRoute
   AuthenticatedCmsProductsRoute: typeof AuthenticatedCmsProductsRoute
+  AuthenticatedCmsPublishingRoute: typeof AuthenticatedCmsPublishingRoute
   AuthenticatedCmsRedirectsRoute: typeof AuthenticatedCmsRedirectsRoute
+  AuthenticatedCmsSectionsRoute: typeof AuthenticatedCmsSectionsRoute
+  AuthenticatedCmsSeoRoute: typeof AuthenticatedCmsSeoRoute
   AuthenticatedCmsSettingsRoute: typeof AuthenticatedCmsSettingsRoute
+  AuthenticatedCmsTemplatesRoute: typeof AuthenticatedCmsTemplatesRoute
+  AuthenticatedCmsTrackingRoute: typeof AuthenticatedCmsTrackingRoute
   AuthenticatedCmsTreatmentsRoute: typeof AuthenticatedCmsTreatmentsRoute
   AuthenticatedCmsIndexRoute: typeof AuthenticatedCmsIndexRoute
+  AuthenticatedCmsBuilderPageIdRoute: typeof AuthenticatedCmsBuilderPageIdRoute
 }
 
 const AuthenticatedCmsRouteChildren: AuthenticatedCmsRouteChildren = {
   AuthenticatedCmsAcademyRoute: AuthenticatedCmsAcademyRoute,
+  AuthenticatedCmsAnalyticsRoute: AuthenticatedCmsAnalyticsRoute,
   AuthenticatedCmsAppointmentsRoute: AuthenticatedCmsAppointmentsRoute,
   AuthenticatedCmsBlogRoute: AuthenticatedCmsBlogRoute,
+  AuthenticatedCmsCampaignsRoute: AuthenticatedCmsCampaignsRoute,
   AuthenticatedCmsDoctorsRoute: AuthenticatedCmsDoctorsRoute,
+  AuthenticatedCmsExperimentsRoute: AuthenticatedCmsExperimentsRoute,
   AuthenticatedCmsFranchiseRoute: AuthenticatedCmsFranchiseRoute,
   AuthenticatedCmsMediaRoute: AuthenticatedCmsMediaRoute,
   AuthenticatedCmsMenusRoute: AuthenticatedCmsMenusRoute,
   AuthenticatedCmsPagesRoute: AuthenticatedCmsPagesRoute,
   AuthenticatedCmsProductsRoute: AuthenticatedCmsProductsRoute,
+  AuthenticatedCmsPublishingRoute: AuthenticatedCmsPublishingRoute,
   AuthenticatedCmsRedirectsRoute: AuthenticatedCmsRedirectsRoute,
+  AuthenticatedCmsSectionsRoute: AuthenticatedCmsSectionsRoute,
+  AuthenticatedCmsSeoRoute: AuthenticatedCmsSeoRoute,
   AuthenticatedCmsSettingsRoute: AuthenticatedCmsSettingsRoute,
+  AuthenticatedCmsTemplatesRoute: AuthenticatedCmsTemplatesRoute,
+  AuthenticatedCmsTrackingRoute: AuthenticatedCmsTrackingRoute,
   AuthenticatedCmsTreatmentsRoute: AuthenticatedCmsTreatmentsRoute,
   AuthenticatedCmsIndexRoute: AuthenticatedCmsIndexRoute,
+  AuthenticatedCmsBuilderPageIdRoute: AuthenticatedCmsBuilderPageIdRoute,
 }
 
 const AuthenticatedCmsRouteWithChildren =
@@ -2219,19 +2476,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiPublicCmsAbAssignRoute: ApiPublicCmsAbAssignRoute,
+  ApiPublicCmsFormSubmitRoute: ApiPublicCmsFormSubmitRoute,
+  ApiPublicCmsTrackRoute: ApiPublicCmsTrackRoute,
   ApiPublicIntegrationsProcessJobsRoute: ApiPublicIntegrationsProcessJobsRoute,
   ApiPublicWebhooksSlugRoute: ApiPublicWebhooksSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

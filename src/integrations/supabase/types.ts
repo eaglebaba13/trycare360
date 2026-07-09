@@ -836,6 +836,106 @@ export type Database = {
           },
         ]
       }
+      cms_ab_assignments: {
+        Row: {
+          converted: boolean
+          converted_at: string | null
+          created_at: string
+          experiment_id: string
+          id: number
+          variant: string
+          visitor_id: string
+        }
+        Insert: {
+          converted?: boolean
+          converted_at?: string | null
+          created_at?: string
+          experiment_id: string
+          id?: number
+          variant: string
+          visitor_id: string
+        }
+        Update: {
+          converted?: boolean
+          converted_at?: string | null
+          created_at?: string
+          experiment_id?: string
+          id?: number
+          variant?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_ab_assignments_experiment_id_fkey"
+            columns: ["experiment_id"]
+            isOneToOne: false
+            referencedRelation: "cms_ab_experiments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_ab_experiments: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          ended_at: string | null
+          goal_event: string | null
+          id: string
+          name: string
+          page_id: string
+          started_at: string | null
+          status: string
+          tenant_id: string
+          traffic_split: number
+          updated_at: string
+          variant_a: Json
+          variant_b: Json
+          winner: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          ended_at?: string | null
+          goal_event?: string | null
+          id?: string
+          name: string
+          page_id: string
+          started_at?: string | null
+          status?: string
+          tenant_id: string
+          traffic_split?: number
+          updated_at?: string
+          variant_a: Json
+          variant_b: Json
+          winner?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          ended_at?: string | null
+          goal_event?: string | null
+          id?: string
+          name?: string
+          page_id?: string
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+          traffic_split?: number
+          updated_at?: string
+          variant_a?: Json
+          variant_b?: Json
+          winner?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_ab_experiments_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cms_academy_courses: {
         Row: {
           brochure_url: string | null
@@ -1529,6 +1629,44 @@ export type Database = {
           },
         ]
       }
+      cms_media_folders: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          parent_id: string | null
+          path: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          parent_id?: string | null
+          path: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          parent_id?: string | null
+          path?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_media_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "cms_media_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cms_navigation_menus: {
         Row: {
           created_at: string
@@ -1570,6 +1708,104 @@ export type Database = {
           },
         ]
       }
+      cms_page_forms: {
+        Row: {
+          block_id: string | null
+          conversion_event: string | null
+          created_at: string
+          form_id: string
+          id: string
+          is_primary: boolean
+          page_id: string
+          tenant_id: string
+          workflow_id: string | null
+        }
+        Insert: {
+          block_id?: string | null
+          conversion_event?: string | null
+          created_at?: string
+          form_id: string
+          id?: string
+          is_primary?: boolean
+          page_id: string
+          tenant_id: string
+          workflow_id?: string | null
+        }
+        Update: {
+          block_id?: string | null
+          conversion_event?: string | null
+          created_at?: string
+          form_id?: string
+          id?: string
+          is_primary?: boolean
+          page_id?: string
+          tenant_id?: string
+          workflow_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_page_forms_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "form_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_page_forms_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_page_publish_log: {
+        Row: {
+          action: string
+          actor: string | null
+          created_at: string
+          from_status: string | null
+          id: string
+          note: string | null
+          page_id: string
+          snapshot: Json
+          tenant_id: string
+          to_status: string | null
+        }
+        Insert: {
+          action: string
+          actor?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          page_id: string
+          snapshot: Json
+          tenant_id: string
+          to_status?: string | null
+        }
+        Update: {
+          action?: string
+          actor?: string | null
+          created_at?: string
+          from_status?: string | null
+          id?: string
+          note?: string | null
+          page_id?: string
+          snapshot?: Json
+          tenant_id?: string
+          to_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_page_publish_log_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cms_page_revisions: {
         Row: {
           created_at: string
@@ -1605,63 +1841,150 @@ export type Database = {
           },
         ]
       }
+      cms_page_templates: {
+        Row: {
+          blocks: Json
+          category: string | null
+          created_at: string
+          created_by: string | null
+          cta_config: Json
+          default_schema: Json
+          default_seo: Json
+          default_tracking: Json
+          description: string | null
+          id: string
+          is_active: boolean
+          is_global: boolean
+          name: string
+          slug: string
+          suggested_forms: string[]
+          tenant_id: string | null
+          thumbnail_url: string | null
+          updated_at: string
+          vertical: string | null
+        }
+        Insert: {
+          blocks?: Json
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          cta_config?: Json
+          default_schema?: Json
+          default_seo?: Json
+          default_tracking?: Json
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_global?: boolean
+          name: string
+          slug: string
+          suggested_forms?: string[]
+          tenant_id?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          vertical?: string | null
+        }
+        Update: {
+          blocks?: Json
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          cta_config?: Json
+          default_schema?: Json
+          default_seo?: Json
+          default_tracking?: Json
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          is_global?: boolean
+          name?: string
+          slug?: string
+          suggested_forms?: string[]
+          tenant_id?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          vertical?: string | null
+        }
+        Relationships: []
+      }
       cms_pages: {
         Row: {
           blocks: Json
+          campaign_id: string | null
           created_at: string
           created_by: string | null
+          goal_event: string | null
           id: string
           og_image_url: string | null
           parent_id: string | null
           path: string
           publish_at: string | null
           published_at: string | null
+          scheduled_at: string | null
           seo: Json
+          seo_score: number | null
           slug: string
           status: Database["public"]["Enums"]["cms_status"]
           template: string
+          template_id: string | null
           tenant_id: string
           title: string
+          tracking: Json
           updated_at: string
           updated_by: string | null
+          utm_defaults: Json
         }
         Insert: {
           blocks?: Json
+          campaign_id?: string | null
           created_at?: string
           created_by?: string | null
+          goal_event?: string | null
           id?: string
           og_image_url?: string | null
           parent_id?: string | null
           path: string
           publish_at?: string | null
           published_at?: string | null
+          scheduled_at?: string | null
           seo?: Json
+          seo_score?: number | null
           slug: string
           status?: Database["public"]["Enums"]["cms_status"]
           template?: string
+          template_id?: string | null
           tenant_id: string
           title: string
+          tracking?: Json
           updated_at?: string
           updated_by?: string | null
+          utm_defaults?: Json
         }
         Update: {
           blocks?: Json
+          campaign_id?: string | null
           created_at?: string
           created_by?: string | null
+          goal_event?: string | null
           id?: string
           og_image_url?: string | null
           parent_id?: string | null
           path?: string
           publish_at?: string | null
           published_at?: string | null
+          scheduled_at?: string | null
           seo?: Json
+          seo_score?: number | null
           slug?: string
           status?: Database["public"]["Enums"]["cms_status"]
           template?: string
+          template_id?: string | null
           tenant_id?: string
           title?: string
+          tracking?: Json
           updated_at?: string
           updated_by?: string | null
+          utm_defaults?: Json
         }
         Relationships: [
           {
@@ -1810,6 +2133,86 @@ export type Database = {
           },
         ]
       }
+      cms_section_library: {
+        Row: {
+          block: Json
+          category: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_global: boolean
+          name: string
+          tenant_id: string | null
+          thumbnail_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          block: Json
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_global?: boolean
+          name: string
+          tenant_id?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          block?: Json
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_global?: boolean
+          name?: string
+          tenant_id?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_seo_audits: {
+        Row: {
+          checked_at: string
+          checked_by: string | null
+          id: string
+          issues: Json
+          page_id: string
+          score: number
+          tenant_id: string
+        }
+        Insert: {
+          checked_at?: string
+          checked_by?: string | null
+          id?: string
+          issues?: Json
+          page_id: string
+          score: number
+          tenant_id: string
+        }
+        Update: {
+          checked_at?: string
+          checked_by?: string | null
+          id?: string
+          issues?: Json
+          page_id?: string
+          score?: number
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_seo_audits_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "cms_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cms_sites: {
         Row: {
           accent_color: string | null
@@ -1880,6 +2283,75 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      cms_tracking_events: {
+        Row: {
+          event_type: string
+          first_touch: Json | null
+          id: number
+          ip_hash: string | null
+          last_touch: Json | null
+          meta: Json
+          occurred_at: string
+          page_id: string | null
+          path: string | null
+          person_id: string | null
+          referrer: string | null
+          session_id: string | null
+          tenant_id: string | null
+          user_agent: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          event_type: string
+          first_touch?: Json | null
+          id?: number
+          ip_hash?: string | null
+          last_touch?: Json | null
+          meta?: Json
+          occurred_at?: string
+          page_id?: string | null
+          path?: string | null
+          person_id?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          tenant_id?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          event_type?: string
+          first_touch?: Json | null
+          id?: number
+          ip_hash?: string | null
+          last_touch?: Json | null
+          meta?: Json
+          occurred_at?: string
+          page_id?: string | null
+          path?: string | null
+          person_id?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          tenant_id?: string | null
+          user_agent?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
       }
       cms_treatment_doctors: {
         Row: {
@@ -7596,7 +8068,7 @@ export type Database = {
         | "scheduled"
         | "cancelled"
         | "converted"
-      cms_status: "draft" | "scheduled" | "published" | "archived"
+      cms_status: "draft" | "in_review" | "scheduled" | "published" | "archived"
       org_unit_type:
         | "platform"
         | "corporate"
@@ -7740,7 +8212,7 @@ export const Constants = {
         "cancelled",
         "converted",
       ],
-      cms_status: ["draft", "scheduled", "published", "archived"],
+      cms_status: ["draft", "in_review", "scheduled", "published", "archived"],
       org_unit_type: [
         "platform",
         "corporate",
