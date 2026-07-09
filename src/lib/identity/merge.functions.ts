@@ -19,11 +19,16 @@ const uuid = z.string().uuid();
 // Types returned by the RPCs (kept loose; the DB is the source of truth).
 // -----------------------------------------------------------------------
 
+// JSON-safe value type used across RPC return shapes so TanStack's
+// serializer accepts them across the RPC boundary.
+type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
+type JsonObj = { [k: string]: Json };
+
 export type MergeValidation = {
   ok: boolean;
   errors: string[];
-  source: Record<string, unknown> | null;
-  target: Record<string, unknown> | null;
+  source: JsonObj | null;
+  target: JsonObj | null;
 };
 
 export type MergePreview = {
@@ -52,7 +57,7 @@ export type MergeExecuteResult = {
   source_id: string;
   target_id: string;
   tenant_id: string;
-  fk_summary: Array<Record<string, unknown>>;
+  fk_summary: JsonObj[];
   execution_ms: number;
 };
 
