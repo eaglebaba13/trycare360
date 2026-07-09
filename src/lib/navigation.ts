@@ -15,6 +15,7 @@ import {
   Globe,
   UserRound,
   HeartPulse,
+  Sparkles,
 } from "lucide-react";
 
 
@@ -59,6 +60,18 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "Acquisition",
+    items: [
+      {
+        label: "AI Consultations",
+        to: "/consultations",
+        icon: Sparkles,
+        roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER, ROLES.DOCTOR, ROLES.HAIR_CONSULTANT, ROLES.SKIN_CONSULTANT, ROLES.NUTRITIONIST, ROLES.TELECALLER],
+      },
+    ],
+  },
+
 
   {
     label: "Administration",

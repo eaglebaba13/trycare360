@@ -17,6 +17,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicFranchiseRouteImport } from './routes/_public.franchise'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as PublicConsultationRouteImport } from './routes/_public.consultation'
 import { Route as PublicBookRouteImport } from './routes/_public.book'
 import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
@@ -26,6 +27,7 @@ import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedConsultationsRouteImport } from './routes/_authenticated/consultations'
 import { Route as AuthenticatedCmsRouteImport } from './routes/_authenticated/cms'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
 import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
@@ -37,11 +39,13 @@ import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenti
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
+import { Route as AuthenticatedConsultationsIndexRouteImport } from './routes/_authenticated/consultations.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
 import { Route as PublicTreatmentsSlugRouteImport } from './routes/_public.treatments.$slug'
 import { Route as PublicProductsSlugRouteImport } from './routes/_public.products.$slug'
 import { Route as PublicDoctorsSlugRouteImport } from './routes/_public.doctors.$slug'
+import { Route as PublicConsultationCategoryRouteImport } from './routes/_public.consultation.$category'
 import { Route as PublicBlogSlugRouteImport } from './routes/_public.blog.$slug'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
@@ -73,6 +77,9 @@ import { Route as AuthenticatedDataFilesRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDataDocumentsRouteImport } from './routes/_authenticated/data.documents'
 import { Route as AuthenticatedDataAuditRouteImport } from './routes/_authenticated/data.audit'
 import { Route as AuthenticatedDataAnalyticsRouteImport } from './routes/_authenticated/data.analytics'
+import { Route as AuthenticatedConsultationsDefinitionsRouteImport } from './routes/_authenticated/consultations.definitions'
+import { Route as AuthenticatedConsultationsAnalyticsRouteImport } from './routes/_authenticated/consultations.analytics'
+import { Route as AuthenticatedConsultationsSessionIdRouteImport } from './routes/_authenticated/consultations.$sessionId'
 import { Route as AuthenticatedCmsTreatmentsRouteImport } from './routes/_authenticated/cms.treatments'
 import { Route as AuthenticatedCmsTrackingRouteImport } from './routes/_authenticated/cms.tracking'
 import { Route as AuthenticatedCmsTemplatesRouteImport } from './routes/_authenticated/cms.templates'
@@ -110,6 +117,8 @@ import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/a
 import { Route as ApiPublicCmsTrackRouteImport } from './routes/api/public/cms.track'
 import { Route as ApiPublicCmsFormSubmitRouteImport } from './routes/api/public/cms.form-submit'
 import { Route as ApiPublicCmsAbAssignRouteImport } from './routes/api/public/cms.ab-assign'
+import { Route as ApiPublicAssessmentActionRouteImport } from './routes/api/public/assessment.$action'
+import { Route as PublicConsultationResultTokenRouteImport } from './routes/_public.consultation.result.$token'
 import { Route as AuthenticatedSettingsIntegrationsWebhooksRouteImport } from './routes/_authenticated/settings.integrations.webhooks'
 import { Route as AuthenticatedSettingsIntegrationsLogsRouteImport } from './routes/_authenticated/settings.integrations.logs'
 import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './routes/_authenticated/settings.integrations.catalog'
@@ -155,6 +164,11 @@ const PublicFranchiseRoute = PublicFranchiseRouteImport.update({
 const PublicContactRoute = PublicContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicConsultationRoute = PublicConsultationRouteImport.update({
+  id: '/consultation',
+  path: '/consultation',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicBookRoute = PublicBookRouteImport.update({
@@ -203,6 +217,12 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedConsultationsRoute =
+  AuthenticatedConsultationsRouteImport.update({
+    id: '/consultations',
+    path: '/consultations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCmsRoute = AuthenticatedCmsRouteImport.update({
   id: '/cms',
   path: '/cms',
@@ -262,6 +282,12 @@ const AuthenticatedDataIndexRoute = AuthenticatedDataIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedDataRoute,
 } as any)
+const AuthenticatedConsultationsIndexRoute =
+  AuthenticatedConsultationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedConsultationsRoute,
+  } as any)
 const AuthenticatedCmsIndexRoute = AuthenticatedCmsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -288,6 +314,12 @@ const PublicDoctorsSlugRoute = PublicDoctorsSlugRouteImport.update({
   path: '/doctors/$slug',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicConsultationCategoryRoute =
+  PublicConsultationCategoryRouteImport.update({
+    id: '/$category',
+    path: '/$category',
+    getParentRoute: () => PublicConsultationRoute,
+  } as any)
 const PublicBlogSlugRoute = PublicBlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -465,6 +497,24 @@ const AuthenticatedDataAnalyticsRoute =
     id: '/analytics',
     path: '/analytics',
     getParentRoute: () => AuthenticatedDataRoute,
+  } as any)
+const AuthenticatedConsultationsDefinitionsRoute =
+  AuthenticatedConsultationsDefinitionsRouteImport.update({
+    id: '/definitions',
+    path: '/definitions',
+    getParentRoute: () => AuthenticatedConsultationsRoute,
+  } as any)
+const AuthenticatedConsultationsAnalyticsRoute =
+  AuthenticatedConsultationsAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedConsultationsRoute,
+  } as any)
+const AuthenticatedConsultationsSessionIdRoute =
+  AuthenticatedConsultationsSessionIdRouteImport.update({
+    id: '/$sessionId',
+    path: '/$sessionId',
+    getParentRoute: () => AuthenticatedConsultationsRoute,
   } as any)
 const AuthenticatedCmsTreatmentsRoute =
   AuthenticatedCmsTreatmentsRouteImport.update({
@@ -677,6 +727,18 @@ const ApiPublicCmsAbAssignRoute = ApiPublicCmsAbAssignRouteImport.update({
   path: '/api/public/cms/ab-assign',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicAssessmentActionRoute =
+  ApiPublicAssessmentActionRouteImport.update({
+    id: '/api/public/assessment/$action',
+    path: '/api/public/assessment/$action',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PublicConsultationResultTokenRoute =
+  PublicConsultationResultTokenRouteImport.update({
+    id: '/result/$token',
+    path: '/result/$token',
+    getParentRoute: () => PublicConsultationRoute,
+  } as any)
 const AuthenticatedSettingsIntegrationsWebhooksRoute =
   AuthenticatedSettingsIntegrationsWebhooksRouteImport.update({
     id: '/webhooks',
@@ -733,6 +795,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/cms': typeof AuthenticatedCmsRouteWithChildren
+  '/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/data': typeof AuthenticatedDataRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
@@ -742,6 +805,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
   '/book': typeof PublicBookRoute
+  '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
   '/franchise': typeof PublicFranchiseRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -774,6 +838,9 @@ export interface FileRoutesByFullPath {
   '/cms/templates': typeof AuthenticatedCmsTemplatesRoute
   '/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
+  '/consultations/$sessionId': typeof AuthenticatedConsultationsSessionIdRoute
+  '/consultations/analytics': typeof AuthenticatedConsultationsAnalyticsRoute
+  '/consultations/definitions': typeof AuthenticatedConsultationsDefinitionsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -805,11 +872,13 @@ export interface FileRoutesByFullPath {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
+  '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
   '/cms/': typeof AuthenticatedCmsIndexRoute
+  '/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
@@ -825,6 +894,8 @@ export interface FileRoutesByFullPath {
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/consultation/result/$token': typeof PublicConsultationResultTokenRoute
+  '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
   '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
@@ -844,6 +915,7 @@ export interface FileRoutesByTo {
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
   '/book': typeof PublicBookRoute
+  '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
   '/franchise': typeof PublicFranchiseRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
@@ -876,6 +948,9 @@ export interface FileRoutesByTo {
   '/cms/templates': typeof AuthenticatedCmsTemplatesRoute
   '/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
+  '/consultations/$sessionId': typeof AuthenticatedConsultationsSessionIdRoute
+  '/consultations/analytics': typeof AuthenticatedConsultationsAnalyticsRoute
+  '/consultations/definitions': typeof AuthenticatedConsultationsDefinitionsRoute
   '/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/data/audit': typeof AuthenticatedDataAuditRoute
   '/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -906,11 +981,13 @@ export interface FileRoutesByTo {
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
+  '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
   '/cms': typeof AuthenticatedCmsIndexRoute
+  '/consultations': typeof AuthenticatedConsultationsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
@@ -926,6 +1003,8 @@ export interface FileRoutesByTo {
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/consultation/result/$token': typeof PublicConsultationResultTokenRoute
+  '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
   '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
@@ -945,6 +1024,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/cms': typeof AuthenticatedCmsRouteWithChildren
+  '/_authenticated/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
@@ -954,6 +1034,7 @@ export interface FileRoutesById {
   '/_public/about': typeof PublicAboutRoute
   '/_public/academy': typeof PublicAcademyRoute
   '/_public/book': typeof PublicBookRoute
+  '/_public/consultation': typeof PublicConsultationRouteWithChildren
   '/_public/contact': typeof PublicContactRoute
   '/_public/franchise': typeof PublicFranchiseRoute
   '/_public/': typeof PublicIndexRoute
@@ -987,6 +1068,9 @@ export interface FileRoutesById {
   '/_authenticated/cms/templates': typeof AuthenticatedCmsTemplatesRoute
   '/_authenticated/cms/tracking': typeof AuthenticatedCmsTrackingRoute
   '/_authenticated/cms/treatments': typeof AuthenticatedCmsTreatmentsRoute
+  '/_authenticated/consultations/$sessionId': typeof AuthenticatedConsultationsSessionIdRoute
+  '/_authenticated/consultations/analytics': typeof AuthenticatedConsultationsAnalyticsRoute
+  '/_authenticated/consultations/definitions': typeof AuthenticatedConsultationsDefinitionsRoute
   '/_authenticated/data/analytics': typeof AuthenticatedDataAnalyticsRoute
   '/_authenticated/data/audit': typeof AuthenticatedDataAuditRoute
   '/_authenticated/data/documents': typeof AuthenticatedDataDocumentsRoute
@@ -1018,11 +1102,13 @@ export interface FileRoutesById {
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
   '/_public/blog/$slug': typeof PublicBlogSlugRoute
+  '/_public/consultation/$category': typeof PublicConsultationCategoryRoute
   '/_public/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/_public/products/$slug': typeof PublicProductsSlugRoute
   '/_public/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
+  '/_authenticated/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
@@ -1038,6 +1124,8 @@ export interface FileRoutesById {
   '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/_authenticated/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/_authenticated/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/_public/consultation/result/$token': typeof PublicConsultationResultTokenRoute
+  '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
   '/api/public/cms/form-submit': typeof ApiPublicCmsFormSubmitRoute
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
@@ -1057,6 +1145,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/automation'
     | '/cms'
+    | '/consultations'
     | '/dashboard'
     | '/data'
     | '/organization'
@@ -1066,6 +1155,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academy'
     | '/book'
+    | '/consultation'
     | '/contact'
     | '/franchise'
     | '/automation/approvals'
@@ -1098,6 +1188,9 @@ export interface FileRouteTypes {
     | '/cms/templates'
     | '/cms/tracking'
     | '/cms/treatments'
+    | '/consultations/$sessionId'
+    | '/consultations/analytics'
+    | '/consultations/definitions'
     | '/data/analytics'
     | '/data/audit'
     | '/data/documents'
@@ -1129,11 +1222,13 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/blog/$slug'
+    | '/consultation/$category'
     | '/doctors/$slug'
     | '/products/$slug'
     | '/treatments/$slug'
     | '/automation/'
     | '/cms/'
+    | '/consultations/'
     | '/data/'
     | '/organization/'
     | '/patients/'
@@ -1149,6 +1244,8 @@ export interface FileRouteTypes {
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/consultation/result/$token'
+    | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
     | '/api/public/cms/form-submit'
     | '/api/public/cms/track'
@@ -1168,6 +1265,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/academy'
     | '/book'
+    | '/consultation'
     | '/contact'
     | '/franchise'
     | '/automation/approvals'
@@ -1200,6 +1298,9 @@ export interface FileRouteTypes {
     | '/cms/templates'
     | '/cms/tracking'
     | '/cms/treatments'
+    | '/consultations/$sessionId'
+    | '/consultations/analytics'
+    | '/consultations/definitions'
     | '/data/analytics'
     | '/data/audit'
     | '/data/documents'
@@ -1230,11 +1331,13 @@ export interface FileRouteTypes {
     | '/settings/platform'
     | '/settings/territory'
     | '/blog/$slug'
+    | '/consultation/$category'
     | '/doctors/$slug'
     | '/products/$slug'
     | '/treatments/$slug'
     | '/automation'
     | '/cms'
+    | '/consultations'
     | '/data'
     | '/organization'
     | '/patients'
@@ -1250,6 +1353,8 @@ export interface FileRouteTypes {
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/consultation/result/$token'
+    | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
     | '/api/public/cms/form-submit'
     | '/api/public/cms/track'
@@ -1268,6 +1373,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_authenticated/automation'
     | '/_authenticated/cms'
+    | '/_authenticated/consultations'
     | '/_authenticated/dashboard'
     | '/_authenticated/data'
     | '/_authenticated/organization'
@@ -1277,6 +1383,7 @@ export interface FileRouteTypes {
     | '/_public/about'
     | '/_public/academy'
     | '/_public/book'
+    | '/_public/consultation'
     | '/_public/contact'
     | '/_public/franchise'
     | '/_public/'
@@ -1310,6 +1417,9 @@ export interface FileRouteTypes {
     | '/_authenticated/cms/templates'
     | '/_authenticated/cms/tracking'
     | '/_authenticated/cms/treatments'
+    | '/_authenticated/consultations/$sessionId'
+    | '/_authenticated/consultations/analytics'
+    | '/_authenticated/consultations/definitions'
     | '/_authenticated/data/analytics'
     | '/_authenticated/data/audit'
     | '/_authenticated/data/documents'
@@ -1341,11 +1451,13 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
     | '/_public/blog/$slug'
+    | '/_public/consultation/$category'
     | '/_public/doctors/$slug'
     | '/_public/products/$slug'
     | '/_public/treatments/$slug'
     | '/_authenticated/automation/'
     | '/_authenticated/cms/'
+    | '/_authenticated/consultations/'
     | '/_authenticated/data/'
     | '/_authenticated/organization/'
     | '/_authenticated/patients/'
@@ -1361,6 +1473,8 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/integrations/catalog'
     | '/_authenticated/settings/integrations/logs'
     | '/_authenticated/settings/integrations/webhooks'
+    | '/_public/consultation/result/$token'
+    | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
     | '/api/public/cms/form-submit'
     | '/api/public/cms/track'
@@ -1378,6 +1492,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiPublicAssessmentActionRoute: typeof ApiPublicAssessmentActionRoute
   ApiPublicCmsAbAssignRoute: typeof ApiPublicCmsAbAssignRoute
   ApiPublicCmsFormSubmitRoute: typeof ApiPublicCmsFormSubmitRoute
   ApiPublicCmsTrackRoute: typeof ApiPublicCmsTrackRoute
@@ -1443,6 +1558,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicContactRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/consultation': {
+      id: '/_public/consultation'
+      path: '/consultation'
+      fullPath: '/consultation'
+      preLoaderRoute: typeof PublicConsultationRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_public/book': {
       id: '/_public/book'
       path: '/book'
@@ -1504,6 +1626,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/consultations': {
+      id: '/_authenticated/consultations'
+      path: '/consultations'
+      fullPath: '/consultations'
+      preLoaderRoute: typeof AuthenticatedConsultationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/cms': {
@@ -1583,6 +1712,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataIndexRouteImport
       parentRoute: typeof AuthenticatedDataRoute
     }
+    '/_authenticated/consultations/': {
+      id: '/_authenticated/consultations/'
+      path: '/'
+      fullPath: '/consultations/'
+      preLoaderRoute: typeof AuthenticatedConsultationsIndexRouteImport
+      parentRoute: typeof AuthenticatedConsultationsRoute
+    }
     '/_authenticated/cms/': {
       id: '/_authenticated/cms/'
       path: '/'
@@ -1617,6 +1753,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/doctors/$slug'
       preLoaderRoute: typeof PublicDoctorsSlugRouteImport
       parentRoute: typeof PublicRoute
+    }
+    '/_public/consultation/$category': {
+      id: '/_public/consultation/$category'
+      path: '/$category'
+      fullPath: '/consultation/$category'
+      preLoaderRoute: typeof PublicConsultationCategoryRouteImport
+      parentRoute: typeof PublicConsultationRoute
     }
     '/_public/blog/$slug': {
       id: '/_public/blog/$slug'
@@ -1834,6 +1977,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/data/analytics'
       preLoaderRoute: typeof AuthenticatedDataAnalyticsRouteImport
       parentRoute: typeof AuthenticatedDataRoute
+    }
+    '/_authenticated/consultations/definitions': {
+      id: '/_authenticated/consultations/definitions'
+      path: '/definitions'
+      fullPath: '/consultations/definitions'
+      preLoaderRoute: typeof AuthenticatedConsultationsDefinitionsRouteImport
+      parentRoute: typeof AuthenticatedConsultationsRoute
+    }
+    '/_authenticated/consultations/analytics': {
+      id: '/_authenticated/consultations/analytics'
+      path: '/analytics'
+      fullPath: '/consultations/analytics'
+      preLoaderRoute: typeof AuthenticatedConsultationsAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedConsultationsRoute
+    }
+    '/_authenticated/consultations/$sessionId': {
+      id: '/_authenticated/consultations/$sessionId'
+      path: '/$sessionId'
+      fullPath: '/consultations/$sessionId'
+      preLoaderRoute: typeof AuthenticatedConsultationsSessionIdRouteImport
+      parentRoute: typeof AuthenticatedConsultationsRoute
     }
     '/_authenticated/cms/treatments': {
       id: '/_authenticated/cms/treatments'
@@ -2094,6 +2258,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCmsAbAssignRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/assessment/$action': {
+      id: '/api/public/assessment/$action'
+      path: '/api/public/assessment/$action'
+      fullPath: '/api/public/assessment/$action'
+      preLoaderRoute: typeof ApiPublicAssessmentActionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/consultation/result/$token': {
+      id: '/_public/consultation/result/$token'
+      path: '/result/$token'
+      fullPath: '/consultation/result/$token'
+      preLoaderRoute: typeof PublicConsultationResultTokenRouteImport
+      parentRoute: typeof PublicConsultationRoute
+    }
     '/_authenticated/settings/integrations/webhooks': {
       id: '/_authenticated/settings/integrations/webhooks'
       path: '/webhooks'
@@ -2243,6 +2421,29 @@ const AuthenticatedCmsRouteChildren: AuthenticatedCmsRouteChildren = {
 
 const AuthenticatedCmsRouteWithChildren =
   AuthenticatedCmsRoute._addFileChildren(AuthenticatedCmsRouteChildren)
+
+interface AuthenticatedConsultationsRouteChildren {
+  AuthenticatedConsultationsSessionIdRoute: typeof AuthenticatedConsultationsSessionIdRoute
+  AuthenticatedConsultationsAnalyticsRoute: typeof AuthenticatedConsultationsAnalyticsRoute
+  AuthenticatedConsultationsDefinitionsRoute: typeof AuthenticatedConsultationsDefinitionsRoute
+  AuthenticatedConsultationsIndexRoute: typeof AuthenticatedConsultationsIndexRoute
+}
+
+const AuthenticatedConsultationsRouteChildren: AuthenticatedConsultationsRouteChildren =
+  {
+    AuthenticatedConsultationsSessionIdRoute:
+      AuthenticatedConsultationsSessionIdRoute,
+    AuthenticatedConsultationsAnalyticsRoute:
+      AuthenticatedConsultationsAnalyticsRoute,
+    AuthenticatedConsultationsDefinitionsRoute:
+      AuthenticatedConsultationsDefinitionsRoute,
+    AuthenticatedConsultationsIndexRoute: AuthenticatedConsultationsIndexRoute,
+  }
+
+const AuthenticatedConsultationsRouteWithChildren =
+  AuthenticatedConsultationsRoute._addFileChildren(
+    AuthenticatedConsultationsRouteChildren,
+  )
 
 interface AuthenticatedDataRouteChildren {
   AuthenticatedDataAnalyticsRoute: typeof AuthenticatedDataAnalyticsRoute
@@ -2411,6 +2612,7 @@ const AuthenticatedSettingsRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
+  AuthenticatedConsultationsRoute: typeof AuthenticatedConsultationsRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
@@ -2422,6 +2624,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedCmsRoute: AuthenticatedCmsRouteWithChildren,
+  AuthenticatedConsultationsRoute: AuthenticatedConsultationsRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
@@ -2433,10 +2636,24 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface PublicConsultationRouteChildren {
+  PublicConsultationCategoryRoute: typeof PublicConsultationCategoryRoute
+  PublicConsultationResultTokenRoute: typeof PublicConsultationResultTokenRoute
+}
+
+const PublicConsultationRouteChildren: PublicConsultationRouteChildren = {
+  PublicConsultationCategoryRoute: PublicConsultationCategoryRoute,
+  PublicConsultationResultTokenRoute: PublicConsultationResultTokenRoute,
+}
+
+const PublicConsultationRouteWithChildren =
+  PublicConsultationRoute._addFileChildren(PublicConsultationRouteChildren)
+
 interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
   PublicAcademyRoute: typeof PublicAcademyRoute
   PublicBookRoute: typeof PublicBookRoute
+  PublicConsultationRoute: typeof PublicConsultationRouteWithChildren
   PublicContactRoute: typeof PublicContactRoute
   PublicFranchiseRoute: typeof PublicFranchiseRoute
   PublicIndexRoute: typeof PublicIndexRoute
@@ -2454,6 +2671,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicAboutRoute: PublicAboutRoute,
   PublicAcademyRoute: PublicAcademyRoute,
   PublicBookRoute: PublicBookRoute,
+  PublicConsultationRoute: PublicConsultationRouteWithChildren,
   PublicContactRoute: PublicContactRoute,
   PublicFranchiseRoute: PublicFranchiseRoute,
   PublicIndexRoute: PublicIndexRoute,
@@ -2476,6 +2694,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiPublicAssessmentActionRoute: ApiPublicAssessmentActionRoute,
   ApiPublicCmsAbAssignRoute: ApiPublicCmsAbAssignRoute,
   ApiPublicCmsFormSubmitRoute: ApiPublicCmsFormSubmitRoute,
   ApiPublicCmsTrackRoute: ApiPublicCmsTrackRoute,

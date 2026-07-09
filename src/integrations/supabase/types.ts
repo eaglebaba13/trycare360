@@ -425,6 +425,340 @@ export type Database = {
           },
         ]
       }
+      assessment_definitions: {
+        Row: {
+          ai_model: string | null
+          ai_system_prompt: string | null
+          category: string
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          photo_slots: Json
+          requires_photos: boolean
+          scoring_config: Json
+          sections: Json
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          ai_model?: string | null
+          ai_system_prompt?: string | null
+          category: string
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          photo_slots?: Json
+          requires_photos?: boolean
+          scoring_config?: Json
+          sections?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          ai_model?: string | null
+          ai_system_prompt?: string | null
+          category?: string
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          photo_slots?: Json
+          requires_photos?: boolean
+          scoring_config?: Json
+          sections?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: []
+      }
+      assessment_photos: {
+        Row: {
+          ai_labels: Json | null
+          created_at: string
+          height: number | null
+          id: string
+          mime_type: string | null
+          session_id: string
+          size_bytes: number | null
+          slot: string
+          storage_path: string
+          uploaded_at: string
+          width: number | null
+        }
+        Insert: {
+          ai_labels?: Json | null
+          created_at?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          session_id: string
+          size_bytes?: number | null
+          slot: string
+          storage_path: string
+          uploaded_at?: string
+          width?: number | null
+        }
+        Update: {
+          ai_labels?: Json | null
+          created_at?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          session_id?: string
+          size_bytes?: number | null
+          slot?: string
+          storage_path?: string
+          uploaded_at?: string
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_photos_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_recommendations: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          kind: string
+          meta: Json
+          priority: number
+          reason: string | null
+          ref_id: string | null
+          ref_slug: string | null
+          session_id: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          kind: string
+          meta?: Json
+          priority?: number
+          reason?: string | null
+          ref_id?: string | null
+          ref_slug?: string | null
+          session_id: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          kind?: string
+          meta?: Json
+          priority?: number
+          reason?: string | null
+          ref_id?: string | null
+          ref_slug?: string | null
+          session_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_recommendations_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_results: {
+        Row: {
+          ai_model: string | null
+          ai_raw: Json | null
+          ai_summary: string | null
+          confidence: number | null
+          created_at: string
+          id: string
+          key_findings: Json
+          probable_causes: Json
+          processing_ms: number | null
+          scale_scores: Json
+          session_id: string
+          severity: string
+          updated_at: string
+          urgency: string | null
+        }
+        Insert: {
+          ai_model?: string | null
+          ai_raw?: Json | null
+          ai_summary?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          key_findings?: Json
+          probable_causes?: Json
+          processing_ms?: number | null
+          scale_scores?: Json
+          session_id: string
+          severity: string
+          updated_at?: string
+          urgency?: string | null
+        }
+        Update: {
+          ai_model?: string | null
+          ai_raw?: Json | null
+          ai_summary?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          key_findings?: Json
+          probable_causes?: Json
+          processing_ms?: number | null
+          scale_scores?: Json
+          session_id?: string
+          severity?: string
+          updated_at?: string
+          urgency?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_results_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: true
+            referencedRelation: "assessment_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_sessions: {
+        Row: {
+          age: number | null
+          campaign: string | null
+          category: string
+          channel: string
+          completed_at: string | null
+          consent_at: string | null
+          consent_given: boolean
+          contact_city: string | null
+          contact_email: string | null
+          contact_name: string | null
+          contact_phone: string | null
+          created_at: string
+          definition_id: string
+          gender: string | null
+          id: string
+          ip_address: string | null
+          lead_person_id: string | null
+          person_id: string | null
+          progress_pct: number
+          public_token: string
+          responses: Json
+          source: string | null
+          started_at: string
+          status: string
+          submitted_at: string | null
+          tenant_id: string | null
+          updated_at: string
+          user_agent: string | null
+          utm: Json
+        }
+        Insert: {
+          age?: number | null
+          campaign?: string | null
+          category: string
+          channel?: string
+          completed_at?: string | null
+          consent_at?: string | null
+          consent_given?: boolean
+          contact_city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          definition_id: string
+          gender?: string | null
+          id?: string
+          ip_address?: string | null
+          lead_person_id?: string | null
+          person_id?: string | null
+          progress_pct?: number
+          public_token?: string
+          responses?: Json
+          source?: string | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          utm?: Json
+        }
+        Update: {
+          age?: number | null
+          campaign?: string | null
+          category?: string
+          channel?: string
+          completed_at?: string | null
+          consent_at?: string | null
+          consent_given?: boolean
+          contact_city?: string | null
+          contact_email?: string | null
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          definition_id?: string
+          gender?: string | null
+          id?: string
+          ip_address?: string | null
+          lead_person_id?: string | null
+          person_id?: string | null
+          progress_pct?: number
+          public_token?: string
+          responses?: Json
+          source?: string | null
+          started_at?: string
+          status?: string
+          submitted_at?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          utm?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_sessions_definition_id_fkey"
+            columns: ["definition_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_definitions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_sessions_lead_person_id_fkey"
+            columns: ["lead_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_sessions_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -7953,6 +8287,36 @@ export type Database = {
           _tenant_id: string
         }
         Returns: Json
+      }
+      assessment_result_public: {
+        Args: { p_public_token: string }
+        Returns: Json
+      }
+      assessment_save_public: {
+        Args: {
+          p_contact?: Json
+          p_progress_pct?: number
+          p_public_token: string
+          p_responses: Json
+        }
+        Returns: boolean
+      }
+      assessment_start_public: {
+        Args: {
+          p_channel?: string
+          p_definition_code: string
+          p_source?: string
+          p_utm?: Json
+        }
+        Returns: {
+          definition: Json
+          public_token: string
+          session_id: string
+        }[]
+      }
+      assessment_submit_public: {
+        Args: { p_consent: boolean; p_public_token: string }
+        Returns: string
       }
       can_manage_cms: {
         Args: { _tenant_id: string; _user_id: string }
