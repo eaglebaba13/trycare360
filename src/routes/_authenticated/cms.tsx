@@ -2,12 +2,16 @@ import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-rout
 import {
   FileText, LayoutTemplate, Users, Stethoscope, Store, GraduationCap,
   ShoppingBag, Image as ImageIcon, Menu as MenuIcon, ArrowRightLeft, Settings, Inbox,
+  LayoutGrid, Blocks, Megaphone, Search, FlaskConical, BarChart3, Send, Radio,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/cms", label: "Overview", icon: LayoutTemplate, exact: true },
   { to: "/cms/pages", label: "Pages", icon: FileText },
+  { to: "/cms/templates", label: "Templates", icon: LayoutGrid },
+  { to: "/cms/sections", label: "Section library", icon: Blocks },
+  { to: "/cms/campaigns", label: "Campaign pages", icon: Megaphone },
   { to: "/cms/blog", label: "Blog posts", icon: FileText },
   { to: "/cms/doctors", label: "Doctors", icon: Users },
   { to: "/cms/treatments", label: "Treatments", icon: Stethoscope },
@@ -18,6 +22,11 @@ const NAV = [
   { to: "/cms/menus", label: "Menus", icon: MenuIcon },
   { to: "/cms/redirects", label: "Redirects", icon: ArrowRightLeft },
   { to: "/cms/appointments", label: "Appointment requests", icon: Inbox },
+  { to: "/cms/seo", label: "SEO manager", icon: Search },
+  { to: "/cms/experiments", label: "A/B experiments", icon: FlaskConical },
+  { to: "/cms/analytics", label: "Analytics", icon: BarChart3 },
+  { to: "/cms/publishing", label: "Publishing", icon: Send },
+  { to: "/cms/tracking", label: "Tracking & pixels", icon: Radio },
   { to: "/cms/settings", label: "Site settings", icon: Settings },
 ] as const;
 
