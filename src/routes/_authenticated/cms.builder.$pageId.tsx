@@ -201,7 +201,7 @@ function BuilderPage() {
         </div>
         <div className="mt-6 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">History</div>
         <div className="space-y-2 max-h-[45vh] overflow-y-auto pr-1">
-          {log.map((l) => (
+          {(log as Array<Record<string, unknown>>).map((l) => (
             <div key={l.id as string} className="flex items-center justify-between rounded-md border p-2 text-xs">
               <div>
                 <div className="font-medium">{l.action as string}</div>
@@ -212,7 +212,7 @@ function BuilderPage() {
               </Button>
             </div>
           ))}
-          {log.length === 0 && <div className="text-xs text-muted-foreground">No history yet.</div>}
+          {(log as unknown[]).length === 0 && <div className="text-xs text-muted-foreground">No history yet.</div>}
         </div>
       </Card>
     </div>
