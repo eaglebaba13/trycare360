@@ -129,13 +129,13 @@ function BuilderPage() {
         </div>
         <div className="mt-6 mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Saved sections</div>
         <div className="space-y-1">
-          {sections.map((s) => (
+          {(sections as Array<Record<string, unknown>>).map((s) => (
             <Button key={s.id as string} variant="ghost" size="sm" className="w-full justify-start"
               onClick={() => insertSection(s.block)}>
               + {s.name as string}
             </Button>
           ))}
-          {sections.length === 0 && <div className="text-xs text-muted-foreground">No saved sections yet.</div>}
+          {(sections as unknown[]).length === 0 && <div className="text-xs text-muted-foreground">No saved sections yet.</div>}
         </div>
       </Card>
 
