@@ -36,10 +36,12 @@ export type AssignmentStrategy =
   | "skill_based"
   | "branch_based";
 
+export type ConditionValue = string | number | boolean | Array<string | number> | null;
+
 export interface AssignmentCondition {
   field: string;
   op: "eq" | "ne" | "in" | "not_in" | "gte" | "lte" | "contains" | "exists";
-  value?: unknown;
+  value?: ConditionValue;
 }
 
 export interface AssignmentRule {

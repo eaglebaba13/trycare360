@@ -11,7 +11,9 @@ const uuid = z.string().uuid();
 const conditionSchema = z.object({
   field: z.string().min(1),
   op: z.enum(["eq", "ne", "in", "not_in", "gte", "lte", "contains", "exists"]),
-  value: z.unknown().optional(),
+  value: z
+    .union([z.string(), z.number(), z.boolean(), z.array(z.union([z.string(), z.number()])), z.null()])
+    .optional(),
 });
 
 const ruleSchema = z.object({
