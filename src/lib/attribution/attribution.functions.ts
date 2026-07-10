@@ -61,7 +61,79 @@ export const recordRevenueEvent = createServerFn({ method: "POST" })
       _meta: data.meta,
     });
     if (error) throw error;
+
+    // Stage-2 re-attribution: replace SQL last-touch stub with the
+    // configurable model (first / last / linear / position). Best-effort.
+    try {
+      const { attributeRevenueEvent } = await import("./attribution.server");
+      await attributeRevenueEvent(supabase, { revenueEventId: id as string });
+    } catch (e) {
+      // Do not break write path; log via automation event.
+      await supabase.rpc("emit_automation_event", {
+        _tenant_id: data.tenant_id,
+        _event_type: "attribution.error",
+        _payload: { revenue_event_id: id, error: String(e) },
+        _entity_ref: { type: "revenue_event", id },
+      });
+    }
+
+    // Stage-2 commission accrual (draft rows). Best-effort.
+    try {
+      const { accrueCommissionsForEvent } = await import("@/lib/commissions/calc.server");
+      await accrueCommissionsForEvent(supabase, id as string);
+    } catch (e) {
+      await supabase.rpc("emit_automation_event", {
+        _tenant_id: data.tenant_id,
+        _event_type: "commission.error",
+        _payload: { revenue_event_id: id, error: String(e) },
+        _entity_ref: { type: "revenue_event", id },
+      });
+    }
+
     return { id: id as string };
+  });
+
+export const applyAttribution = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        revenue_event_id: uuid,
+        model: z.enum(["first", "last", "linear", "position"]).optional(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const { attributeRevenueEvent } = await import("./attribution.server");
+    return attributeRevenueEvent(context.supabase as SB, {
+      revenueEventId: data.revenue_event_id,
+      model: data.model,
+    });
+  });
+
+export const setAttributionModel = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        tenant_id: uuid,
+        model: z.enum(["first", "last", "linear", "position"]),
+      })
+      .parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    const { error } = await supabase.from("platform_settings").upsert(
+      {
+        key: `attribution.model.${data.tenant_id}`,
+        category: "attribution",
+        description: "Active revenue attribution model",
+        value: data.model,
+      },
+      { onConflict: "key" },
+    );
+    if (error) throw error;
+    return { ok: true, model: data.model };
   });
 
 export const listCreditsForPerson = createServerFn({ method: "POST" })
