@@ -126,6 +126,7 @@ import { Route as AuthenticatedSettingsIntegrationsApiKeysRouteImport } from './
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
+import { Route as ApiPublicLeadsIntakeProviderRouteImport } from './routes/api/public/leads.intake.$provider'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport } from './routes/_authenticated/settings.integrations.connections.$providerCode'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -781,6 +782,12 @@ const AuthenticatedSettingsIntegrationsConnectionsIndexRoute =
     path: '/connections/',
     getParentRoute: () => AuthenticatedSettingsIntegrationsRoute,
   } as any)
+const ApiPublicLeadsIntakeProviderRoute =
+  ApiPublicLeadsIntakeProviderRouteImport.update({
+    id: '/api/public/leads/intake/$provider',
+    path: '/api/public/leads/intake/$provider',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute =
   AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport.update({
     id: '/connections/$providerCode',
@@ -904,6 +911,7 @@ export interface FileRoutesByFullPath {
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
+  '/api/public/leads/intake/$provider': typeof ApiPublicLeadsIntakeProviderRoute
   '/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -1013,6 +1021,7 @@ export interface FileRoutesByTo {
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
+  '/api/public/leads/intake/$provider': typeof ApiPublicLeadsIntakeProviderRoute
   '/settings/integrations/connections': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesById {
@@ -1134,6 +1143,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/_authenticated/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/_authenticated/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
+  '/api/public/leads/intake/$provider': typeof ApiPublicLeadsIntakeProviderRoute
   '/_authenticated/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -1254,6 +1264,7 @@ export interface FileRouteTypes {
     | '/settings/companies/'
     | '/settings/integrations/'
     | '/settings/integrations/connections/$providerCode'
+    | '/api/public/leads/intake/$provider'
     | '/settings/integrations/connections/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1363,6 +1374,7 @@ export interface FileRouteTypes {
     | '/settings/companies'
     | '/settings/integrations'
     | '/settings/integrations/connections/$providerCode'
+    | '/api/public/leads/intake/$provider'
     | '/settings/integrations/connections'
   id:
     | '__root__'
@@ -1483,6 +1495,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/companies/'
     | '/_authenticated/settings/integrations/'
     | '/_authenticated/settings/integrations/connections/$providerCode'
+    | '/api/public/leads/intake/$provider'
     | '/_authenticated/settings/integrations/connections/'
   fileRoutesById: FileRoutesById
 }
@@ -1498,6 +1511,7 @@ export interface RootRouteChildren {
   ApiPublicCmsTrackRoute: typeof ApiPublicCmsTrackRoute
   ApiPublicIntegrationsProcessJobsRoute: typeof ApiPublicIntegrationsProcessJobsRoute
   ApiPublicWebhooksSlugRoute: typeof ApiPublicWebhooksSlugRoute
+  ApiPublicLeadsIntakeProviderRoute: typeof ApiPublicLeadsIntakeProviderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -2321,6 +2335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsIntegrationsRoute
     }
+    '/api/public/leads/intake/$provider': {
+      id: '/api/public/leads/intake/$provider'
+      path: '/api/public/leads/intake/$provider'
+      fullPath: '/api/public/leads/intake/$provider'
+      preLoaderRoute: typeof ApiPublicLeadsIntakeProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/settings/integrations/connections/$providerCode': {
       id: '/_authenticated/settings/integrations/connections/$providerCode'
       path: '/connections/$providerCode'
@@ -2700,6 +2721,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicCmsTrackRoute: ApiPublicCmsTrackRoute,
   ApiPublicIntegrationsProcessJobsRoute: ApiPublicIntegrationsProcessJobsRoute,
   ApiPublicWebhooksSlugRoute: ApiPublicWebhooksSlugRoute,
+  ApiPublicLeadsIntakeProviderRoute: ApiPublicLeadsIntakeProviderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
