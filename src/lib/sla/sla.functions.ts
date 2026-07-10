@@ -37,3 +37,56 @@ export const sweepSlaBreaches = createServerFn({ method: "POST" })
     if (error) throw error;
     return { breached: (data as number) ?? 0 };
   });
+
+export const startSla = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        tenant_id: uuid,
+        entity_type: z.string(),
+        entity_id: z.string(),
+        kind: z.enum(["first_response", "follow_up", "callback", "stage_dwell"]),
+        meta: z.record(z.string(), z.unknown()).default({}),
+      })
+      .parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const { startSlaInstance } = await import("./sla.server");
+    return startSlaInstance(context.supabase as SB, {
+      tenantId: data.tenant_id,
+      entityType: data.entity_type,
+      entityId: data.entity_id,
+      kind: data.kind,
+      meta: data.meta,
+    });
+  });
+
+export const satisfySlaInstance = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        entity_type: z.string(),
+        entity_id: z.string(),
+        kind: z.string().optional(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const { satisfySla } = await import("./sla.server");
+    const count = await satisfySla(context.supabase as SB, {
+      entityType: data.entity_type,
+      entityId: data.entity_id,
+      kind: data.kind,
+    });
+    return { satisfied: count };
+  });
+
+export const runSlaEscalations = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ tenant_id: uuid }).parse(d))
+  .handler(async ({ context, data }) => {
+    const { runEscalations } = await import("./sla.server");
+    return runEscalations(context.supabase as SB, data.tenant_id);
+  });
