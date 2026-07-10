@@ -32,14 +32,14 @@ export type LeadUpdate = TablesUpdate<"leads">;
 export class LeadRepository {
   constructor(private readonly sb: SB) {}
 
-  insert(row: LeadInsert): Promise<LeadRow> {
-    return this.sb.from("leads").insert(row).select("*").single().then(unwrap);
+  async insert(row: LeadInsert): Promise<LeadRow> {
+    return unwrap(await this.sb.from("leads").insert(row).select("*").single());
   }
-  update(id: string, patch: LeadUpdate): Promise<LeadRow> {
-    return this.sb.from("leads").update(patch).eq("id", id).select("*").single().then(unwrap);
+  async update(id: string, patch: LeadUpdate): Promise<LeadRow> {
+    return unwrap(await this.sb.from("leads").update(patch).eq("id", id).select("*").single());
   }
-  getById(id: string): Promise<LeadRow | null> {
-    return this.sb.from("leads").select("*").eq("id", id).maybeSingle().then(unwrapMaybe);
+  async getById(id: string): Promise<LeadRow | null> {
+    return unwrapMaybe(await this.sb.from("leads").select("*").eq("id", id).maybeSingle());
   }
   async countOpenByOwner(tenantId: string, ownerId: string): Promise<number> {
     const { count, error } = await this.sb
@@ -71,8 +71,8 @@ export type LeadAssignmentInsert = TablesInsert<"lead_assignments">;
 export class AssignmentRepository {
   constructor(private readonly sb: SB) {}
 
-  insert(row: LeadAssignmentInsert): Promise<LeadAssignmentRow> {
-    return this.sb.from("lead_assignments").insert(row).select("*").single().then(unwrap);
+  async insert(row: LeadAssignmentInsert): Promise<LeadAssignmentRow> {
+    return unwrap(await this.sb.from("lead_assignments").insert(row).select("*").single());
   }
   async closeOpen(leadId: string): Promise<void> {
     const { error } = await this.sb
@@ -101,11 +101,11 @@ export type FollowUpUpdate = TablesUpdate<"lead_follow_ups">;
 
 export class FollowUpRepository {
   constructor(private readonly sb: SB) {}
-  insert(row: FollowUpInsert): Promise<FollowUpRow> {
-    return this.sb.from("lead_follow_ups").insert(row).select("*").single().then(unwrap);
+  async insert(row: FollowUpInsert): Promise<FollowUpRow> {
+    return unwrap(await this.sb.from("lead_follow_ups").insert(row).select("*").single());
   }
-  update(id: string, patch: FollowUpUpdate): Promise<FollowUpRow> {
-    return this.sb.from("lead_follow_ups").update(patch).eq("id", id).select("*").single().then(unwrap);
+  async update(id: string, patch: FollowUpUpdate): Promise<FollowUpRow> {
+    return unwrap(await this.sb.from("lead_follow_ups").update(patch).eq("id", id).select("*").single());
   }
   async listDue(args: {
     tenantId: string;
@@ -133,10 +133,9 @@ export type ScoringEventInsert = TablesInsert<"lead_scoring_events">;
 
 export class ScoringEventRepository {
   constructor(private readonly sb: SB) {}
-  insert(row: ScoringEventInsert): Promise<void> {
-    return this.sb.from("lead_scoring_events").insert(row).then((r) => {
-      if (r.error) throw new Error(r.error.message);
-    });
+  async insert(row: ScoringEventInsert): Promise<void> {
+    const { error } = await this.sb.from("lead_scoring_events").insert(row);
+    if (error) throw new Error(error.message);
   }
   async sumByKind(leadId: string): Promise<Record<string, number>> {
     const { data, error } = await this.sb

@@ -29,12 +29,11 @@ export class SlaDefinitionRepository {
 
 export class SlaInstanceRepository {
   constructor(private readonly sb: SB) {}
-  insert(row: SlaInstanceInsert): Promise<SlaInstanceRow> {
-    return this.sb.from("sla_instances").insert(row).select("*").single().then((r) => {
-      if (r.error) throw new Error(r.error.message);
-      if (!r.data) throw new Error("insert failed");
-      return r.data;
-    });
+  async insert(row: SlaInstanceInsert): Promise<SlaInstanceRow> {
+    const { data, error } = await this.sb.from("sla_instances").insert(row).select("*").single();
+    if (error) throw new Error(error.message);
+    if (!data) throw new Error("insert failed");
+    return data;
   }
   async satisfy(entityType: string, entityId: string, kind?: string): Promise<number> {
     let q = this.sb
