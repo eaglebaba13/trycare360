@@ -69,6 +69,7 @@ export class ClinicalContextLoader {
   async getClinicalContext(args: {
     tenantId: string;
     personId: string;
+    userId: string;
     encounterId?: string | null;
     historyLimit?: number;
   }): Promise<ClinicalContext> {
@@ -144,9 +145,9 @@ export class ClinicalContextLoader {
         .eq("person_id", args.personId)
         .order("occurred_at", { ascending: false })
         .limit(20),
-      this.sb.rpc("can_read_clinical", { _tenant: args.tenantId, _user: "" }),
-      this.sb.rpc("can_write_clinical", { _tenant: args.tenantId, _user: "" }),
-      this.sb.rpc("can_manage_clinical_knowledge", { _tenant: args.tenantId, _user: "" }),
+      this.sb.rpc("can_read_clinical", { _tenant: args.tenantId, _user: args.userId }),
+      this.sb.rpc("can_write_clinical", { _tenant: args.tenantId, _user: args.userId }),
+      this.sb.rpc("can_manage_clinical_knowledge", { _tenant: args.tenantId, _user: args.userId }),
     ]);
 
     const revenueRows = (revenueRes.data ?? []) as Array<

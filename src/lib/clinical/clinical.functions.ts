@@ -679,6 +679,7 @@ export const getClinicalContext = createServerFn({ method: "GET" })
     return loader.getClinicalContext({
       tenantId: data.tenantId,
       personId: data.personId,
+      userId: context.userId,
       encounterId: data.encounterId ?? null,
       historyLimit: data.historyLimit,
     });

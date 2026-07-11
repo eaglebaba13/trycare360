@@ -4,7 +4,7 @@
  * (events, timeline, search indexing) lives in services & server fns.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import type { Database, Json, Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type SB = SupabaseClient<Database>;
 
@@ -59,7 +59,7 @@ const KNOWLEDGE_TABLE: Record<KnowledgeKind, keyof Database["public"]["Tables"]>
   contraindication_rules: "clinical_contraindication_rules",
 };
 
-export type KnowledgeRow = Record<string, unknown>;
+export type KnowledgeRow = Record<string, Json | null | undefined>;
 
 export class ClinicalKnowledgeRepository {
   // Use a loosely-typed inner client for cross-table generic listing.
