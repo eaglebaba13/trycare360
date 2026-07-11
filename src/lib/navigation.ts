@@ -19,6 +19,7 @@ import {
   Headphones,
   Briefcase,
   IndianRupee,
+  BarChart3,
 } from "lucide-react";
 
 
