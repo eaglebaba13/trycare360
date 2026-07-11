@@ -104,6 +104,17 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+  {
+    label: "Intelligence",
+    items: [
+      {
+        label: "Executive Analytics",
+        to: "/analytics",
+        icon: BarChart3,
+        roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER, ROLES.MARKETING, ROLES.ACCOUNTS],
+      },
+    ],
+  },
 
 
   {
