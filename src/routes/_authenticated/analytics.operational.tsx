@@ -68,7 +68,7 @@ function OperationalAnalytics() {
 
   const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
 
-  const queueChart = useMemo(() => queue.slice(0, 15).map((q) => ({
+  const queueChart = useMemo(() => queue.slice(0, 15).map((q: Row) => ({
     owner: String(q.owner_id ?? "unassigned").slice(0, 8),
     total: Number(q.total ?? 0),
   })), [queue]);
