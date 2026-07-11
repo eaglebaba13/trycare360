@@ -221,6 +221,73 @@ export type Database = {
           },
         ]
       }
+      appointment_cancellation: {
+        Row: {
+          appointment_id: string
+          cancelled_at: string
+          cancelled_by: string | null
+          cancelled_by_role: string | null
+          created_at: string
+          id: string
+          meta: Json
+          reason_id: string | null
+          reason_notes: string | null
+          refund_status: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id: string
+          cancelled_at?: string
+          cancelled_by?: string | null
+          cancelled_by_role?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          reason_id?: string | null
+          reason_notes?: string | null
+          refund_status?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string
+          cancelled_at?: string
+          cancelled_by?: string | null
+          cancelled_by_role?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          reason_id?: string | null
+          reason_notes?: string | null
+          refund_status?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_cancellation_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_cancellation_reason_id_fkey"
+            columns: ["reason_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_cancellation_reasons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_cancellation_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       appointment_cancellation_reasons: {
         Row: {
           code: string
@@ -262,6 +329,384 @@ export type Database = {
           },
         ]
       }
+      appointment_checkin: {
+        Row: {
+          appointment_id: string
+          arrived_at: string
+          branch_id: string
+          checked_in_at: string
+          checked_in_by: string | null
+          created_at: string
+          id: string
+          meta: Json
+          method: string
+          tenant_id: string
+          token_id: string | null
+          updated_at: string
+          vitals: Json
+        }
+        Insert: {
+          appointment_id: string
+          arrived_at?: string
+          branch_id: string
+          checked_in_at?: string
+          checked_in_by?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          method?: string
+          tenant_id: string
+          token_id?: string | null
+          updated_at?: string
+          vitals?: Json
+        }
+        Update: {
+          appointment_id?: string
+          arrived_at?: string
+          branch_id?: string
+          checked_in_at?: string
+          checked_in_by?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          method?: string
+          tenant_id?: string
+          token_id?: string | null
+          updated_at?: string
+          vitals?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_checkin_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: true
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_checkin_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_feedback: {
+        Row: {
+          appointment_id: string
+          channel: string | null
+          comments: string | null
+          created_at: string
+          id: string
+          meta: Json
+          nps_score: number | null
+          person_id: string
+          rating: number | null
+          submitted_at: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id: string
+          channel?: string | null
+          comments?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          nps_score?: number | null
+          person_id: string
+          rating?: number | null
+          submitted_at?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string
+          channel?: string | null
+          comments?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          nps_score?: number | null
+          person_id?: string
+          rating?: number | null
+          submitted_at?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_feedback_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_feedback_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_feedback_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_no_show: {
+        Row: {
+          appointment_id: string
+          auto_marked: boolean
+          created_at: string
+          id: string
+          marked_at: string
+          marked_by: string | null
+          meta: Json
+          reason: string | null
+          tenant_id: string
+          updated_at: string
+          waited_minutes: number | null
+        }
+        Insert: {
+          appointment_id: string
+          auto_marked?: boolean
+          created_at?: string
+          id?: string
+          marked_at?: string
+          marked_by?: string | null
+          meta?: Json
+          reason?: string | null
+          tenant_id: string
+          updated_at?: string
+          waited_minutes?: number | null
+        }
+        Update: {
+          appointment_id?: string
+          auto_marked?: boolean
+          created_at?: string
+          id?: string
+          marked_at?: string
+          marked_by?: string | null
+          meta?: Json
+          reason?: string | null
+          tenant_id?: string
+          updated_at?: string
+          waited_minutes?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_no_show_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: true
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_no_show_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_package_items: {
+        Row: {
+          created_at: string
+          depends_on_item_id: string | null
+          id: string
+          meta: Json
+          offset_days_max: number | null
+          offset_days_min: number
+          plan_id: string
+          required: boolean
+          sequence_no: number
+          service_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          depends_on_item_id?: string | null
+          id?: string
+          meta?: Json
+          offset_days_max?: number | null
+          offset_days_min?: number
+          plan_id: string
+          required?: boolean
+          sequence_no: number
+          service_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          depends_on_item_id?: string | null
+          id?: string
+          meta?: Json
+          offset_days_max?: number | null
+          offset_days_min?: number
+          plan_id?: string
+          required?: boolean
+          sequence_no?: number
+          service_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_package_items_depends_on_item_id_fkey"
+            columns: ["depends_on_item_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_package_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_package_items_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_package_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_package_items_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_package_items_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_package_plans: {
+        Row: {
+          category: string
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_package_plans_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_queue: {
+        Row: {
+          avg_service_minutes: number
+          branch_id: string
+          code: string
+          created_at: string
+          id: string
+          meta: Json
+          name: string
+          queue_date: string
+          queue_type: string
+          resource_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          avg_service_minutes?: number
+          branch_id: string
+          code: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          name: string
+          queue_date: string
+          queue_type?: string
+          resource_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          avg_service_minutes?: number
+          branch_id?: string
+          code?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          name?: string
+          queue_date?: string
+          queue_type?: string
+          resource_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_queue_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_queue_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_queue_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       appointment_reasons: {
         Row: {
           code: string
@@ -293,6 +738,522 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "appointment_reasons_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_recurrence_exceptions: {
+        Row: {
+          actor: string | null
+          created_at: string
+          exception_type: string
+          id: string
+          meta: Json
+          new_start_at: string | null
+          original_start_at: string
+          reason_code: string | null
+          replacement_appointment_id: string | null
+          series_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          actor?: string | null
+          created_at?: string
+          exception_type: string
+          id?: string
+          meta?: Json
+          new_start_at?: string | null
+          original_start_at: string
+          reason_code?: string | null
+          replacement_appointment_id?: string | null
+          series_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          actor?: string | null
+          created_at?: string
+          exception_type?: string
+          id?: string
+          meta?: Json
+          new_start_at?: string | null
+          original_start_at?: string
+          reason_code?: string | null
+          replacement_appointment_id?: string | null
+          series_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_recurrence_exceptio_replacement_appointment_id_fkey"
+            columns: ["replacement_appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_recurrence_exceptions_series_id_fkey"
+            columns: ["series_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_recurrence_exceptions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_reminders: {
+        Row: {
+          appointment_id: string
+          attempt_no: number
+          channel: string
+          created_at: string
+          id: string
+          last_error: string | null
+          meta: Json
+          provider_ref: string | null
+          scheduled_at: string
+          sent_at: string | null
+          status: string
+          template_code: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id: string
+          attempt_no?: number
+          channel: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          meta?: Json
+          provider_ref?: string | null
+          scheduled_at: string
+          sent_at?: string | null
+          status?: string
+          template_code?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string
+          attempt_no?: number
+          channel?: string
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          meta?: Json
+          provider_ref?: string | null
+          scheduled_at?: string
+          sent_at?: string | null
+          status?: string
+          template_code?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_reminders_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_reminders_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_reschedule: {
+        Row: {
+          appointment_id: string
+          created_at: string
+          from_branch_id: string | null
+          from_resource_id: string | null
+          from_starts_at: string
+          id: string
+          meta: Json
+          reason: string | null
+          rescheduled_at: string
+          rescheduled_by: string | null
+          rescheduled_by_role: string | null
+          tenant_id: string
+          to_branch_id: string | null
+          to_resource_id: string | null
+          to_starts_at: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id: string
+          created_at?: string
+          from_branch_id?: string | null
+          from_resource_id?: string | null
+          from_starts_at: string
+          id?: string
+          meta?: Json
+          reason?: string | null
+          rescheduled_at?: string
+          rescheduled_by?: string | null
+          rescheduled_by_role?: string | null
+          tenant_id: string
+          to_branch_id?: string | null
+          to_resource_id?: string | null
+          to_starts_at: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string
+          created_at?: string
+          from_branch_id?: string | null
+          from_resource_id?: string | null
+          from_starts_at?: string
+          id?: string
+          meta?: Json
+          reason?: string | null
+          rescheduled_at?: string
+          rescheduled_by?: string | null
+          rescheduled_by_role?: string | null
+          tenant_id?: string
+          to_branch_id?: string | null
+          to_resource_id?: string | null
+          to_starts_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_reschedule_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_reschedule_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_sequence_items: {
+        Row: {
+          actual_date: string | null
+          appointment_id: string | null
+          created_at: string
+          id: string
+          item_id: string
+          meta: Json
+          planned_date: string | null
+          sequence_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          actual_date?: string | null
+          appointment_id?: string | null
+          created_at?: string
+          id?: string
+          item_id: string
+          meta?: Json
+          planned_date?: string | null
+          sequence_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          actual_date?: string | null
+          appointment_id?: string | null
+          created_at?: string
+          id?: string
+          item_id?: string
+          meta?: Json
+          planned_date?: string | null
+          sequence_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_sequence_items_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_package_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_sequence_items_sequence_id_fkey"
+            columns: ["sequence_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_sequences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_sequence_items_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "asqi_appointment_fk"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_sequences: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          membership_id: string | null
+          meta: Json
+          package_id: string | null
+          person_id: string
+          plan_id: string
+          started_at: string
+          status: string
+          subscription_id: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          membership_id?: string | null
+          meta?: Json
+          package_id?: string | null
+          person_id: string
+          plan_id: string
+          started_at?: string
+          status?: string
+          subscription_id?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          membership_id?: string | null
+          meta?: Json
+          package_id?: string | null
+          person_id?: string
+          plan_id?: string
+          started_at?: string
+          status?: string
+          subscription_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_sequences_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_sequences_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_package_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_sequences_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_series: {
+        Row: {
+          branch_id: string
+          created_at: string
+          created_by: string | null
+          dtstart: string
+          franchise_id: string | null
+          id: string
+          meta: Json
+          occurrence_count: number | null
+          org_unit_id: string | null
+          person_id: string
+          resource_id: string | null
+          rrule: string
+          service_id: string
+          status: string
+          tenant_id: string
+          timezone: string
+          until: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id: string
+          created_at?: string
+          created_by?: string | null
+          dtstart: string
+          franchise_id?: string | null
+          id?: string
+          meta?: Json
+          occurrence_count?: number | null
+          org_unit_id?: string | null
+          person_id: string
+          resource_id?: string | null
+          rrule: string
+          service_id: string
+          status?: string
+          tenant_id: string
+          timezone?: string
+          until?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string
+          created_at?: string
+          created_by?: string | null
+          dtstart?: string
+          franchise_id?: string | null
+          id?: string
+          meta?: Json
+          occurrence_count?: number | null
+          org_unit_id?: string | null
+          person_id?: string
+          resource_id?: string | null
+          rrule?: string
+          service_id?: string
+          status?: string
+          tenant_id?: string
+          timezone?: string
+          until?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_series_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_franchise_id_fkey"
+            columns: ["franchise_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_series_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_status_history: {
+        Row: {
+          appointment_id: string
+          branch_id: string
+          changed_at: string
+          changed_by: string | null
+          from_status: string | null
+          id: string
+          meta: Json
+          reason: string | null
+          tenant_id: string
+          to_status: string
+        }
+        Insert: {
+          appointment_id: string
+          branch_id: string
+          changed_at?: string
+          changed_by?: string | null
+          from_status?: string | null
+          id?: string
+          meta?: Json
+          reason?: string | null
+          tenant_id: string
+          to_status: string
+        }
+        Update: {
+          appointment_id?: string
+          branch_id?: string
+          changed_at?: string
+          changed_by?: string | null
+          from_status?: string | null
+          id?: string
+          meta?: Json
+          reason?: string | null
+          tenant_id?: string
+          to_status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_status_history_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_status_history_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -430,6 +1391,461 @@ export type Database = {
           },
           {
             foreignKeyName: "appointment_types_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_waitlist: {
+        Row: {
+          appointment_type_id: string | null
+          branch_id: string | null
+          created_at: string
+          earliest_at: string | null
+          expires_at: string | null
+          id: string
+          last_offer_at: string | null
+          latest_at: string | null
+          max_distance_km: number | null
+          meta: Json
+          notes: string | null
+          offer_ttl_seconds: number
+          package_context_id: string | null
+          person_id: string
+          preferred_branch_ids: string[]
+          preferred_doctor_ids: string[]
+          preferred_time_of_day: string[]
+          priority_score: number
+          sequence_id: string | null
+          service_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          vip_flag: boolean
+        }
+        Insert: {
+          appointment_type_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          earliest_at?: string | null
+          expires_at?: string | null
+          id?: string
+          last_offer_at?: string | null
+          latest_at?: string | null
+          max_distance_km?: number | null
+          meta?: Json
+          notes?: string | null
+          offer_ttl_seconds?: number
+          package_context_id?: string | null
+          person_id: string
+          preferred_branch_ids?: string[]
+          preferred_doctor_ids?: string[]
+          preferred_time_of_day?: string[]
+          priority_score?: number
+          sequence_id?: string | null
+          service_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          vip_flag?: boolean
+        }
+        Update: {
+          appointment_type_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          earliest_at?: string | null
+          expires_at?: string | null
+          id?: string
+          last_offer_at?: string | null
+          latest_at?: string | null
+          max_distance_km?: number | null
+          meta?: Json
+          notes?: string | null
+          offer_ttl_seconds?: number
+          package_context_id?: string | null
+          person_id?: string
+          preferred_branch_ids?: string[]
+          preferred_doctor_ids?: string[]
+          preferred_time_of_day?: string[]
+          priority_score?: number
+          sequence_id?: string | null
+          service_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          vip_flag?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_waitlist_appointment_type_id_fkey"
+            columns: ["appointment_type_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_waitlist_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_waitlist_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_waitlist_sequence_id_fkey"
+            columns: ["sequence_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_sequences"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_waitlist_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_waitlist_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointments: {
+        Row: {
+          admission_id: string | null
+          appointment_code: string
+          appointment_reason_id: string | null
+          appointment_type_id: string | null
+          attribution_touch_id: string | null
+          booked_by: string | null
+          booking_channel: string | null
+          booking_source: string
+          branch_id: string
+          camp_id: string | null
+          cancelled_at: string | null
+          checked_in_at: string | null
+          checked_out_at: string | null
+          clinical_encounter_id: string | null
+          commission_event_id: string | null
+          consult_completed_at: string | null
+          consult_started_at: string | null
+          created_at: string
+          created_by: string | null
+          delivery_mode: string
+          doctor_id: string | null
+          dropoff_location: Json | null
+          duration_minutes: number
+          ends_at: string
+          estimate_id: string | null
+          franchise_id: string | null
+          household_id: string | null
+          id: string
+          internal_notes: string | null
+          invoice_id: string | null
+          is_emergency: boolean
+          is_vip: boolean
+          is_walk_in: boolean
+          lead_id: string | null
+          membership_id: string | null
+          meta: Json
+          no_show_at: string | null
+          notes: string | null
+          occurrence_start_at: string | null
+          org_unit_id: string | null
+          package_id: string | null
+          parent_appointment_id: string | null
+          payment_id: string | null
+          person_id: string
+          pickup_location: Json | null
+          primary_resource_id: string | null
+          priority_weight: number
+          resource_group_id: string | null
+          revenue_event_id: string | null
+          room_resource_id: string | null
+          sequence_item_id: string | null
+          series_id: string | null
+          service_id: string | null
+          service_location: Json | null
+          service_variant_id: string | null
+          starts_at: string
+          status_code: string
+          status_id: string | null
+          subscription_id: string | null
+          tenant_id: string
+          timezone: string
+          updated_at: string
+          updated_by: string | null
+          video_provider: string | null
+          video_session_id: string | null
+        }
+        Insert: {
+          admission_id?: string | null
+          appointment_code: string
+          appointment_reason_id?: string | null
+          appointment_type_id?: string | null
+          attribution_touch_id?: string | null
+          booked_by?: string | null
+          booking_channel?: string | null
+          booking_source?: string
+          branch_id: string
+          camp_id?: string | null
+          cancelled_at?: string | null
+          checked_in_at?: string | null
+          checked_out_at?: string | null
+          clinical_encounter_id?: string | null
+          commission_event_id?: string | null
+          consult_completed_at?: string | null
+          consult_started_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivery_mode?: string
+          doctor_id?: string | null
+          dropoff_location?: Json | null
+          duration_minutes: number
+          ends_at: string
+          estimate_id?: string | null
+          franchise_id?: string | null
+          household_id?: string | null
+          id?: string
+          internal_notes?: string | null
+          invoice_id?: string | null
+          is_emergency?: boolean
+          is_vip?: boolean
+          is_walk_in?: boolean
+          lead_id?: string | null
+          membership_id?: string | null
+          meta?: Json
+          no_show_at?: string | null
+          notes?: string | null
+          occurrence_start_at?: string | null
+          org_unit_id?: string | null
+          package_id?: string | null
+          parent_appointment_id?: string | null
+          payment_id?: string | null
+          person_id: string
+          pickup_location?: Json | null
+          primary_resource_id?: string | null
+          priority_weight?: number
+          resource_group_id?: string | null
+          revenue_event_id?: string | null
+          room_resource_id?: string | null
+          sequence_item_id?: string | null
+          series_id?: string | null
+          service_id?: string | null
+          service_location?: Json | null
+          service_variant_id?: string | null
+          starts_at: string
+          status_code?: string
+          status_id?: string | null
+          subscription_id?: string | null
+          tenant_id: string
+          timezone?: string
+          updated_at?: string
+          updated_by?: string | null
+          video_provider?: string | null
+          video_session_id?: string | null
+        }
+        Update: {
+          admission_id?: string | null
+          appointment_code?: string
+          appointment_reason_id?: string | null
+          appointment_type_id?: string | null
+          attribution_touch_id?: string | null
+          booked_by?: string | null
+          booking_channel?: string | null
+          booking_source?: string
+          branch_id?: string
+          camp_id?: string | null
+          cancelled_at?: string | null
+          checked_in_at?: string | null
+          checked_out_at?: string | null
+          clinical_encounter_id?: string | null
+          commission_event_id?: string | null
+          consult_completed_at?: string | null
+          consult_started_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          delivery_mode?: string
+          doctor_id?: string | null
+          dropoff_location?: Json | null
+          duration_minutes?: number
+          ends_at?: string
+          estimate_id?: string | null
+          franchise_id?: string | null
+          household_id?: string | null
+          id?: string
+          internal_notes?: string | null
+          invoice_id?: string | null
+          is_emergency?: boolean
+          is_vip?: boolean
+          is_walk_in?: boolean
+          lead_id?: string | null
+          membership_id?: string | null
+          meta?: Json
+          no_show_at?: string | null
+          notes?: string | null
+          occurrence_start_at?: string | null
+          org_unit_id?: string | null
+          package_id?: string | null
+          parent_appointment_id?: string | null
+          payment_id?: string | null
+          person_id?: string
+          pickup_location?: Json | null
+          primary_resource_id?: string | null
+          priority_weight?: number
+          resource_group_id?: string | null
+          revenue_event_id?: string | null
+          room_resource_id?: string | null
+          sequence_item_id?: string | null
+          series_id?: string | null
+          service_id?: string | null
+          service_location?: Json | null
+          service_variant_id?: string | null
+          starts_at?: string
+          status_code?: string
+          status_id?: string | null
+          subscription_id?: string | null
+          tenant_id?: string
+          timezone?: string
+          updated_at?: string
+          updated_by?: string | null
+          video_provider?: string | null
+          video_session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_appointment_reason_id_fkey"
+            columns: ["appointment_reason_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_reasons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_appointment_type_id_fkey"
+            columns: ["appointment_type_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_franchise_id_fkey"
+            columns: ["franchise_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_parent_appointment_id_fkey"
+            columns: ["parent_appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_primary_resource_id_fkey"
+            columns: ["primary_resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_resource_group_id_fkey"
+            columns: ["resource_group_id"]
+            isOneToOne: false
+            referencedRelation: "resource_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_room_resource_id_fkey"
+            columns: ["room_resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_sequence_item_id_fkey"
+            columns: ["sequence_item_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_sequence_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_series_id_fkey"
+            columns: ["series_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_series"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_service_variant_id_fkey"
+            columns: ["service_variant_id"]
+            isOneToOne: false
+            referencedRelation: "service_variants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_status_id_fkey"
+            columns: ["status_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_statuses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -1571,6 +2987,180 @@ export type Database = {
           },
           {
             foreignKeyName: "brands_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      capacity_dimensions: {
+        Row: {
+          created_at: string
+          dimension: string
+          id: string
+          max_units: number
+          meta: Json
+          plan_id: string
+          scope_id: string | null
+          soft_max_units: number | null
+          tenant_id: string
+          time_bucket: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          dimension: string
+          id?: string
+          max_units: number
+          meta?: Json
+          plan_id: string
+          scope_id?: string | null
+          soft_max_units?: number | null
+          tenant_id: string
+          time_bucket?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          dimension?: string
+          id?: string
+          max_units?: number
+          meta?: Json
+          plan_id?: string
+          scope_id?: string | null
+          soft_max_units?: number | null
+          tenant_id?: string
+          time_bucket?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capacity_dimensions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "capacity_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capacity_dimensions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      capacity_overrides: {
+        Row: {
+          actor: string | null
+          created_at: string
+          delta_units: number
+          dimension: string
+          id: string
+          meta: Json
+          override_date: string
+          plan_id: string
+          reason_code: string | null
+          scope_id: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          actor?: string | null
+          created_at?: string
+          delta_units: number
+          dimension: string
+          id?: string
+          meta?: Json
+          override_date: string
+          plan_id: string
+          reason_code?: string | null
+          scope_id?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          actor?: string | null
+          created_at?: string
+          delta_units?: number
+          dimension?: string
+          id?: string
+          meta?: Json
+          override_date?: string
+          plan_id?: string
+          reason_code?: string | null
+          scope_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capacity_overrides_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "capacity_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capacity_overrides_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      capacity_plans: {
+        Row: {
+          branch_id: string
+          code: string
+          created_at: string
+          effective_from: string
+          effective_to: string | null
+          id: string
+          meta: Json
+          name: string
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_id: string
+          code: string
+          created_at?: string
+          effective_from: string
+          effective_to?: string | null
+          id?: string
+          meta?: Json
+          name: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string
+          code?: string
+          created_at?: string
+          effective_from?: string
+          effective_to?: string | null
+          id?: string
+          meta?: Json
+          name?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capacity_plans_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capacity_plans_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -4617,6 +6207,88 @@ export type Database = {
           },
           {
             foreignKeyName: "employees_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      external_calendar_accounts: {
+        Row: {
+          channel_expiry: string | null
+          channel_id: string | null
+          connection_id: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          last_sync_at: string | null
+          last_sync_status: string | null
+          meta: Json
+          owner_resource_id: string | null
+          owner_user_id: string
+          provider: string
+          provider_account_id: string
+          sync_direction: string
+          sync_enabled: boolean
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          channel_expiry?: string | null
+          channel_id?: string | null
+          connection_id?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_sync_at?: string | null
+          last_sync_status?: string | null
+          meta?: Json
+          owner_resource_id?: string | null
+          owner_user_id: string
+          provider: string
+          provider_account_id: string
+          sync_direction?: string
+          sync_enabled?: boolean
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          channel_expiry?: string | null
+          channel_id?: string | null
+          connection_id?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_sync_at?: string | null
+          last_sync_status?: string | null
+          meta?: Json
+          owner_resource_id?: string | null
+          owner_user_id?: string
+          provider?: string
+          provider_account_id?: string
+          sync_direction?: string
+          sync_enabled?: boolean
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "external_calendar_accounts_connection_id_fkey"
+            columns: ["connection_id"]
+            isOneToOne: false
+            referencedRelation: "integration_connections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "external_calendar_accounts_owner_resource_id_fkey"
+            columns: ["owner_resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "external_calendar_accounts_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -9010,6 +10682,95 @@ export type Database = {
           },
         ]
       }
+      queue_tokens: {
+        Row: {
+          appointment_id: string | null
+          called_at: string | null
+          completed_at: string | null
+          created_at: string
+          expected_wait_minutes: number | null
+          id: string
+          issued_at: string
+          meta: Json
+          person_id: string | null
+          priority: number
+          queue_id: string
+          served_at: string | null
+          status: string
+          tenant_id: string
+          token_label: string
+          token_number: number
+          updated_at: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          called_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          expected_wait_minutes?: number | null
+          id?: string
+          issued_at?: string
+          meta?: Json
+          person_id?: string | null
+          priority?: number
+          queue_id: string
+          served_at?: string | null
+          status?: string
+          tenant_id: string
+          token_label: string
+          token_number: number
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string | null
+          called_at?: string | null
+          completed_at?: string | null
+          created_at?: string
+          expected_wait_minutes?: number | null
+          id?: string
+          issued_at?: string
+          meta?: Json
+          person_id?: string | null
+          priority?: number
+          queue_id?: string
+          served_at?: string | null
+          status?: string
+          tenant_id?: string
+          token_label?: string
+          token_number?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queue_tokens_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "queue_tokens_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "queue_tokens_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_queue"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "queue_tokens_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       report_definitions: {
         Row: {
           code: string
@@ -9277,6 +11038,67 @@ export type Database = {
           },
         ]
       }
+      resource_conflict_log: {
+        Row: {
+          actor: string | null
+          appointment_id: string | null
+          conflict_type: string
+          detail: Json
+          detected_at: string
+          id: string
+          resolution: string | null
+          resolved_at: string | null
+          resource_id: string
+          tenant_id: string
+        }
+        Insert: {
+          actor?: string | null
+          appointment_id?: string | null
+          conflict_type: string
+          detail?: Json
+          detected_at?: string
+          id?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resource_id: string
+          tenant_id: string
+        }
+        Update: {
+          actor?: string | null
+          appointment_id?: string | null
+          conflict_type?: string
+          detail?: Json
+          detected_at?: string
+          id?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resource_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_conflict_log_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_conflict_log_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_conflict_log_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       resource_group_members: {
         Row: {
           group_id: string
@@ -9374,6 +11196,86 @@ export type Database = {
           },
         ]
       }
+      resource_holds: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          ends_at: string
+          expires_at: string
+          held_by: string | null
+          held_for_person_id: string | null
+          id: string
+          meta: Json
+          resource_id: string
+          slot_key: string
+          starts_at: string
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          ends_at: string
+          expires_at: string
+          held_by?: string | null
+          held_for_person_id?: string | null
+          id?: string
+          meta?: Json
+          resource_id: string
+          slot_key: string
+          starts_at: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          ends_at?: string
+          expires_at?: string
+          held_by?: string | null
+          held_for_person_id?: string | null
+          id?: string
+          meta?: Json
+          resource_id?: string
+          slot_key?: string
+          starts_at?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_holds_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_holds_held_for_person_id_fkey"
+            columns: ["held_for_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_holds_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_holds_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       resource_leaves: {
         Row: {
           approved_at: string | null
@@ -9430,6 +11332,76 @@ export type Database = {
           },
           {
             foreignKeyName: "resource_leaves_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_locks: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          ends_at: string
+          id: string
+          meta: Json
+          override_allowed: boolean
+          reason_code: string
+          reason_notes: string | null
+          resource_id: string
+          starts_at: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_at: string
+          id?: string
+          meta?: Json
+          override_allowed?: boolean
+          reason_code: string
+          reason_notes?: string | null
+          resource_id: string
+          starts_at: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string
+          id?: string
+          meta?: Json
+          override_allowed?: boolean
+          reason_code?: string
+          reason_notes?: string | null
+          resource_id?: string
+          starts_at?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_locks_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_locks_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_locks_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -9601,10 +11573,14 @@ export type Database = {
           code: string
           color: string | null
           created_at: string
+          franchise_id: string | null
+          home_branch_id: string | null
           id: string
           is_active: boolean
+          is_shared: boolean
           meta: Json
           name: string
+          org_unit_id: string | null
           person_id: string | null
           resource_kind: string
           tenant_id: string
@@ -9617,10 +11593,14 @@ export type Database = {
           code: string
           color?: string | null
           created_at?: string
+          franchise_id?: string | null
+          home_branch_id?: string | null
           id?: string
           is_active?: boolean
+          is_shared?: boolean
           meta?: Json
           name: string
+          org_unit_id?: string | null
           person_id?: string | null
           resource_kind: string
           tenant_id: string
@@ -9633,10 +11613,14 @@ export type Database = {
           code?: string
           color?: string | null
           created_at?: string
+          franchise_id?: string | null
+          home_branch_id?: string | null
           id?: string
           is_active?: boolean
+          is_shared?: boolean
           meta?: Json
           name?: string
+          org_unit_id?: string | null
           person_id?: string | null
           resource_kind?: string
           tenant_id?: string
@@ -9649,6 +11633,27 @@ export type Database = {
             columns: ["branch_id"]
             isOneToOne: false
             referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resources_franchise_id_fkey"
+            columns: ["franchise_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resources_home_branch_id_fkey"
+            columns: ["home_branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resources_org_unit_id_fkey"
+            columns: ["org_unit_id"]
+            isOneToOne: false
+            referencedRelation: "org_units"
             referencedColumns: ["id"]
           },
           {
@@ -9906,6 +11911,68 @@ export type Database = {
           },
         ]
       }
+      scheduling_policies: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          effective_from: string
+          effective_to: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          policy_key: string
+          policy_value: Json
+          scope: string
+          scope_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          effective_from?: string
+          effective_to?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          policy_key: string
+          policy_value: Json
+          scope?: string
+          scope_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          effective_from?: string
+          effective_to?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          policy_key?: string
+          policy_value?: Json
+          scope?: string
+          scope_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scheduling_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       search_index: {
         Row: {
           body: string | null
@@ -9952,6 +12019,329 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "search_index_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_dependencies: {
+        Row: {
+          condition_expr: Json
+          created_at: string
+          depends_on_service_id: string
+          id: string
+          mandatory_completion: boolean
+          max_interval: string | null
+          min_interval: string | null
+          mode: string
+          service_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          condition_expr?: Json
+          created_at?: string
+          depends_on_service_id: string
+          id?: string
+          mandatory_completion?: boolean
+          max_interval?: string | null
+          min_interval?: string | null
+          mode?: string
+          service_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          condition_expr?: Json
+          created_at?: string
+          depends_on_service_id?: string
+          id?: string
+          mandatory_completion?: boolean
+          max_interval?: string | null
+          min_interval?: string | null
+          mode?: string
+          service_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_dependencies_depends_on_service_id_fkey"
+            columns: ["depends_on_service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_dependencies_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_dependencies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_resource_requirements: {
+        Row: {
+          created_at: string
+          id: string
+          is_required: boolean
+          meta: Json
+          quantity: number
+          required_skills: string[]
+          resource_type: string
+          service_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_required?: boolean
+          meta?: Json
+          quantity?: number
+          required_skills?: string[]
+          resource_type: string
+          service_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_required?: boolean
+          meta?: Json
+          quantity?: number
+          required_skills?: string[]
+          resource_type?: string
+          service_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_resource_requirements_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_resource_requirements_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_room_requirements: {
+        Row: {
+          created_at: string
+          equipment: string[]
+          id: string
+          is_required: boolean
+          meta: Json
+          room_type: string
+          service_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          equipment?: string[]
+          id?: string
+          is_required?: boolean
+          meta?: Json
+          room_type: string
+          service_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          equipment?: string[]
+          id?: string
+          is_required?: boolean
+          meta?: Json
+          room_type?: string
+          service_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_room_requirements_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_room_requirements_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      service_variants: {
+        Row: {
+          branch_id: string | null
+          code: string
+          created_at: string
+          currency: string
+          duration_minutes: number
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          price_amount: number | null
+          service_id: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          code: string
+          created_at?: string
+          currency?: string
+          duration_minutes: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          price_amount?: number | null
+          service_id: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          code?: string
+          created_at?: string
+          currency?: string
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          price_amount?: number | null
+          service_id?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_variants_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_variants_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_variants_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          buffer_after_minutes: number
+          buffer_before_minutes: number
+          category: string
+          clinical_protocol_ref: Json | null
+          code: string
+          color: string | null
+          consent_template_id: string | null
+          created_at: string
+          created_by: string | null
+          default_appointment_type_id: string | null
+          duration_minutes: number
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          pricing_ref: Json
+          queue_priority: number
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          buffer_after_minutes?: number
+          buffer_before_minutes?: number
+          category: string
+          clinical_protocol_ref?: Json | null
+          code: string
+          color?: string | null
+          consent_template_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          default_appointment_type_id?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          pricing_ref?: Json
+          queue_priority?: number
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          buffer_after_minutes?: number
+          buffer_before_minutes?: number
+          category?: string
+          clinical_protocol_ref?: Json | null
+          code?: string
+          color?: string | null
+          consent_template_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          default_appointment_type_id?: string | null
+          duration_minutes?: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          pricing_ref?: Json
+          queue_priority?: number
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "services_default_appointment_type_id_fkey"
+            columns: ["default_appointment_type_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "services_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -10822,6 +13212,106 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      waitlist_offers: {
+        Row: {
+          appointment_id: string | null
+          candidate_branch_id: string | null
+          candidate_resource_id: string | null
+          candidate_service_id: string | null
+          candidate_starts_at: string
+          created_at: string
+          expires_at: string
+          id: string
+          meta: Json
+          offered_at: string
+          responded_at: string | null
+          response_channel: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          waitlist_id: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          candidate_branch_id?: string | null
+          candidate_resource_id?: string | null
+          candidate_service_id?: string | null
+          candidate_starts_at: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          meta?: Json
+          offered_at?: string
+          responded_at?: string | null
+          response_channel?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          waitlist_id: string
+        }
+        Update: {
+          appointment_id?: string | null
+          candidate_branch_id?: string | null
+          candidate_resource_id?: string | null
+          candidate_service_id?: string | null
+          candidate_starts_at?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          meta?: Json
+          offered_at?: string
+          responded_at?: string | null
+          response_channel?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          waitlist_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_offers_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_offers_candidate_branch_id_fkey"
+            columns: ["candidate_branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_offers_candidate_resource_id_fkey"
+            columns: ["candidate_resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_offers_candidate_service_id_fkey"
+            columns: ["candidate_service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_offers_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_offers_waitlist_id_fkey"
+            columns: ["waitlist_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_waitlist"
             referencedColumns: ["id"]
           },
         ]
