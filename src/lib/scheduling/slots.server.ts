@@ -216,11 +216,20 @@ export class SlotEngine {
           const startISO = new Date(cursor).toISOString();
           const endISO = new Date(cursor + duration * 60_000).toISOString();
 
+          // Breaks are stored as day-of-week + HH:MM windows; project
+          // each to today's date for the overlap check.
+          const dow = new Date(startISO).getUTCDay();
+          const dayStr = startISO.slice(0, 10);
+          const breakClashes = breaks.some((b) => {
+            if (b.day_of_week != null && b.day_of_week !== dow) return false;
+            const bStart = new Date(`${dayStr}T${b.start_time}Z`).toISOString();
+            const bEnd = new Date(`${dayStr}T${b.end_time}Z`).toISOString();
+            return overlaps(startISO, endISO, bStart, bEnd);
+          });
           const clash =
             busy.some((b) => overlaps(startISO, endISO, b.start, b.end)) ||
-            breaks.some((b) =>
-              overlaps(startISO, endISO, b.starts_at, b.ends_at),
-            );
+            breakClashes;
+
 
           if (!clash) {
             let ok = true;
