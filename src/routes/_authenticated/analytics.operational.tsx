@@ -38,26 +38,26 @@ function OperationalAnalytics() {
   const teamQ = useQuery({ queryKey: ["ops-team", activeTenantId], queryFn: () => teamFn({ data: { tenant_id: activeTenantId! } }), enabled });
   const queueQ = useQuery({ queryKey: ["ops-queue", activeTenantId], queryFn: () => queueFn({ data: { tenant_id: activeTenantId! } }), enabled });
 
-  const slas = slaQ.data?.rows ?? [];
-  const fus = fuQ.data?.rows ?? [];
-  const leads = leadsQ.data?.rows ?? [];
-  const team = teamQ.data?.rows ?? [];
-  const queue = queueQ.data?.distribution ?? [];
+  type Row = Record<string, unknown>;
+  const slas = (slaQ.data?.rows ?? []) as Row[];
+  const fus = (fuQ.data?.rows ?? []) as Row[];
+  const leads = (leadsQ.data?.rows ?? []) as Row[];
+  const team = (teamQ.data?.rows ?? []) as Row[];
+  const queue = (queueQ.data?.distribution ?? []) as Row[];
 
   const kpis = useMemo(() => {
     const slaTotal = slas.length;
-    const slaBreached = slas.filter((s) => s.status === "breached" || s.breached_at).length;
+    const slaBreached = slas.filter((s: Row) => s.status === "breached" || s.breached_at).length;
     const slaCompliance = slaTotal ? 1 - slaBreached / slaTotal : 1;
 
     const fuTotal = fus.length;
-    const now = Date.now();
-    const fuOnTime = fus.filter((f) => f.status === "completed" && Date.parse(String(f.completed_at ?? f.due_at)) <= Date.parse(String(f.due_at))).length;
+    const fuOnTime = fus.filter((f: Row) => f.status === "completed" && Date.parse(String(f.completed_at ?? f.due_at)) <= Date.parse(String(f.due_at))).length;
     const fuCompliance = fuTotal ? fuOnTime / fuTotal : 1;
 
-    const assigned = leads.filter((l) => l.owner_id).length;
+    const assigned = leads.filter((l: Row) => l.owner_id).length;
     const assignEfficiency = leads.length ? assigned / leads.length : 0;
 
-    const owners = team.map((t) => Number(t.total ?? 0));
+    const owners = team.map((t: Row) => Number(t.total ?? 0));
     const mean = owners.reduce((s, v) => s + v, 0) / (owners.length || 1);
     const variance = owners.reduce((s, v) => s + (v - mean) ** 2, 0) / (owners.length || 1);
     const std = Math.sqrt(variance);
