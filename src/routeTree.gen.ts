@@ -75,6 +75,7 @@ import { Route as AuthenticatedSchedulingQueueRouteImport } from './routes/_auth
 import { Route as AuthenticatedSchedulingPackagesRouteImport } from './routes/_authenticated/scheduling.packages'
 import { Route as AuthenticatedSchedulingNoShowRouteImport } from './routes/_authenticated/scheduling.no-show'
 import { Route as AuthenticatedSchedulingNewRouteImport } from './routes/_authenticated/scheduling.new'
+import { Route as AuthenticatedSchedulingIntegrationsRouteImport } from './routes/_authenticated/scheduling.integrations'
 import { Route as AuthenticatedSchedulingCheckinRouteImport } from './routes/_authenticated/scheduling.checkin'
 import { Route as AuthenticatedSchedulingCalendarRouteImport } from './routes/_authenticated/scheduling.calendar'
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
@@ -153,6 +154,7 @@ import { Route as AuthenticatedAnalyticsMarketingRouteImport } from './routes/_a
 import { Route as AuthenticatedAnalyticsCommissionRouteImport } from './routes/_authenticated/analytics.commission'
 import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './routes/_authenticated/settings.integrations.index'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
+import { Route as AuthenticatedSchedulingIntegrationsIndexRouteImport } from './routes/_authenticated/scheduling.integrations.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
 import { Route as ApiPublicCmsTrackRouteImport } from './routes/api/public/cms.track'
@@ -167,6 +169,9 @@ import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './
 import { Route as AuthenticatedSettingsIntegrationsApiKeysRouteImport } from './routes/_authenticated/settings.integrations.api-keys'
 import { Route as AuthenticatedSettingsCompaniesCompanyIdRouteImport } from './routes/_authenticated/settings.companies.$companyId'
 import { Route as AuthenticatedSchedulingSeriesSeriesIdRouteImport } from './routes/_authenticated/scheduling.series.$seriesId'
+import { Route as AuthenticatedSchedulingIntegrationsVideoRouteImport } from './routes/_authenticated/scheduling.integrations.video'
+import { Route as AuthenticatedSchedulingIntegrationsRemindersRouteImport } from './routes/_authenticated/scheduling.integrations.reminders'
+import { Route as AuthenticatedSchedulingIntegrationsCalendarRouteImport } from './routes/_authenticated/scheduling.integrations.calendar'
 import { Route as AuthenticatedSchedulingAppointmentsAppointmentIdRouteImport } from './routes/_authenticated/scheduling.appointments.$appointmentId'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
@@ -528,6 +533,12 @@ const AuthenticatedSchedulingNewRoute =
   AuthenticatedSchedulingNewRouteImport.update({
     id: '/new',
     path: '/new',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingIntegrationsRoute =
+  AuthenticatedSchedulingIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSchedulingCheckinRoute =
@@ -982,6 +993,12 @@ const AuthenticatedSettingsCompaniesIndexRoute =
     path: '/companies/',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSchedulingIntegrationsIndexRoute =
+  AuthenticatedSchedulingIntegrationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSchedulingIntegrationsRoute,
+  } as any)
 const ApiPublicWebhooksSlugRoute = ApiPublicWebhooksSlugRouteImport.update({
   id: '/api/public/webhooks/$slug',
   path: '/api/public/webhooks/$slug',
@@ -1061,6 +1078,24 @@ const AuthenticatedSchedulingSeriesSeriesIdRoute =
     id: '/series/$seriesId',
     path: '/series/$seriesId',
     getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingIntegrationsVideoRoute =
+  AuthenticatedSchedulingIntegrationsVideoRouteImport.update({
+    id: '/video',
+    path: '/video',
+    getParentRoute: () => AuthenticatedSchedulingIntegrationsRoute,
+  } as any)
+const AuthenticatedSchedulingIntegrationsRemindersRoute =
+  AuthenticatedSchedulingIntegrationsRemindersRouteImport.update({
+    id: '/reminders',
+    path: '/reminders',
+    getParentRoute: () => AuthenticatedSchedulingIntegrationsRoute,
+  } as any)
+const AuthenticatedSchedulingIntegrationsCalendarRoute =
+  AuthenticatedSchedulingIntegrationsCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => AuthenticatedSchedulingIntegrationsRoute,
   } as any)
 const AuthenticatedSchedulingAppointmentsAppointmentIdRoute =
   AuthenticatedSchedulingAppointmentsAppointmentIdRouteImport.update({
@@ -1195,6 +1230,7 @@ export interface FileRoutesByFullPath {
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
+  '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
   '/scheduling/new': typeof AuthenticatedSchedulingNewRoute
   '/scheduling/no-show': typeof AuthenticatedSchedulingNoShowRoute
   '/scheduling/packages': typeof AuthenticatedSchedulingPackagesRoute
@@ -1236,6 +1272,9 @@ export interface FileRoutesByFullPath {
   '/treatments/': typeof PublicTreatmentsIndexRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
+  '/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
+  '/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
+  '/scheduling/integrations/video': typeof AuthenticatedSchedulingIntegrationsVideoRoute
   '/scheduling/series/$seriesId': typeof AuthenticatedSchedulingSeriesSeriesIdRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
@@ -1250,6 +1289,7 @@ export interface FileRoutesByFullPath {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
@@ -1384,6 +1424,9 @@ export interface FileRoutesByTo {
   '/treatments': typeof PublicTreatmentsIndexRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
+  '/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
+  '/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
+  '/scheduling/integrations/video': typeof AuthenticatedSchedulingIntegrationsVideoRoute
   '/scheduling/series/$seriesId': typeof AuthenticatedSchedulingSeriesSeriesIdRoute
   '/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
@@ -1398,6 +1441,7 @@ export interface FileRoutesByTo {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
@@ -1509,6 +1553,7 @@ export interface FileRoutesById {
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/_authenticated/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/_authenticated/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
+  '/_authenticated/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
   '/_authenticated/scheduling/new': typeof AuthenticatedSchedulingNewRoute
   '/_authenticated/scheduling/no-show': typeof AuthenticatedSchedulingNoShowRoute
   '/_authenticated/scheduling/packages': typeof AuthenticatedSchedulingPackagesRoute
@@ -1550,6 +1595,9 @@ export interface FileRoutesById {
   '/_public/treatments/': typeof PublicTreatmentsIndexRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/_authenticated/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
+  '/_authenticated/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
+  '/_authenticated/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
+  '/_authenticated/scheduling/integrations/video': typeof AuthenticatedSchedulingIntegrationsVideoRoute
   '/_authenticated/scheduling/series/$seriesId': typeof AuthenticatedSchedulingSeriesSeriesIdRoute
   '/_authenticated/settings/companies/$companyId': typeof AuthenticatedSettingsCompaniesCompanyIdRoute
   '/_authenticated/settings/integrations/api-keys': typeof AuthenticatedSettingsIntegrationsApiKeysRoute
@@ -1564,6 +1612,7 @@ export interface FileRoutesById {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/_authenticated/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/_authenticated/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
   '/_authenticated/settings/integrations/connections/$providerCode': typeof AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute
@@ -1674,6 +1723,7 @@ export interface FileRouteTypes {
     | '/sales/supervisor'
     | '/scheduling/calendar'
     | '/scheduling/checkin'
+    | '/scheduling/integrations'
     | '/scheduling/new'
     | '/scheduling/no-show'
     | '/scheduling/packages'
@@ -1715,6 +1765,9 @@ export interface FileRouteTypes {
     | '/treatments/'
     | '/cms/builder/$pageId'
     | '/scheduling/appointments/$appointmentId'
+    | '/scheduling/integrations/calendar'
+    | '/scheduling/integrations/reminders'
+    | '/scheduling/integrations/video'
     | '/scheduling/series/$seriesId'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
@@ -1729,6 +1782,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/scheduling/integrations/'
     | '/settings/companies/'
     | '/settings/integrations/'
     | '/settings/integrations/connections/$providerCode'
@@ -1863,6 +1917,9 @@ export interface FileRouteTypes {
     | '/treatments'
     | '/cms/builder/$pageId'
     | '/scheduling/appointments/$appointmentId'
+    | '/scheduling/integrations/calendar'
+    | '/scheduling/integrations/reminders'
+    | '/scheduling/integrations/video'
     | '/scheduling/series/$seriesId'
     | '/settings/companies/$companyId'
     | '/settings/integrations/api-keys'
@@ -1877,6 +1934,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/scheduling/integrations'
     | '/settings/companies'
     | '/settings/integrations'
     | '/settings/integrations/connections/$providerCode'
@@ -1987,6 +2045,7 @@ export interface FileRouteTypes {
     | '/_authenticated/sales/supervisor'
     | '/_authenticated/scheduling/calendar'
     | '/_authenticated/scheduling/checkin'
+    | '/_authenticated/scheduling/integrations'
     | '/_authenticated/scheduling/new'
     | '/_authenticated/scheduling/no-show'
     | '/_authenticated/scheduling/packages'
@@ -2028,6 +2087,9 @@ export interface FileRouteTypes {
     | '/_public/treatments/'
     | '/_authenticated/cms/builder/$pageId'
     | '/_authenticated/scheduling/appointments/$appointmentId'
+    | '/_authenticated/scheduling/integrations/calendar'
+    | '/_authenticated/scheduling/integrations/reminders'
+    | '/_authenticated/scheduling/integrations/video'
     | '/_authenticated/scheduling/series/$seriesId'
     | '/_authenticated/settings/companies/$companyId'
     | '/_authenticated/settings/integrations/api-keys'
@@ -2042,6 +2104,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/_authenticated/scheduling/integrations/'
     | '/_authenticated/settings/companies/'
     | '/_authenticated/settings/integrations/'
     | '/_authenticated/settings/integrations/connections/$providerCode'
@@ -2526,6 +2589,13 @@ declare module '@tanstack/react-router' {
       path: '/new'
       fullPath: '/scheduling/new'
       preLoaderRoute: typeof AuthenticatedSchedulingNewRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/integrations': {
+      id: '/_authenticated/scheduling/integrations'
+      path: '/integrations'
+      fullPath: '/scheduling/integrations'
+      preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/scheduling/checkin': {
@@ -3074,6 +3144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsCompaniesIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/scheduling/integrations/': {
+      id: '/_authenticated/scheduling/integrations/'
+      path: '/'
+      fullPath: '/scheduling/integrations/'
+      preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsIndexRouteImport
+      parentRoute: typeof AuthenticatedSchedulingIntegrationsRoute
+    }
     '/api/public/webhooks/$slug': {
       id: '/api/public/webhooks/$slug'
       path: '/api/public/webhooks/$slug'
@@ -3171,6 +3248,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/scheduling/series/$seriesId'
       preLoaderRoute: typeof AuthenticatedSchedulingSeriesSeriesIdRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/integrations/video': {
+      id: '/_authenticated/scheduling/integrations/video'
+      path: '/video'
+      fullPath: '/scheduling/integrations/video'
+      preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsVideoRouteImport
+      parentRoute: typeof AuthenticatedSchedulingIntegrationsRoute
+    }
+    '/_authenticated/scheduling/integrations/reminders': {
+      id: '/_authenticated/scheduling/integrations/reminders'
+      path: '/reminders'
+      fullPath: '/scheduling/integrations/reminders'
+      preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsRemindersRouteImport
+      parentRoute: typeof AuthenticatedSchedulingIntegrationsRoute
+    }
+    '/_authenticated/scheduling/integrations/calendar': {
+      id: '/_authenticated/scheduling/integrations/calendar'
+      path: '/calendar'
+      fullPath: '/scheduling/integrations/calendar'
+      preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsCalendarRouteImport
+      parentRoute: typeof AuthenticatedSchedulingIntegrationsRoute
     }
     '/_authenticated/scheduling/appointments/$appointmentId': {
       id: '/_authenticated/scheduling/appointments/$appointmentId'
@@ -3507,9 +3605,34 @@ const AuthenticatedSalesRouteChildren: AuthenticatedSalesRouteChildren = {
 const AuthenticatedSalesRouteWithChildren =
   AuthenticatedSalesRoute._addFileChildren(AuthenticatedSalesRouteChildren)
 
+interface AuthenticatedSchedulingIntegrationsRouteChildren {
+  AuthenticatedSchedulingIntegrationsCalendarRoute: typeof AuthenticatedSchedulingIntegrationsCalendarRoute
+  AuthenticatedSchedulingIntegrationsRemindersRoute: typeof AuthenticatedSchedulingIntegrationsRemindersRoute
+  AuthenticatedSchedulingIntegrationsVideoRoute: typeof AuthenticatedSchedulingIntegrationsVideoRoute
+  AuthenticatedSchedulingIntegrationsIndexRoute: typeof AuthenticatedSchedulingIntegrationsIndexRoute
+}
+
+const AuthenticatedSchedulingIntegrationsRouteChildren: AuthenticatedSchedulingIntegrationsRouteChildren =
+  {
+    AuthenticatedSchedulingIntegrationsCalendarRoute:
+      AuthenticatedSchedulingIntegrationsCalendarRoute,
+    AuthenticatedSchedulingIntegrationsRemindersRoute:
+      AuthenticatedSchedulingIntegrationsRemindersRoute,
+    AuthenticatedSchedulingIntegrationsVideoRoute:
+      AuthenticatedSchedulingIntegrationsVideoRoute,
+    AuthenticatedSchedulingIntegrationsIndexRoute:
+      AuthenticatedSchedulingIntegrationsIndexRoute,
+  }
+
+const AuthenticatedSchedulingIntegrationsRouteWithChildren =
+  AuthenticatedSchedulingIntegrationsRoute._addFileChildren(
+    AuthenticatedSchedulingIntegrationsRouteChildren,
+  )
+
 interface AuthenticatedSchedulingRouteChildren {
   AuthenticatedSchedulingCalendarRoute: typeof AuthenticatedSchedulingCalendarRoute
   AuthenticatedSchedulingCheckinRoute: typeof AuthenticatedSchedulingCheckinRoute
+  AuthenticatedSchedulingIntegrationsRoute: typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
   AuthenticatedSchedulingNewRoute: typeof AuthenticatedSchedulingNewRoute
   AuthenticatedSchedulingNoShowRoute: typeof AuthenticatedSchedulingNoShowRoute
   AuthenticatedSchedulingPackagesRoute: typeof AuthenticatedSchedulingPackagesRoute
@@ -3527,6 +3650,8 @@ const AuthenticatedSchedulingRouteChildren: AuthenticatedSchedulingRouteChildren
   {
     AuthenticatedSchedulingCalendarRoute: AuthenticatedSchedulingCalendarRoute,
     AuthenticatedSchedulingCheckinRoute: AuthenticatedSchedulingCheckinRoute,
+    AuthenticatedSchedulingIntegrationsRoute:
+      AuthenticatedSchedulingIntegrationsRouteWithChildren,
     AuthenticatedSchedulingNewRoute: AuthenticatedSchedulingNewRoute,
     AuthenticatedSchedulingNoShowRoute: AuthenticatedSchedulingNoShowRoute,
     AuthenticatedSchedulingPackagesRoute: AuthenticatedSchedulingPackagesRoute,
