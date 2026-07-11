@@ -34,6 +34,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedConsultationsRouteImport } from './routes/_authenticated/consultations'
 import { Route as AuthenticatedCmsRouteImport } from './routes/_authenticated/cms'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
 import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
 import { Route as PublicProductsIndexRouteImport } from './routes/_public.products.index'
 import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
@@ -50,6 +51,7 @@ import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authentica
 import { Route as AuthenticatedConsultationsIndexRouteImport } from './routes/_authenticated/consultations.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
+import { Route as AuthenticatedAnalyticsIndexRouteImport } from './routes/_authenticated/analytics.index'
 import { Route as PublicTreatmentsSlugRouteImport } from './routes/_public.treatments.$slug'
 import { Route as PublicProductsSlugRouteImport } from './routes/_public.products.$slug'
 import { Route as PublicDoctorsSlugRouteImport } from './routes/_public.doctors.$slug'
@@ -132,6 +134,11 @@ import { Route as AuthenticatedAutomationRulesRouteImport } from './routes/_auth
 import { Route as AuthenticatedAutomationNotificationsRouteImport } from './routes/_authenticated/automation.notifications'
 import { Route as AuthenticatedAutomationFormsRouteImport } from './routes/_authenticated/automation.forms'
 import { Route as AuthenticatedAutomationApprovalsRouteImport } from './routes/_authenticated/automation.approvals'
+import { Route as AuthenticatedAnalyticsSalesRouteImport } from './routes/_authenticated/analytics.sales'
+import { Route as AuthenticatedAnalyticsRevenueRouteImport } from './routes/_authenticated/analytics.revenue'
+import { Route as AuthenticatedAnalyticsOperationalRouteImport } from './routes/_authenticated/analytics.operational'
+import { Route as AuthenticatedAnalyticsMarketingRouteImport } from './routes/_authenticated/analytics.marketing'
+import { Route as AuthenticatedAnalyticsCommissionRouteImport } from './routes/_authenticated/analytics.commission'
 import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './routes/_authenticated/settings.integrations.index'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
@@ -277,6 +284,11 @@ const AuthenticatedAutomationRoute = AuthenticatedAutomationRouteImport.update({
   path: '/automation',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const PublicTreatmentsIndexRoute = PublicTreatmentsIndexRouteImport.update({
   id: '/treatments/',
   path: '/treatments/',
@@ -364,6 +376,12 @@ const AuthenticatedAutomationIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedAutomationRoute,
+  } as any)
+const AuthenticatedAnalyticsIndexRoute =
+  AuthenticatedAnalyticsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
   } as any)
 const PublicTreatmentsSlugRoute = PublicTreatmentsSlugRouteImport.update({
   id: '/treatments/$slug',
@@ -837,6 +855,36 @@ const AuthenticatedAutomationApprovalsRoute =
     path: '/approvals',
     getParentRoute: () => AuthenticatedAutomationRoute,
   } as any)
+const AuthenticatedAnalyticsSalesRoute =
+  AuthenticatedAnalyticsSalesRouteImport.update({
+    id: '/sales',
+    path: '/sales',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
+  } as any)
+const AuthenticatedAnalyticsRevenueRoute =
+  AuthenticatedAnalyticsRevenueRouteImport.update({
+    id: '/revenue',
+    path: '/revenue',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
+  } as any)
+const AuthenticatedAnalyticsOperationalRoute =
+  AuthenticatedAnalyticsOperationalRouteImport.update({
+    id: '/operational',
+    path: '/operational',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
+  } as any)
+const AuthenticatedAnalyticsMarketingRoute =
+  AuthenticatedAnalyticsMarketingRouteImport.update({
+    id: '/marketing',
+    path: '/marketing',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
+  } as any)
+const AuthenticatedAnalyticsCommissionRoute =
+  AuthenticatedAnalyticsCommissionRouteImport.update({
+    id: '/commission',
+    path: '/commission',
+    getParentRoute: () => AuthenticatedAnalyticsRoute,
+  } as any)
 const AuthenticatedSettingsIntegrationsIndexRoute =
   AuthenticatedSettingsIntegrationsIndexRouteImport.update({
     id: '/',
@@ -953,6 +1001,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/analytics': typeof AuthenticatedAnalyticsRouteWithChildren
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/cms': typeof AuthenticatedCmsRouteWithChildren
   '/consultations': typeof AuthenticatedConsultationsRouteWithChildren
@@ -972,6 +1021,11 @@ export interface FileRoutesByFullPath {
   '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
   '/franchise': typeof PublicFranchiseRoute
+  '/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
+  '/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
+  '/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
+  '/analytics/revenue': typeof AuthenticatedAnalyticsRevenueRoute
+  '/analytics/sales': typeof AuthenticatedAnalyticsSalesRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -1054,6 +1108,7 @@ export interface FileRoutesByFullPath {
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
+  '/analytics/': typeof AuthenticatedAnalyticsIndexRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
   '/cms/': typeof AuthenticatedCmsIndexRoute
   '/consultations/': typeof AuthenticatedConsultationsIndexRoute
@@ -1102,6 +1157,11 @@ export interface FileRoutesByTo {
   '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
   '/franchise': typeof PublicFranchiseRoute
+  '/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
+  '/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
+  '/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
+  '/analytics/revenue': typeof AuthenticatedAnalyticsRevenueRoute
+  '/analytics/sales': typeof AuthenticatedAnalyticsSalesRoute
   '/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -1183,6 +1243,7 @@ export interface FileRoutesByTo {
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
+  '/analytics': typeof AuthenticatedAnalyticsIndexRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
   '/cms': typeof AuthenticatedCmsIndexRoute
   '/consultations': typeof AuthenticatedConsultationsIndexRoute
@@ -1226,6 +1287,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRouteWithChildren
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/cms': typeof AuthenticatedCmsRouteWithChildren
   '/_authenticated/consultations': typeof AuthenticatedConsultationsRouteWithChildren
@@ -1246,6 +1308,11 @@ export interface FileRoutesById {
   '/_public/contact': typeof PublicContactRoute
   '/_public/franchise': typeof PublicFranchiseRoute
   '/_public/': typeof PublicIndexRoute
+  '/_authenticated/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
+  '/_authenticated/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
+  '/_authenticated/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
+  '/_authenticated/analytics/revenue': typeof AuthenticatedAnalyticsRevenueRoute
+  '/_authenticated/analytics/sales': typeof AuthenticatedAnalyticsSalesRoute
   '/_authenticated/automation/approvals': typeof AuthenticatedAutomationApprovalsRoute
   '/_authenticated/automation/forms': typeof AuthenticatedAutomationFormsRoute
   '/_authenticated/automation/notifications': typeof AuthenticatedAutomationNotificationsRoute
@@ -1328,6 +1395,7 @@ export interface FileRoutesById {
   '/_public/doctors/$slug': typeof PublicDoctorsSlugRoute
   '/_public/products/$slug': typeof PublicProductsSlugRoute
   '/_public/treatments/$slug': typeof PublicTreatmentsSlugRoute
+  '/_authenticated/analytics/': typeof AuthenticatedAnalyticsIndexRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/consultations/': typeof AuthenticatedConsultationsIndexRoute
@@ -1371,6 +1439,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/analytics'
     | '/automation'
     | '/cms'
     | '/consultations'
@@ -1390,6 +1459,11 @@ export interface FileRouteTypes {
     | '/consultation'
     | '/contact'
     | '/franchise'
+    | '/analytics/commission'
+    | '/analytics/marketing'
+    | '/analytics/operational'
+    | '/analytics/revenue'
+    | '/analytics/sales'
     | '/automation/approvals'
     | '/automation/forms'
     | '/automation/notifications'
@@ -1472,6 +1546,7 @@ export interface FileRouteTypes {
     | '/doctors/$slug'
     | '/products/$slug'
     | '/treatments/$slug'
+    | '/analytics/'
     | '/automation/'
     | '/cms/'
     | '/consultations/'
@@ -1520,6 +1595,11 @@ export interface FileRouteTypes {
     | '/consultation'
     | '/contact'
     | '/franchise'
+    | '/analytics/commission'
+    | '/analytics/marketing'
+    | '/analytics/operational'
+    | '/analytics/revenue'
+    | '/analytics/sales'
     | '/automation/approvals'
     | '/automation/forms'
     | '/automation/notifications'
@@ -1601,6 +1681,7 @@ export interface FileRouteTypes {
     | '/doctors/$slug'
     | '/products/$slug'
     | '/treatments/$slug'
+    | '/analytics'
     | '/automation'
     | '/cms'
     | '/consultations'
@@ -1643,6 +1724,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/_authenticated/analytics'
     | '/_authenticated/automation'
     | '/_authenticated/cms'
     | '/_authenticated/consultations'
@@ -1663,6 +1745,11 @@ export interface FileRouteTypes {
     | '/_public/contact'
     | '/_public/franchise'
     | '/_public/'
+    | '/_authenticated/analytics/commission'
+    | '/_authenticated/analytics/marketing'
+    | '/_authenticated/analytics/operational'
+    | '/_authenticated/analytics/revenue'
+    | '/_authenticated/analytics/sales'
     | '/_authenticated/automation/approvals'
     | '/_authenticated/automation/forms'
     | '/_authenticated/automation/notifications'
@@ -1745,6 +1832,7 @@ export interface FileRouteTypes {
     | '/_public/doctors/$slug'
     | '/_public/products/$slug'
     | '/_public/treatments/$slug'
+    | '/_authenticated/analytics/'
     | '/_authenticated/automation/'
     | '/_authenticated/cms/'
     | '/_authenticated/consultations/'
@@ -1974,6 +2062,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAutomationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_public/treatments/': {
       id: '/_public/treatments/'
       path: '/treatments'
@@ -2085,6 +2180,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/automation/'
       preLoaderRoute: typeof AuthenticatedAutomationIndexRouteImport
       parentRoute: typeof AuthenticatedAutomationRoute
+    }
+    '/_authenticated/analytics/': {
+      id: '/_authenticated/analytics/'
+      path: '/'
+      fullPath: '/analytics/'
+      preLoaderRoute: typeof AuthenticatedAnalyticsIndexRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
     }
     '/_public/treatments/$slug': {
       id: '/_public/treatments/$slug'
@@ -2660,6 +2762,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAutomationApprovalsRouteImport
       parentRoute: typeof AuthenticatedAutomationRoute
     }
+    '/_authenticated/analytics/sales': {
+      id: '/_authenticated/analytics/sales'
+      path: '/sales'
+      fullPath: '/analytics/sales'
+      preLoaderRoute: typeof AuthenticatedAnalyticsSalesRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
+    }
+    '/_authenticated/analytics/revenue': {
+      id: '/_authenticated/analytics/revenue'
+      path: '/revenue'
+      fullPath: '/analytics/revenue'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRevenueRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
+    }
+    '/_authenticated/analytics/operational': {
+      id: '/_authenticated/analytics/operational'
+      path: '/operational'
+      fullPath: '/analytics/operational'
+      preLoaderRoute: typeof AuthenticatedAnalyticsOperationalRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
+    }
+    '/_authenticated/analytics/marketing': {
+      id: '/_authenticated/analytics/marketing'
+      path: '/marketing'
+      fullPath: '/analytics/marketing'
+      preLoaderRoute: typeof AuthenticatedAnalyticsMarketingRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
+    }
+    '/_authenticated/analytics/commission': {
+      id: '/_authenticated/analytics/commission'
+      path: '/commission'
+      fullPath: '/analytics/commission'
+      preLoaderRoute: typeof AuthenticatedAnalyticsCommissionRouteImport
+      parentRoute: typeof AuthenticatedAnalyticsRoute
+    }
     '/_authenticated/settings/integrations/': {
       id: '/_authenticated/settings/integrations/'
       path: '/'
@@ -2795,6 +2932,32 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAnalyticsRouteChildren {
+  AuthenticatedAnalyticsCommissionRoute: typeof AuthenticatedAnalyticsCommissionRoute
+  AuthenticatedAnalyticsMarketingRoute: typeof AuthenticatedAnalyticsMarketingRoute
+  AuthenticatedAnalyticsOperationalRoute: typeof AuthenticatedAnalyticsOperationalRoute
+  AuthenticatedAnalyticsRevenueRoute: typeof AuthenticatedAnalyticsRevenueRoute
+  AuthenticatedAnalyticsSalesRoute: typeof AuthenticatedAnalyticsSalesRoute
+  AuthenticatedAnalyticsIndexRoute: typeof AuthenticatedAnalyticsIndexRoute
+}
+
+const AuthenticatedAnalyticsRouteChildren: AuthenticatedAnalyticsRouteChildren =
+  {
+    AuthenticatedAnalyticsCommissionRoute:
+      AuthenticatedAnalyticsCommissionRoute,
+    AuthenticatedAnalyticsMarketingRoute: AuthenticatedAnalyticsMarketingRoute,
+    AuthenticatedAnalyticsOperationalRoute:
+      AuthenticatedAnalyticsOperationalRoute,
+    AuthenticatedAnalyticsRevenueRoute: AuthenticatedAnalyticsRevenueRoute,
+    AuthenticatedAnalyticsSalesRoute: AuthenticatedAnalyticsSalesRoute,
+    AuthenticatedAnalyticsIndexRoute: AuthenticatedAnalyticsIndexRoute,
+  }
+
+const AuthenticatedAnalyticsRouteWithChildren =
+  AuthenticatedAnalyticsRoute._addFileChildren(
+    AuthenticatedAnalyticsRouteChildren,
+  )
 
 interface AuthenticatedAutomationRouteChildren {
   AuthenticatedAutomationApprovalsRoute: typeof AuthenticatedAutomationApprovalsRoute
@@ -3155,6 +3318,7 @@ const AuthenticatedTelecallerRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRouteWithChildren
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
   AuthenticatedConsultationsRoute: typeof AuthenticatedConsultationsRouteWithChildren
@@ -3171,6 +3335,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRouteWithChildren,
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedCmsRoute: AuthenticatedCmsRouteWithChildren,
   AuthenticatedConsultationsRoute: AuthenticatedConsultationsRouteWithChildren,
