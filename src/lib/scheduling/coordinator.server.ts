@@ -281,15 +281,18 @@ export class BookingTransactionCoordinator {
     let queueTokenId: string | null = null;
     if (input.is_walk_in) {
       try {
+        const today = new Date().toISOString().slice(0, 10);
         const { data: queueRow } = await this.sb
           .from("appointment_queue")
           .select("id")
           .eq("tenant_id", input.tenant_id)
           .eq("branch_id", input.branch_id)
-          .eq("is_active", true)
+          .eq("status", "open")
+          .eq("queue_date", today)
           .limit(1)
           .maybeSingle();
         if (queueRow?.id) {
+
           const token = await this.queue.issueToken({
             tenantId: input.tenant_id,
             branchId: input.branch_id,
