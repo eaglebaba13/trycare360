@@ -69,7 +69,7 @@ function LeadListPage() {
   const exportCsv = () => {
     const cols = ["lead_code", "stage_code", "status", "source", "campaign_id", "owner_id", "lead_score", "created_at"];
     const header = cols.join(",");
-    const body = rows.map((r) => cols.map((c) => JSON.stringify((r as Record<string, unknown>)[c] ?? "")).join(",")).join("\n");
+    const body = rows.map((r: Record<string, unknown>) => cols.map((c) => JSON.stringify(r[c] ?? "")).join(",")).join("\n");
     const blob = new Blob([`${header}\n${body}`], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = `leads-${Date.now()}.csv`; a.click();
