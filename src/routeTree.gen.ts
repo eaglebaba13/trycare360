@@ -78,6 +78,7 @@ import { Route as AuthenticatedSchedulingNewRouteImport } from './routes/_authen
 import { Route as AuthenticatedSchedulingIntegrationsRouteImport } from './routes/_authenticated/scheduling.integrations'
 import { Route as AuthenticatedSchedulingCheckinRouteImport } from './routes/_authenticated/scheduling.checkin'
 import { Route as AuthenticatedSchedulingCalendarRouteImport } from './routes/_authenticated/scheduling.calendar'
+import { Route as AuthenticatedSchedulingAnalyticsRouteImport } from './routes/_authenticated/scheduling.analytics'
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
 import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
 import { Route as AuthenticatedSalesAssignmentRouteImport } from './routes/_authenticated/sales.assignment'
@@ -155,6 +156,7 @@ import { Route as AuthenticatedAnalyticsCommissionRouteImport } from './routes/_
 import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './routes/_authenticated/settings.integrations.index'
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as AuthenticatedSchedulingIntegrationsIndexRouteImport } from './routes/_authenticated/scheduling.integrations.index'
+import { Route as AuthenticatedSchedulingAnalyticsIndexRouteImport } from './routes/_authenticated/scheduling.analytics.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
 import { Route as ApiPublicCmsTrackRouteImport } from './routes/api/public/cms.track'
@@ -173,6 +175,13 @@ import { Route as AuthenticatedSchedulingIntegrationsVideoRouteImport } from './
 import { Route as AuthenticatedSchedulingIntegrationsRemindersRouteImport } from './routes/_authenticated/scheduling.integrations.reminders'
 import { Route as AuthenticatedSchedulingIntegrationsCalendarRouteImport } from './routes/_authenticated/scheduling.integrations.calendar'
 import { Route as AuthenticatedSchedulingAppointmentsAppointmentIdRouteImport } from './routes/_authenticated/scheduling.appointments.$appointmentId'
+import { Route as AuthenticatedSchedulingAnalyticsServicesRouteImport } from './routes/_authenticated/scheduling.analytics.services'
+import { Route as AuthenticatedSchedulingAnalyticsResourcesRouteImport } from './routes/_authenticated/scheduling.analytics.resources'
+import { Route as AuthenticatedSchedulingAnalyticsReportsRouteImport } from './routes/_authenticated/scheduling.analytics.reports'
+import { Route as AuthenticatedSchedulingAnalyticsQueueRouteImport } from './routes/_authenticated/scheduling.analytics.queue'
+import { Route as AuthenticatedSchedulingAnalyticsPatientsRouteImport } from './routes/_authenticated/scheduling.analytics.patients'
+import { Route as AuthenticatedSchedulingAnalyticsCommunicationRouteImport } from './routes/_authenticated/scheduling.analytics.communication'
+import { Route as AuthenticatedSchedulingAnalyticsCapacityRouteImport } from './routes/_authenticated/scheduling.analytics.capacity'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
 import { Route as ApiPublicLeadsIntakeProviderRouteImport } from './routes/api/public/leads.intake.$provider'
@@ -551,6 +560,12 @@ const AuthenticatedSchedulingCalendarRoute =
   AuthenticatedSchedulingCalendarRouteImport.update({
     id: '/calendar',
     path: '/calendar',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsRoute =
+  AuthenticatedSchedulingAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSalesSupervisorRoute =
@@ -999,6 +1014,12 @@ const AuthenticatedSchedulingIntegrationsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSchedulingIntegrationsRoute,
   } as any)
+const AuthenticatedSchedulingAnalyticsIndexRoute =
+  AuthenticatedSchedulingAnalyticsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
 const ApiPublicWebhooksSlugRoute = ApiPublicWebhooksSlugRouteImport.update({
   id: '/api/public/webhooks/$slug',
   path: '/api/public/webhooks/$slug',
@@ -1102,6 +1123,48 @@ const AuthenticatedSchedulingAppointmentsAppointmentIdRoute =
     id: '/appointments/$appointmentId',
     path: '/appointments/$appointmentId',
     getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsServicesRoute =
+  AuthenticatedSchedulingAnalyticsServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsResourcesRoute =
+  AuthenticatedSchedulingAnalyticsResourcesRouteImport.update({
+    id: '/resources',
+    path: '/resources',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsReportsRoute =
+  AuthenticatedSchedulingAnalyticsReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsQueueRoute =
+  AuthenticatedSchedulingAnalyticsQueueRouteImport.update({
+    id: '/queue',
+    path: '/queue',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsPatientsRoute =
+  AuthenticatedSchedulingAnalyticsPatientsRouteImport.update({
+    id: '/patients',
+    path: '/patients',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsCommunicationRoute =
+  AuthenticatedSchedulingAnalyticsCommunicationRouteImport.update({
+    id: '/communication',
+    path: '/communication',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsCapacityRoute =
+  AuthenticatedSchedulingAnalyticsCapacityRouteImport.update({
+    id: '/capacity',
+    path: '/capacity',
+    getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
   } as any)
 const AuthenticatedCmsBuilderPageIdRoute =
   AuthenticatedCmsBuilderPageIdRouteImport.update({
@@ -1228,6 +1291,7 @@ export interface FileRoutesByFullPath {
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsRouteWithChildren
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -1271,6 +1335,13 @@ export interface FileRoutesByFullPath {
   '/products/': typeof PublicProductsIndexRoute
   '/treatments/': typeof PublicTreatmentsIndexRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
+  '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
+  '/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
+  '/scheduling/analytics/queue': typeof AuthenticatedSchedulingAnalyticsQueueRoute
+  '/scheduling/analytics/reports': typeof AuthenticatedSchedulingAnalyticsReportsRoute
+  '/scheduling/analytics/resources': typeof AuthenticatedSchedulingAnalyticsResourcesRoute
+  '/scheduling/analytics/services': typeof AuthenticatedSchedulingAnalyticsServicesRoute
   '/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
   '/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
   '/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
@@ -1289,6 +1360,7 @@ export interface FileRoutesByFullPath {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
@@ -1423,6 +1495,13 @@ export interface FileRoutesByTo {
   '/products': typeof PublicProductsIndexRoute
   '/treatments': typeof PublicTreatmentsIndexRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
+  '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
+  '/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
+  '/scheduling/analytics/queue': typeof AuthenticatedSchedulingAnalyticsQueueRoute
+  '/scheduling/analytics/reports': typeof AuthenticatedSchedulingAnalyticsReportsRoute
+  '/scheduling/analytics/resources': typeof AuthenticatedSchedulingAnalyticsResourcesRoute
+  '/scheduling/analytics/services': typeof AuthenticatedSchedulingAnalyticsServicesRoute
   '/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
   '/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
   '/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
@@ -1441,6 +1520,7 @@ export interface FileRoutesByTo {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsIndexRoute
@@ -1551,6 +1631,7 @@ export interface FileRoutesById {
   '/_authenticated/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/_authenticated/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsRouteWithChildren
   '/_authenticated/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/_authenticated/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/_authenticated/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -1594,6 +1675,13 @@ export interface FileRoutesById {
   '/_public/products/': typeof PublicProductsIndexRoute
   '/_public/treatments/': typeof PublicTreatmentsIndexRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/_authenticated/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
+  '/_authenticated/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
+  '/_authenticated/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
+  '/_authenticated/scheduling/analytics/queue': typeof AuthenticatedSchedulingAnalyticsQueueRoute
+  '/_authenticated/scheduling/analytics/reports': typeof AuthenticatedSchedulingAnalyticsReportsRoute
+  '/_authenticated/scheduling/analytics/resources': typeof AuthenticatedSchedulingAnalyticsResourcesRoute
+  '/_authenticated/scheduling/analytics/services': typeof AuthenticatedSchedulingAnalyticsServicesRoute
   '/_authenticated/scheduling/appointments/$appointmentId': typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
   '/_authenticated/scheduling/integrations/calendar': typeof AuthenticatedSchedulingIntegrationsCalendarRoute
   '/_authenticated/scheduling/integrations/reminders': typeof AuthenticatedSchedulingIntegrationsRemindersRoute
@@ -1612,6 +1700,7 @@ export interface FileRoutesById {
   '/api/public/cms/track': typeof ApiPublicCmsTrackRoute
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
+  '/_authenticated/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/_authenticated/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
   '/_authenticated/settings/integrations/': typeof AuthenticatedSettingsIntegrationsIndexRoute
@@ -1721,6 +1810,7 @@ export interface FileRouteTypes {
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
+    | '/scheduling/analytics'
     | '/scheduling/calendar'
     | '/scheduling/checkin'
     | '/scheduling/integrations'
@@ -1764,6 +1854,13 @@ export interface FileRouteTypes {
     | '/products/'
     | '/treatments/'
     | '/cms/builder/$pageId'
+    | '/scheduling/analytics/capacity'
+    | '/scheduling/analytics/communication'
+    | '/scheduling/analytics/patients'
+    | '/scheduling/analytics/queue'
+    | '/scheduling/analytics/reports'
+    | '/scheduling/analytics/resources'
+    | '/scheduling/analytics/services'
     | '/scheduling/appointments/$appointmentId'
     | '/scheduling/integrations/calendar'
     | '/scheduling/integrations/reminders'
@@ -1782,6 +1879,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/scheduling/analytics/'
     | '/scheduling/integrations/'
     | '/settings/companies/'
     | '/settings/integrations/'
@@ -1916,6 +2014,13 @@ export interface FileRouteTypes {
     | '/products'
     | '/treatments'
     | '/cms/builder/$pageId'
+    | '/scheduling/analytics/capacity'
+    | '/scheduling/analytics/communication'
+    | '/scheduling/analytics/patients'
+    | '/scheduling/analytics/queue'
+    | '/scheduling/analytics/reports'
+    | '/scheduling/analytics/resources'
+    | '/scheduling/analytics/services'
     | '/scheduling/appointments/$appointmentId'
     | '/scheduling/integrations/calendar'
     | '/scheduling/integrations/reminders'
@@ -1934,6 +2039,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/scheduling/analytics'
     | '/scheduling/integrations'
     | '/settings/companies'
     | '/settings/integrations'
@@ -2043,6 +2149,7 @@ export interface FileRouteTypes {
     | '/_authenticated/sales/assignment'
     | '/_authenticated/sales/sla'
     | '/_authenticated/sales/supervisor'
+    | '/_authenticated/scheduling/analytics'
     | '/_authenticated/scheduling/calendar'
     | '/_authenticated/scheduling/checkin'
     | '/_authenticated/scheduling/integrations'
@@ -2086,6 +2193,13 @@ export interface FileRouteTypes {
     | '/_public/products/'
     | '/_public/treatments/'
     | '/_authenticated/cms/builder/$pageId'
+    | '/_authenticated/scheduling/analytics/capacity'
+    | '/_authenticated/scheduling/analytics/communication'
+    | '/_authenticated/scheduling/analytics/patients'
+    | '/_authenticated/scheduling/analytics/queue'
+    | '/_authenticated/scheduling/analytics/reports'
+    | '/_authenticated/scheduling/analytics/resources'
+    | '/_authenticated/scheduling/analytics/services'
     | '/_authenticated/scheduling/appointments/$appointmentId'
     | '/_authenticated/scheduling/integrations/calendar'
     | '/_authenticated/scheduling/integrations/reminders'
@@ -2104,6 +2218,7 @@ export interface FileRouteTypes {
     | '/api/public/cms/track'
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
+    | '/_authenticated/scheduling/analytics/'
     | '/_authenticated/scheduling/integrations/'
     | '/_authenticated/settings/companies/'
     | '/_authenticated/settings/integrations/'
@@ -2610,6 +2725,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/scheduling/calendar'
       preLoaderRoute: typeof AuthenticatedSchedulingCalendarRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/analytics': {
+      id: '/_authenticated/scheduling/analytics'
+      path: '/analytics'
+      fullPath: '/scheduling/analytics'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/sales/supervisor': {
@@ -3151,6 +3273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSchedulingIntegrationsIndexRouteImport
       parentRoute: typeof AuthenticatedSchedulingIntegrationsRoute
     }
+    '/_authenticated/scheduling/analytics/': {
+      id: '/_authenticated/scheduling/analytics/'
+      path: '/'
+      fullPath: '/scheduling/analytics/'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsIndexRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
     '/api/public/webhooks/$slug': {
       id: '/api/public/webhooks/$slug'
       path: '/api/public/webhooks/$slug'
@@ -3276,6 +3405,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/scheduling/appointments/$appointmentId'
       preLoaderRoute: typeof AuthenticatedSchedulingAppointmentsAppointmentIdRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/analytics/services': {
+      id: '/_authenticated/scheduling/analytics/services'
+      path: '/services'
+      fullPath: '/scheduling/analytics/services'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsServicesRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/resources': {
+      id: '/_authenticated/scheduling/analytics/resources'
+      path: '/resources'
+      fullPath: '/scheduling/analytics/resources'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsResourcesRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/reports': {
+      id: '/_authenticated/scheduling/analytics/reports'
+      path: '/reports'
+      fullPath: '/scheduling/analytics/reports'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsReportsRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/queue': {
+      id: '/_authenticated/scheduling/analytics/queue'
+      path: '/queue'
+      fullPath: '/scheduling/analytics/queue'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsQueueRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/patients': {
+      id: '/_authenticated/scheduling/analytics/patients'
+      path: '/patients'
+      fullPath: '/scheduling/analytics/patients'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsPatientsRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/communication': {
+      id: '/_authenticated/scheduling/analytics/communication'
+      path: '/communication'
+      fullPath: '/scheduling/analytics/communication'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsCommunicationRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
+    }
+    '/_authenticated/scheduling/analytics/capacity': {
+      id: '/_authenticated/scheduling/analytics/capacity'
+      path: '/capacity'
+      fullPath: '/scheduling/analytics/capacity'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsCapacityRouteImport
+      parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
     }
     '/_authenticated/cms/builder/$pageId': {
       id: '/_authenticated/cms/builder/$pageId'
@@ -3605,6 +3783,42 @@ const AuthenticatedSalesRouteChildren: AuthenticatedSalesRouteChildren = {
 const AuthenticatedSalesRouteWithChildren =
   AuthenticatedSalesRoute._addFileChildren(AuthenticatedSalesRouteChildren)
 
+interface AuthenticatedSchedulingAnalyticsRouteChildren {
+  AuthenticatedSchedulingAnalyticsCapacityRoute: typeof AuthenticatedSchedulingAnalyticsCapacityRoute
+  AuthenticatedSchedulingAnalyticsCommunicationRoute: typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
+  AuthenticatedSchedulingAnalyticsPatientsRoute: typeof AuthenticatedSchedulingAnalyticsPatientsRoute
+  AuthenticatedSchedulingAnalyticsQueueRoute: typeof AuthenticatedSchedulingAnalyticsQueueRoute
+  AuthenticatedSchedulingAnalyticsReportsRoute: typeof AuthenticatedSchedulingAnalyticsReportsRoute
+  AuthenticatedSchedulingAnalyticsResourcesRoute: typeof AuthenticatedSchedulingAnalyticsResourcesRoute
+  AuthenticatedSchedulingAnalyticsServicesRoute: typeof AuthenticatedSchedulingAnalyticsServicesRoute
+  AuthenticatedSchedulingAnalyticsIndexRoute: typeof AuthenticatedSchedulingAnalyticsIndexRoute
+}
+
+const AuthenticatedSchedulingAnalyticsRouteChildren: AuthenticatedSchedulingAnalyticsRouteChildren =
+  {
+    AuthenticatedSchedulingAnalyticsCapacityRoute:
+      AuthenticatedSchedulingAnalyticsCapacityRoute,
+    AuthenticatedSchedulingAnalyticsCommunicationRoute:
+      AuthenticatedSchedulingAnalyticsCommunicationRoute,
+    AuthenticatedSchedulingAnalyticsPatientsRoute:
+      AuthenticatedSchedulingAnalyticsPatientsRoute,
+    AuthenticatedSchedulingAnalyticsQueueRoute:
+      AuthenticatedSchedulingAnalyticsQueueRoute,
+    AuthenticatedSchedulingAnalyticsReportsRoute:
+      AuthenticatedSchedulingAnalyticsReportsRoute,
+    AuthenticatedSchedulingAnalyticsResourcesRoute:
+      AuthenticatedSchedulingAnalyticsResourcesRoute,
+    AuthenticatedSchedulingAnalyticsServicesRoute:
+      AuthenticatedSchedulingAnalyticsServicesRoute,
+    AuthenticatedSchedulingAnalyticsIndexRoute:
+      AuthenticatedSchedulingAnalyticsIndexRoute,
+  }
+
+const AuthenticatedSchedulingAnalyticsRouteWithChildren =
+  AuthenticatedSchedulingAnalyticsRoute._addFileChildren(
+    AuthenticatedSchedulingAnalyticsRouteChildren,
+  )
+
 interface AuthenticatedSchedulingIntegrationsRouteChildren {
   AuthenticatedSchedulingIntegrationsCalendarRoute: typeof AuthenticatedSchedulingIntegrationsCalendarRoute
   AuthenticatedSchedulingIntegrationsRemindersRoute: typeof AuthenticatedSchedulingIntegrationsRemindersRoute
@@ -3630,6 +3844,7 @@ const AuthenticatedSchedulingIntegrationsRouteWithChildren =
   )
 
 interface AuthenticatedSchedulingRouteChildren {
+  AuthenticatedSchedulingAnalyticsRoute: typeof AuthenticatedSchedulingAnalyticsRouteWithChildren
   AuthenticatedSchedulingCalendarRoute: typeof AuthenticatedSchedulingCalendarRoute
   AuthenticatedSchedulingCheckinRoute: typeof AuthenticatedSchedulingCheckinRoute
   AuthenticatedSchedulingIntegrationsRoute: typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -3648,6 +3863,8 @@ interface AuthenticatedSchedulingRouteChildren {
 
 const AuthenticatedSchedulingRouteChildren: AuthenticatedSchedulingRouteChildren =
   {
+    AuthenticatedSchedulingAnalyticsRoute:
+      AuthenticatedSchedulingAnalyticsRouteWithChildren,
     AuthenticatedSchedulingCalendarRoute: AuthenticatedSchedulingCalendarRoute,
     AuthenticatedSchedulingCheckinRoute: AuthenticatedSchedulingCheckinRoute,
     AuthenticatedSchedulingIntegrationsRoute:
