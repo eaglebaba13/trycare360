@@ -221,6 +221,222 @@ export type Database = {
           },
         ]
       }
+      appointment_cancellation_reasons: {
+        Row: {
+          code: string
+          counts_against_no_show: boolean
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          counts_against_no_show?: boolean
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          counts_against_no_show?: boolean
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_cancellation_reasons_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_reasons: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_reasons_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_statuses: {
+        Row: {
+          code: string
+          color: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          is_terminal: boolean
+          name: string
+          sort_order: number
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_terminal?: boolean
+          name: string
+          sort_order?: number
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          is_terminal?: boolean
+          name?: string
+          sort_order?: number
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_statuses_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_types: {
+        Row: {
+          allow_overbook: boolean
+          buffer_after_min: number
+          buffer_before_min: number
+          category: string
+          code: string
+          color: string | null
+          created_at: string
+          default_channel: string | null
+          duration_min: number
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          overbook_pct: number
+          priority_weight: number
+          requires_doctor: boolean
+          requires_machine: boolean
+          requires_room: boolean
+          requires_therapist: boolean
+          sla_policy_id: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          allow_overbook?: boolean
+          buffer_after_min?: number
+          buffer_before_min?: number
+          category: string
+          code: string
+          color?: string | null
+          created_at?: string
+          default_channel?: string | null
+          duration_min?: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          overbook_pct?: number
+          priority_weight?: number
+          requires_doctor?: boolean
+          requires_machine?: boolean
+          requires_room?: boolean
+          requires_therapist?: boolean
+          sla_policy_id?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          allow_overbook?: boolean
+          buffer_after_min?: number
+          buffer_before_min?: number
+          category?: string
+          code?: string
+          color?: string | null
+          created_at?: string
+          default_channel?: string | null
+          duration_min?: number
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          overbook_pct?: number
+          priority_weight?: number
+          requires_doctor?: boolean
+          requires_machine?: boolean
+          requires_room?: boolean
+          requires_therapist?: boolean
+          sla_policy_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_types_sla_policy_id_fkey"
+            columns: ["sla_policy_id"]
+            isOneToOne: false
+            referencedRelation: "sla_policies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointment_types_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       approval_actions: {
         Row: {
           acted_at: string
@@ -1129,6 +1345,54 @@ export type Database = {
           },
           {
             foreignKeyName: "bank_accounts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      branch_holidays: {
+        Row: {
+          blocks_all: boolean
+          branch_id: string | null
+          created_at: string
+          holiday_date: string
+          id: string
+          name: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          blocks_all?: boolean
+          branch_id?: string | null
+          created_at?: string
+          holiday_date: string
+          id?: string
+          name: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          blocks_all?: boolean
+          branch_id?: string | null
+          created_at?: string
+          holiday_date?: string
+          id?: string
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "branch_holidays_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "branch_holidays_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -8953,6 +9217,456 @@ export type Database = {
           },
         ]
       }
+      resource_breaks: {
+        Row: {
+          break_date: string | null
+          created_at: string
+          day_of_week: number | null
+          end_time: string
+          id: string
+          is_active: boolean
+          reason: string | null
+          resource_id: string
+          scope: string
+          start_time: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          break_date?: string | null
+          created_at?: string
+          day_of_week?: number | null
+          end_time: string
+          id?: string
+          is_active?: boolean
+          reason?: string | null
+          resource_id: string
+          scope?: string
+          start_time: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          break_date?: string | null
+          created_at?: string
+          day_of_week?: number | null
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          reason?: string | null
+          resource_id?: string
+          scope?: string
+          start_time?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_breaks_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_breaks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_group_members: {
+        Row: {
+          group_id: string
+          priority: number
+          resource_id: string
+          tenant_id: string
+        }
+        Insert: {
+          group_id: string
+          priority?: number
+          resource_id: string
+          tenant_id: string
+        }
+        Update: {
+          group_id?: string
+          priority?: number
+          resource_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "resource_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_group_members_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_group_members_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_groups: {
+        Row: {
+          branch_id: string | null
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          resource_kind: string | null
+          strategy: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          resource_kind?: string | null
+          strategy?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          resource_kind?: string | null
+          strategy?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_groups_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_groups_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_leaves: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          ends_at: string
+          id: string
+          leave_type: string
+          reason: string | null
+          requested_by: string | null
+          resource_id: string
+          starts_at: string
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          ends_at: string
+          id?: string
+          leave_type?: string
+          reason?: string | null
+          requested_by?: string | null
+          resource_id: string
+          starts_at: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          ends_at?: string
+          id?: string
+          leave_type?: string
+          reason?: string | null
+          requested_by?: string | null
+          resource_id?: string
+          starts_at?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_leaves_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_leaves_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_schedules: {
+        Row: {
+          created_at: string
+          day_of_week: number
+          effective_from: string
+          effective_to: string | null
+          end_time: string
+          id: string
+          is_active: boolean
+          resource_id: string
+          slot_size_min: number
+          start_time: string
+          tenant_id: string
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: number
+          effective_from?: string
+          effective_to?: string | null
+          end_time: string
+          id?: string
+          is_active?: boolean
+          resource_id: string
+          slot_size_min?: number
+          start_time: string
+          tenant_id: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: number
+          effective_from?: string
+          effective_to?: string | null
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          resource_id?: string
+          slot_size_min?: number
+          start_time?: string
+          tenant_id?: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_schedules_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_schedules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_service_map: {
+        Row: {
+          appointment_type_id: string
+          created_at: string
+          id: string
+          is_preferred: boolean
+          priority: number
+          resource_id: string
+          tenant_id: string
+        }
+        Insert: {
+          appointment_type_id: string
+          created_at?: string
+          id?: string
+          is_preferred?: boolean
+          priority?: number
+          resource_id: string
+          tenant_id: string
+        }
+        Update: {
+          appointment_type_id?: string
+          created_at?: string
+          id?: string
+          is_preferred?: boolean
+          priority?: number
+          resource_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_service_map_appointment_type_id_fkey"
+            columns: ["appointment_type_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_service_map_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_service_map_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resource_skills: {
+        Row: {
+          created_at: string
+          id: string
+          proficiency: number | null
+          resource_id: string
+          skill_code: string
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          proficiency?: number | null
+          resource_id: string
+          skill_code: string
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          proficiency?: number | null
+          resource_id?: string
+          skill_code?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resource_skills_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resource_skills_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      resources: {
+        Row: {
+          branch_id: string | null
+          capacity: number
+          code: string
+          color: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          person_id: string | null
+          resource_kind: string
+          tenant_id: string
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          capacity?: number
+          code: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          person_id?: string | null
+          resource_kind: string
+          tenant_id: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          capacity?: number
+          code?: string
+          color?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          person_id?: string | null
+          resource_kind?: string
+          tenant_id?: string
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resources_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resources_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "resources_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       revenue_events: {
         Row: {
           amount: number
@@ -9515,6 +10229,175 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "sla_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      slot_cache: {
+        Row: {
+          appointment_type_id: string | null
+          branch_id: string | null
+          computed_at: string
+          ends_at: string
+          hold_id: string | null
+          id: string
+          resource_id: string
+          starts_at: string
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          appointment_type_id?: string | null
+          branch_id?: string | null
+          computed_at?: string
+          ends_at: string
+          hold_id?: string | null
+          id?: string
+          resource_id: string
+          starts_at: string
+          status?: string
+          tenant_id: string
+        }
+        Update: {
+          appointment_type_id?: string | null
+          branch_id?: string | null
+          computed_at?: string
+          ends_at?: string
+          hold_id?: string | null
+          id?: string
+          resource_id?: string
+          starts_at?: string
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "slot_cache_appointment_type_id_fkey"
+            columns: ["appointment_type_id"]
+            isOneToOne: false
+            referencedRelation: "appointment_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "slot_cache_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "slot_cache_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "slot_cache_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      slot_overrides: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          ends_at: string
+          id: string
+          mode: string
+          reason: string | null
+          resource_id: string
+          starts_at: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          ends_at: string
+          id?: string
+          mode?: string
+          reason?: string | null
+          resource_id: string
+          starts_at: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          ends_at?: string
+          id?: string
+          mode?: string
+          reason?: string | null
+          resource_id?: string
+          starts_at?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "slot_overrides_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "resources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "slot_overrides_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      slot_templates: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          slot_size_min: number
+          tenant_id: string
+          timezone: string | null
+          updated_at: string
+          weekly: Json
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          slot_size_min?: number
+          tenant_id: string
+          timezone?: string | null
+          updated_at?: string
+          weekly?: Json
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          slot_size_min?: number
+          tenant_id?: string
+          timezone?: string | null
+          updated_at?: string
+          weekly?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "slot_templates_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -10201,6 +11084,10 @@ export type Database = {
         Args: { _entity_id: string; _entity_type: string }
         Returns: undefined
       }
+      has_any_role_code: {
+        Args: { _roles: string[]; _tenant_id: string }
+        Returns: boolean
+      }
       has_org_access: {
         Args: { _org_unit_id: string; _user_id: string }
         Returns: boolean
@@ -10233,6 +11120,7 @@ export type Database = {
       }
       is_config_admin: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_tenant_member: { Args: { _tenant_id: string }; Returns: boolean }
       log_interaction: {
         Args: {
           _attachments?: Json
