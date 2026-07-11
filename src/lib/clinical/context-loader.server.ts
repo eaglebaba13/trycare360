@@ -42,12 +42,19 @@ export interface ClinicalContext {
   consentStatus: Tables<"person_consents">[];
   previousConsultations: Tables<"clinical_encounters">[];
   scheduling: {
-    upcoming: Array<Pick<Tables<"appointments">, "id" | "start_time" | "end_time" | "status" | "type_id">>;
+    upcoming: Array<
+      Pick<
+        Tables<"appointments">,
+        "id" | "starts_at" | "ends_at" | "status_code" | "appointment_type_id"
+      >
+    >;
   };
   billingSummary: {
     total: number;
     outstanding: number;
-    recent: Array<Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "event_type">>;
+    recent: Array<
+      Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "category" | "source_module">
+    >;
   };
   permissions: {
     canReadClinical: boolean;

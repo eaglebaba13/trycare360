@@ -59,8 +59,15 @@ const KNOWLEDGE_TABLE: Record<KnowledgeKind, keyof Database["public"]["Tables"]>
   contraindication_rules: "clinical_contraindication_rules",
 };
 
+export type KnowledgeRow = Record<string, unknown>;
+
 export class ClinicalKnowledgeRepository {
-  constructor(private readonly sb: SB) {}
+  // Use a loosely-typed inner client for cross-table generic listing.
+  // biome-ignore lint/suspicious/noExplicitAny: PostgREST generic depth escape
+  private readonly client: any;
+  constructor(sb: SB) {
+    this.client = sb;
+  }
 
   tableFor(kind: KnowledgeKind) {
     return KNOWLEDGE_TABLE[kind];
@@ -74,10 +81,9 @@ export class ClinicalKnowledgeRepository {
     kind: KnowledgeKind,
     tenantId: string,
     opts: { search?: string; activeOnly?: boolean; limit?: number; offset?: number } = {},
-  ) {
+  ): Promise<KnowledgeRow[]> {
     const table = this.tableFor(kind);
-    // biome-ignore lint/suspicious/noExplicitAny: PostgREST generic escape
-    let q: any = this.sb.from(table).select("*");
+    let q = this.client.from(table).select("*");
     q = q.or(`tenant_id.is.null,tenant_id.eq.${tenantId}`);
     if (opts.activeOnly !== false && kind !== "code_systems" && kind !== "codes") {
       q = q.eq("is_active", true);
@@ -87,7 +93,9 @@ export class ClinicalKnowledgeRepository {
       q = q.or(`name.ilike.%${s}%,code.ilike.%${s}%`);
     }
     q = q.order("name", { ascending: true }).range(opts.offset ?? 0, (opts.offset ?? 0) + (opts.limit ?? 200) - 1);
-    return unwrapList(await q);
+    const { data, error } = await q;
+    if (error) throw new Error(error.message);
+    return (data ?? []) as KnowledgeRow[];
   }
 }
 
