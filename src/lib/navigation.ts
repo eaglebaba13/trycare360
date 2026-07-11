@@ -16,6 +16,8 @@ import {
   UserRound,
   HeartPulse,
   Sparkles,
+  Headphones,
+  Briefcase,
 } from "lucide-react";
 
 
