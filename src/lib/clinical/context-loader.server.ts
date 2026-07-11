@@ -131,26 +131,26 @@ export class ClinicalContextLoader {
       encounters.listForPatient(args.tenantId, args.personId, historyLimit),
       this.sb
         .from("appointments")
-        .select("id, start_time, end_time, status, type_id")
+        .select("id, starts_at, ends_at, status_code, appointment_type_id")
         .eq("tenant_id", args.tenantId)
-        .eq("patient_id", args.personId)
-        .gte("start_time", new Date().toISOString())
-        .order("start_time", { ascending: true })
+        .eq("person_id", args.personId)
+        .gte("starts_at", new Date().toISOString())
+        .order("starts_at", { ascending: true })
         .limit(5),
       this.sb
         .from("revenue_events")
-        .select("id, amount, occurred_at, event_type")
+        .select("id, amount, occurred_at, category, source_module")
         .eq("tenant_id", args.tenantId)
         .eq("person_id", args.personId)
         .order("occurred_at", { ascending: false })
         .limit(20),
-      this.sb.rpc("can_read_clinical", { _tenant_id: args.tenantId }),
-      this.sb.rpc("can_write_clinical", { _tenant_id: args.tenantId }),
-      this.sb.rpc("can_manage_clinical_knowledge", { _tenant_id: args.tenantId }),
+      this.sb.rpc("can_read_clinical", { _tenant: args.tenantId, _user: "" }),
+      this.sb.rpc("can_write_clinical", { _tenant: args.tenantId, _user: "" }),
+      this.sb.rpc("can_manage_clinical_knowledge", { _tenant: args.tenantId, _user: "" }),
     ]);
 
     const revenueRows = (revenueRes.data ?? []) as Array<
-      Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "event_type">
+      Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "category" | "source_module">
     >;
     const total = revenueRows.reduce((sum, r) => sum + Number(r.amount ?? 0), 0);
 
