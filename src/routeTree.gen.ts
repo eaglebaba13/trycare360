@@ -23,6 +23,7 @@ import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as AuthenticatedTelecallerRouteImport } from './routes/_authenticated/telecaller'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedSchedulingRouteImport } from './routes/_authenticated/scheduling'
 import { Route as AuthenticatedSalesRouteImport } from './routes/_authenticated/sales'
 import { Route as AuthenticatedRevenueRouteImport } from './routes/_authenticated/revenue'
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
@@ -225,6 +226,11 @@ const AuthenticatedTelecallerRoute = AuthenticatedTelecallerRouteImport.update({
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSchedulingRoute = AuthenticatedSchedulingRouteImport.update({
+  id: '/scheduling',
+  path: '/scheduling',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSalesRoute = AuthenticatedSalesRouteImport.update({
@@ -1013,6 +1019,7 @@ export interface FileRoutesByFullPath {
   '/people': typeof AuthenticatedPeopleRouteWithChildren
   '/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/sales': typeof AuthenticatedSalesRouteWithChildren
+  '/scheduling': typeof AuthenticatedSchedulingRoute
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/about': typeof PublicAboutRoute
@@ -1151,6 +1158,7 @@ export interface FileRoutesByTo {
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/scheduling': typeof AuthenticatedSchedulingRoute
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
   '/book': typeof PublicBookRoute
@@ -1299,6 +1307,7 @@ export interface FileRoutesById {
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
   '/_authenticated/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/_authenticated/sales': typeof AuthenticatedSalesRouteWithChildren
+  '/_authenticated/scheduling': typeof AuthenticatedSchedulingRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
@@ -1451,6 +1460,7 @@ export interface FileRouteTypes {
     | '/people'
     | '/revenue'
     | '/sales'
+    | '/scheduling'
     | '/settings'
     | '/telecaller'
     | '/about'
@@ -1589,6 +1599,7 @@ export interface FileRouteTypes {
     | '/rss.xml'
     | '/sitemap.xml'
     | '/dashboard'
+    | '/scheduling'
     | '/about'
     | '/academy'
     | '/book'
@@ -1736,6 +1747,7 @@ export interface FileRouteTypes {
     | '/_authenticated/people'
     | '/_authenticated/revenue'
     | '/_authenticated/sales'
+    | '/_authenticated/scheduling'
     | '/_authenticated/settings'
     | '/_authenticated/telecaller'
     | '/_public/about'
@@ -1983,6 +1995,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/scheduling': {
+      id: '/_authenticated/scheduling'
+      path: '/scheduling'
+      fullPath: '/scheduling'
+      preLoaderRoute: typeof AuthenticatedSchedulingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/sales': {
@@ -3330,6 +3349,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
   AuthenticatedRevenueRoute: typeof AuthenticatedRevenueRouteWithChildren
   AuthenticatedSalesRoute: typeof AuthenticatedSalesRouteWithChildren
+  AuthenticatedSchedulingRoute: typeof AuthenticatedSchedulingRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
   AuthenticatedTelecallerRoute: typeof AuthenticatedTelecallerRouteWithChildren
 }
@@ -3347,6 +3367,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
   AuthenticatedRevenueRoute: AuthenticatedRevenueRouteWithChildren,
   AuthenticatedSalesRoute: AuthenticatedSalesRouteWithChildren,
+  AuthenticatedSchedulingRoute: AuthenticatedSchedulingRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
   AuthenticatedTelecallerRoute: AuthenticatedTelecallerRouteWithChildren,
 }
