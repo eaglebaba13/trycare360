@@ -287,3 +287,109 @@ export const recomputeCommissionsForEvent = createServerFn({ method: "POST" })
     const { accrueCommissionsForEvent } = await import("./calc.server");
     return accrueCommissionsForEvent(context.supabase as SB, data.revenue_event_id);
   });
+
+export const listRules = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ tenant_id: uuid, plan_id: uuid.optional() }).parse(d))
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase.from("commission_rules").select("*").eq("tenant_id", data.tenant_id).order("priority");
+    if (data.plan_id) q = q.eq("plan_id", data.plan_id);
+    const { data: rows, error } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const listAssignments = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      tenant_id: uuid,
+      plan_id: uuid.optional(),
+      beneficiary_type: z.string().optional(),
+      beneficiary_id: uuid.optional(),
+    }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase.from("commission_assignments").select("*").eq("tenant_id", data.tenant_id);
+    if (data.plan_id) q = q.eq("plan_id", data.plan_id);
+    if (data.beneficiary_type) q = q.eq("beneficiary_type", data.beneficiary_type);
+    if (data.beneficiary_id) q = q.eq("beneficiary_id", data.beneficiary_id);
+    const { data: rows, error } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const listPlanVersions = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ tenant_id: uuid, plan_id: uuid.optional() }).parse(d))
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase
+      .from("commission_plan_versions")
+      .select("*")
+      .eq("tenant_id", data.tenant_id)
+      .order("created_at", { ascending: false })
+      .limit(200);
+    if (data.plan_id) q = q.eq("plan_id", data.plan_id);
+    const { data: rows, error } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const listCommissionAuditLogs = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      tenant_id: uuid,
+      plan_id: uuid.optional(),
+      accrual_id: uuid.optional(),
+      limit: z.number().int().min(1).max(500).default(100),
+    }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase
+      .from("commission_audit_logs")
+      .select("*")
+      .eq("tenant_id", data.tenant_id)
+      .order("created_at", { ascending: false })
+      .limit(data.limit);
+    if (data.plan_id) q = q.eq("plan_id", data.plan_id);
+    if (data.accrual_id) q = q.eq("accrual_id", data.accrual_id);
+    const { data: rows, error } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const updateAccrualStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      tenant_id: uuid,
+      accrual_ids: z.array(uuid).min(1),
+      status: z.enum(["draft","calculated","under_review","approved","locked","hold","reversed"]),
+      note: z.string().max(1000).optional(),
+    }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    const { data: rows, error } = await supabase
+      .from("commission_accruals")
+      .update({ status: data.status })
+      .in("id", data.accrual_ids)
+      .eq("tenant_id", data.tenant_id)
+      .select("id");
+    if (error) throw error;
+    await supabase.from("commission_audit_logs").insert(
+      data.accrual_ids.map((id) => ({
+        tenant_id: data.tenant_id,
+        accrual_id: id,
+        actor_id: context.userId,
+        action: `accrual.${data.status}`,
+        after: { status: data.status, note: data.note ?? null },
+      })),
+    );
+    return { updated: rows?.length ?? 0 };
+  });

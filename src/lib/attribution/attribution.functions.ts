@@ -159,3 +159,83 @@ export const getLtvForPerson = createServerFn({ method: "POST" })
     const { data: row } = await supabase.from("ltv_person").select("*").eq("person_id", data.person_id).maybeSingle();
     return { ltv: row ?? null };
   });
+
+export const listRevenueEvents = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      tenant_id: uuid,
+      person_id: uuid.optional(),
+      category: z.string().optional(),
+      limit: z.number().int().min(1).max(500).default(100),
+      offset: z.number().int().min(0).default(0),
+    }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase
+      .from("revenue_events")
+      .select("*", { count: "exact" })
+      .eq("tenant_id", data.tenant_id)
+      .order("occurred_at", { ascending: false })
+      .range(data.offset, data.offset + data.limit - 1);
+    if (data.person_id) q = q.eq("person_id", data.person_id);
+    if (data.category) q = q.eq("category", data.category);
+    const { data: rows, error, count } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [], count: count ?? 0 };
+  });
+
+export const listAttributionCredits = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) =>
+    z.object({
+      tenant_id: uuid,
+      revenue_event_id: uuid.optional(),
+      lead_id: uuid.optional(),
+      limit: z.number().int().min(1).max(500).default(200),
+    }).parse(d),
+  )
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    let q = supabase
+      .from("attribution_credits")
+      .select("*")
+      .eq("tenant_id", data.tenant_id)
+      .order("created_at", { ascending: false })
+      .limit(data.limit);
+    if (data.revenue_event_id) q = q.eq("revenue_event_id", data.revenue_event_id);
+    if (data.lead_id) q = q.eq("lead_id", data.lead_id);
+    const { data: rows, error } = await q;
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const listAttributionTouches = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ person_id: uuid }).parse(d))
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    const { data: rows, error } = await supabase
+      .from("attribution_touches")
+      .select("*")
+      .eq("person_id", data.person_id)
+      .order("occurred_at", { ascending: true });
+    if (error) throw error;
+    return { rows: rows ?? [] };
+  });
+
+export const getActiveAttributionModel = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ tenant_id: uuid }).parse(d))
+  .handler(async ({ context, data }) => {
+    const supabase = context.supabase as SB;
+    const { data: row } = await supabase
+      .from("platform_settings")
+      .select("value")
+      .eq("key", `attribution.model.${data.tenant_id}`)
+      .maybeSingle();
+    const v = row?.value;
+    const model = typeof v === "string" && ["first","last","linear","position"].includes(v) ? v : "last";
+    return { model };
+  });

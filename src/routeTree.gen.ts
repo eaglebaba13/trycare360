@@ -24,6 +24,7 @@ import { Route as PublicAboutRouteImport } from './routes/_public.about'
 import { Route as AuthenticatedTelecallerRouteImport } from './routes/_authenticated/telecaller'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSalesRouteImport } from './routes/_authenticated/sales'
+import { Route as AuthenticatedRevenueRouteImport } from './routes/_authenticated/revenue'
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
 import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
@@ -40,6 +41,7 @@ import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index
 import { Route as AuthenticatedTelecallerIndexRouteImport } from './routes/_authenticated/telecaller.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
 import { Route as AuthenticatedSalesIndexRouteImport } from './routes/_authenticated/sales.index'
+import { Route as AuthenticatedRevenueIndexRouteImport } from './routes/_authenticated/revenue.index'
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
@@ -64,6 +66,12 @@ import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authe
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
 import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
 import { Route as AuthenticatedSalesAssignmentRouteImport } from './routes/_authenticated/sales.assignment'
+import { Route as AuthenticatedRevenuePreviewRouteImport } from './routes/_authenticated/revenue.preview'
+import { Route as AuthenticatedRevenuePlansRouteImport } from './routes/_authenticated/revenue.plans'
+import { Route as AuthenticatedRevenueCommissionsRouteImport } from './routes/_authenticated/revenue.commissions'
+import { Route as AuthenticatedRevenueBeneficiariesRouteImport } from './routes/_authenticated/revenue.beneficiaries'
+import { Route as AuthenticatedRevenueAuditRouteImport } from './routes/_authenticated/revenue.audit'
+import { Route as AuthenticatedRevenueAttributionRouteImport } from './routes/_authenticated/revenue.attribution'
 import { Route as AuthenticatedPeopleVerificationRouteImport } from './routes/_authenticated/people.verification'
 import { Route as AuthenticatedPeopleTagsRouteImport } from './routes/_authenticated/people.tags'
 import { Route as AuthenticatedPeopleRelationshipsRouteImport } from './routes/_authenticated/people.relationships'
@@ -217,6 +225,11 @@ const AuthenticatedSalesRoute = AuthenticatedSalesRouteImport.update({
   path: '/sales',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedRevenueRoute = AuthenticatedRevenueRouteImport.update({
+  id: '/revenue',
+  path: '/revenue',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPeopleRoute = AuthenticatedPeopleRouteImport.update({
   id: '/people',
   path: '/people',
@@ -301,6 +314,12 @@ const AuthenticatedSalesIndexRoute = AuthenticatedSalesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedSalesRoute,
 } as any)
+const AuthenticatedRevenueIndexRoute =
+  AuthenticatedRevenueIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
 const AuthenticatedPeopleIndexRoute =
   AuthenticatedPeopleIndexRouteImport.update({
     id: '/',
@@ -436,6 +455,42 @@ const AuthenticatedSalesAssignmentRoute =
     id: '/assignment',
     path: '/assignment',
     getParentRoute: () => AuthenticatedSalesRoute,
+  } as any)
+const AuthenticatedRevenuePreviewRoute =
+  AuthenticatedRevenuePreviewRouteImport.update({
+    id: '/preview',
+    path: '/preview',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
+const AuthenticatedRevenuePlansRoute =
+  AuthenticatedRevenuePlansRouteImport.update({
+    id: '/plans',
+    path: '/plans',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
+const AuthenticatedRevenueCommissionsRoute =
+  AuthenticatedRevenueCommissionsRouteImport.update({
+    id: '/commissions',
+    path: '/commissions',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
+const AuthenticatedRevenueBeneficiariesRoute =
+  AuthenticatedRevenueBeneficiariesRouteImport.update({
+    id: '/beneficiaries',
+    path: '/beneficiaries',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
+const AuthenticatedRevenueAuditRoute =
+  AuthenticatedRevenueAuditRouteImport.update({
+    id: '/audit',
+    path: '/audit',
+    getParentRoute: () => AuthenticatedRevenueRoute,
+  } as any)
+const AuthenticatedRevenueAttributionRoute =
+  AuthenticatedRevenueAttributionRouteImport.update({
+    id: '/attribution',
+    path: '/attribution',
+    getParentRoute: () => AuthenticatedRevenueRoute,
   } as any)
 const AuthenticatedPeopleVerificationRoute =
   AuthenticatedPeopleVerificationRouteImport.update({
@@ -907,6 +962,7 @@ export interface FileRoutesByFullPath {
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/people': typeof AuthenticatedPeopleRouteWithChildren
+  '/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/sales': typeof AuthenticatedSalesRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
@@ -976,6 +1032,12 @@ export interface FileRoutesByFullPath {
   '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
+  '/revenue/audit': typeof AuthenticatedRevenueAuditRoute
+  '/revenue/beneficiaries': typeof AuthenticatedRevenueBeneficiariesRoute
+  '/revenue/commissions': typeof AuthenticatedRevenueCommissionsRoute
+  '/revenue/plans': typeof AuthenticatedRevenuePlansRoute
+  '/revenue/preview': typeof AuthenticatedRevenuePreviewRoute
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
@@ -1000,6 +1062,7 @@ export interface FileRoutesByFullPath {
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
   '/people/': typeof AuthenticatedPeopleIndexRoute
+  '/revenue/': typeof AuthenticatedRevenueIndexRoute
   '/sales/': typeof AuthenticatedSalesIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/telecaller/': typeof AuthenticatedTelecallerIndexRoute
@@ -1099,6 +1162,12 @@ export interface FileRoutesByTo {
   '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
+  '/revenue/audit': typeof AuthenticatedRevenueAuditRoute
+  '/revenue/beneficiaries': typeof AuthenticatedRevenueBeneficiariesRoute
+  '/revenue/commissions': typeof AuthenticatedRevenueCommissionsRoute
+  '/revenue/plans': typeof AuthenticatedRevenuePlansRoute
+  '/revenue/preview': typeof AuthenticatedRevenuePreviewRoute
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
@@ -1122,6 +1191,7 @@ export interface FileRoutesByTo {
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
   '/people': typeof AuthenticatedPeopleIndexRoute
+  '/revenue': typeof AuthenticatedRevenueIndexRoute
   '/sales': typeof AuthenticatedSalesIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/telecaller': typeof AuthenticatedTelecallerIndexRoute
@@ -1165,6 +1235,7 @@ export interface FileRoutesById {
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
+  '/_authenticated/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/_authenticated/sales': typeof AuthenticatedSalesRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
@@ -1235,6 +1306,12 @@ export interface FileRoutesById {
   '/_authenticated/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/_authenticated/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/_authenticated/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/_authenticated/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
+  '/_authenticated/revenue/audit': typeof AuthenticatedRevenueAuditRoute
+  '/_authenticated/revenue/beneficiaries': typeof AuthenticatedRevenueBeneficiariesRoute
+  '/_authenticated/revenue/commissions': typeof AuthenticatedRevenueCommissionsRoute
+  '/_authenticated/revenue/plans': typeof AuthenticatedRevenuePlansRoute
+  '/_authenticated/revenue/preview': typeof AuthenticatedRevenuePreviewRoute
   '/_authenticated/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
@@ -1259,6 +1336,7 @@ export interface FileRoutesById {
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
+  '/_authenticated/revenue/': typeof AuthenticatedRevenueIndexRoute
   '/_authenticated/sales/': typeof AuthenticatedSalesIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/telecaller/': typeof AuthenticatedTelecallerIndexRoute
@@ -1302,6 +1380,7 @@ export interface FileRouteTypes {
     | '/organization'
     | '/patients'
     | '/people'
+    | '/revenue'
     | '/sales'
     | '/settings'
     | '/telecaller'
@@ -1371,6 +1450,12 @@ export interface FileRouteTypes {
     | '/people/relationships'
     | '/people/tags'
     | '/people/verification'
+    | '/revenue/attribution'
+    | '/revenue/audit'
+    | '/revenue/beneficiaries'
+    | '/revenue/commissions'
+    | '/revenue/plans'
+    | '/revenue/preview'
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
@@ -1395,6 +1480,7 @@ export interface FileRouteTypes {
     | '/organization/'
     | '/patients/'
     | '/people/'
+    | '/revenue/'
     | '/sales/'
     | '/settings/'
     | '/telecaller/'
@@ -1494,6 +1580,12 @@ export interface FileRouteTypes {
     | '/people/relationships'
     | '/people/tags'
     | '/people/verification'
+    | '/revenue/attribution'
+    | '/revenue/audit'
+    | '/revenue/beneficiaries'
+    | '/revenue/commissions'
+    | '/revenue/plans'
+    | '/revenue/preview'
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
@@ -1517,6 +1609,7 @@ export interface FileRouteTypes {
     | '/organization'
     | '/patients'
     | '/people'
+    | '/revenue'
     | '/sales'
     | '/settings'
     | '/telecaller'
@@ -1559,6 +1652,7 @@ export interface FileRouteTypes {
     | '/_authenticated/organization'
     | '/_authenticated/patients'
     | '/_authenticated/people'
+    | '/_authenticated/revenue'
     | '/_authenticated/sales'
     | '/_authenticated/settings'
     | '/_authenticated/telecaller'
@@ -1629,6 +1723,12 @@ export interface FileRouteTypes {
     | '/_authenticated/people/relationships'
     | '/_authenticated/people/tags'
     | '/_authenticated/people/verification'
+    | '/_authenticated/revenue/attribution'
+    | '/_authenticated/revenue/audit'
+    | '/_authenticated/revenue/beneficiaries'
+    | '/_authenticated/revenue/commissions'
+    | '/_authenticated/revenue/plans'
+    | '/_authenticated/revenue/preview'
     | '/_authenticated/sales/assignment'
     | '/_authenticated/sales/sla'
     | '/_authenticated/sales/supervisor'
@@ -1653,6 +1753,7 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/'
     | '/_authenticated/patients/'
     | '/_authenticated/people/'
+    | '/_authenticated/revenue/'
     | '/_authenticated/sales/'
     | '/_authenticated/settings/'
     | '/_authenticated/telecaller/'
@@ -1803,6 +1904,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSalesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/revenue': {
+      id: '/_authenticated/revenue'
+      path: '/revenue'
+      fullPath: '/revenue'
+      preLoaderRoute: typeof AuthenticatedRevenueRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/people': {
       id: '/_authenticated/people'
       path: '/people'
@@ -1914,6 +2022,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/sales/'
       preLoaderRoute: typeof AuthenticatedSalesIndexRouteImport
       parentRoute: typeof AuthenticatedSalesRoute
+    }
+    '/_authenticated/revenue/': {
+      id: '/_authenticated/revenue/'
+      path: '/'
+      fullPath: '/revenue/'
+      preLoaderRoute: typeof AuthenticatedRevenueIndexRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
     }
     '/_authenticated/people/': {
       id: '/_authenticated/people/'
@@ -2082,6 +2197,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/sales/assignment'
       preLoaderRoute: typeof AuthenticatedSalesAssignmentRouteImport
       parentRoute: typeof AuthenticatedSalesRoute
+    }
+    '/_authenticated/revenue/preview': {
+      id: '/_authenticated/revenue/preview'
+      path: '/preview'
+      fullPath: '/revenue/preview'
+      preLoaderRoute: typeof AuthenticatedRevenuePreviewRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
+    }
+    '/_authenticated/revenue/plans': {
+      id: '/_authenticated/revenue/plans'
+      path: '/plans'
+      fullPath: '/revenue/plans'
+      preLoaderRoute: typeof AuthenticatedRevenuePlansRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
+    }
+    '/_authenticated/revenue/commissions': {
+      id: '/_authenticated/revenue/commissions'
+      path: '/commissions'
+      fullPath: '/revenue/commissions'
+      preLoaderRoute: typeof AuthenticatedRevenueCommissionsRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
+    }
+    '/_authenticated/revenue/beneficiaries': {
+      id: '/_authenticated/revenue/beneficiaries'
+      path: '/beneficiaries'
+      fullPath: '/revenue/beneficiaries'
+      preLoaderRoute: typeof AuthenticatedRevenueBeneficiariesRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
+    }
+    '/_authenticated/revenue/audit': {
+      id: '/_authenticated/revenue/audit'
+      path: '/audit'
+      fullPath: '/revenue/audit'
+      preLoaderRoute: typeof AuthenticatedRevenueAuditRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
+    }
+    '/_authenticated/revenue/attribution': {
+      id: '/_authenticated/revenue/attribution'
+      path: '/attribution'
+      fullPath: '/revenue/attribution'
+      preLoaderRoute: typeof AuthenticatedRevenueAttributionRouteImport
+      parentRoute: typeof AuthenticatedRevenueRoute
     }
     '/_authenticated/people/verification': {
       id: '/_authenticated/people/verification'
@@ -2869,6 +3026,30 @@ const AuthenticatedPeopleRouteChildren: AuthenticatedPeopleRouteChildren = {
 const AuthenticatedPeopleRouteWithChildren =
   AuthenticatedPeopleRoute._addFileChildren(AuthenticatedPeopleRouteChildren)
 
+interface AuthenticatedRevenueRouteChildren {
+  AuthenticatedRevenueAttributionRoute: typeof AuthenticatedRevenueAttributionRoute
+  AuthenticatedRevenueAuditRoute: typeof AuthenticatedRevenueAuditRoute
+  AuthenticatedRevenueBeneficiariesRoute: typeof AuthenticatedRevenueBeneficiariesRoute
+  AuthenticatedRevenueCommissionsRoute: typeof AuthenticatedRevenueCommissionsRoute
+  AuthenticatedRevenuePlansRoute: typeof AuthenticatedRevenuePlansRoute
+  AuthenticatedRevenuePreviewRoute: typeof AuthenticatedRevenuePreviewRoute
+  AuthenticatedRevenueIndexRoute: typeof AuthenticatedRevenueIndexRoute
+}
+
+const AuthenticatedRevenueRouteChildren: AuthenticatedRevenueRouteChildren = {
+  AuthenticatedRevenueAttributionRoute: AuthenticatedRevenueAttributionRoute,
+  AuthenticatedRevenueAuditRoute: AuthenticatedRevenueAuditRoute,
+  AuthenticatedRevenueBeneficiariesRoute:
+    AuthenticatedRevenueBeneficiariesRoute,
+  AuthenticatedRevenueCommissionsRoute: AuthenticatedRevenueCommissionsRoute,
+  AuthenticatedRevenuePlansRoute: AuthenticatedRevenuePlansRoute,
+  AuthenticatedRevenuePreviewRoute: AuthenticatedRevenuePreviewRoute,
+  AuthenticatedRevenueIndexRoute: AuthenticatedRevenueIndexRoute,
+}
+
+const AuthenticatedRevenueRouteWithChildren =
+  AuthenticatedRevenueRoute._addFileChildren(AuthenticatedRevenueRouteChildren)
+
 interface AuthenticatedSalesRouteChildren {
   AuthenticatedSalesAssignmentRoute: typeof AuthenticatedSalesAssignmentRoute
   AuthenticatedSalesSlaRoute: typeof AuthenticatedSalesSlaRoute
@@ -2983,6 +3164,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
+  AuthenticatedRevenueRoute: typeof AuthenticatedRevenueRouteWithChildren
   AuthenticatedSalesRoute: typeof AuthenticatedSalesRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
   AuthenticatedTelecallerRoute: typeof AuthenticatedTelecallerRouteWithChildren
@@ -2998,6 +3180,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
+  AuthenticatedRevenueRoute: AuthenticatedRevenueRouteWithChildren,
   AuthenticatedSalesRoute: AuthenticatedSalesRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
   AuthenticatedTelecallerRoute: AuthenticatedTelecallerRouteWithChildren,
