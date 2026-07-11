@@ -534,31 +534,27 @@ export type CapacityOverrideRow = Tables<"capacity_overrides">;
 export class CapacityRepository {
   constructor(private readonly sb: SB) {}
 
+  /**
+   * Find the active capacity plan for a branch at a given time. The current
+   * `capacity_plans` schema is branch-scoped (no service dimension); service
+   * variance is expressed via `capacity_dimensions` rows.
+   */
   async findPlan(args: {
     tenantId: string;
     branchId: string;
-    serviceId?: string | null;
     at: string;
   }): Promise<CapacityPlanRow | null> {
-    let q = this.sb
+    const q = this.sb
       .from("capacity_plans")
       .select("*")
       .eq("tenant_id", args.tenantId)
       .eq("branch_id", args.branchId)
+      .eq("status", "active")
       .lte("effective_from", args.at)
       .or(`effective_to.is.null,effective_to.gte.${args.at}`)
-      .eq("is_active", true);
-    if (args.serviceId) {
-      q = q.or(`service_id.eq.${args.serviceId},service_id.is.null`);
-    } else {
-      q = q.is("service_id", null);
-    }
-    return unwrapMaybe(
-      await q
-        .order("service_id", { ascending: false, nullsFirst: false })
-        .limit(1)
-        .maybeSingle(),
-    );
+      .order("effective_from", { ascending: false })
+      .limit(1);
+    return unwrapMaybe(await q.maybeSingle());
   }
   async listDimensions(planId: string): Promise<CapacityDimensionRow[]> {
     return unwrapList(
@@ -568,23 +564,27 @@ export class CapacityRepository {
         .eq("plan_id", planId),
     );
   }
+  /**
+   * Overrides are date-scoped and plan-scoped (no direct branch column).
+   * Callers pass plan_id(s) or filter after retrieval.
+   */
   async listOverrides(args: {
     tenantId: string;
-    branchId: string;
-    fromISO: string;
-    toISO: string;
+    planId?: string;
+    fromDate: string;
+    toDate: string;
   }): Promise<CapacityOverrideRow[]> {
-    return unwrapList(
-      await this.sb
-        .from("capacity_overrides")
-        .select("*")
-        .eq("tenant_id", args.tenantId)
-        .eq("branch_id", args.branchId)
-        .lte("bucket_start", args.toISO)
-        .gte("bucket_end", args.fromISO),
-    );
+    let q = this.sb
+      .from("capacity_overrides")
+      .select("*")
+      .eq("tenant_id", args.tenantId)
+      .gte("override_date", args.fromDate)
+      .lte("override_date", args.toDate);
+    if (args.planId) q = q.eq("plan_id", args.planId);
+    return unwrapList(await q);
   }
 }
+
 
 // ============ Conflict ====================================================
 
