@@ -31,6 +31,31 @@ export const RESOURCE_EVENTS = {
   LOCKED: "resource.locked",
 } as const;
 
+export const REMINDER_EVENTS = {
+  SCHEDULED: "reminder.scheduled",
+  SENT: "reminder.sent",
+  FAILED: "reminder.failed",
+  SKIPPED: "reminder.skipped",
+} as const;
+
+export const CALENDAR_EVENTS = {
+  ACCOUNT_CONNECTED: "calendar.account_connected",
+  ACCOUNT_DISCONNECTED: "calendar.account_disconnected",
+  SYNCED: "calendar.synced",
+  SYNC_FAILED: "calendar.sync_failed",
+} as const;
+
+export const VIDEO_EVENTS = {
+  MEETING_CREATED: "video.meeting_created",
+  MEETING_FAILED: "video.meeting_failed",
+} as const;
+
+export type ReminderEvent =
+  (typeof REMINDER_EVENTS)[keyof typeof REMINDER_EVENTS];
+export type CalendarEvent =
+  (typeof CALENDAR_EVENTS)[keyof typeof CALENDAR_EVENTS];
+export type VideoEvent = (typeof VIDEO_EVENTS)[keyof typeof VIDEO_EVENTS];
+
 export type AppointmentEvent =
   (typeof APPOINTMENT_EVENTS)[keyof typeof APPOINTMENT_EVENTS];
 export type QueueEvent = (typeof QUEUE_EVENTS)[keyof typeof QUEUE_EVENTS];
