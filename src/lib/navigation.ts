@@ -18,6 +18,7 @@ import {
   Sparkles,
   Headphones,
   Briefcase,
+  IndianRupee,
 } from "lucide-react";
 
 
@@ -88,6 +89,17 @@ export const NAV_GROUPS: NavGroup[] = [
         to: "/consultations",
         icon: Sparkles,
         roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER, ROLES.DOCTOR, ROLES.HAIR_CONSULTANT, ROLES.SKIN_CONSULTANT, ROLES.NUTRITIONIST, ROLES.TELECALLER],
+      },
+    ],
+  },
+  {
+    label: "Revenue",
+    items: [
+      {
+        label: "Revenue & Commission",
+        to: "/revenue",
+        icon: IndianRupee,
+        roles: [ROLES.SUPER_ADMIN, ROLES.PLATFORM_ADMIN, ROLES.ADMIN, ROLES.CORPORATE_ADMIN, ROLES.MASTER_FRANCHISE, ROLES.FRANCHISE_OWNER, ROLES.CENTER_MANAGER, ROLES.ACCOUNTS, ROLES.MARKETING],
       },
     ],
   },
