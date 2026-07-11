@@ -33,16 +33,19 @@ export class QueueEngine {
     const number = await this.repo.nextTokenNumber(args.queueId);
     const token = await this.repo.issueToken({
       tenant_id: args.tenantId,
-      branch_id: args.branchId,
       queue_id: args.queueId,
       appointment_id: args.appointmentId ?? null,
       person_id: args.personId ?? null,
       token_number: number,
+      token_label: `T${String(number).padStart(3, "0")}`,
       priority: args.priority ?? 0,
-      is_vip: args.isVip ?? false,
-      is_emergency: args.isEmergency ?? false,
       status: "waiting",
-      notes: args.notes ?? null,
+      meta: {
+        branch_id: args.branchId,
+        is_vip: args.isVip ?? false,
+        is_emergency: args.isEmergency ?? false,
+        notes: args.notes ?? null,
+      } as never,
     } as never);
     await this.sb.rpc("emit_automation_event", {
       _tenant_id: args.tenantId,

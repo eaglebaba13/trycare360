@@ -67,9 +67,15 @@ import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_aut
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedSchedulingTokenDisplayRouteImport } from './routes/_authenticated/scheduling.token-display'
 import { Route as AuthenticatedSchedulingResourcesRouteImport } from './routes/_authenticated/scheduling.resources'
+import { Route as AuthenticatedSchedulingReceptionRouteImport } from './routes/_authenticated/scheduling.reception'
+import { Route as AuthenticatedSchedulingQueueAnalyticsRouteImport } from './routes/_authenticated/scheduling.queue-analytics'
+import { Route as AuthenticatedSchedulingQueueRouteImport } from './routes/_authenticated/scheduling.queue'
 import { Route as AuthenticatedSchedulingPackagesRouteImport } from './routes/_authenticated/scheduling.packages'
+import { Route as AuthenticatedSchedulingNoShowRouteImport } from './routes/_authenticated/scheduling.no-show'
 import { Route as AuthenticatedSchedulingNewRouteImport } from './routes/_authenticated/scheduling.new'
+import { Route as AuthenticatedSchedulingCheckinRouteImport } from './routes/_authenticated/scheduling.checkin'
 import { Route as AuthenticatedSchedulingCalendarRouteImport } from './routes/_authenticated/scheduling.calendar'
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
 import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
@@ -476,10 +482,34 @@ const AuthenticatedSettingsGlobalRoute =
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSchedulingTokenDisplayRoute =
+  AuthenticatedSchedulingTokenDisplayRouteImport.update({
+    id: '/token-display',
+    path: '/token-display',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
 const AuthenticatedSchedulingResourcesRoute =
   AuthenticatedSchedulingResourcesRouteImport.update({
     id: '/resources',
     path: '/resources',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingReceptionRoute =
+  AuthenticatedSchedulingReceptionRouteImport.update({
+    id: '/reception',
+    path: '/reception',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingQueueAnalyticsRoute =
+  AuthenticatedSchedulingQueueAnalyticsRouteImport.update({
+    id: '/queue-analytics',
+    path: '/queue-analytics',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingQueueRoute =
+  AuthenticatedSchedulingQueueRouteImport.update({
+    id: '/queue',
+    path: '/queue',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSchedulingPackagesRoute =
@@ -488,10 +518,22 @@ const AuthenticatedSchedulingPackagesRoute =
     path: '/packages',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
+const AuthenticatedSchedulingNoShowRoute =
+  AuthenticatedSchedulingNoShowRouteImport.update({
+    id: '/no-show',
+    path: '/no-show',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
 const AuthenticatedSchedulingNewRoute =
   AuthenticatedSchedulingNewRouteImport.update({
     id: '/new',
     path: '/new',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingCheckinRoute =
+  AuthenticatedSchedulingCheckinRouteImport.update({
+    id: '/checkin',
+    path: '/checkin',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSchedulingCalendarRoute =
@@ -1152,9 +1194,15 @@ export interface FileRoutesByFullPath {
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/scheduling/new': typeof AuthenticatedSchedulingNewRoute
+  '/scheduling/no-show': typeof AuthenticatedSchedulingNoShowRoute
   '/scheduling/packages': typeof AuthenticatedSchedulingPackagesRoute
+  '/scheduling/queue': typeof AuthenticatedSchedulingQueueRoute
+  '/scheduling/queue-analytics': typeof AuthenticatedSchedulingQueueAnalyticsRoute
+  '/scheduling/reception': typeof AuthenticatedSchedulingReceptionRoute
   '/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
+  '/scheduling/token-display': typeof AuthenticatedSchedulingTokenDisplayRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -1295,9 +1343,15 @@ export interface FileRoutesByTo {
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/scheduling/new': typeof AuthenticatedSchedulingNewRoute
+  '/scheduling/no-show': typeof AuthenticatedSchedulingNoShowRoute
   '/scheduling/packages': typeof AuthenticatedSchedulingPackagesRoute
+  '/scheduling/queue': typeof AuthenticatedSchedulingQueueRoute
+  '/scheduling/queue-analytics': typeof AuthenticatedSchedulingQueueAnalyticsRoute
+  '/scheduling/reception': typeof AuthenticatedSchedulingReceptionRoute
   '/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
+  '/scheduling/token-display': typeof AuthenticatedSchedulingTokenDisplayRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
@@ -1454,9 +1508,15 @@ export interface FileRoutesById {
   '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/_authenticated/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/_authenticated/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/_authenticated/scheduling/new': typeof AuthenticatedSchedulingNewRoute
+  '/_authenticated/scheduling/no-show': typeof AuthenticatedSchedulingNoShowRoute
   '/_authenticated/scheduling/packages': typeof AuthenticatedSchedulingPackagesRoute
+  '/_authenticated/scheduling/queue': typeof AuthenticatedSchedulingQueueRoute
+  '/_authenticated/scheduling/queue-analytics': typeof AuthenticatedSchedulingQueueAnalyticsRoute
+  '/_authenticated/scheduling/reception': typeof AuthenticatedSchedulingReceptionRoute
   '/_authenticated/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
+  '/_authenticated/scheduling/token-display': typeof AuthenticatedSchedulingTokenDisplayRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -1613,9 +1673,15 @@ export interface FileRouteTypes {
     | '/sales/sla'
     | '/sales/supervisor'
     | '/scheduling/calendar'
+    | '/scheduling/checkin'
     | '/scheduling/new'
+    | '/scheduling/no-show'
     | '/scheduling/packages'
+    | '/scheduling/queue'
+    | '/scheduling/queue-analytics'
+    | '/scheduling/reception'
     | '/scheduling/resources'
+    | '/scheduling/token-display'
     | '/settings/global'
     | '/settings/integrations'
     | '/settings/masters'
@@ -1756,9 +1822,15 @@ export interface FileRouteTypes {
     | '/sales/sla'
     | '/sales/supervisor'
     | '/scheduling/calendar'
+    | '/scheduling/checkin'
     | '/scheduling/new'
+    | '/scheduling/no-show'
     | '/scheduling/packages'
+    | '/scheduling/queue'
+    | '/scheduling/queue-analytics'
+    | '/scheduling/reception'
     | '/scheduling/resources'
+    | '/scheduling/token-display'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
@@ -1914,9 +1986,15 @@ export interface FileRouteTypes {
     | '/_authenticated/sales/sla'
     | '/_authenticated/sales/supervisor'
     | '/_authenticated/scheduling/calendar'
+    | '/_authenticated/scheduling/checkin'
     | '/_authenticated/scheduling/new'
+    | '/_authenticated/scheduling/no-show'
     | '/_authenticated/scheduling/packages'
+    | '/_authenticated/scheduling/queue'
+    | '/_authenticated/scheduling/queue-analytics'
+    | '/_authenticated/scheduling/reception'
     | '/_authenticated/scheduling/resources'
+    | '/_authenticated/scheduling/token-display'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
@@ -2394,11 +2472,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/scheduling/token-display': {
+      id: '/_authenticated/scheduling/token-display'
+      path: '/token-display'
+      fullPath: '/scheduling/token-display'
+      preLoaderRoute: typeof AuthenticatedSchedulingTokenDisplayRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
     '/_authenticated/scheduling/resources': {
       id: '/_authenticated/scheduling/resources'
       path: '/resources'
       fullPath: '/scheduling/resources'
       preLoaderRoute: typeof AuthenticatedSchedulingResourcesRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/reception': {
+      id: '/_authenticated/scheduling/reception'
+      path: '/reception'
+      fullPath: '/scheduling/reception'
+      preLoaderRoute: typeof AuthenticatedSchedulingReceptionRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/queue-analytics': {
+      id: '/_authenticated/scheduling/queue-analytics'
+      path: '/queue-analytics'
+      fullPath: '/scheduling/queue-analytics'
+      preLoaderRoute: typeof AuthenticatedSchedulingQueueAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/queue': {
+      id: '/_authenticated/scheduling/queue'
+      path: '/queue'
+      fullPath: '/scheduling/queue'
+      preLoaderRoute: typeof AuthenticatedSchedulingQueueRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/scheduling/packages': {
@@ -2408,11 +2514,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSchedulingPackagesRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
+    '/_authenticated/scheduling/no-show': {
+      id: '/_authenticated/scheduling/no-show'
+      path: '/no-show'
+      fullPath: '/scheduling/no-show'
+      preLoaderRoute: typeof AuthenticatedSchedulingNoShowRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
     '/_authenticated/scheduling/new': {
       id: '/_authenticated/scheduling/new'
       path: '/new'
       fullPath: '/scheduling/new'
       preLoaderRoute: typeof AuthenticatedSchedulingNewRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/checkin': {
+      id: '/_authenticated/scheduling/checkin'
+      path: '/checkin'
+      fullPath: '/scheduling/checkin'
+      preLoaderRoute: typeof AuthenticatedSchedulingCheckinRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/scheduling/calendar': {
@@ -3389,9 +3509,15 @@ const AuthenticatedSalesRouteWithChildren =
 
 interface AuthenticatedSchedulingRouteChildren {
   AuthenticatedSchedulingCalendarRoute: typeof AuthenticatedSchedulingCalendarRoute
+  AuthenticatedSchedulingCheckinRoute: typeof AuthenticatedSchedulingCheckinRoute
   AuthenticatedSchedulingNewRoute: typeof AuthenticatedSchedulingNewRoute
+  AuthenticatedSchedulingNoShowRoute: typeof AuthenticatedSchedulingNoShowRoute
   AuthenticatedSchedulingPackagesRoute: typeof AuthenticatedSchedulingPackagesRoute
+  AuthenticatedSchedulingQueueRoute: typeof AuthenticatedSchedulingQueueRoute
+  AuthenticatedSchedulingQueueAnalyticsRoute: typeof AuthenticatedSchedulingQueueAnalyticsRoute
+  AuthenticatedSchedulingReceptionRoute: typeof AuthenticatedSchedulingReceptionRoute
   AuthenticatedSchedulingResourcesRoute: typeof AuthenticatedSchedulingResourcesRoute
+  AuthenticatedSchedulingTokenDisplayRoute: typeof AuthenticatedSchedulingTokenDisplayRoute
   AuthenticatedSchedulingIndexRoute: typeof AuthenticatedSchedulingIndexRoute
   AuthenticatedSchedulingAppointmentsAppointmentIdRoute: typeof AuthenticatedSchedulingAppointmentsAppointmentIdRoute
   AuthenticatedSchedulingSeriesSeriesIdRoute: typeof AuthenticatedSchedulingSeriesSeriesIdRoute
@@ -3400,10 +3526,19 @@ interface AuthenticatedSchedulingRouteChildren {
 const AuthenticatedSchedulingRouteChildren: AuthenticatedSchedulingRouteChildren =
   {
     AuthenticatedSchedulingCalendarRoute: AuthenticatedSchedulingCalendarRoute,
+    AuthenticatedSchedulingCheckinRoute: AuthenticatedSchedulingCheckinRoute,
     AuthenticatedSchedulingNewRoute: AuthenticatedSchedulingNewRoute,
+    AuthenticatedSchedulingNoShowRoute: AuthenticatedSchedulingNoShowRoute,
     AuthenticatedSchedulingPackagesRoute: AuthenticatedSchedulingPackagesRoute,
+    AuthenticatedSchedulingQueueRoute: AuthenticatedSchedulingQueueRoute,
+    AuthenticatedSchedulingQueueAnalyticsRoute:
+      AuthenticatedSchedulingQueueAnalyticsRoute,
+    AuthenticatedSchedulingReceptionRoute:
+      AuthenticatedSchedulingReceptionRoute,
     AuthenticatedSchedulingResourcesRoute:
       AuthenticatedSchedulingResourcesRoute,
+    AuthenticatedSchedulingTokenDisplayRoute:
+      AuthenticatedSchedulingTokenDisplayRoute,
     AuthenticatedSchedulingIndexRoute: AuthenticatedSchedulingIndexRoute,
     AuthenticatedSchedulingAppointmentsAppointmentIdRoute:
       AuthenticatedSchedulingAppointmentsAppointmentIdRoute,
