@@ -185,9 +185,7 @@ export const listTreatmentPlansForPatient = createServerFn({ method: "GET" })
 
 export const listActiveTreatmentPlans = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
-    listByPatientSchema.partial({ patientId: true }).extend({}).parse({ ...(d as object), patientId: (d as { patientId?: string }).patientId ?? "00000000-0000-0000-0000-000000000000" }),
-  )
+  .inputValidator((d: unknown) => tenantOnlySchema.parse(d))
   .handler(async ({ context, data }) => {
     const repo = new TreatmentPlanRepository(context.supabase);
     const rows = await repo.listActiveForTenant(data.tenantId, data.limit);
