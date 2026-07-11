@@ -802,34 +802,38 @@ export type PolicyRow = Tables<"scheduling_policies">;
 export class PolicyRepository {
   constructor(private readonly sb: SB) {}
 
+  /**
+   * List applicable policies for a context. The `scheduling_policies` table
+   * uses a generic `scope` + `scope_id` pair (e.g. scope=tenant/branch/
+   * franchise/service/doctor). We fetch tenant-wide + matching scoped rows
+   * and let the Policy Engine merge by priority.
+   */
   async listApplicable(args: {
     tenantId: string;
     branchId?: string | null;
     franchiseId?: string | null;
     serviceId?: string | null;
-    action?: string;
+    doctorId?: string | null;
+    at?: string | null;
   }): Promise<PolicyRow[]> {
-    let q = this.sb
+    const at = args.at ?? new Date().toISOString();
+    const q = this.sb
       .from("scheduling_policies")
       .select("*")
       .eq("tenant_id", args.tenantId)
-      .eq("is_active", true);
-    if (args.action) q = q.contains("applies_to", [args.action] as never);
-    // Scope filter: match tenant-wide policies (all nullable scopes) OR
-    // policies that match this context.
-    const scopes: string[] = [];
-    scopes.push("branch_id.is.null");
-    if (args.branchId) scopes.push(`branch_id.eq.${args.branchId}`);
-    q = q.or(scopes.join(","));
-    const rows = await unwrapList(
-      await q.order("priority", { ascending: false }),
-    );
-    // Post-filter by franchise/service (nullable = wildcard).
+      .eq("is_active", true)
+      .lte("effective_from", at)
+      .or(`effective_to.is.null,effective_to.gte.${at}`);
+    const rows = unwrapList(await q);
+    // Post-filter by scope so a single query serves every context.
     return rows.filter((p) => {
-      const f = p.franchise_id as string | null;
-      const s = p.service_id as string | null;
-      if (f && args.franchiseId && f !== args.franchiseId) return false;
-      if (s && args.serviceId && s !== args.serviceId) return false;
+      const scope = p.scope as string;
+      const sid = p.scope_id as string | null;
+      if (scope === "tenant") return true;
+      if (scope === "branch") return !sid || sid === args.branchId;
+      if (scope === "franchise") return !sid || sid === args.franchiseId;
+      if (scope === "service") return !sid || sid === args.serviceId;
+      if (scope === "doctor") return !sid || sid === args.doctorId;
       return true;
     });
   }
@@ -851,8 +855,10 @@ export class ExternalCalendarRepository {
         .from("external_calendar_accounts")
         .select("*")
         .eq("tenant_id", tenantId)
-        .eq("resource_id", resourceId)
-        .eq("is_active", true),
+        .eq("owner_resource_id", resourceId)
+        .eq("sync_enabled", true),
     );
   }
+}
+
 }
