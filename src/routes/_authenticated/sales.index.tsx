@@ -124,7 +124,7 @@ function SalesPipeline() {
                         </div>
                         <div className="flex items-center gap-2 pt-1">
                           <Badge variant="outline" className="text-[10px]">Score {Number(r.lead_score ?? 0).toFixed(0)}</Badge>
-                          {r.priority && <Badge variant="outline" className="text-[10px]">{String(r.priority)}</Badge>}
+                          {r.priority ? <Badge variant="outline" className="text-[10px]">{String(r.priority)}</Badge> : null}
                         </div>
                       </CardContent>
                     </Card>

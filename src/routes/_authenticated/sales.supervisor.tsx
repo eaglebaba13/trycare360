@@ -127,15 +127,15 @@ function SupervisorConsole() {
                   <tr><th className="p-1">Owner</th><th className="p-1">Total</th><th className="p-1">New</th><th className="p-1">Contacted</th><th className="p-1">Qualified</th><th className="p-1">Proposal</th><th className="p-1">Negotiation</th></tr>
                 </thead>
                 <tbody>
-                  {dist.map((d) => (
-                    <tr key={d.owner_id} className="border-t">
-                      <td className="p-1"><code className="text-xs">{d.owner_id === "unassigned" ? "unassigned" : d.owner_id.slice(0, 8)}</code></td>
-                      <td className="p-1 tabular-nums">{d.total ?? 0}</td>
-                      <td className="p-1 tabular-nums">{d.new ?? 0}</td>
-                      <td className="p-1 tabular-nums">{d.contacted ?? 0}</td>
-                      <td className="p-1 tabular-nums">{d.qualified ?? 0}</td>
-                      <td className="p-1 tabular-nums">{d.proposal ?? 0}</td>
-                      <td className="p-1 tabular-nums">{d.negotiation ?? 0}</td>
+                  {(dist as Array<Record<string, number | string>>).map((d) => (
+                    <tr key={String(d.owner_id)} className="border-t">
+                      <td className="p-1"><code className="text-xs">{d.owner_id === "unassigned" ? "unassigned" : String(d.owner_id).slice(0, 8)}</code></td>
+                      <td className="p-1 tabular-nums">{Number(d.total ?? 0)}</td>
+                      <td className="p-1 tabular-nums">{Number(d.new ?? 0)}</td>
+                      <td className="p-1 tabular-nums">{Number(d.contacted ?? 0)}</td>
+                      <td className="p-1 tabular-nums">{Number(d.qualified ?? 0)}</td>
+                      <td className="p-1 tabular-nums">{Number(d.proposal ?? 0)}</td>
+                      <td className="p-1 tabular-nums">{Number(d.negotiation ?? 0)}</td>
                     </tr>
                   ))}
                 </tbody>

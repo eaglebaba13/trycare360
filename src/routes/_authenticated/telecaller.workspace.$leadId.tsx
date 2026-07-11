@@ -136,7 +136,36 @@ function SmartCallingWorkspace() {
         </Tabs>
       </div>
       <aside className="min-w-0">
-        <Context360Panel leadId={lead.id} tenantId={lead.tenant_id} />
+        <Context360Panel
+          sections={[
+            {
+              id: "owner",
+              label: "Assigned Owner",
+              content: lead.owner_id
+                ? <code className="text-xs">{String(lead.owner_id)}</code>
+                : <span className="text-muted-foreground text-xs">Unassigned</span>,
+            },
+            {
+              id: "score",
+              label: "Lead Score",
+              content: <div className="text-2xl font-semibold tabular-nums">{Number(lead.lead_score ?? 0).toFixed(1)}</div>,
+            },
+            {
+              id: "stage",
+              label: "Stage & Status",
+              content: <div className="flex gap-2"><Badge variant="outline">{String(lead.stage_code)}</Badge><Badge>{String(lead.status ?? "open")}</Badge></div>,
+            },
+            {
+              id: "recent",
+              label: "Recent Interactions",
+              content: ints.length
+                ? <ul className="space-y-1 text-xs">{ints.slice(0, 5).map((i: Record<string, unknown>) => (
+                    <li key={String(i.id)} className="flex justify-between gap-2"><span className="truncate"><b>{String(i.channel)}</b> {String(i.subject ?? i.outcome ?? "")}</span><span className="text-muted-foreground">{formatDistanceToNow(String(i.occurred_at))}</span></li>
+                  ))}</ul>
+                : <span className="text-muted-foreground text-xs">None yet</span>,
+            },
+          ]}
+        />
       </aside>
     </div>
   );
