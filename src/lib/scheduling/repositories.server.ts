@@ -155,7 +155,7 @@ export class ResourceRepository {
     } else {
       q = q.eq("branch_id", branchId);
     }
-    if (opts?.kind) q = q.eq("kind", opts.kind);
+    if (opts?.kind) q = q.eq("resource_kind", opts.kind);
     if (opts?.active !== undefined) q = q.eq("is_active", opts.active);
     return unwrapList(await q.order("name", { ascending: true }));
   }
@@ -194,6 +194,10 @@ export class ResourceRepository {
 }
 
 // ============ Slots ========================================================
+// Note: `slot_cache` is a lightweight materialization of resource open slots.
+// Schema: (tenant_id, resource_id, starts_at, ends_at, status, hold_id,
+// branch_id, appointment_type_id). No service_id / no is_available flag —
+// `status` carries availability ("available", "held", "booked", "blocked").
 
 export type SlotRow = Tables<"slot_cache">;
 export type SlotInsert = TablesInsert<"slot_cache">;
@@ -205,31 +209,33 @@ export class SlotRepository {
     tenantId: string;
     branchId?: string;
     resourceId?: string;
-    serviceId?: string;
     fromISO: string;
     toISO: string;
-    availableOnly?: boolean;
+    status?: string | string[];
     limit?: number;
   }): Promise<SlotRow[]> {
     let q = this.sb
       .from("slot_cache")
       .select("*")
       .eq("tenant_id", args.tenantId)
-      .gte("slot_start", args.fromISO)
-      .lte("slot_start", args.toISO);
+      .gte("starts_at", args.fromISO)
+      .lte("starts_at", args.toISO);
     if (args.branchId) q = q.eq("branch_id", args.branchId);
     if (args.resourceId) q = q.eq("resource_id", args.resourceId);
-    if (args.serviceId) q = q.eq("service_id", args.serviceId);
-    if (args.availableOnly) q = q.eq("is_available", true);
+    if (args.status) {
+      q = Array.isArray(args.status)
+        ? q.in("status", args.status)
+        : q.eq("status", args.status);
+    }
     if (args.limit) q = q.limit(args.limit);
-    return unwrapList(await q.order("slot_start", { ascending: true }));
+    return unwrapList(await q.order("starts_at", { ascending: true }));
   }
   async bulkUpsert(rows: SlotInsert[]): Promise<number> {
     if (rows.length === 0) return 0;
     const { error, count } = await this.sb
       .from("slot_cache")
       .upsert(rows as never, {
-        onConflict: "tenant_id,resource_id,slot_start",
+        onConflict: "tenant_id,resource_id,starts_at",
         count: "exact",
       });
     if (error) throw new Error(error.message);
@@ -245,13 +251,14 @@ export class SlotRepository {
       .from("slot_cache")
       .delete()
       .eq("tenant_id", args.tenantId)
-      .gte("slot_start", args.fromISO)
-      .lte("slot_start", args.toISO);
+      .gte("starts_at", args.fromISO)
+      .lte("starts_at", args.toISO);
     if (args.resourceId) q = q.eq("resource_id", args.resourceId);
     const { error } = await q;
     if (error) throw new Error(error.message);
   }
 }
+
 
 // ============ Appointments =================================================
 
