@@ -192,16 +192,25 @@ export class ConflictEngine {
   }) {
     return this.conflicts.logConflict({
       tenant_id: args.tenantId,
-      conflict_kind: args.conflict.kind,
-      resource_id: args.conflict.resource_id ?? null,
-      branch_id: args.conflict.branch_id ?? null,
-      starts_at: args.conflict.starts_at,
-      ends_at: args.conflict.ends_at,
-      ref_id: args.conflict.ref_id,
+      resource_id:
+        (args.conflict.resource_id as string | null) ??
+        // resource_id is NOT NULL in the schema; fall back to a sentinel if
+        // the conflict is branch-level only (should not normally happen).
+        "00000000-0000-0000-0000-000000000000",
+      conflict_type: args.conflict.kind,
       appointment_id: args.appointmentId ?? null,
-      overridden_by: args.actorUserId ?? null,
-      override_reason: args.reason,
-      meta: (args.conflict.meta ?? {}) as Json,
-    } as never);
+      actor: args.actorUserId ?? null,
+      resolution: `override: ${args.reason}`,
+      resolved_at: new Date().toISOString(),
+      detail: {
+        starts_at: args.conflict.starts_at,
+        ends_at: args.conflict.ends_at,
+        ref_id: args.conflict.ref_id,
+        branch_id: args.conflict.branch_id,
+        reason: args.reason,
+        ...(args.conflict.meta ?? {}),
+      } as Json,
+    });
   }
+
 }
