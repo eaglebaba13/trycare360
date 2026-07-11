@@ -195,7 +195,7 @@ function QueuePage() {
   const kpis = kpiQ.data;
 
   const KPI_TILES: {
-    key: keyof NonNullable<typeof kpis>;
+    key: "waiting" | "called" | "in_consultation" | "completed" | "avg_wait_minutes" | "sla_alerts" | "no_show";
     label: string;
     Icon: typeof Users;
     tone: string;
