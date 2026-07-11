@@ -5319,6 +5319,106 @@ export type Database = {
           },
         ]
       }
+      communication_policies: {
+        Row: {
+          branch_id: string | null
+          channels_order: Json
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          language: string
+          meta: Json
+          name: string
+          priority: number
+          quiet_hours_end: string | null
+          quiet_hours_start: string | null
+          reminder_offsets_minutes: Json
+          respect_person_preferences: boolean
+          retry_backoff_minutes: number
+          retry_max_attempts: number
+          scope: string
+          service_id: string | null
+          templates: Json
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          channels_order?: Json
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string
+          meta?: Json
+          name: string
+          priority?: number
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          reminder_offsets_minutes?: Json
+          respect_person_preferences?: boolean
+          retry_backoff_minutes?: number
+          retry_max_attempts?: number
+          scope?: string
+          service_id?: string | null
+          templates?: Json
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          channels_order?: Json
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string
+          meta?: Json
+          name?: string
+          priority?: number
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          reminder_offsets_minutes?: Json
+          respect_person_preferences?: boolean
+          retry_backoff_minutes?: number
+          retry_max_attempts?: number
+          scope?: string
+          service_id?: string | null
+          templates?: Json
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "communication_policies_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "communication_policies_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "communication_policies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           brand_name: string | null
