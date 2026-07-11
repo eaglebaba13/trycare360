@@ -124,8 +124,9 @@ export const listBranches = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { data: rows, error } = await context.supabase
       .from("branches")
-      .select("id,name,tenant_id,org_unit_id,franchise_id,is_active")
+      .select("id,name,code,tenant_id,org_unit_id,is_active")
       .eq("tenant_id", data.tenant_id)
+      .eq("is_active", true)
       .order("name");
     if (error) throw new Error(error.message);
     return { rows: rows ?? [] };
