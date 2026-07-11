@@ -42,18 +42,19 @@ function PackagesPage() {
       )}
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {rows.map((p) => {
-          const total = (p.total_sessions as number | null) ?? 0;
-          const completed = (p.completed_sessions as number | null) ?? 0;
+          const meta = (p.meta ?? {}) as Record<string, unknown>;
+          const total = Number(meta.total_sessions ?? 0);
+          const completed = Number(meta.completed_sessions ?? 0);
           const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
           return (
             <Card key={p.id}>
               <CardContent className="p-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="font-medium truncate">{p.name}</div>
-                  <Badge variant="outline">{p.status ?? "active"}</Badge>
+                  <Badge variant="outline">{p.is_active ? "active" : "inactive"}</Badge>
                 </div>
                 <div className="text-xs text-muted-foreground truncate">
-                  {p.description as string | null}
+                  {p.description ?? ""}
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between text-xs">

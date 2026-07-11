@@ -251,7 +251,7 @@ function StepService({
     <div className="space-y-3">
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3 max-h-96 overflow-auto">
         {(q.data?.rows ?? []).map((s) => {
-          const dur = (s.default_duration_minutes as number | null) ?? 30;
+          const dur = (s.duration_minutes as number | null) ?? 30;
           return (
             <button
               key={s.id}

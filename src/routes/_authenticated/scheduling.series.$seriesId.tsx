@@ -191,13 +191,13 @@ function SeriesPage() {
                       <div className="flex justify-between">
                         <div className="font-medium flex items-center gap-2">
                           <CalendarClock className="h-4 w-4" />
-                          {format(new Date(ex.exception_date), "PP")}
+                          {format(new Date(ex.original_start_at), "PP")}
                         </div>
-                        <Badge variant="outline">{ex.action}</Badge>
+                        <Badge variant="outline">{ex.exception_type}</Badge>
                       </div>
-                      {ex.reason && (
+                      {ex.reason_code && (
                         <div className="text-xs text-muted-foreground mt-1">
-                          {ex.reason}
+                          {ex.reason_code}
                         </div>
                       )}
                     </li>
