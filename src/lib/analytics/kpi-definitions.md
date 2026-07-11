@@ -78,22 +78,98 @@ across the platform.
 | AI Assessment Completion | assessment_sessions.completed / started |
 | Queue Health | open_leads_per_owner (std dev / mean) |
 
-## Future modules (Phase 2.4+)
+## Scheduling KPI Contract (Phase 2.4 — LOCKED)
 
-Before Phase 2.4 (Appointments) ships, standardize these operational KPIs
-so Appointment, Clinical, Finance, Franchise, Marketing and BI dashboards
-report identical numbers:
+Every scheduling dashboard, report, widget and export MUST derive its
+numbers from these definitions. No module rolls its own formula.
 
-- Appointment booking rate = booked / leads_with_intent
-- Consultation completion rate = completed / booked
-- No-show rate = no_show / booked
-- Treatment acceptance rate = accepted / recommended
-- Membership conversion rate = membership_events / eligible_patients
-- Average revenue per patient = sum(revenue) / distinct(person_id)
-- Patient lifetime value = ltv_person.total_amount (already provisioned)
-- Doctor utilization = booked_minutes / available_minutes
-- Branch utilization = booked_minutes / capacity_minutes
-- Franchise performance = revenue_by_franchise / target_by_franchise
+### Appointment (Executive)
+
+| KPI | Formula |
+|---|---|
+| Total Appointments | count(appointments) in window |
+| Completed | count(status_code='completed') |
+| Cancelled | count(status_code='cancelled') |
+| Rescheduled | count(status_code in ('rescheduled','rescheduled_pending')) OR count(appointment_reschedule rows) |
+| No-show | count(status_code='no_show') |
+| Check-in Rate | count(status in ('checked_in','arrived','in_progress','completed')) / total_booked |
+| Completion Rate | completed / (total - cancelled) |
+| Fill Rate | booked_minutes / capacity_minutes |
+| Average Wait Time | avg(queue_tokens.called_at - issued_at) minutes |
+| Average Consultation Time | avg(appointments.completed_at - started_at) minutes |
+| On-time Consultation Rate | count(started_at <= starts_at + grace) / started |
+| Average Booking Lead Time | avg(starts_at - created_at) |
+| Average Reschedule Delay | avg(new_starts_at - original_starts_at) from appointment_reschedule |
+| Walk-in Conversion Rate | count(is_walk_in and status='completed') / count(is_walk_in) |
+| Queue Abandonment Rate | count(queue_tokens.status='abandoned' or 'no_show') / total_tokens |
+
+### Resource
+
+| KPI | Formula |
+|---|---|
+| Doctor Occupancy | booked_minutes(kind='doctor') / available_minutes |
+| Room Occupancy | booked_minutes(kind='room') / available_minutes |
+| Machine Occupancy | booked_minutes(kind='machine') / available_minutes |
+| Therapist Occupancy | booked_minutes(kind='therapist') / available_minutes |
+| Idle Time | available_minutes - booked_minutes |
+| Peak Hour | argmax(count(appointments) group by hour_of_day) |
+| Utilization by Branch | booked_minutes group by branch_id / capacity_minutes(branch) |
+| Utilization by Franchise | booked_minutes group by franchise_id / capacity_minutes(franchise) |
+
+### Queue
+
+| KPI | Formula |
+|---|---|
+| Queue Length | count(queue_tokens.status in ('waiting','recalled')) |
+| Average Wait | avg(called_at - issued_at) |
+| Average Service Time | avg(completed_at - called_at) |
+| Doctor Throughput | count(queue_tokens.status='completed') per doctor_id per hour |
+| Queue SLA | 1 - (count(wait>threshold) / total_tokens) |
+
+### Capacity
+
+| KPI | Formula |
+|---|---|
+| Capacity Planned | sum(capacity_plans.total_slots) |
+| Capacity Used | sum(appointments.booked_slots) |
+| Walk-in Reserve | sum(capacity_plans.walk_in_reserve) |
+| Emergency Reserve | sum(capacity_plans.emergency_reserve) |
+| VIP Reserve | sum(capacity_plans.vip_reserve) |
+| Capacity Exhaustion | count(day where used >= planned) / total_days |
+
+### Service (Commercial)
+
+| KPI | Formula |
+|---|---|
+| Appointments by Service | count(appointments) group by service_id |
+| Service Completion Rate | completed / booked group by service_id |
+| Revenue per Appointment | sum(revenue_events.amount where entity='appointment') / count(appointments) |
+| Revenue per Service | sum(revenue_events.amount) group by service_id |
+| Revenue per Doctor | sum(revenue_events.amount) group by doctor_id |
+| Package Completion Rate | sum(sessions_completed) / sum(sessions_total) from appointment_package_plans |
+| Recurring Appointment Adherence | count(occurrences.status='completed') / count(occurrences) group by series_id |
+
+### Patient
+
+| KPI | Formula |
+|---|---|
+| Repeat Visit Rate | count(distinct person_id with appt_count>1) / count(distinct person_id) |
+| Cancellation Rate (patient) | cancelled_by_patient / total group by person_id |
+| Reschedule Rate | reschedule_count / total group by person_id |
+| No-show Rate (patient) | no_show / total group by person_id |
+| Feedback Score | avg(appointment_feedback.rating) |
+| NPS | (%promoters - %detractors) from appointment_feedback |
+
+### Calendar & Communication
+
+| KPI | Formula |
+|---|---|
+| Calendar Sync Success | count(integration_jobs.status='completed' where kind like 'calendar%') / total |
+| Calendar Sync Failure | count(integration_jobs.status='failed' where kind like 'calendar%') / total |
+| Reminder Delivery | count(appointment_reminders.status='sent') / total |
+| Reminder Failure | count(appointment_reminders.status='failed') / total |
+| Video Consultations | count(appointments where video_url is not null) |
 
 Rule: no module rolls its own formula. All new dashboards import from this
-document and reuse the analytics tabs under `/analytics/*`.
+document and reuse the analytics tabs under `/analytics/*` and
+`/scheduling/analytics/*`.
