@@ -78,6 +78,7 @@ import { Route as AuthenticatedSchedulingNewRouteImport } from './routes/_authen
 import { Route as AuthenticatedSchedulingIntegrationsRouteImport } from './routes/_authenticated/scheduling.integrations'
 import { Route as AuthenticatedSchedulingCheckinRouteImport } from './routes/_authenticated/scheduling.checkin'
 import { Route as AuthenticatedSchedulingCalendarRouteImport } from './routes/_authenticated/scheduling.calendar'
+import { Route as AuthenticatedSchedulingAnalyticsRouteImport } from './routes/_authenticated/scheduling.analytics'
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
 import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
 import { Route as AuthenticatedSalesAssignmentRouteImport } from './routes/_authenticated/sales.assignment'
@@ -551,6 +552,12 @@ const AuthenticatedSchedulingCalendarRoute =
   AuthenticatedSchedulingCalendarRouteImport.update({
     id: '/calendar',
     path: '/calendar',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingAnalyticsRoute =
+  AuthenticatedSchedulingAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
     getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSalesSupervisorRoute =
@@ -1228,6 +1235,7 @@ export interface FileRoutesByFullPath {
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsRoute
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -1382,6 +1390,7 @@ export interface FileRoutesByTo {
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsRoute
   '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/scheduling/new': typeof AuthenticatedSchedulingNewRoute
@@ -1551,6 +1560,7 @@ export interface FileRoutesById {
   '/_authenticated/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/_authenticated/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsRoute
   '/_authenticated/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
   '/_authenticated/scheduling/checkin': typeof AuthenticatedSchedulingCheckinRoute
   '/_authenticated/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -1721,6 +1731,7 @@ export interface FileRouteTypes {
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
+    | '/scheduling/analytics'
     | '/scheduling/calendar'
     | '/scheduling/checkin'
     | '/scheduling/integrations'
@@ -1875,6 +1886,7 @@ export interface FileRouteTypes {
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
+    | '/scheduling/analytics'
     | '/scheduling/calendar'
     | '/scheduling/checkin'
     | '/scheduling/new'
@@ -2043,6 +2055,7 @@ export interface FileRouteTypes {
     | '/_authenticated/sales/assignment'
     | '/_authenticated/sales/sla'
     | '/_authenticated/sales/supervisor'
+    | '/_authenticated/scheduling/analytics'
     | '/_authenticated/scheduling/calendar'
     | '/_authenticated/scheduling/checkin'
     | '/_authenticated/scheduling/integrations'
@@ -2610,6 +2623,13 @@ declare module '@tanstack/react-router' {
       path: '/calendar'
       fullPath: '/scheduling/calendar'
       preLoaderRoute: typeof AuthenticatedSchedulingCalendarRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/analytics': {
+      id: '/_authenticated/scheduling/analytics'
+      path: '/analytics'
+      fullPath: '/scheduling/analytics'
+      preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsRouteImport
       parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/sales/supervisor': {
@@ -3630,6 +3650,7 @@ const AuthenticatedSchedulingIntegrationsRouteWithChildren =
   )
 
 interface AuthenticatedSchedulingRouteChildren {
+  AuthenticatedSchedulingAnalyticsRoute: typeof AuthenticatedSchedulingAnalyticsRoute
   AuthenticatedSchedulingCalendarRoute: typeof AuthenticatedSchedulingCalendarRoute
   AuthenticatedSchedulingCheckinRoute: typeof AuthenticatedSchedulingCheckinRoute
   AuthenticatedSchedulingIntegrationsRoute: typeof AuthenticatedSchedulingIntegrationsRouteWithChildren
@@ -3648,6 +3669,8 @@ interface AuthenticatedSchedulingRouteChildren {
 
 const AuthenticatedSchedulingRouteChildren: AuthenticatedSchedulingRouteChildren =
   {
+    AuthenticatedSchedulingAnalyticsRoute:
+      AuthenticatedSchedulingAnalyticsRoute,
     AuthenticatedSchedulingCalendarRoute: AuthenticatedSchedulingCalendarRoute,
     AuthenticatedSchedulingCheckinRoute: AuthenticatedSchedulingCheckinRoute,
     AuthenticatedSchedulingIntegrationsRoute:
