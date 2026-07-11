@@ -327,9 +327,9 @@ export class BookingTransactionCoordinator {
       _entity_ref: { type: "appointment", id: appointment.id } as never,
     });
 
-    // 10. Timeline + search
-    await this.sb
-      .rpc("log_timeline_event", {
+    // 10. Timeline + search — best-effort, never blocks booking.
+    try {
+      await this.sb.rpc("log_timeline_event", {
         _tenant_id: input.tenant_id,
         _entity_type: "person",
         _entity_id: input.person_id,
@@ -337,11 +337,13 @@ export class BookingTransactionCoordinator {
         _title: `Appointment scheduled (${appointment.appointment_code})`,
         _body: input.notes ?? null,
         _meta: { appointment_id: appointment.id } as never,
-      } as never)
-      .catch((e) => console.warn("[coordinator] timeline log failed", e));
+      } as never);
+    } catch (e) {
+      console.warn("[coordinator] timeline log failed", e);
+    }
 
-    await this.sb
-      .rpc("index_search_entity", {
+    try {
+      await this.sb.rpc("index_search_entity", {
         _tenant_id: input.tenant_id,
         _entity_type: "appointment",
         _entity_id: appointment.id,
@@ -358,8 +360,11 @@ export class BookingTransactionCoordinator {
           .filter(Boolean)
           .join(" "),
         _meta: { starts_at: input.starts_at } as never,
-      } as never)
-      .catch((e) => console.warn("[coordinator] search index failed", e));
+      } as never);
+    } catch (e) {
+      console.warn("[coordinator] search index failed", e);
+    }
+
 
     // Release the hold now that the appointment owns the slot.
     if (holdId) {
