@@ -42,6 +42,7 @@ import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors
 import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
 import { Route as AuthenticatedTelecallerIndexRouteImport } from './routes/_authenticated/telecaller.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
+import { Route as AuthenticatedSchedulingIndexRouteImport } from './routes/_authenticated/scheduling.index'
 import { Route as AuthenticatedSalesIndexRouteImport } from './routes/_authenticated/sales.index'
 import { Route as AuthenticatedRevenueIndexRouteImport } from './routes/_authenticated/revenue.index'
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
@@ -66,6 +67,8 @@ import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_aut
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedSchedulingResourcesRouteImport } from './routes/_authenticated/scheduling.resources'
+import { Route as AuthenticatedSchedulingCalendarRouteImport } from './routes/_authenticated/scheduling.calendar'
 import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
 import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
 import { Route as AuthenticatedSalesAssignmentRouteImport } from './routes/_authenticated/sales.assignment'
@@ -327,6 +330,12 @@ const AuthenticatedSettingsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSchedulingIndexRoute =
+  AuthenticatedSchedulingIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
 const AuthenticatedSalesIndexRoute = AuthenticatedSalesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -462,6 +471,18 @@ const AuthenticatedSettingsGlobalRoute =
     id: '/global',
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSchedulingResourcesRoute =
+  AuthenticatedSchedulingResourcesRouteImport.update({
+    id: '/resources',
+    path: '/resources',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
+  } as any)
+const AuthenticatedSchedulingCalendarRoute =
+  AuthenticatedSchedulingCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => AuthenticatedSchedulingRoute,
   } as any)
 const AuthenticatedSalesSupervisorRoute =
   AuthenticatedSalesSupervisorRouteImport.update({
@@ -1019,7 +1040,7 @@ export interface FileRoutesByFullPath {
   '/people': typeof AuthenticatedPeopleRouteWithChildren
   '/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/sales': typeof AuthenticatedSalesRouteWithChildren
-  '/scheduling': typeof AuthenticatedSchedulingRoute
+  '/scheduling': typeof AuthenticatedSchedulingRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/about': typeof PublicAboutRoute
@@ -1102,6 +1123,8 @@ export interface FileRoutesByFullPath {
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -1126,6 +1149,7 @@ export interface FileRoutesByFullPath {
   '/people/': typeof AuthenticatedPeopleIndexRoute
   '/revenue/': typeof AuthenticatedRevenueIndexRoute
   '/sales/': typeof AuthenticatedSalesIndexRoute
+  '/scheduling/': typeof AuthenticatedSchedulingIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
   '/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/blog/': typeof PublicBlogIndexRoute
@@ -1158,7 +1182,6 @@ export interface FileRoutesByTo {
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/scheduling': typeof AuthenticatedSchedulingRoute
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
   '/book': typeof PublicBookRoute
@@ -1239,6 +1262,8 @@ export interface FileRoutesByTo {
   '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
@@ -1262,6 +1287,7 @@ export interface FileRoutesByTo {
   '/people': typeof AuthenticatedPeopleIndexRoute
   '/revenue': typeof AuthenticatedRevenueIndexRoute
   '/sales': typeof AuthenticatedSalesIndexRoute
+  '/scheduling': typeof AuthenticatedSchedulingIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
   '/telecaller': typeof AuthenticatedTelecallerIndexRoute
   '/blog': typeof PublicBlogIndexRoute
@@ -1307,7 +1333,7 @@ export interface FileRoutesById {
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
   '/_authenticated/revenue': typeof AuthenticatedRevenueRouteWithChildren
   '/_authenticated/sales': typeof AuthenticatedSalesRouteWithChildren
-  '/_authenticated/scheduling': typeof AuthenticatedSchedulingRoute
+  '/_authenticated/scheduling': typeof AuthenticatedSchedulingRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
   '/_authenticated/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
@@ -1391,6 +1417,8 @@ export interface FileRoutesById {
   '/_authenticated/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
   '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
   '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
+  '/_authenticated/scheduling/calendar': typeof AuthenticatedSchedulingCalendarRoute
+  '/_authenticated/scheduling/resources': typeof AuthenticatedSchedulingResourcesRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
@@ -1415,6 +1443,7 @@ export interface FileRoutesById {
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
   '/_authenticated/revenue/': typeof AuthenticatedRevenueIndexRoute
   '/_authenticated/sales/': typeof AuthenticatedSalesIndexRoute
+  '/_authenticated/scheduling/': typeof AuthenticatedSchedulingIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
   '/_authenticated/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/_public/blog/': typeof PublicBlogIndexRoute
@@ -1543,6 +1572,8 @@ export interface FileRouteTypes {
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
+    | '/scheduling/calendar'
+    | '/scheduling/resources'
     | '/settings/global'
     | '/settings/integrations'
     | '/settings/masters'
@@ -1567,6 +1598,7 @@ export interface FileRouteTypes {
     | '/people/'
     | '/revenue/'
     | '/sales/'
+    | '/scheduling/'
     | '/settings/'
     | '/telecaller/'
     | '/blog/'
@@ -1599,7 +1631,6 @@ export interface FileRouteTypes {
     | '/rss.xml'
     | '/sitemap.xml'
     | '/dashboard'
-    | '/scheduling'
     | '/about'
     | '/academy'
     | '/book'
@@ -1680,6 +1711,8 @@ export interface FileRouteTypes {
     | '/sales/assignment'
     | '/sales/sla'
     | '/sales/supervisor'
+    | '/scheduling/calendar'
+    | '/scheduling/resources'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
@@ -1703,6 +1736,7 @@ export interface FileRouteTypes {
     | '/people'
     | '/revenue'
     | '/sales'
+    | '/scheduling'
     | '/settings'
     | '/telecaller'
     | '/blog'
@@ -1831,6 +1865,8 @@ export interface FileRouteTypes {
     | '/_authenticated/sales/assignment'
     | '/_authenticated/sales/sla'
     | '/_authenticated/sales/supervisor'
+    | '/_authenticated/scheduling/calendar'
+    | '/_authenticated/scheduling/resources'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
@@ -1855,6 +1891,7 @@ export interface FileRouteTypes {
     | '/_authenticated/people/'
     | '/_authenticated/revenue/'
     | '/_authenticated/sales/'
+    | '/_authenticated/scheduling/'
     | '/_authenticated/settings/'
     | '/_authenticated/telecaller/'
     | '/_public/blog/'
@@ -2130,6 +2167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
     }
+    '/_authenticated/scheduling/': {
+      id: '/_authenticated/scheduling/'
+      path: '/'
+      fullPath: '/scheduling/'
+      preLoaderRoute: typeof AuthenticatedSchedulingIndexRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
     '/_authenticated/sales/': {
       id: '/_authenticated/sales/'
       path: '/'
@@ -2297,6 +2341,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/global'
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/scheduling/resources': {
+      id: '/_authenticated/scheduling/resources'
+      path: '/resources'
+      fullPath: '/scheduling/resources'
+      preLoaderRoute: typeof AuthenticatedSchedulingResourcesRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
+    }
+    '/_authenticated/scheduling/calendar': {
+      id: '/_authenticated/scheduling/calendar'
+      path: '/calendar'
+      fullPath: '/scheduling/calendar'
+      preLoaderRoute: typeof AuthenticatedSchedulingCalendarRouteImport
+      parentRoute: typeof AuthenticatedSchedulingRoute
     }
     '/_authenticated/sales/supervisor': {
       id: '/_authenticated/sales/supervisor'
@@ -3249,6 +3307,25 @@ const AuthenticatedSalesRouteChildren: AuthenticatedSalesRouteChildren = {
 const AuthenticatedSalesRouteWithChildren =
   AuthenticatedSalesRoute._addFileChildren(AuthenticatedSalesRouteChildren)
 
+interface AuthenticatedSchedulingRouteChildren {
+  AuthenticatedSchedulingCalendarRoute: typeof AuthenticatedSchedulingCalendarRoute
+  AuthenticatedSchedulingResourcesRoute: typeof AuthenticatedSchedulingResourcesRoute
+  AuthenticatedSchedulingIndexRoute: typeof AuthenticatedSchedulingIndexRoute
+}
+
+const AuthenticatedSchedulingRouteChildren: AuthenticatedSchedulingRouteChildren =
+  {
+    AuthenticatedSchedulingCalendarRoute: AuthenticatedSchedulingCalendarRoute,
+    AuthenticatedSchedulingResourcesRoute:
+      AuthenticatedSchedulingResourcesRoute,
+    AuthenticatedSchedulingIndexRoute: AuthenticatedSchedulingIndexRoute,
+  }
+
+const AuthenticatedSchedulingRouteWithChildren =
+  AuthenticatedSchedulingRoute._addFileChildren(
+    AuthenticatedSchedulingRouteChildren,
+  )
+
 interface AuthenticatedSettingsIntegrationsRouteChildren {
   AuthenticatedSettingsIntegrationsApiKeysRoute: typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   AuthenticatedSettingsIntegrationsCatalogRoute: typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -3349,7 +3426,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
   AuthenticatedRevenueRoute: typeof AuthenticatedRevenueRouteWithChildren
   AuthenticatedSalesRoute: typeof AuthenticatedSalesRouteWithChildren
-  AuthenticatedSchedulingRoute: typeof AuthenticatedSchedulingRoute
+  AuthenticatedSchedulingRoute: typeof AuthenticatedSchedulingRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
   AuthenticatedTelecallerRoute: typeof AuthenticatedTelecallerRouteWithChildren
 }
@@ -3367,7 +3444,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
   AuthenticatedRevenueRoute: AuthenticatedRevenueRouteWithChildren,
   AuthenticatedSalesRoute: AuthenticatedSalesRouteWithChildren,
-  AuthenticatedSchedulingRoute: AuthenticatedSchedulingRoute,
+  AuthenticatedSchedulingRoute: AuthenticatedSchedulingRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
   AuthenticatedTelecallerRoute: AuthenticatedTelecallerRouteWithChildren,
 }
