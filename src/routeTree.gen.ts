@@ -34,6 +34,7 @@ import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/d
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedConsultationsRouteImport } from './routes/_authenticated/consultations'
 import { Route as AuthenticatedCmsRouteImport } from './routes/_authenticated/cms'
+import { Route as AuthenticatedClinicalRouteImport } from './routes/_authenticated/clinical'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
 import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
 import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
@@ -52,6 +53,7 @@ import { Route as AuthenticatedLeadsIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedConsultationsIndexRouteImport } from './routes/_authenticated/consultations.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
+import { Route as AuthenticatedClinicalIndexRouteImport } from './routes/_authenticated/clinical.index'
 import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_authenticated/automation.index'
 import { Route as AuthenticatedAnalyticsIndexRouteImport } from './routes/_authenticated/analytics.index'
 import { Route as PublicTreatmentsSlugRouteImport } from './routes/_public.treatments.$slug'
@@ -138,6 +140,13 @@ import { Route as AuthenticatedCmsBlogRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedCmsAppointmentsRouteImport } from './routes/_authenticated/cms.appointments'
 import { Route as AuthenticatedCmsAnalyticsRouteImport } from './routes/_authenticated/cms.analytics'
 import { Route as AuthenticatedCmsAcademyRouteImport } from './routes/_authenticated/cms.academy'
+import { Route as AuthenticatedClinicalSecondOpinionsRouteImport } from './routes/_authenticated/clinical.second-opinions'
+import { Route as AuthenticatedClinicalReferralsRouteImport } from './routes/_authenticated/clinical.referrals'
+import { Route as AuthenticatedClinicalPatientsRouteImport } from './routes/_authenticated/clinical.patients'
+import { Route as AuthenticatedClinicalMyDayRouteImport } from './routes/_authenticated/clinical.my-day'
+import { Route as AuthenticatedClinicalKnowledgeRouteImport } from './routes/_authenticated/clinical.knowledge'
+import { Route as AuthenticatedClinicalEncountersRouteImport } from './routes/_authenticated/clinical.encounters'
+import { Route as AuthenticatedClinicalDashboardRouteImport } from './routes/_authenticated/clinical.dashboard'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -183,6 +192,7 @@ import { Route as AuthenticatedSchedulingAnalyticsPatientsRouteImport } from './
 import { Route as AuthenticatedSchedulingAnalyticsCommunicationRouteImport } from './routes/_authenticated/scheduling.analytics.communication'
 import { Route as AuthenticatedSchedulingAnalyticsCapacityRouteImport } from './routes/_authenticated/scheduling.analytics.capacity'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
+import { Route as AuthenticatedClinicalEncounterIdRouteImport } from './routes/_authenticated/clinical.encounter.$id'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport } from './routes/_authenticated/settings.integrations.connections.index'
 import { Route as ApiPublicLeadsIntakeProviderRouteImport } from './routes/api/public/leads.intake.$provider'
 import { Route as AuthenticatedSettingsIntegrationsConnectionsProviderCodeRouteImport } from './routes/_authenticated/settings.integrations.connections.$providerCode'
@@ -312,6 +322,11 @@ const AuthenticatedCmsRoute = AuthenticatedCmsRouteImport.update({
   path: '/cms',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedClinicalRoute = AuthenticatedClinicalRouteImport.update({
+  id: '/clinical',
+  path: '/clinical',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAutomationRoute = AuthenticatedAutomationRouteImport.update({
   id: '/automation',
   path: '/automation',
@@ -410,6 +425,12 @@ const AuthenticatedCmsIndexRoute = AuthenticatedCmsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedCmsRoute,
 } as any)
+const AuthenticatedClinicalIndexRoute =
+  AuthenticatedClinicalIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
 const AuthenticatedAutomationIndexRoute =
   AuthenticatedAutomationIndexRouteImport.update({
     id: '/',
@@ -906,6 +927,48 @@ const AuthenticatedCmsAcademyRoute = AuthenticatedCmsAcademyRouteImport.update({
   path: '/academy',
   getParentRoute: () => AuthenticatedCmsRoute,
 } as any)
+const AuthenticatedClinicalSecondOpinionsRoute =
+  AuthenticatedClinicalSecondOpinionsRouteImport.update({
+    id: '/second-opinions',
+    path: '/second-opinions',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalReferralsRoute =
+  AuthenticatedClinicalReferralsRouteImport.update({
+    id: '/referrals',
+    path: '/referrals',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalPatientsRoute =
+  AuthenticatedClinicalPatientsRouteImport.update({
+    id: '/patients',
+    path: '/patients',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalMyDayRoute =
+  AuthenticatedClinicalMyDayRouteImport.update({
+    id: '/my-day',
+    path: '/my-day',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalKnowledgeRoute =
+  AuthenticatedClinicalKnowledgeRouteImport.update({
+    id: '/knowledge',
+    path: '/knowledge',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalEncountersRoute =
+  AuthenticatedClinicalEncountersRouteImport.update({
+    id: '/encounters',
+    path: '/encounters',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalDashboardRoute =
+  AuthenticatedClinicalDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
 const AuthenticatedAutomationWorkflowsRoute =
   AuthenticatedAutomationWorkflowsRouteImport.update({
     id: '/workflows',
@@ -1172,6 +1235,12 @@ const AuthenticatedCmsBuilderPageIdRoute =
     path: '/builder/$pageId',
     getParentRoute: () => AuthenticatedCmsRoute,
   } as any)
+const AuthenticatedClinicalEncounterIdRoute =
+  AuthenticatedClinicalEncounterIdRouteImport.update({
+    id: '/encounter/$id',
+    path: '/encounter/$id',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
 const AuthenticatedSettingsIntegrationsConnectionsIndexRoute =
   AuthenticatedSettingsIntegrationsConnectionsIndexRouteImport.update({
     id: '/connections/',
@@ -1198,6 +1267,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/analytics': typeof AuthenticatedAnalyticsRouteWithChildren
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
+  '/clinical': typeof AuthenticatedClinicalRouteWithChildren
   '/cms': typeof AuthenticatedCmsRouteWithChildren
   '/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -1232,6 +1302,13 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
+  '/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
+  '/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
+  '/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
+  '/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
+  '/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
+  '/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/cms/academy': typeof AuthenticatedCmsAcademyRoute
   '/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
@@ -1318,6 +1395,7 @@ export interface FileRoutesByFullPath {
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/analytics/': typeof AuthenticatedAnalyticsIndexRoute
   '/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/clinical/': typeof AuthenticatedClinicalIndexRoute
   '/cms/': typeof AuthenticatedCmsIndexRoute
   '/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
@@ -1334,6 +1412,7 @@ export interface FileRoutesByFullPath {
   '/doctors/': typeof PublicDoctorsIndexRoute
   '/products/': typeof PublicProductsIndexRoute
   '/treatments/': typeof PublicTreatmentsIndexRoute
+  '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
@@ -1395,6 +1474,13 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
+  '/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
+  '/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
+  '/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
+  '/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
+  '/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
+  '/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/cms/academy': typeof AuthenticatedCmsAcademyRoute
   '/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
@@ -1478,6 +1564,7 @@ export interface FileRoutesByTo {
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/analytics': typeof AuthenticatedAnalyticsIndexRoute
   '/automation': typeof AuthenticatedAutomationIndexRoute
+  '/clinical': typeof AuthenticatedClinicalIndexRoute
   '/cms': typeof AuthenticatedCmsIndexRoute
   '/consultations': typeof AuthenticatedConsultationsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
@@ -1494,6 +1581,7 @@ export interface FileRoutesByTo {
   '/doctors': typeof PublicDoctorsIndexRoute
   '/products': typeof PublicProductsIndexRoute
   '/treatments': typeof PublicTreatmentsIndexRoute
+  '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
@@ -1537,6 +1625,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/analytics': typeof AuthenticatedAnalyticsRouteWithChildren
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
+  '/_authenticated/clinical': typeof AuthenticatedClinicalRouteWithChildren
   '/_authenticated/cms': typeof AuthenticatedCmsRouteWithChildren
   '/_authenticated/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -1572,6 +1661,13 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
+  '/_authenticated/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
+  '/_authenticated/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
+  '/_authenticated/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
+  '/_authenticated/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
+  '/_authenticated/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
+  '/_authenticated/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/_authenticated/cms/academy': typeof AuthenticatedCmsAcademyRoute
   '/_authenticated/cms/analytics': typeof AuthenticatedCmsAnalyticsRoute
   '/_authenticated/cms/appointments': typeof AuthenticatedCmsAppointmentsRoute
@@ -1658,6 +1754,7 @@ export interface FileRoutesById {
   '/_public/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/_authenticated/analytics/': typeof AuthenticatedAnalyticsIndexRoute
   '/_authenticated/automation/': typeof AuthenticatedAutomationIndexRoute
+  '/_authenticated/clinical/': typeof AuthenticatedClinicalIndexRoute
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
@@ -1674,6 +1771,7 @@ export interface FileRoutesById {
   '/_public/doctors/': typeof PublicDoctorsIndexRoute
   '/_public/products/': typeof PublicProductsIndexRoute
   '/_public/treatments/': typeof PublicTreatmentsIndexRoute
+  '/_authenticated/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/_authenticated/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/_authenticated/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
@@ -1717,6 +1815,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/analytics'
     | '/automation'
+    | '/clinical'
     | '/cms'
     | '/consultations'
     | '/dashboard'
@@ -1751,6 +1850,13 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/clinical/dashboard'
+    | '/clinical/encounters'
+    | '/clinical/knowledge'
+    | '/clinical/my-day'
+    | '/clinical/patients'
+    | '/clinical/referrals'
+    | '/clinical/second-opinions'
     | '/cms/academy'
     | '/cms/analytics'
     | '/cms/appointments'
@@ -1837,6 +1943,7 @@ export interface FileRouteTypes {
     | '/treatments/$slug'
     | '/analytics/'
     | '/automation/'
+    | '/clinical/'
     | '/cms/'
     | '/consultations/'
     | '/data/'
@@ -1853,6 +1960,7 @@ export interface FileRouteTypes {
     | '/doctors/'
     | '/products/'
     | '/treatments/'
+    | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
     | '/scheduling/analytics/capacity'
     | '/scheduling/analytics/communication'
@@ -1914,6 +2022,13 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/clinical/dashboard'
+    | '/clinical/encounters'
+    | '/clinical/knowledge'
+    | '/clinical/my-day'
+    | '/clinical/patients'
+    | '/clinical/referrals'
+    | '/clinical/second-opinions'
     | '/cms/academy'
     | '/cms/analytics'
     | '/cms/appointments'
@@ -1997,6 +2112,7 @@ export interface FileRouteTypes {
     | '/treatments/$slug'
     | '/analytics'
     | '/automation'
+    | '/clinical'
     | '/cms'
     | '/consultations'
     | '/data'
@@ -2013,6 +2129,7 @@ export interface FileRouteTypes {
     | '/doctors'
     | '/products'
     | '/treatments'
+    | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
     | '/scheduling/analytics/capacity'
     | '/scheduling/analytics/communication'
@@ -2055,6 +2172,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/_authenticated/analytics'
     | '/_authenticated/automation'
+    | '/_authenticated/clinical'
     | '/_authenticated/cms'
     | '/_authenticated/consultations'
     | '/_authenticated/dashboard'
@@ -2090,6 +2208,13 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/clinical/dashboard'
+    | '/_authenticated/clinical/encounters'
+    | '/_authenticated/clinical/knowledge'
+    | '/_authenticated/clinical/my-day'
+    | '/_authenticated/clinical/patients'
+    | '/_authenticated/clinical/referrals'
+    | '/_authenticated/clinical/second-opinions'
     | '/_authenticated/cms/academy'
     | '/_authenticated/cms/analytics'
     | '/_authenticated/cms/appointments'
@@ -2176,6 +2301,7 @@ export interface FileRouteTypes {
     | '/_public/treatments/$slug'
     | '/_authenticated/analytics/'
     | '/_authenticated/automation/'
+    | '/_authenticated/clinical/'
     | '/_authenticated/cms/'
     | '/_authenticated/consultations/'
     | '/_authenticated/data/'
@@ -2192,6 +2318,7 @@ export interface FileRouteTypes {
     | '/_public/doctors/'
     | '/_public/products/'
     | '/_public/treatments/'
+    | '/_authenticated/clinical/encounter/$id'
     | '/_authenticated/cms/builder/$pageId'
     | '/_authenticated/scheduling/analytics/capacity'
     | '/_authenticated/scheduling/analytics/communication'
@@ -2419,6 +2546,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/clinical': {
+      id: '/_authenticated/clinical'
+      path: '/clinical'
+      fullPath: '/clinical'
+      preLoaderRoute: typeof AuthenticatedClinicalRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/automation': {
       id: '/_authenticated/automation'
       path: '/automation'
@@ -2544,6 +2678,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/cms/'
       preLoaderRoute: typeof AuthenticatedCmsIndexRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
+    }
+    '/_authenticated/clinical/': {
+      id: '/_authenticated/clinical/'
+      path: '/'
+      fullPath: '/clinical/'
+      preLoaderRoute: typeof AuthenticatedClinicalIndexRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
     }
     '/_authenticated/automation/': {
       id: '/_authenticated/automation/'
@@ -3147,6 +3288,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsAcademyRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/clinical/second-opinions': {
+      id: '/_authenticated/clinical/second-opinions'
+      path: '/second-opinions'
+      fullPath: '/clinical/second-opinions'
+      preLoaderRoute: typeof AuthenticatedClinicalSecondOpinionsRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/referrals': {
+      id: '/_authenticated/clinical/referrals'
+      path: '/referrals'
+      fullPath: '/clinical/referrals'
+      preLoaderRoute: typeof AuthenticatedClinicalReferralsRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/patients': {
+      id: '/_authenticated/clinical/patients'
+      path: '/patients'
+      fullPath: '/clinical/patients'
+      preLoaderRoute: typeof AuthenticatedClinicalPatientsRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/my-day': {
+      id: '/_authenticated/clinical/my-day'
+      path: '/my-day'
+      fullPath: '/clinical/my-day'
+      preLoaderRoute: typeof AuthenticatedClinicalMyDayRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/knowledge': {
+      id: '/_authenticated/clinical/knowledge'
+      path: '/knowledge'
+      fullPath: '/clinical/knowledge'
+      preLoaderRoute: typeof AuthenticatedClinicalKnowledgeRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/encounters': {
+      id: '/_authenticated/clinical/encounters'
+      path: '/encounters'
+      fullPath: '/clinical/encounters'
+      preLoaderRoute: typeof AuthenticatedClinicalEncountersRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/dashboard': {
+      id: '/_authenticated/clinical/dashboard'
+      path: '/dashboard'
+      fullPath: '/clinical/dashboard'
+      preLoaderRoute: typeof AuthenticatedClinicalDashboardRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
     '/_authenticated/automation/workflows': {
       id: '/_authenticated/automation/workflows'
       path: '/workflows'
@@ -3462,6 +3652,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCmsBuilderPageIdRouteImport
       parentRoute: typeof AuthenticatedCmsRoute
     }
+    '/_authenticated/clinical/encounter/$id': {
+      id: '/_authenticated/clinical/encounter/$id'
+      path: '/encounter/$id'
+      fullPath: '/clinical/encounter/$id'
+      preLoaderRoute: typeof AuthenticatedClinicalEncounterIdRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
     '/_authenticated/settings/integrations/connections/': {
       id: '/_authenticated/settings/integrations/connections/'
       path: '/connections'
@@ -3548,6 +3745,36 @@ const AuthenticatedAutomationRouteChildren: AuthenticatedAutomationRouteChildren
 const AuthenticatedAutomationRouteWithChildren =
   AuthenticatedAutomationRoute._addFileChildren(
     AuthenticatedAutomationRouteChildren,
+  )
+
+interface AuthenticatedClinicalRouteChildren {
+  AuthenticatedClinicalDashboardRoute: typeof AuthenticatedClinicalDashboardRoute
+  AuthenticatedClinicalEncountersRoute: typeof AuthenticatedClinicalEncountersRoute
+  AuthenticatedClinicalKnowledgeRoute: typeof AuthenticatedClinicalKnowledgeRoute
+  AuthenticatedClinicalMyDayRoute: typeof AuthenticatedClinicalMyDayRoute
+  AuthenticatedClinicalPatientsRoute: typeof AuthenticatedClinicalPatientsRoute
+  AuthenticatedClinicalReferralsRoute: typeof AuthenticatedClinicalReferralsRoute
+  AuthenticatedClinicalSecondOpinionsRoute: typeof AuthenticatedClinicalSecondOpinionsRoute
+  AuthenticatedClinicalIndexRoute: typeof AuthenticatedClinicalIndexRoute
+  AuthenticatedClinicalEncounterIdRoute: typeof AuthenticatedClinicalEncounterIdRoute
+}
+
+const AuthenticatedClinicalRouteChildren: AuthenticatedClinicalRouteChildren = {
+  AuthenticatedClinicalDashboardRoute: AuthenticatedClinicalDashboardRoute,
+  AuthenticatedClinicalEncountersRoute: AuthenticatedClinicalEncountersRoute,
+  AuthenticatedClinicalKnowledgeRoute: AuthenticatedClinicalKnowledgeRoute,
+  AuthenticatedClinicalMyDayRoute: AuthenticatedClinicalMyDayRoute,
+  AuthenticatedClinicalPatientsRoute: AuthenticatedClinicalPatientsRoute,
+  AuthenticatedClinicalReferralsRoute: AuthenticatedClinicalReferralsRoute,
+  AuthenticatedClinicalSecondOpinionsRoute:
+    AuthenticatedClinicalSecondOpinionsRoute,
+  AuthenticatedClinicalIndexRoute: AuthenticatedClinicalIndexRoute,
+  AuthenticatedClinicalEncounterIdRoute: AuthenticatedClinicalEncounterIdRoute,
+}
+
+const AuthenticatedClinicalRouteWithChildren =
+  AuthenticatedClinicalRoute._addFileChildren(
+    AuthenticatedClinicalRouteChildren,
   )
 
 interface AuthenticatedCmsRouteChildren {
@@ -3983,6 +4210,7 @@ const AuthenticatedTelecallerRouteWithChildren =
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRouteWithChildren
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
+  AuthenticatedClinicalRoute: typeof AuthenticatedClinicalRouteWithChildren
   AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
   AuthenticatedConsultationsRoute: typeof AuthenticatedConsultationsRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
@@ -4001,6 +4229,7 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRouteWithChildren,
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
+  AuthenticatedClinicalRoute: AuthenticatedClinicalRouteWithChildren,
   AuthenticatedCmsRoute: AuthenticatedCmsRouteWithChildren,
   AuthenticatedConsultationsRoute: AuthenticatedConsultationsRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
