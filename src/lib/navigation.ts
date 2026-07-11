@@ -4,6 +4,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   LayoutDashboard,
+  CalendarDays,
   Building2,
   Users,
   ShieldCheck,
@@ -44,6 +45,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Overview",
     items: [
       { label: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      { label: "Scheduling", to: "/scheduling", icon: CalendarDays },
       { label: "Notifications", to: "/notifications", icon: Bell },
     ],
   },
