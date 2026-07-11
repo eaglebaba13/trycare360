@@ -641,17 +641,19 @@ export class ConflictRepository {
     startsAt: string;
     endsAt: string;
   }): Promise<ResourceLockRow[]> {
+    // `resource_locks` has no is_active column: presence + time window
+    // defines an active lock. Callers may combine with override_allowed.
     let q = this.sb
       .from("resource_locks")
       .select("*")
       .eq("tenant_id", args.tenantId)
-      .eq("is_active", true)
       .lt("starts_at", args.endsAt)
       .gt("ends_at", args.startsAt);
     if (args.branchId) q = q.eq("branch_id", args.branchId);
     if (args.resourceId) q = q.eq("resource_id", args.resourceId);
     return unwrapList(await q);
   }
+
   async logConflict(
     row: TablesInsert<"resource_conflict_log">,
   ): Promise<ResourceConflictLogRow> {
