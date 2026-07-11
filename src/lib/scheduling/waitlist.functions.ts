@@ -50,8 +50,14 @@ export const expireWaitlistOffer = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => waitlistOfferIdSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new WaitlistEngine(context.supabase);
-    return { offer: await engine.expireOffer(data) };
+    return {
+      offer: await engine.expireOffer({
+        tenantId: data.tenant_id,
+        offerId: data.offer_id,
+      }),
+    };
   });
+
 
 export const acceptWaitlistOffer = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
