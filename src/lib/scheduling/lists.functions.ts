@@ -338,10 +338,10 @@ export const searchPersons = createServerFn({ method: "POST" })
     const like = `%${data.q}%`;
     const { data: rows, error } = await context.supabase
       .from("persons")
-      .select("id,display_name,primary_phone,primary_email")
+      .select("id,display_name,full_name,phone_e164,email_normalized")
       .eq("tenant_id", data.tenant_id)
       .or(
-        `display_name.ilike.${like},primary_phone.ilike.${like},primary_email.ilike.${like}`,
+        `display_name.ilike.${like},full_name.ilike.${like},phone_e164.ilike.${like},email_normalized.ilike.${like}`,
       )
       .limit(data.limit);
     if (error) throw new Error(error.message);
