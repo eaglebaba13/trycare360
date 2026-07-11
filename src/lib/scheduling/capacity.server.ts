@@ -67,7 +67,7 @@ export class CapacityEngine {
       return { ok: true, reason: "no_plan", ...base };
     const dims = await this.repo.listDimensions(plan.id as string);
     const dim = dims.find(
-      (d) => (d.dimension_code as string) === args.dimensionCode,
+      (d) => (d.dimension as string) === args.dimensionCode,
     );
     if (!dim)
       return {
@@ -77,7 +77,8 @@ export class CapacityEngine {
         ...base,
       };
 
-    let limit = Number((dim as unknown as { units_limit: number }).units_limit ?? 0);
+    let limit = Number((dim as unknown as { max_units: number }).max_units ?? 0);
+
 
     // Overrides for the day (delta_units, +/-).
     const day = args.bucketStart.slice(0, 10);
