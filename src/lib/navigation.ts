@@ -16,6 +16,7 @@ import {
   Globe,
   UserRound,
   HeartPulse,
+  Stethoscope,
   Sparkles,
   Headphones,
   Briefcase,
