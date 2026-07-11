@@ -10,7 +10,7 @@
  * new encounter, opening an existing one, saving SOAP drafts, and
  * closing/resuming — everything routed through server fns.
  */
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";
@@ -29,7 +29,13 @@ import {
   NoPatientSelected,
 } from "@/components/clinical/workspace-shell";
 import { SoapEditor } from "@/components/clinical/soap-editor";
+import { SoapHistoryPanel } from "@/components/clinical/soap-history-panel";
 import { DiagnosisPanel } from "@/components/clinical/diagnosis-panel";
+import { TreatmentPlanPanel } from "@/components/clinical/treatment-plan-panel";
+import { PrescriptionEditor } from "@/components/clinical/prescription-editor";
+import { ClinicalMediaGallery } from "@/components/clinical/clinical-media-gallery";
+import { ConsentPanel } from "@/components/clinical/consent-panel";
+import { FollowupPlanner } from "@/components/clinical/followup-planner";
 import { useClinicalContext } from "@/components/clinical/use-clinical-context";
 import { useTenant } from "@/hooks/use-tenant";
 import {
@@ -60,23 +66,10 @@ function EncounterWorkspace() {
 
   const ctx = ctxQ.data;
   const encounter = ctx?.encounter ?? null;
-  const soap = useMemo(() => {
-    const meta = (encounter?.meta ?? {}) as Record<string, unknown>;
-    const s = meta.soap as
-      | { template_code?: string | null; subjective?: { text?: string }; objective?: { text?: string }; assessment?: { text?: string }; plan?: { text?: string } }
-      | undefined;
-    return s
-      ? {
-          templateCode: s.template_code ?? null,
-          subjective: s.subjective,
-          objective: s.objective,
-          assessment: s.assessment,
-          plan: s.plan,
-        }
-      : null;
-  }, [encounter]);
 
   if (!activeTenantId) return <NoPatientSelected />;
+
+  const readOnly = encounter?.status === "closed";
 
   return (
     <ClinicalWorkspaceShell
@@ -108,17 +101,46 @@ function EncounterWorkspace() {
               <SoapEditor
                 tenantId={activeTenantId}
                 encounterId={encounter.id}
-                initial={soap}
-                readOnly={encounter.status === "closed"}
+                note={ctx.soap.note}
+                currentVersion={ctx.soap.current}
+                readOnly={readOnly}
               />
-              <DiagnosisPanel ctx={ctx} encounterId={encounter.id} readOnly={encounter.status === "closed"} />
-              <ClinicalPlaceholder
-                title="Treatment Plan"
-                note="Treatment plans, orders, prescriptions and nutrition land in Stage 4."
+              <SoapHistoryPanel
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
               />
-              <ClinicalPlaceholder
-                title="Orders / Prescriptions / Nutrition"
-                note="Prescription and order engines wire in Stage 4 — reuse of existing services only."
+              <DiagnosisPanel ctx={ctx} encounterId={encounter.id} readOnly={readOnly} />
+              <TreatmentPlanPanel
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
+              />
+              <PrescriptionEditor
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
+              />
+              <ClinicalMediaGallery
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
+              />
+              <ConsentPanel
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
+              />
+              <FollowupPlanner
+                ctx={ctx}
+                tenantId={activeTenantId}
+                encounterId={encounter.id}
+                readOnly={readOnly}
               />
             </>
           )}
