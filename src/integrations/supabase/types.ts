@@ -3215,6 +3215,1494 @@ export type Database = {
           },
         ]
       }
+      clinical_ai_prompt_templates: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          model_hint: string | null
+          name: string
+          prompt: string
+          purpose: string
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          model_hint?: string | null
+          name: string
+          prompt: string
+          purpose: string
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          model_hint?: string | null
+          name?: string
+          prompt?: string
+          purpose?: string
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_ai_prompt_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_allergies: {
+        Row: {
+          category: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          notes: string | null
+          onset_date: string | null
+          patient_id: string
+          reaction: string | null
+          severity: string | null
+          source: string | null
+          status: string
+          substance: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          onset_date?: string | null
+          patient_id: string
+          reaction?: string | null
+          severity?: string | null
+          source?: string | null
+          status?: string
+          substance: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          onset_date?: string | null
+          patient_id?: string
+          reaction?: string | null
+          severity?: string | null
+          source?: string | null
+          status?: string
+          substance?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_allergies_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_allergies_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_anatomy_grids: {
+        Row: {
+          code: string
+          created_at: string
+          grid_definition: Json
+          id: string
+          is_active: boolean
+          name: string
+          region: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          grid_definition?: Json
+          id?: string
+          is_active?: boolean
+          name: string
+          region: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          grid_definition?: Json
+          id?: string
+          is_active?: boolean
+          name?: string
+          region?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_anatomy_grids_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_code_systems: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      clinical_codes: {
+        Row: {
+          code: string
+          code_system_id: string
+          created_at: string
+          display: string
+          id: string
+          is_active: boolean
+          metadata: Json
+          tenant_id: string | null
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          code: string
+          code_system_id: string
+          created_at?: string
+          display: string
+          id?: string
+          is_active?: boolean
+          metadata?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          code?: string
+          code_system_id?: string
+          created_at?: string
+          display?: string
+          id?: string
+          is_active?: boolean
+          metadata?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_codes_code_system_id_fkey"
+            columns: ["code_system_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_code_systems"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_codes_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_consent_templates: {
+        Row: {
+          body_template: string
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          language: string
+          name: string
+          requires_witness: boolean
+          scope: string
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          body_template: string
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          name: string
+          requires_witness?: boolean
+          scope: string
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          body_template?: string
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          name?: string
+          requires_witness?: boolean
+          scope?: string
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_consent_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_contraindication_rules: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          rule: Json
+          severity: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          rule?: Json
+          severity?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          rule?: Json
+          severity?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_contraindication_rules_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_diagnosis_templates: {
+        Row: {
+          code: string
+          created_at: string
+          dx_codes: Json
+          id: string
+          is_active: boolean
+          name: string
+          notes: string | null
+          specialty: string | null
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          dx_codes?: Json
+          id?: string
+          is_active?: boolean
+          name: string
+          notes?: string | null
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          dx_codes?: Json
+          id?: string
+          is_active?: boolean
+          name?: string
+          notes?: string | null
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_diagnosis_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_encounter_participants: {
+        Row: {
+          created_at: string
+          encounter_id: string
+          id: string
+          joined_at: string
+          left_at: string | null
+          notes: string | null
+          person_id: string
+          role: string
+          source_tenant_id: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          encounter_id: string
+          id?: string
+          joined_at?: string
+          left_at?: string | null
+          notes?: string | null
+          person_id: string
+          role: string
+          source_tenant_id?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          encounter_id?: string
+          id?: string
+          joined_at?: string
+          left_at?: string | null
+          notes?: string | null
+          person_id?: string
+          role?: string
+          source_tenant_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_encounter_participants_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_encounter_participants_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_encounter_participants_source_tenant_id_fkey"
+            columns: ["source_tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_encounter_participants_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_encounters: {
+        Row: {
+          appointment_id: string | null
+          branch_id: string | null
+          chief_complaint: string | null
+          created_at: string
+          created_by: string | null
+          encounter_type: string
+          ended_at: string | null
+          id: string
+          meta: Json
+          package_id: string | null
+          patient_id: string
+          primary_doctor_id: string | null
+          room: string | null
+          source: string | null
+          started_at: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          branch_id?: string | null
+          chief_complaint?: string | null
+          created_at?: string
+          created_by?: string | null
+          encounter_type: string
+          ended_at?: string | null
+          id?: string
+          meta?: Json
+          package_id?: string | null
+          patient_id: string
+          primary_doctor_id?: string | null
+          room?: string | null
+          source?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string | null
+          branch_id?: string | null
+          chief_complaint?: string | null
+          created_at?: string
+          created_by?: string | null
+          encounter_type?: string
+          ended_at?: string | null
+          id?: string
+          meta?: Json
+          package_id?: string | null
+          patient_id?: string
+          primary_doctor_id?: string | null
+          room?: string | null
+          source?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_encounters_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_encounters_primary_doctor_id_fkey"
+            columns: ["primary_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_encounters_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_family_history: {
+        Row: {
+          code: string | null
+          code_system_id: string | null
+          condition_display: string
+          created_at: string
+          created_by: string | null
+          id: string
+          notes: string | null
+          onset_age: number | null
+          patient_id: string
+          relation: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          code?: string | null
+          code_system_id?: string | null
+          condition_display: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          onset_age?: number | null
+          patient_id: string
+          relation: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string | null
+          code_system_id?: string | null
+          condition_display?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          onset_age?: number | null
+          patient_id?: string
+          relation?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_family_history_code_system_id_fkey"
+            columns: ["code_system_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_code_systems"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_family_history_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_family_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_followup_templates: {
+        Row: {
+          cadence: Json
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          cadence?: Json
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cadence?: Json
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_followup_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_lifestyle_history: {
+        Row: {
+          alcohol: Json | null
+          created_at: string
+          created_by: string | null
+          diet: Json | null
+          exercise: Json | null
+          id: string
+          notes: string | null
+          occupation: string | null
+          patient_id: string
+          recorded_at: string
+          sleep: Json | null
+          smoking: Json | null
+          stress: string | null
+          substance_use: Json | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          alcohol?: Json | null
+          created_at?: string
+          created_by?: string | null
+          diet?: Json | null
+          exercise?: Json | null
+          id?: string
+          notes?: string | null
+          occupation?: string | null
+          patient_id: string
+          recorded_at?: string
+          sleep?: Json | null
+          smoking?: Json | null
+          stress?: string | null
+          substance_use?: Json | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          alcohol?: Json | null
+          created_at?: string
+          created_by?: string | null
+          diet?: Json | null
+          exercise?: Json | null
+          id?: string
+          notes?: string | null
+          occupation?: string | null
+          patient_id?: string
+          recorded_at?: string
+          sleep?: Json | null
+          smoking?: Json | null
+          stress?: string | null
+          substance_use?: Json | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_lifestyle_history_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_lifestyle_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_medical_history: {
+        Row: {
+          category: string
+          code: string | null
+          code_system_id: string | null
+          created_at: string
+          created_by: string | null
+          event_date: string | null
+          id: string
+          notes: string | null
+          patient_id: string
+          summary: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          code?: string | null
+          code_system_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          event_date?: string | null
+          id?: string
+          notes?: string | null
+          patient_id: string
+          summary: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          code?: string | null
+          code_system_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          event_date?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          summary?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_medical_history_code_system_id_fkey"
+            columns: ["code_system_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_code_systems"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_medical_history_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_medical_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_nutrition_plan_templates: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          macros: Json
+          meals: Json
+          name: string
+          target: Json
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          macros?: Json
+          meals?: Json
+          name: string
+          target?: Json
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          macros?: Json
+          meals?: Json
+          name?: string
+          target?: Json
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_nutrition_plan_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_prescription_templates: {
+        Row: {
+          code: string
+          created_at: string
+          diagnosis_hint: string | null
+          id: string
+          is_active: boolean
+          items: Json
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          diagnosis_hint?: string | null
+          id?: string
+          is_active?: boolean
+          items?: Json
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          diagnosis_hint?: string | null
+          id?: string
+          is_active?: boolean
+          items?: Json
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_prescription_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_problems: {
+        Row: {
+          category: string
+          code: string | null
+          code_system_id: string | null
+          created_at: string
+          created_by: string | null
+          display: string
+          encounter_id: string | null
+          id: string
+          notes: string | null
+          onset_date: string | null
+          patient_id: string
+          resolved_date: string | null
+          severity: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          code?: string | null
+          code_system_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          display: string
+          encounter_id?: string | null
+          id?: string
+          notes?: string | null
+          onset_date?: string | null
+          patient_id: string
+          resolved_date?: string | null
+          severity?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          code?: string | null
+          code_system_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          display?: string
+          encounter_id?: string | null
+          id?: string
+          notes?: string | null
+          onset_date?: string | null
+          patient_id?: string
+          resolved_date?: string | null
+          severity?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_problems_code_system_id_fkey"
+            columns: ["code_system_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_code_systems"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_problems_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_problems_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_problems_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_procedure_checklists: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          items: Json
+          name: string
+          phase: string
+          procedure_kind: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items?: Json
+          name: string
+          phase: string
+          procedure_kind: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          items?: Json
+          name?: string
+          phase?: string
+          procedure_kind?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_procedure_checklists_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_protocols: {
+        Row: {
+          code: string
+          created_at: string
+          definition: Json
+          id: string
+          is_active: boolean
+          name: string
+          specialty: string | null
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          definition?: Json
+          id?: string
+          is_active?: boolean
+          name: string
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          definition?: Json
+          id?: string
+          is_active?: boolean
+          name?: string
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_protocols_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_referrals: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          external_provider: string | null
+          from_branch_id: string | null
+          from_doctor_id: string | null
+          id: string
+          notes: string | null
+          patient_id: string
+          priority: string
+          reason: string
+          source_encounter_id: string | null
+          status: string
+          tenant_id: string
+          to_branch_id: string | null
+          to_doctor_id: string | null
+          to_tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          external_provider?: string | null
+          from_branch_id?: string | null
+          from_doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id: string
+          priority?: string
+          reason: string
+          source_encounter_id?: string | null
+          status?: string
+          tenant_id: string
+          to_branch_id?: string | null
+          to_doctor_id?: string | null
+          to_tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          external_provider?: string | null
+          from_branch_id?: string | null
+          from_doctor_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          priority?: string
+          reason?: string
+          source_encounter_id?: string | null
+          status?: string
+          tenant_id?: string
+          to_branch_id?: string | null
+          to_doctor_id?: string | null
+          to_tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_referrals_from_doctor_id_fkey"
+            columns: ["from_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_referrals_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_referrals_source_encounter_id_fkey"
+            columns: ["source_encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_referrals_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_referrals_to_doctor_id_fkey"
+            columns: ["to_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_referrals_to_tenant_id_fkey"
+            columns: ["to_tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_scoring_scales: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          scale_definition: Json
+          specialty: string | null
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          scale_definition?: Json
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          scale_definition?: Json
+          specialty?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_scoring_scales_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_second_opinions: {
+        Row: {
+          answered_at: string | null
+          created_at: string
+          id: string
+          opinion_doctor_id: string | null
+          opinion_tenant_id: string | null
+          patient_id: string
+          question: string
+          requested_at: string
+          requested_by_doctor_id: string | null
+          response: string | null
+          source_encounter_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          answered_at?: string | null
+          created_at?: string
+          id?: string
+          opinion_doctor_id?: string | null
+          opinion_tenant_id?: string | null
+          patient_id: string
+          question: string
+          requested_at?: string
+          requested_by_doctor_id?: string | null
+          response?: string | null
+          source_encounter_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          answered_at?: string | null
+          created_at?: string
+          id?: string
+          opinion_doctor_id?: string | null
+          opinion_tenant_id?: string | null
+          patient_id?: string
+          question?: string
+          requested_at?: string
+          requested_by_doctor_id?: string | null
+          response?: string | null
+          source_encounter_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_second_opinions_opinion_doctor_id_fkey"
+            columns: ["opinion_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_second_opinions_opinion_tenant_id_fkey"
+            columns: ["opinion_tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_second_opinions_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_second_opinions_requested_by_doctor_id_fkey"
+            columns: ["requested_by_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_second_opinions_source_encounter_id_fkey"
+            columns: ["source_encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_second_opinions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_soap_templates: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          specialty: string | null
+          template: Json
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          specialty?: string | null
+          template?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          specialty?: string | null
+          template?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_soap_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_treatment_protocols: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          procedure_kind: string
+          steps: Json
+          tenant_id: string | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          procedure_kind: string
+          steps?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          procedure_kind?: string
+          steps?: Json
+          tenant_id?: string | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_treatment_protocols_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_vitals: {
+        Row: {
+          bmi: number | null
+          bp_diastolic: number | null
+          bp_systolic: number | null
+          created_at: string
+          created_by: string | null
+          encounter_id: string | null
+          heart_rate: number | null
+          height_cm: number | null
+          hip_cm: number | null
+          id: string
+          measured_at: string
+          notes: string | null
+          patient_id: string
+          resp_rate: number | null
+          spo2: number | null
+          temperature_c: number | null
+          tenant_id: string
+          updated_at: string
+          waist_cm: number | null
+          weight_kg: number | null
+        }
+        Insert: {
+          bmi?: number | null
+          bp_diastolic?: number | null
+          bp_systolic?: number | null
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          heart_rate?: number | null
+          height_cm?: number | null
+          hip_cm?: number | null
+          id?: string
+          measured_at?: string
+          notes?: string | null
+          patient_id: string
+          resp_rate?: number | null
+          spo2?: number | null
+          temperature_c?: number | null
+          tenant_id: string
+          updated_at?: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Update: {
+          bmi?: number | null
+          bp_diastolic?: number | null
+          bp_systolic?: number | null
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          heart_rate?: number | null
+          height_cm?: number | null
+          hip_cm?: number | null
+          id?: string
+          measured_at?: string
+          notes?: string | null
+          patient_id?: string
+          resp_rate?: number | null
+          spo2?: number | null
+          temperature_c?: number | null
+          tenant_id?: string
+          updated_at?: string
+          waist_cm?: number | null
+          weight_kg?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_vitals_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_vitals_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_vitals_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cms_ab_assignments: {
         Row: {
           converted: boolean
@@ -13656,8 +15144,20 @@ export type Database = {
         Args: { _revenue_event_id: string }
         Returns: number
       }
+      can_manage_clinical_knowledge: {
+        Args: { _tenant: string; _user: string }
+        Returns: boolean
+      }
       can_manage_cms: {
         Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_read_clinical: {
+        Args: { _tenant: string; _user: string }
+        Returns: boolean
+      }
+      can_write_clinical: {
+        Args: { _tenant: string; _user: string }
         Returns: boolean
       }
       current_tenant_id: { Args: never; Returns: string }
