@@ -1,18 +1,12 @@
 /**
  * Clinical Context Loader (server-only).
  *
- * Assembles the full 360° clinical context for a consultation in ONE call.
- * Every future workspace (Doctor, Therapist, AI Assistant, Patient Portal)
- * must consume this service instead of firing independent queries — this is
- * the stable integration point for cross-domain reads.
- *
- * Reuses existing primitives only — no duplicate business logic:
- *   - Person Registry (persons, patients)
- *   - Clinical repositories (encounters, problems, allergies, vitals, histories)
- *   - Scheduling appointments
- *   - Revenue events (billing summary)
- *   - Consent records
- *   - Session permissions (has_role / has_clinical_permission)
+ * Assembles the full 360° clinical context in ONE call. Extended in
+ * Stage 4 to include the current SOAP note, active treatment plans,
+ * recent prescriptions, clinical media, consent bindings, and open
+ * follow-ups. Every future workspace (Doctor, Therapist, AI Assistant,
+ * Patient Portal) must consume this service instead of firing
+ * independent queries.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database, Tables } from "@/integrations/supabase/types";
@@ -25,6 +19,15 @@ import {
   ProblemRepository,
   VitalsRepository,
 } from "./repositories.server";
+import {
+  ClinicalConsentRepository,
+  ClinicalFollowupRepository,
+  ClinicalMediaRepository,
+  PrescriptionRepository,
+  SoapNoteRepository,
+  SoapVersionRepository,
+  TreatmentPlanRepository,
+} from "./stage4.repositories.server";
 
 type SB = SupabaseClient<Database>;
 
@@ -56,6 +59,17 @@ export interface ClinicalContext {
       Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "category" | "source_module">
     >;
   };
+  soap: {
+    note: Tables<"clinical_soap_notes"> | null;
+    current: Tables<"clinical_soap_versions"> | null;
+    versionCount: number;
+    versions: Tables<"clinical_soap_versions">[];
+  };
+  treatmentPlans: Tables<"clinical_treatment_plans">[];
+  prescriptions: Tables<"clinical_prescriptions">[];
+  media: Tables<"clinical_media">[];
+  clinicalConsents: Tables<"clinical_consents">[];
+  followups: Tables<"clinical_followups">[];
   permissions: {
     canReadClinical: boolean;
     canWriteClinical: boolean;
@@ -81,6 +95,13 @@ export class ClinicalContextLoader {
     const medical = new MedicalHistoryRepository(this.sb);
     const family = new FamilyHistoryRepository(this.sb);
     const lifestyle = new LifestyleRepository(this.sb);
+    const plans = new TreatmentPlanRepository(this.sb);
+    const rxRepo = new PrescriptionRepository(this.sb);
+    const mediaRepo = new ClinicalMediaRepository(this.sb);
+    const consentRepo = new ClinicalConsentRepository(this.sb);
+    const followupRepo = new ClinicalFollowupRepository(this.sb);
+    const soapNotes = new SoapNoteRepository(this.sb);
+    const soapVersions = new SoapVersionRepository(this.sb);
 
     const [
       personRes,
@@ -100,6 +121,11 @@ export class ClinicalContextLoader {
       canRead,
       canWrite,
       canManage,
+      treatmentList,
+      rxList,
+      mediaList,
+      clinicalConsentList,
+      followupList,
     ] = await Promise.all([
       this.sb.from("persons").select("*").eq("id", args.personId).maybeSingle(),
       this.sb
@@ -148,12 +174,34 @@ export class ClinicalContextLoader {
       this.sb.rpc("can_read_clinical", { _tenant: args.tenantId, _user: args.userId }),
       this.sb.rpc("can_write_clinical", { _tenant: args.tenantId, _user: args.userId }),
       this.sb.rpc("can_manage_clinical_knowledge", { _tenant: args.tenantId, _user: args.userId }),
+      plans.listForPatient(args.tenantId, args.personId, 20),
+      rxRepo.listForPatient(args.tenantId, args.personId, 20),
+      mediaRepo.listForPatient(args.tenantId, args.personId, 30),
+      consentRepo.listForPatient(args.tenantId, args.personId),
+      followupRepo.listForPatient(args.tenantId, args.personId),
     ]);
 
     const revenueRows = (revenueRes.data ?? []) as Array<
       Pick<Tables<"revenue_events">, "id" | "amount" | "occurred_at" | "category" | "source_module">
     >;
     const total = revenueRows.reduce((sum, r) => sum + Number(r.amount ?? 0), 0);
+
+    let soap: ClinicalContext["soap"] = { note: null, current: null, versionCount: 0, versions: [] };
+    if (args.encounterId) {
+      const note = await soapNotes.getByEncounter(args.encounterId);
+      if (note && note.tenant_id === args.tenantId) {
+        const versions = await soapVersions.listForNote(note.id);
+        const current = note.current_version_id
+          ? versions.find((v) => v.id === note.current_version_id) ?? null
+          : versions[0] ?? null;
+        soap = {
+          note,
+          current,
+          versionCount: note.version_count ?? versions.length,
+          versions: versions.slice(0, historyLimit),
+        };
+      }
+    }
 
     return {
       person: (personRes.data ?? null) as Tables<"persons"> | null,
@@ -173,9 +221,15 @@ export class ClinicalContextLoader {
       },
       billingSummary: {
         total,
-        outstanding: 0, // no outstanding-balance primitive yet; reserved for AR module
+        outstanding: 0,
         recent: revenueRows,
       },
+      soap,
+      treatmentPlans: treatmentList,
+      prescriptions: rxList,
+      media: mediaList,
+      clinicalConsents: clinicalConsentList,
+      followups: followupList,
       permissions: {
         canReadClinical: Boolean(canRead.data),
         canWriteClinical: Boolean(canWrite.data),
