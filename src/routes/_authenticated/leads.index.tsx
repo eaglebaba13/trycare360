@@ -120,7 +120,7 @@ function LeadsDashboard() {
         <KpiCard label="Unassigned" value={stats.unassigned} icon={UserX} tone="warning" />
         <KpiCard label="Hot Leads" value={stats.hot} icon={Flame} tone="danger" hint="score ≥ 70" />
         <KpiCard label="Cold Leads" value={stats.cold} icon={Snowflake} tone="info" hint="score < 30" />
-        <KpiCard label="SLA Breached" value={(slaQ.data?.rows ?? []).filter((r) => r.status === "breached").length} icon={AlertTriangle} tone="danger" />
+        <KpiCard label="SLA Breached" value={(slaQ.data?.rows ?? []).filter((r: { status: string }) => r.status === "breached").length} icon={AlertTriangle} tone="danger" />
         <KpiCard label="Follow-ups Today" value={fuQ.data?.rows.length ?? 0} icon={CalendarClock} />
         <KpiCard label="Converted" value={stats.converted} icon={TrendingUp} tone="success" />
         <KpiCard label="Lost" value={stats.lost} icon={UserX} tone="danger" />
