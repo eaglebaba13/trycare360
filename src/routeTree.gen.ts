@@ -21,7 +21,9 @@ import { Route as PublicConsultationRouteImport } from './routes/_public.consult
 import { Route as PublicBookRouteImport } from './routes/_public.book'
 import { Route as PublicAcademyRouteImport } from './routes/_public.academy'
 import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as AuthenticatedTelecallerRouteImport } from './routes/_authenticated/telecaller'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedSalesRouteImport } from './routes/_authenticated/sales'
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
 import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
@@ -35,7 +37,9 @@ import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.trea
 import { Route as PublicProductsIndexRouteImport } from './routes/_public.products.index'
 import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
+import { Route as AuthenticatedTelecallerIndexRouteImport } from './routes/_authenticated/telecaller.index'
 import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authenticated/settings.index'
+import { Route as AuthenticatedSalesIndexRouteImport } from './routes/_authenticated/sales.index'
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
@@ -49,11 +53,17 @@ import { Route as PublicProductsSlugRouteImport } from './routes/_public.product
 import { Route as PublicDoctorsSlugRouteImport } from './routes/_public.doctors.$slug'
 import { Route as PublicConsultationCategoryRouteImport } from './routes/_public.consultation.$category'
 import { Route as PublicBlogSlugRouteImport } from './routes/_public.blog.$slug'
+import { Route as AuthenticatedTelecallerQueueRouteImport } from './routes/_authenticated/telecaller.queue'
+import { Route as AuthenticatedTelecallerProductivityRouteImport } from './routes/_authenticated/telecaller.productivity'
+import { Route as AuthenticatedTelecallerCalendarRouteImport } from './routes/_authenticated/telecaller.calendar'
 import { Route as AuthenticatedSettingsTerritoryRouteImport } from './routes/_authenticated/settings.territory'
 import { Route as AuthenticatedSettingsPlatformRouteImport } from './routes/_authenticated/settings.platform'
 import { Route as AuthenticatedSettingsMastersRouteImport } from './routes/_authenticated/settings.masters'
 import { Route as AuthenticatedSettingsIntegrationsRouteImport } from './routes/_authenticated/settings.integrations'
 import { Route as AuthenticatedSettingsGlobalRouteImport } from './routes/_authenticated/settings.global'
+import { Route as AuthenticatedSalesSupervisorRouteImport } from './routes/_authenticated/sales.supervisor'
+import { Route as AuthenticatedSalesSlaRouteImport } from './routes/_authenticated/sales.sla'
+import { Route as AuthenticatedSalesAssignmentRouteImport } from './routes/_authenticated/sales.assignment'
 import { Route as AuthenticatedPeopleVerificationRouteImport } from './routes/_authenticated/people.verification'
 import { Route as AuthenticatedPeopleTagsRouteImport } from './routes/_authenticated/people.tags'
 import { Route as AuthenticatedPeopleRelationshipsRouteImport } from './routes/_authenticated/people.relationships'
@@ -123,6 +133,7 @@ import { Route as ApiPublicCmsFormSubmitRouteImport } from './routes/api/public/
 import { Route as ApiPublicCmsAbAssignRouteImport } from './routes/api/public/cms.ab-assign'
 import { Route as ApiPublicAssessmentActionRouteImport } from './routes/api/public/assessment.$action'
 import { Route as PublicConsultationResultTokenRouteImport } from './routes/_public.consultation.result.$token'
+import { Route as AuthenticatedTelecallerWorkspaceLeadIdRouteImport } from './routes/_authenticated/telecaller.workspace.$leadId'
 import { Route as AuthenticatedSettingsIntegrationsWebhooksRouteImport } from './routes/_authenticated/settings.integrations.webhooks'
 import { Route as AuthenticatedSettingsIntegrationsLogsRouteImport } from './routes/_authenticated/settings.integrations.logs'
 import { Route as AuthenticatedSettingsIntegrationsCatalogRouteImport } from './routes/_authenticated/settings.integrations.catalog'
@@ -191,9 +202,19 @@ const PublicAboutRoute = PublicAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => PublicRoute,
 } as any)
+const AuthenticatedTelecallerRoute = AuthenticatedTelecallerRouteImport.update({
+  id: '/telecaller',
+  path: '/telecaller',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSalesRoute = AuthenticatedSalesRouteImport.update({
+  id: '/sales',
+  path: '/sales',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPeopleRoute = AuthenticatedPeopleRouteImport.update({
@@ -263,12 +284,23 @@ const PublicBlogIndexRoute = PublicBlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => PublicRoute,
 } as any)
+const AuthenticatedTelecallerIndexRoute =
+  AuthenticatedTelecallerIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedTelecallerRoute,
+  } as any)
 const AuthenticatedSettingsIndexRoute =
   AuthenticatedSettingsIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedSettingsRoute,
   } as any)
+const AuthenticatedSalesIndexRoute = AuthenticatedSalesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedSalesRoute,
+} as any)
 const AuthenticatedPeopleIndexRoute =
   AuthenticatedPeopleIndexRouteImport.update({
     id: '/',
@@ -340,6 +372,24 @@ const PublicBlogSlugRoute = PublicBlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => PublicRoute,
 } as any)
+const AuthenticatedTelecallerQueueRoute =
+  AuthenticatedTelecallerQueueRouteImport.update({
+    id: '/queue',
+    path: '/queue',
+    getParentRoute: () => AuthenticatedTelecallerRoute,
+  } as any)
+const AuthenticatedTelecallerProductivityRoute =
+  AuthenticatedTelecallerProductivityRouteImport.update({
+    id: '/productivity',
+    path: '/productivity',
+    getParentRoute: () => AuthenticatedTelecallerRoute,
+  } as any)
+const AuthenticatedTelecallerCalendarRoute =
+  AuthenticatedTelecallerCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => AuthenticatedTelecallerRoute,
+  } as any)
 const AuthenticatedSettingsTerritoryRoute =
   AuthenticatedSettingsTerritoryRouteImport.update({
     id: '/territory',
@@ -369,6 +419,23 @@ const AuthenticatedSettingsGlobalRoute =
     id: '/global',
     path: '/global',
     getParentRoute: () => AuthenticatedSettingsRoute,
+  } as any)
+const AuthenticatedSalesSupervisorRoute =
+  AuthenticatedSalesSupervisorRouteImport.update({
+    id: '/supervisor',
+    path: '/supervisor',
+    getParentRoute: () => AuthenticatedSalesRoute,
+  } as any)
+const AuthenticatedSalesSlaRoute = AuthenticatedSalesSlaRouteImport.update({
+  id: '/sla',
+  path: '/sla',
+  getParentRoute: () => AuthenticatedSalesRoute,
+} as any)
+const AuthenticatedSalesAssignmentRoute =
+  AuthenticatedSalesAssignmentRouteImport.update({
+    id: '/assignment',
+    path: '/assignment',
+    getParentRoute: () => AuthenticatedSalesRoute,
   } as any)
 const AuthenticatedPeopleVerificationRoute =
   AuthenticatedPeopleVerificationRouteImport.update({
@@ -765,6 +832,12 @@ const PublicConsultationResultTokenRoute =
     path: '/result/$token',
     getParentRoute: () => PublicConsultationRoute,
   } as any)
+const AuthenticatedTelecallerWorkspaceLeadIdRoute =
+  AuthenticatedTelecallerWorkspaceLeadIdRouteImport.update({
+    id: '/workspace/$leadId',
+    path: '/workspace/$leadId',
+    getParentRoute: () => AuthenticatedTelecallerRoute,
+  } as any)
 const AuthenticatedSettingsIntegrationsWebhooksRoute =
   AuthenticatedSettingsIntegrationsWebhooksRouteImport.update({
     id: '/webhooks',
@@ -834,7 +907,9 @@ export interface FileRoutesByFullPath {
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/people': typeof AuthenticatedPeopleRouteWithChildren
+  '/sales': typeof AuthenticatedSalesRouteWithChildren
   '/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
   '/book': typeof PublicBookRoute
@@ -901,11 +976,17 @@ export interface FileRoutesByFullPath {
   '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
+  '/sales/sla': typeof AuthenticatedSalesSlaRoute
+  '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/telecaller/calendar': typeof AuthenticatedTelecallerCalendarRoute
+  '/telecaller/productivity': typeof AuthenticatedTelecallerProductivityRoute
+  '/telecaller/queue': typeof AuthenticatedTelecallerQueueRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
@@ -919,7 +1000,9 @@ export interface FileRoutesByFullPath {
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
   '/people/': typeof AuthenticatedPeopleIndexRoute
+  '/sales/': typeof AuthenticatedSalesIndexRoute
   '/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/blog/': typeof PublicBlogIndexRoute
   '/doctors/': typeof PublicDoctorsIndexRoute
   '/products/': typeof PublicProductsIndexRoute
@@ -930,6 +1013,7 @@ export interface FileRoutesByFullPath {
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/telecaller/workspace/$leadId': typeof AuthenticatedTelecallerWorkspaceLeadIdRoute
   '/consultation/result/$token': typeof PublicConsultationResultTokenRoute
   '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
@@ -1015,10 +1099,16 @@ export interface FileRoutesByTo {
   '/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
+  '/sales/sla': typeof AuthenticatedSalesSlaRoute
+  '/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/telecaller/calendar': typeof AuthenticatedTelecallerCalendarRoute
+  '/telecaller/productivity': typeof AuthenticatedTelecallerProductivityRoute
+  '/telecaller/queue': typeof AuthenticatedTelecallerQueueRoute
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
@@ -1032,7 +1122,9 @@ export interface FileRoutesByTo {
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
   '/people': typeof AuthenticatedPeopleIndexRoute
+  '/sales': typeof AuthenticatedSalesIndexRoute
   '/settings': typeof AuthenticatedSettingsIndexRoute
+  '/telecaller': typeof AuthenticatedTelecallerIndexRoute
   '/blog': typeof PublicBlogIndexRoute
   '/doctors': typeof PublicDoctorsIndexRoute
   '/products': typeof PublicProductsIndexRoute
@@ -1043,6 +1135,7 @@ export interface FileRoutesByTo {
   '/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/telecaller/workspace/$leadId': typeof AuthenticatedTelecallerWorkspaceLeadIdRoute
   '/consultation/result/$token': typeof PublicConsultationResultTokenRoute
   '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
@@ -1072,7 +1165,9 @@ export interface FileRoutesById {
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
+  '/_authenticated/sales': typeof AuthenticatedSalesRouteWithChildren
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteWithChildren
+  '/_authenticated/telecaller': typeof AuthenticatedTelecallerRouteWithChildren
   '/_public/about': typeof PublicAboutRoute
   '/_public/academy': typeof PublicAcademyRoute
   '/_public/book': typeof PublicBookRoute
@@ -1140,11 +1235,17 @@ export interface FileRoutesById {
   '/_authenticated/people/relationships': typeof AuthenticatedPeopleRelationshipsRoute
   '/_authenticated/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/_authenticated/people/verification': typeof AuthenticatedPeopleVerificationRoute
+  '/_authenticated/sales/assignment': typeof AuthenticatedSalesAssignmentRoute
+  '/_authenticated/sales/sla': typeof AuthenticatedSalesSlaRoute
+  '/_authenticated/sales/supervisor': typeof AuthenticatedSalesSupervisorRoute
   '/_authenticated/settings/global': typeof AuthenticatedSettingsGlobalRoute
   '/_authenticated/settings/integrations': typeof AuthenticatedSettingsIntegrationsRouteWithChildren
   '/_authenticated/settings/masters': typeof AuthenticatedSettingsMastersRoute
   '/_authenticated/settings/platform': typeof AuthenticatedSettingsPlatformRoute
   '/_authenticated/settings/territory': typeof AuthenticatedSettingsTerritoryRoute
+  '/_authenticated/telecaller/calendar': typeof AuthenticatedTelecallerCalendarRoute
+  '/_authenticated/telecaller/productivity': typeof AuthenticatedTelecallerProductivityRoute
+  '/_authenticated/telecaller/queue': typeof AuthenticatedTelecallerQueueRoute
   '/_public/blog/$slug': typeof PublicBlogSlugRoute
   '/_public/consultation/$category': typeof PublicConsultationCategoryRoute
   '/_public/doctors/$slug': typeof PublicDoctorsSlugRoute
@@ -1158,7 +1259,9 @@ export interface FileRoutesById {
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
+  '/_authenticated/sales/': typeof AuthenticatedSalesIndexRoute
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexRoute
+  '/_authenticated/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/_public/blog/': typeof PublicBlogIndexRoute
   '/_public/doctors/': typeof PublicDoctorsIndexRoute
   '/_public/products/': typeof PublicProductsIndexRoute
@@ -1169,6 +1272,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/integrations/catalog': typeof AuthenticatedSettingsIntegrationsCatalogRoute
   '/_authenticated/settings/integrations/logs': typeof AuthenticatedSettingsIntegrationsLogsRoute
   '/_authenticated/settings/integrations/webhooks': typeof AuthenticatedSettingsIntegrationsWebhooksRoute
+  '/_authenticated/telecaller/workspace/$leadId': typeof AuthenticatedTelecallerWorkspaceLeadIdRoute
   '/_public/consultation/result/$token': typeof PublicConsultationResultTokenRoute
   '/api/public/assessment/$action': typeof ApiPublicAssessmentActionRoute
   '/api/public/cms/ab-assign': typeof ApiPublicCmsAbAssignRoute
@@ -1198,7 +1302,9 @@ export interface FileRouteTypes {
     | '/organization'
     | '/patients'
     | '/people'
+    | '/sales'
     | '/settings'
+    | '/telecaller'
     | '/about'
     | '/academy'
     | '/book'
@@ -1265,11 +1371,17 @@ export interface FileRouteTypes {
     | '/people/relationships'
     | '/people/tags'
     | '/people/verification'
+    | '/sales/assignment'
+    | '/sales/sla'
+    | '/sales/supervisor'
     | '/settings/global'
     | '/settings/integrations'
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/telecaller/calendar'
+    | '/telecaller/productivity'
+    | '/telecaller/queue'
     | '/blog/$slug'
     | '/consultation/$category'
     | '/doctors/$slug'
@@ -1283,7 +1395,9 @@ export interface FileRouteTypes {
     | '/organization/'
     | '/patients/'
     | '/people/'
+    | '/sales/'
     | '/settings/'
+    | '/telecaller/'
     | '/blog/'
     | '/doctors/'
     | '/products/'
@@ -1294,6 +1408,7 @@ export interface FileRouteTypes {
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/telecaller/workspace/$leadId'
     | '/consultation/result/$token'
     | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
@@ -1379,10 +1494,16 @@ export interface FileRouteTypes {
     | '/people/relationships'
     | '/people/tags'
     | '/people/verification'
+    | '/sales/assignment'
+    | '/sales/sla'
+    | '/sales/supervisor'
     | '/settings/global'
     | '/settings/masters'
     | '/settings/platform'
     | '/settings/territory'
+    | '/telecaller/calendar'
+    | '/telecaller/productivity'
+    | '/telecaller/queue'
     | '/blog/$slug'
     | '/consultation/$category'
     | '/doctors/$slug'
@@ -1396,7 +1517,9 @@ export interface FileRouteTypes {
     | '/organization'
     | '/patients'
     | '/people'
+    | '/sales'
     | '/settings'
+    | '/telecaller'
     | '/blog'
     | '/doctors'
     | '/products'
@@ -1407,6 +1530,7 @@ export interface FileRouteTypes {
     | '/settings/integrations/catalog'
     | '/settings/integrations/logs'
     | '/settings/integrations/webhooks'
+    | '/telecaller/workspace/$leadId'
     | '/consultation/result/$token'
     | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
@@ -1435,7 +1559,9 @@ export interface FileRouteTypes {
     | '/_authenticated/organization'
     | '/_authenticated/patients'
     | '/_authenticated/people'
+    | '/_authenticated/sales'
     | '/_authenticated/settings'
+    | '/_authenticated/telecaller'
     | '/_public/about'
     | '/_public/academy'
     | '/_public/book'
@@ -1503,11 +1629,17 @@ export interface FileRouteTypes {
     | '/_authenticated/people/relationships'
     | '/_authenticated/people/tags'
     | '/_authenticated/people/verification'
+    | '/_authenticated/sales/assignment'
+    | '/_authenticated/sales/sla'
+    | '/_authenticated/sales/supervisor'
     | '/_authenticated/settings/global'
     | '/_authenticated/settings/integrations'
     | '/_authenticated/settings/masters'
     | '/_authenticated/settings/platform'
     | '/_authenticated/settings/territory'
+    | '/_authenticated/telecaller/calendar'
+    | '/_authenticated/telecaller/productivity'
+    | '/_authenticated/telecaller/queue'
     | '/_public/blog/$slug'
     | '/_public/consultation/$category'
     | '/_public/doctors/$slug'
@@ -1521,7 +1653,9 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/'
     | '/_authenticated/patients/'
     | '/_authenticated/people/'
+    | '/_authenticated/sales/'
     | '/_authenticated/settings/'
+    | '/_authenticated/telecaller/'
     | '/_public/blog/'
     | '/_public/doctors/'
     | '/_public/products/'
@@ -1532,6 +1666,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/integrations/catalog'
     | '/_authenticated/settings/integrations/logs'
     | '/_authenticated/settings/integrations/webhooks'
+    | '/_authenticated/telecaller/workspace/$leadId'
     | '/_public/consultation/result/$token'
     | '/api/public/assessment/$action'
     | '/api/public/cms/ab-assign'
@@ -1647,11 +1782,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicAboutRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_authenticated/telecaller': {
+      id: '/_authenticated/telecaller'
+      path: '/telecaller'
+      fullPath: '/telecaller'
+      preLoaderRoute: typeof AuthenticatedTelecallerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings': {
       id: '/_authenticated/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sales': {
+      id: '/_authenticated/sales'
+      path: '/sales'
+      fullPath: '/sales'
+      preLoaderRoute: typeof AuthenticatedSalesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/people': {
@@ -1745,12 +1894,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicBlogIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_authenticated/telecaller/': {
+      id: '/_authenticated/telecaller/'
+      path: '/'
+      fullPath: '/telecaller/'
+      preLoaderRoute: typeof AuthenticatedTelecallerIndexRouteImport
+      parentRoute: typeof AuthenticatedTelecallerRoute
+    }
     '/_authenticated/settings/': {
       id: '/_authenticated/settings/'
       path: '/'
       fullPath: '/settings/'
       preLoaderRoute: typeof AuthenticatedSettingsIndexRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/sales/': {
+      id: '/_authenticated/sales/'
+      path: '/'
+      fullPath: '/sales/'
+      preLoaderRoute: typeof AuthenticatedSalesIndexRouteImport
+      parentRoute: typeof AuthenticatedSalesRoute
     }
     '/_authenticated/people/': {
       id: '/_authenticated/people/'
@@ -1843,6 +2006,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicBlogSlugRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_authenticated/telecaller/queue': {
+      id: '/_authenticated/telecaller/queue'
+      path: '/queue'
+      fullPath: '/telecaller/queue'
+      preLoaderRoute: typeof AuthenticatedTelecallerQueueRouteImport
+      parentRoute: typeof AuthenticatedTelecallerRoute
+    }
+    '/_authenticated/telecaller/productivity': {
+      id: '/_authenticated/telecaller/productivity'
+      path: '/productivity'
+      fullPath: '/telecaller/productivity'
+      preLoaderRoute: typeof AuthenticatedTelecallerProductivityRouteImport
+      parentRoute: typeof AuthenticatedTelecallerRoute
+    }
+    '/_authenticated/telecaller/calendar': {
+      id: '/_authenticated/telecaller/calendar'
+      path: '/calendar'
+      fullPath: '/telecaller/calendar'
+      preLoaderRoute: typeof AuthenticatedTelecallerCalendarRouteImport
+      parentRoute: typeof AuthenticatedTelecallerRoute
+    }
     '/_authenticated/settings/territory': {
       id: '/_authenticated/settings/territory'
       path: '/territory'
@@ -1877,6 +2061,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/settings/global'
       preLoaderRoute: typeof AuthenticatedSettingsGlobalRouteImport
       parentRoute: typeof AuthenticatedSettingsRoute
+    }
+    '/_authenticated/sales/supervisor': {
+      id: '/_authenticated/sales/supervisor'
+      path: '/supervisor'
+      fullPath: '/sales/supervisor'
+      preLoaderRoute: typeof AuthenticatedSalesSupervisorRouteImport
+      parentRoute: typeof AuthenticatedSalesRoute
+    }
+    '/_authenticated/sales/sla': {
+      id: '/_authenticated/sales/sla'
+      path: '/sla'
+      fullPath: '/sales/sla'
+      preLoaderRoute: typeof AuthenticatedSalesSlaRouteImport
+      parentRoute: typeof AuthenticatedSalesRoute
+    }
+    '/_authenticated/sales/assignment': {
+      id: '/_authenticated/sales/assignment'
+      path: '/assignment'
+      fullPath: '/sales/assignment'
+      preLoaderRoute: typeof AuthenticatedSalesAssignmentRouteImport
+      parentRoute: typeof AuthenticatedSalesRoute
     }
     '/_authenticated/people/verification': {
       id: '/_authenticated/people/verification'
@@ -2361,6 +2566,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicConsultationResultTokenRouteImport
       parentRoute: typeof PublicConsultationRoute
     }
+    '/_authenticated/telecaller/workspace/$leadId': {
+      id: '/_authenticated/telecaller/workspace/$leadId'
+      path: '/workspace/$leadId'
+      fullPath: '/telecaller/workspace/$leadId'
+      preLoaderRoute: typeof AuthenticatedTelecallerWorkspaceLeadIdRouteImport
+      parentRoute: typeof AuthenticatedTelecallerRoute
+    }
     '/_authenticated/settings/integrations/webhooks': {
       id: '/_authenticated/settings/integrations/webhooks'
       path: '/webhooks'
@@ -2657,6 +2869,23 @@ const AuthenticatedPeopleRouteChildren: AuthenticatedPeopleRouteChildren = {
 const AuthenticatedPeopleRouteWithChildren =
   AuthenticatedPeopleRoute._addFileChildren(AuthenticatedPeopleRouteChildren)
 
+interface AuthenticatedSalesRouteChildren {
+  AuthenticatedSalesAssignmentRoute: typeof AuthenticatedSalesAssignmentRoute
+  AuthenticatedSalesSlaRoute: typeof AuthenticatedSalesSlaRoute
+  AuthenticatedSalesSupervisorRoute: typeof AuthenticatedSalesSupervisorRoute
+  AuthenticatedSalesIndexRoute: typeof AuthenticatedSalesIndexRoute
+}
+
+const AuthenticatedSalesRouteChildren: AuthenticatedSalesRouteChildren = {
+  AuthenticatedSalesAssignmentRoute: AuthenticatedSalesAssignmentRoute,
+  AuthenticatedSalesSlaRoute: AuthenticatedSalesSlaRoute,
+  AuthenticatedSalesSupervisorRoute: AuthenticatedSalesSupervisorRoute,
+  AuthenticatedSalesIndexRoute: AuthenticatedSalesIndexRoute,
+}
+
+const AuthenticatedSalesRouteWithChildren =
+  AuthenticatedSalesRoute._addFileChildren(AuthenticatedSalesRouteChildren)
+
 interface AuthenticatedSettingsIntegrationsRouteChildren {
   AuthenticatedSettingsIntegrationsApiKeysRoute: typeof AuthenticatedSettingsIntegrationsApiKeysRoute
   AuthenticatedSettingsIntegrationsCatalogRoute: typeof AuthenticatedSettingsIntegrationsCatalogRoute
@@ -2720,6 +2949,30 @@ const AuthenticatedSettingsRouteWithChildren =
     AuthenticatedSettingsRouteChildren,
   )
 
+interface AuthenticatedTelecallerRouteChildren {
+  AuthenticatedTelecallerCalendarRoute: typeof AuthenticatedTelecallerCalendarRoute
+  AuthenticatedTelecallerProductivityRoute: typeof AuthenticatedTelecallerProductivityRoute
+  AuthenticatedTelecallerQueueRoute: typeof AuthenticatedTelecallerQueueRoute
+  AuthenticatedTelecallerIndexRoute: typeof AuthenticatedTelecallerIndexRoute
+  AuthenticatedTelecallerWorkspaceLeadIdRoute: typeof AuthenticatedTelecallerWorkspaceLeadIdRoute
+}
+
+const AuthenticatedTelecallerRouteChildren: AuthenticatedTelecallerRouteChildren =
+  {
+    AuthenticatedTelecallerCalendarRoute: AuthenticatedTelecallerCalendarRoute,
+    AuthenticatedTelecallerProductivityRoute:
+      AuthenticatedTelecallerProductivityRoute,
+    AuthenticatedTelecallerQueueRoute: AuthenticatedTelecallerQueueRoute,
+    AuthenticatedTelecallerIndexRoute: AuthenticatedTelecallerIndexRoute,
+    AuthenticatedTelecallerWorkspaceLeadIdRoute:
+      AuthenticatedTelecallerWorkspaceLeadIdRoute,
+  }
+
+const AuthenticatedTelecallerRouteWithChildren =
+  AuthenticatedTelecallerRoute._addFileChildren(
+    AuthenticatedTelecallerRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
@@ -2730,7 +2983,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
+  AuthenticatedSalesRoute: typeof AuthenticatedSalesRouteWithChildren
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRouteWithChildren
+  AuthenticatedTelecallerRoute: typeof AuthenticatedTelecallerRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -2743,7 +2998,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
+  AuthenticatedSalesRoute: AuthenticatedSalesRouteWithChildren,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRouteWithChildren,
+  AuthenticatedTelecallerRoute: AuthenticatedTelecallerRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
