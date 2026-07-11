@@ -25,6 +25,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
 import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
+import { Route as AuthenticatedLeadsRouteImport } from './routes/_authenticated/leads'
 import { Route as AuthenticatedDataRouteImport } from './routes/_authenticated/data'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedConsultationsRouteImport } from './routes/_authenticated/consultations'
@@ -38,6 +39,7 @@ import { Route as AuthenticatedSettingsIndexRouteImport } from './routes/_authen
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
+import { Route as AuthenticatedLeadsIndexRouteImport } from './routes/_authenticated/leads.index'
 import { Route as AuthenticatedDataIndexRouteImport } from './routes/_authenticated/data.index'
 import { Route as AuthenticatedConsultationsIndexRouteImport } from './routes/_authenticated/consultations.index'
 import { Route as AuthenticatedCmsIndexRouteImport } from './routes/_authenticated/cms.index'
@@ -68,6 +70,8 @@ import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_aut
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
 import { Route as AuthenticatedOrganizationEmployeesRouteImport } from './routes/_authenticated/organization.employees'
 import { Route as AuthenticatedOrganizationDepartmentsRouteImport } from './routes/_authenticated/organization.departments'
+import { Route as AuthenticatedLeadsListRouteImport } from './routes/_authenticated/leads.list'
+import { Route as AuthenticatedLeadsLeadIdRouteImport } from './routes/_authenticated/leads.$leadId'
 import { Route as AuthenticatedDataWidgetsRouteImport } from './routes/_authenticated/data.widgets'
 import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
 import { Route as AuthenticatedDataSearchRouteImport } from './routes/_authenticated/data.search'
@@ -208,6 +212,11 @@ const AuthenticatedOrganizationRoute =
     path: '/organization',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedLeadsRoute = AuthenticatedLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDataRoute = AuthenticatedDataRouteImport.update({
   id: '/data',
   path: '/data',
@@ -278,6 +287,11 @@ const AuthenticatedOrganizationIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedOrganizationRoute,
   } as any)
+const AuthenticatedLeadsIndexRoute = AuthenticatedLeadsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedLeadsRoute,
+} as any)
 const AuthenticatedDataIndexRoute = AuthenticatedDataIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -448,6 +462,17 @@ const AuthenticatedOrganizationDepartmentsRoute =
     id: '/departments',
     path: '/departments',
     getParentRoute: () => AuthenticatedOrganizationRoute,
+  } as any)
+const AuthenticatedLeadsListRoute = AuthenticatedLeadsListRouteImport.update({
+  id: '/list',
+  path: '/list',
+  getParentRoute: () => AuthenticatedLeadsRoute,
+} as any)
+const AuthenticatedLeadsLeadIdRoute =
+  AuthenticatedLeadsLeadIdRouteImport.update({
+    id: '/$leadId',
+    path: '/$leadId',
+    getParentRoute: () => AuthenticatedLeadsRoute,
   } as any)
 const AuthenticatedDataWidgetsRoute =
   AuthenticatedDataWidgetsRouteImport.update({
@@ -805,6 +830,7 @@ export interface FileRoutesByFullPath {
   '/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/data': typeof AuthenticatedDataRouteWithChildren
+  '/leads': typeof AuthenticatedLeadsRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/people': typeof AuthenticatedPeopleRouteWithChildren
@@ -857,6 +883,8 @@ export interface FileRoutesByFullPath {
   '/data/search': typeof AuthenticatedDataSearchRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/data/widgets': typeof AuthenticatedDataWidgetsRoute
+  '/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
+  '/leads/list': typeof AuthenticatedLeadsListRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -887,6 +915,7 @@ export interface FileRoutesByFullPath {
   '/cms/': typeof AuthenticatedCmsIndexRoute
   '/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/data/': typeof AuthenticatedDataIndexRoute
+  '/leads/': typeof AuthenticatedLeadsIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
   '/people/': typeof AuthenticatedPeopleIndexRoute
@@ -968,6 +997,8 @@ export interface FileRoutesByTo {
   '/data/search': typeof AuthenticatedDataSearchRoute
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/data/widgets': typeof AuthenticatedDataWidgetsRoute
+  '/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
+  '/leads/list': typeof AuthenticatedLeadsListRoute
   '/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -997,6 +1028,7 @@ export interface FileRoutesByTo {
   '/cms': typeof AuthenticatedCmsIndexRoute
   '/consultations': typeof AuthenticatedConsultationsIndexRoute
   '/data': typeof AuthenticatedDataIndexRoute
+  '/leads': typeof AuthenticatedLeadsIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
   '/people': typeof AuthenticatedPeopleIndexRoute
@@ -1036,6 +1068,7 @@ export interface FileRoutesById {
   '/_authenticated/consultations': typeof AuthenticatedConsultationsRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/data': typeof AuthenticatedDataRouteWithChildren
+  '/_authenticated/leads': typeof AuthenticatedLeadsRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
   '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
@@ -1089,6 +1122,8 @@ export interface FileRoutesById {
   '/_authenticated/data/search': typeof AuthenticatedDataSearchRoute
   '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/_authenticated/data/widgets': typeof AuthenticatedDataWidgetsRoute
+  '/_authenticated/leads/$leadId': typeof AuthenticatedLeadsLeadIdRoute
+  '/_authenticated/leads/list': typeof AuthenticatedLeadsListRoute
   '/_authenticated/organization/departments': typeof AuthenticatedOrganizationDepartmentsRoute
   '/_authenticated/organization/employees': typeof AuthenticatedOrganizationEmployeesRoute
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
@@ -1119,6 +1154,7 @@ export interface FileRoutesById {
   '/_authenticated/cms/': typeof AuthenticatedCmsIndexRoute
   '/_authenticated/consultations/': typeof AuthenticatedConsultationsIndexRoute
   '/_authenticated/data/': typeof AuthenticatedDataIndexRoute
+  '/_authenticated/leads/': typeof AuthenticatedLeadsIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
@@ -1158,6 +1194,7 @@ export interface FileRouteTypes {
     | '/consultations'
     | '/dashboard'
     | '/data'
+    | '/leads'
     | '/organization'
     | '/patients'
     | '/people'
@@ -1210,6 +1247,8 @@ export interface FileRouteTypes {
     | '/data/search'
     | '/data/timeline'
     | '/data/widgets'
+    | '/leads/$leadId'
+    | '/leads/list'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -1240,6 +1279,7 @@ export interface FileRouteTypes {
     | '/cms/'
     | '/consultations/'
     | '/data/'
+    | '/leads/'
     | '/organization/'
     | '/patients/'
     | '/people/'
@@ -1321,6 +1361,8 @@ export interface FileRouteTypes {
     | '/data/search'
     | '/data/timeline'
     | '/data/widgets'
+    | '/leads/$leadId'
+    | '/leads/list'
     | '/organization/departments'
     | '/organization/employees'
     | '/organization/roles'
@@ -1350,6 +1392,7 @@ export interface FileRouteTypes {
     | '/cms'
     | '/consultations'
     | '/data'
+    | '/leads'
     | '/organization'
     | '/patients'
     | '/people'
@@ -1388,6 +1431,7 @@ export interface FileRouteTypes {
     | '/_authenticated/consultations'
     | '/_authenticated/dashboard'
     | '/_authenticated/data'
+    | '/_authenticated/leads'
     | '/_authenticated/organization'
     | '/_authenticated/patients'
     | '/_authenticated/people'
@@ -1441,6 +1485,8 @@ export interface FileRouteTypes {
     | '/_authenticated/data/search'
     | '/_authenticated/data/timeline'
     | '/_authenticated/data/widgets'
+    | '/_authenticated/leads/$leadId'
+    | '/_authenticated/leads/list'
     | '/_authenticated/organization/departments'
     | '/_authenticated/organization/employees'
     | '/_authenticated/organization/roles'
@@ -1471,6 +1517,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cms/'
     | '/_authenticated/consultations/'
     | '/_authenticated/data/'
+    | '/_authenticated/leads/'
     | '/_authenticated/organization/'
     | '/_authenticated/patients/'
     | '/_authenticated/people/'
@@ -1628,6 +1675,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizationRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/leads': {
+      id: '/_authenticated/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof AuthenticatedLeadsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/data': {
       id: '/_authenticated/data'
       path: '/data'
@@ -1718,6 +1772,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/'
       preLoaderRoute: typeof AuthenticatedOrganizationIndexRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/leads/': {
+      id: '/_authenticated/leads/'
+      path: '/'
+      fullPath: '/leads/'
+      preLoaderRoute: typeof AuthenticatedLeadsIndexRouteImport
+      parentRoute: typeof AuthenticatedLeadsRoute
     }
     '/_authenticated/data/': {
       id: '/_authenticated/data/'
@@ -1928,6 +1989,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/organization/departments'
       preLoaderRoute: typeof AuthenticatedOrganizationDepartmentsRouteImport
       parentRoute: typeof AuthenticatedOrganizationRoute
+    }
+    '/_authenticated/leads/list': {
+      id: '/_authenticated/leads/list'
+      path: '/list'
+      fullPath: '/leads/list'
+      preLoaderRoute: typeof AuthenticatedLeadsListRouteImport
+      parentRoute: typeof AuthenticatedLeadsRoute
+    }
+    '/_authenticated/leads/$leadId': {
+      id: '/_authenticated/leads/$leadId'
+      path: '/$leadId'
+      fullPath: '/leads/$leadId'
+      preLoaderRoute: typeof AuthenticatedLeadsLeadIdRouteImport
+      parentRoute: typeof AuthenticatedLeadsRoute
     }
     '/_authenticated/data/widgets': {
       id: '/_authenticated/data/widgets'
@@ -2495,6 +2570,21 @@ const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
 const AuthenticatedDataRouteWithChildren =
   AuthenticatedDataRoute._addFileChildren(AuthenticatedDataRouteChildren)
 
+interface AuthenticatedLeadsRouteChildren {
+  AuthenticatedLeadsLeadIdRoute: typeof AuthenticatedLeadsLeadIdRoute
+  AuthenticatedLeadsListRoute: typeof AuthenticatedLeadsListRoute
+  AuthenticatedLeadsIndexRoute: typeof AuthenticatedLeadsIndexRoute
+}
+
+const AuthenticatedLeadsRouteChildren: AuthenticatedLeadsRouteChildren = {
+  AuthenticatedLeadsLeadIdRoute: AuthenticatedLeadsLeadIdRoute,
+  AuthenticatedLeadsListRoute: AuthenticatedLeadsListRoute,
+  AuthenticatedLeadsIndexRoute: AuthenticatedLeadsIndexRoute,
+}
+
+const AuthenticatedLeadsRouteWithChildren =
+  AuthenticatedLeadsRoute._addFileChildren(AuthenticatedLeadsRouteChildren)
+
 interface AuthenticatedOrganizationRouteChildren {
   AuthenticatedOrganizationDepartmentsRoute: typeof AuthenticatedOrganizationDepartmentsRoute
   AuthenticatedOrganizationEmployeesRoute: typeof AuthenticatedOrganizationEmployeesRoute
@@ -2636,6 +2726,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedConsultationsRoute: typeof AuthenticatedConsultationsRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDataRoute: typeof AuthenticatedDataRouteWithChildren
+  AuthenticatedLeadsRoute: typeof AuthenticatedLeadsRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
   AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
@@ -2648,6 +2739,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConsultationsRoute: AuthenticatedConsultationsRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDataRoute: AuthenticatedDataRouteWithChildren,
+  AuthenticatedLeadsRoute: AuthenticatedLeadsRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
   AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
