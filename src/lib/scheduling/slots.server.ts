@@ -67,9 +67,9 @@ function overlaps(
 function scheduleWindows(
   schedule: Array<{
     day_of_week?: number | null;
-    starts_at?: string | null;
-    ends_at?: string | null;
-    is_available?: boolean | null;
+    start_time?: string | null;
+    end_time?: string | null;
+    is_active?: boolean | null;
   }>,
   fromISO: string,
   toISO: string,
@@ -82,14 +82,15 @@ function scheduleWindows(
     const day = new Date(t);
     const dow = day.getUTCDay();
     for (const s of schedule) {
-      if (s.is_available === false) continue;
+      if (s.is_active === false) continue;
       if (s.day_of_week != null && s.day_of_week !== dow) continue;
-      const [sh, sm] = ((s.starts_at ?? "09:00") as string)
+      const [sh, sm] = ((s.start_time ?? "09:00") as string)
         .split(":")
         .map(Number);
-      const [eh, em] = ((s.ends_at ?? "17:00") as string)
+      const [eh, em] = ((s.end_time ?? "17:00") as string)
         .split(":")
         .map(Number);
+
       const start = new Date(
         Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate(), sh, sm),
       );
