@@ -8,7 +8,10 @@
  *   - reuses the existing Timeline, Workflow, Search primitives (via engines)
  */
 import { createServerFn } from "@tanstack/react-start";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Database } from "@/integrations/supabase/types";
 import {
   ClinicalConsentEngine,
   ClinicalFollowupEngine,
@@ -27,6 +30,7 @@ import {
   TreatmentPlanRepository,
 } from "./stage4.repositories.server";
 import { EncounterRepository } from "./repositories.server";
+import { tenantId as tenantIdSchema } from "./validators";
 import {
   consentUpsertSchema,
   followupUpsertSchema,
@@ -44,10 +48,13 @@ import {
   treatmentPlanUpsertSchema,
 } from "./stage4.validators";
 
+const tenantOnlySchema = z.object({
+  tenantId: tenantIdSchema,
+  limit: z.number().int().positive().max(200).default(100),
+});
+
 async function requireEncounterPatient(
-  sb: Parameters<typeof SoapEngine.prototype.saveVersion>[0] extends never
-    ? never
-    : ConstructorParameters<typeof SoapEngine>[0],
+  sb: SupabaseClient<Database>,
   tenantId: string,
   encounterId: string,
 ): Promise<string> {
