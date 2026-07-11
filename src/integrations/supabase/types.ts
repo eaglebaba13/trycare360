@@ -3512,6 +3512,102 @@ export type Database = {
           },
         ]
       }
+      clinical_consents: {
+        Row: {
+          actor_person_id: string | null
+          actor_role: string | null
+          created_at: string
+          created_by: string | null
+          document_id: string | null
+          encounter_id: string | null
+          id: string
+          notes: string | null
+          patient_id: string
+          signature_meta: Json
+          signed_at: string | null
+          status: string
+          template_code: string | null
+          template_id: string | null
+          template_version: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          actor_person_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_id?: string | null
+          encounter_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id: string
+          signature_meta?: Json
+          signed_at?: string | null
+          status?: string
+          template_code?: string | null
+          template_id?: string | null
+          template_version?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          actor_person_id?: string | null
+          actor_role?: string | null
+          created_at?: string
+          created_by?: string | null
+          document_id?: string | null
+          encounter_id?: string | null
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          signature_meta?: Json
+          signed_at?: string | null
+          status?: string
+          template_code?: string | null
+          template_id?: string | null
+          template_version?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_consents_actor_person_id_fkey"
+            columns: ["actor_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_consent_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinical_contraindication_rules: {
         Row: {
           code: string
@@ -3867,6 +3963,89 @@ export type Database = {
           },
         ]
       }
+      clinical_followups: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          encounter_id: string | null
+          id: string
+          linked_appointment_id: string | null
+          notes: string | null
+          patient_id: string
+          priority: string
+          reason: string
+          status: string
+          suggested_date: string | null
+          suggested_interval_days: number | null
+          tenant_id: string
+          treatment_plan_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          linked_appointment_id?: string | null
+          notes?: string | null
+          patient_id: string
+          priority?: string
+          reason: string
+          status?: string
+          suggested_date?: string | null
+          suggested_interval_days?: number | null
+          tenant_id: string
+          treatment_plan_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          linked_appointment_id?: string | null
+          notes?: string | null
+          patient_id?: string
+          priority?: string
+          reason?: string
+          status?: string
+          suggested_date?: string | null
+          suggested_interval_days?: number | null
+          tenant_id?: string
+          treatment_plan_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_followups_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_followups_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_followups_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_followups_treatment_plan_id_fkey"
+            columns: ["treatment_plan_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_treatment_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinical_lifestyle_history: {
         Row: {
           alcohol: Json | null
@@ -3932,6 +4111,107 @@ export type Database = {
           },
           {
             foreignKeyName: "clinical_lifestyle_history_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_media: {
+        Row: {
+          annotations: Json
+          body_region: string | null
+          category: string
+          created_at: string
+          description: string | null
+          encounter_id: string | null
+          id: string
+          is_private: boolean
+          meta: Json
+          mime: string | null
+          parent_media_id: string | null
+          patient_id: string
+          size_bytes: number | null
+          storage_bucket: string
+          storage_path: string
+          taken_at: string | null
+          tenant_id: string
+          title: string | null
+          updated_at: string
+          uploaded_by: string | null
+          version_no: number
+        }
+        Insert: {
+          annotations?: Json
+          body_region?: string | null
+          category: string
+          created_at?: string
+          description?: string | null
+          encounter_id?: string | null
+          id?: string
+          is_private?: boolean
+          meta?: Json
+          mime?: string | null
+          parent_media_id?: string | null
+          patient_id: string
+          size_bytes?: number | null
+          storage_bucket?: string
+          storage_path: string
+          taken_at?: string | null
+          tenant_id: string
+          title?: string | null
+          updated_at?: string
+          uploaded_by?: string | null
+          version_no?: number
+        }
+        Update: {
+          annotations?: Json
+          body_region?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          encounter_id?: string | null
+          id?: string
+          is_private?: boolean
+          meta?: Json
+          mime?: string | null
+          parent_media_id?: string | null
+          patient_id?: string
+          size_bytes?: number | null
+          storage_bucket?: string
+          storage_path?: string
+          taken_at?: string | null
+          tenant_id?: string
+          title?: string | null
+          updated_at?: string
+          uploaded_by?: string | null
+          version_no?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_media_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_media_parent_media_id_fkey"
+            columns: ["parent_media_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_media"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_media_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_media_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -4053,6 +4333,81 @@ export type Database = {
           },
         ]
       }
+      clinical_prescription_items: {
+        Row: {
+          allergy_flags: Json
+          created_at: string
+          dose: string | null
+          duration: string | null
+          frequency: string | null
+          id: string
+          instructions: string | null
+          interaction_flags: Json
+          medication: string
+          meta: Json
+          position: number
+          prescription_id: string
+          refills: number
+          route: string | null
+          tenant_id: string
+          updated_at: string
+          warnings: Json
+        }
+        Insert: {
+          allergy_flags?: Json
+          created_at?: string
+          dose?: string | null
+          duration?: string | null
+          frequency?: string | null
+          id?: string
+          instructions?: string | null
+          interaction_flags?: Json
+          medication: string
+          meta?: Json
+          position?: number
+          prescription_id: string
+          refills?: number
+          route?: string | null
+          tenant_id: string
+          updated_at?: string
+          warnings?: Json
+        }
+        Update: {
+          allergy_flags?: Json
+          created_at?: string
+          dose?: string | null
+          duration?: string | null
+          frequency?: string | null
+          id?: string
+          instructions?: string | null
+          interaction_flags?: Json
+          medication?: string
+          meta?: Json
+          position?: number
+          prescription_id?: string
+          refills?: number
+          route?: string | null
+          tenant_id?: string
+          updated_at?: string
+          warnings?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_prescription_items_prescription_id_fkey"
+            columns: ["prescription_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_prescription_items_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinical_prescription_templates: {
         Row: {
           code: string
@@ -4093,6 +4448,89 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_prescriptions: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          encounter_id: string | null
+          id: string
+          meta: Json
+          notes: string | null
+          patient_id: string
+          prescribed_at: string | null
+          prescribed_by: string | null
+          printable_ref: string | null
+          signature_meta: Json
+          status: string
+          tenant_id: string
+          treatment_plan_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id: string
+          prescribed_at?: string | null
+          prescribed_by?: string | null
+          printable_ref?: string | null
+          signature_meta?: Json
+          status?: string
+          tenant_id: string
+          treatment_plan_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id?: string
+          prescribed_at?: string | null
+          prescribed_by?: string | null
+          printable_ref?: string | null
+          signature_meta?: Json
+          status?: string
+          tenant_id?: string
+          treatment_plan_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_prescriptions_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_prescriptions_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_prescriptions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_prescriptions_treatment_plan_id_fkey"
+            columns: ["treatment_plan_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_treatment_plans"
             referencedColumns: ["id"]
           },
         ]
@@ -4518,6 +4956,86 @@ export type Database = {
           },
         ]
       }
+      clinical_soap_notes: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          current_version_id: string | null
+          encounter_id: string
+          id: string
+          patient_id: string
+          signature_meta: Json
+          signed_at: string | null
+          signed_by: string | null
+          status: string
+          template_code: string | null
+          tenant_id: string
+          updated_at: string
+          version_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          current_version_id?: string | null
+          encounter_id: string
+          id?: string
+          patient_id: string
+          signature_meta?: Json
+          signed_at?: string | null
+          signed_by?: string | null
+          status?: string
+          template_code?: string | null
+          tenant_id: string
+          updated_at?: string
+          version_count?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          current_version_id?: string | null
+          encounter_id?: string
+          id?: string
+          patient_id?: string
+          signature_meta?: Json
+          signed_at?: string | null
+          signed_by?: string | null
+          status?: string
+          template_code?: string | null
+          tenant_id?: string
+          updated_at?: string
+          version_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_soap_notes_current_version_fk"
+            columns: ["current_version_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_soap_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_soap_notes_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: true
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_soap_notes_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_soap_notes_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinical_soap_templates: {
         Row: {
           code: string
@@ -4558,6 +5076,180 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "clinical_soap_templates_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_soap_versions: {
+        Row: {
+          assessment: Json
+          created_at: string
+          id: string
+          is_autosave: boolean
+          objective: Json
+          plan: Json
+          restored_from_version_id: string | null
+          saved_at: string
+          saved_by: string | null
+          signature_meta: Json
+          soap_note_id: string
+          subjective: Json
+          template_code: string | null
+          tenant_id: string
+          version_no: number
+        }
+        Insert: {
+          assessment?: Json
+          created_at?: string
+          id?: string
+          is_autosave?: boolean
+          objective?: Json
+          plan?: Json
+          restored_from_version_id?: string | null
+          saved_at?: string
+          saved_by?: string | null
+          signature_meta?: Json
+          soap_note_id: string
+          subjective?: Json
+          template_code?: string | null
+          tenant_id: string
+          version_no: number
+        }
+        Update: {
+          assessment?: Json
+          created_at?: string
+          id?: string
+          is_autosave?: boolean
+          objective?: Json
+          plan?: Json
+          restored_from_version_id?: string | null
+          saved_at?: string
+          saved_by?: string | null
+          signature_meta?: Json
+          soap_note_id?: string
+          subjective?: Json
+          template_code?: string | null
+          tenant_id?: string
+          version_no?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_soap_versions_restored_from_version_id_fkey"
+            columns: ["restored_from_version_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_soap_versions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_soap_versions_soap_note_id_fkey"
+            columns: ["soap_note_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_soap_notes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_soap_versions_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_treatment_plans: {
+        Row: {
+          contraindications: string | null
+          created_at: string
+          created_by: string | null
+          diagnosis: string | null
+          encounter_id: string | null
+          end_date: string | null
+          expected_outcomes: string | null
+          goals: Json
+          id: string
+          instructions: string | null
+          milestones: Json
+          patient_id: string
+          progress: Json
+          protocol_id: string | null
+          review_schedule: Json
+          start_date: string | null
+          status: string
+          tenant_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          contraindications?: string | null
+          created_at?: string
+          created_by?: string | null
+          diagnosis?: string | null
+          encounter_id?: string | null
+          end_date?: string | null
+          expected_outcomes?: string | null
+          goals?: Json
+          id?: string
+          instructions?: string | null
+          milestones?: Json
+          patient_id: string
+          progress?: Json
+          protocol_id?: string | null
+          review_schedule?: Json
+          start_date?: string | null
+          status?: string
+          tenant_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          contraindications?: string | null
+          created_at?: string
+          created_by?: string | null
+          diagnosis?: string | null
+          encounter_id?: string | null
+          end_date?: string | null
+          expected_outcomes?: string | null
+          goals?: Json
+          id?: string
+          instructions?: string | null
+          milestones?: Json
+          patient_id?: string
+          progress?: Json
+          protocol_id?: string | null
+          review_schedule?: Json
+          start_date?: string | null
+          status?: string
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_treatment_plans_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_treatment_plans_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_treatment_plans_protocol_id_fkey"
+            columns: ["protocol_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_treatment_protocols"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_treatment_plans_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"

@@ -1,9 +1,10 @@
 /**
- * Clinical / EMR event contracts (Phase 2.5 Stage 2).
+ * Clinical / EMR event contracts (Phase 2.5 Stages 2–4).
  * All events flow through the existing Workflow Engine via
  * `emit_automation_event()`. No new event bus is introduced.
  */
 export const CLINICAL_EVENTS = {
+  // Stage 2
   ENCOUNTER_CREATED: "clinical.encounter.created",
   ENCOUNTER_UPDATED: "clinical.encounter.updated",
   ENCOUNTER_CLOSED: "clinical.encounter.closed",
@@ -23,6 +24,21 @@ export const CLINICAL_EVENTS = {
   SECOND_OPINION_REQUESTED: "clinical.second_opinion.requested",
   SECOND_OPINION_COMPLETED: "clinical.second_opinion.completed",
   SOAP_SAVED: "clinical.soap.saved",
+  // Stage 4
+  SOAP_VERSIONED: "clinical.soap.versioned",
+  SOAP_RESTORED: "clinical.soap.restored",
+  SOAP_SIGNED: "clinical.soap.signed",
+  TREATMENT_PLAN_CREATED: "clinical.treatment_plan.created",
+  TREATMENT_PLAN_UPDATED: "clinical.treatment_plan.updated",
+  PRESCRIPTION_CREATED: "clinical.prescription.created",
+  PRESCRIPTION_UPDATED: "clinical.prescription.updated",
+  PRESCRIPTION_ISSUED: "clinical.prescription.issued",
+  MEDIA_UPLOADED: "clinical.media.uploaded",
+  MEDIA_UPDATED: "clinical.media.updated",
+  CONSENT_RECORDED: "clinical.consent.recorded",
+  CONSENT_UPDATED: "clinical.consent.updated",
+  FOLLOWUP_CREATED: "clinical.followup.created",
+  FOLLOWUP_UPDATED: "clinical.followup.updated",
 } as const;
 
 export type ClinicalEvent = (typeof CLINICAL_EVENTS)[keyof typeof CLINICAL_EVENTS];
