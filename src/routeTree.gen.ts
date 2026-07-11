@@ -34,6 +34,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedConsultationsRouteImport } from './routes/_authenticated/consultations'
 import { Route as AuthenticatedCmsRouteImport } from './routes/_authenticated/cms'
 import { Route as AuthenticatedAutomationRouteImport } from './routes/_authenticated/automation'
+import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
 import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
 import { Route as PublicProductsIndexRouteImport } from './routes/_public.products.index'
 import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
@@ -275,6 +276,11 @@ const AuthenticatedCmsRoute = AuthenticatedCmsRouteImport.update({
 const AuthenticatedAutomationRoute = AuthenticatedAutomationRouteImport.update({
   id: '/automation',
   path: '/automation',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAnalyticsRoute = AuthenticatedAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const PublicTreatmentsIndexRoute = PublicTreatmentsIndexRouteImport.update({
@@ -953,6 +959,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
   '/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/cms': typeof AuthenticatedCmsRouteWithChildren
   '/consultations': typeof AuthenticatedConsultationsRouteWithChildren
@@ -1095,6 +1102,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/analytics': typeof AuthenticatedAnalyticsRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/about': typeof PublicAboutRoute
   '/academy': typeof PublicAcademyRoute
@@ -1226,6 +1234,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/analytics': typeof AuthenticatedAnalyticsRoute
   '/_authenticated/automation': typeof AuthenticatedAutomationRouteWithChildren
   '/_authenticated/cms': typeof AuthenticatedCmsRouteWithChildren
   '/_authenticated/consultations': typeof AuthenticatedConsultationsRouteWithChildren
@@ -1371,6 +1380,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/analytics'
     | '/automation'
     | '/cms'
     | '/consultations'
@@ -1513,6 +1523,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/analytics'
     | '/dashboard'
     | '/about'
     | '/academy'
@@ -1643,6 +1654,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/_authenticated/analytics'
     | '/_authenticated/automation'
     | '/_authenticated/cms'
     | '/_authenticated/consultations'
@@ -1972,6 +1984,13 @@ declare module '@tanstack/react-router' {
       path: '/automation'
       fullPath: '/automation'
       preLoaderRoute: typeof AuthenticatedAutomationRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/analytics': {
+      id: '/_authenticated/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AuthenticatedAnalyticsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_public/treatments/': {
@@ -3155,6 +3174,7 @@ const AuthenticatedTelecallerRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAnalyticsRoute: typeof AuthenticatedAnalyticsRoute
   AuthenticatedAutomationRoute: typeof AuthenticatedAutomationRouteWithChildren
   AuthenticatedCmsRoute: typeof AuthenticatedCmsRouteWithChildren
   AuthenticatedConsultationsRoute: typeof AuthenticatedConsultationsRouteWithChildren
@@ -3171,6 +3191,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAnalyticsRoute: AuthenticatedAnalyticsRoute,
   AuthenticatedAutomationRoute: AuthenticatedAutomationRouteWithChildren,
   AuthenticatedCmsRoute: AuthenticatedCmsRouteWithChildren,
   AuthenticatedConsultationsRoute: AuthenticatedConsultationsRouteWithChildren,
