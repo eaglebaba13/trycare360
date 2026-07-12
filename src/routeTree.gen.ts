@@ -132,6 +132,8 @@ import { Route as AuthenticatedLeadsLeadIdRouteImport } from './routes/_authenti
 import { Route as AuthenticatedLaboratoryVerificationRouteImport } from './routes/_authenticated/laboratory.verification'
 import { Route as AuthenticatedLaboratorySpecimensRouteImport } from './routes/_authenticated/laboratory.specimens'
 import { Route as AuthenticatedLaboratoryResultsRouteImport } from './routes/_authenticated/laboratory.results'
+import { Route as AuthenticatedLaboratoryResultReviewRouteImport } from './routes/_authenticated/laboratory.result-review'
+import { Route as AuthenticatedLaboratoryReportingRouteImport } from './routes/_authenticated/laboratory.reporting'
 import { Route as AuthenticatedLaboratoryReleaseRouteImport } from './routes/_authenticated/laboratory.release'
 import { Route as AuthenticatedLaboratoryRadiologyRouteImport } from './routes/_authenticated/laboratory.radiology'
 import { Route as AuthenticatedLaboratoryQcRouteImport } from './routes/_authenticated/laboratory.qc'
@@ -140,8 +142,10 @@ import { Route as AuthenticatedLaboratoryOrdersRouteImport } from './routes/_aut
 import { Route as AuthenticatedLaboratoryMicrobiologyRouteImport } from './routes/_authenticated/laboratory.microbiology'
 import { Route as AuthenticatedLaboratoryInstrumentsRouteImport } from './routes/_authenticated/laboratory.instruments'
 import { Route as AuthenticatedLaboratoryExternalRouteImport } from './routes/_authenticated/laboratory.external'
+import { Route as AuthenticatedLaboratoryDistributionReportRouteImport } from './routes/_authenticated/laboratory.distribution-report'
 import { Route as AuthenticatedLaboratoryDistributionRouteImport } from './routes/_authenticated/laboratory.distribution'
 import { Route as AuthenticatedLaboratoryCalibrationRouteImport } from './routes/_authenticated/laboratory.calibration'
+import { Route as AuthenticatedLaboratoryAmendmentsRouteImport } from './routes/_authenticated/laboratory.amendments'
 import { Route as AuthenticatedLaboratoryAccessionsRouteImport } from './routes/_authenticated/laboratory.accessions'
 import { Route as AuthenticatedDataWidgetsRouteImport } from './routes/_authenticated/data.widgets'
 import { Route as AuthenticatedDataTimelineRouteImport } from './routes/_authenticated/data.timeline'
@@ -246,7 +250,10 @@ import { Route as AuthenticatedPharmacyAnalyticsExpiryRouteImport } from './rout
 import { Route as AuthenticatedPharmacyAnalyticsDispensingRouteImport } from './routes/_authenticated/pharmacy.analytics.dispensing'
 import { Route as AuthenticatedPharmacyAnalyticsControlledRouteImport } from './routes/_authenticated/pharmacy.analytics.controlled'
 import { Route as AuthenticatedPharmacyAnalyticsColdchainRouteImport } from './routes/_authenticated/pharmacy.analytics.coldchain'
+import { Route as AuthenticatedLaboratoryRadiologyReportingRouteImport } from './routes/_authenticated/laboratory.radiology.reporting'
+import { Route as AuthenticatedLaboratoryPathologyReportingRouteImport } from './routes/_authenticated/laboratory.pathology.reporting'
 import { Route as AuthenticatedLaboratoryOrdersIdRouteImport } from './routes/_authenticated/laboratory.orders.$id'
+import { Route as AuthenticatedLaboratoryMicrobiologyReportingRouteImport } from './routes/_authenticated/laboratory.microbiology.reporting'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedClinicalEncounterIdRouteImport } from './routes/_authenticated/clinical.encounter.$id'
 import { Route as AuthenticatedClinicalAnalyticsReportsRouteImport } from './routes/_authenticated/clinical.analytics.reports'
@@ -950,6 +957,18 @@ const AuthenticatedLaboratoryResultsRoute =
     path: '/results',
     getParentRoute: () => AuthenticatedLaboratoryRoute,
   } as any)
+const AuthenticatedLaboratoryResultReviewRoute =
+  AuthenticatedLaboratoryResultReviewRouteImport.update({
+    id: '/result-review',
+    path: '/result-review',
+    getParentRoute: () => AuthenticatedLaboratoryRoute,
+  } as any)
+const AuthenticatedLaboratoryReportingRoute =
+  AuthenticatedLaboratoryReportingRouteImport.update({
+    id: '/reporting',
+    path: '/reporting',
+    getParentRoute: () => AuthenticatedLaboratoryRoute,
+  } as any)
 const AuthenticatedLaboratoryReleaseRoute =
   AuthenticatedLaboratoryReleaseRouteImport.update({
     id: '/release',
@@ -998,6 +1017,12 @@ const AuthenticatedLaboratoryExternalRoute =
     path: '/external',
     getParentRoute: () => AuthenticatedLaboratoryRoute,
   } as any)
+const AuthenticatedLaboratoryDistributionReportRoute =
+  AuthenticatedLaboratoryDistributionReportRouteImport.update({
+    id: '/distribution-report',
+    path: '/distribution-report',
+    getParentRoute: () => AuthenticatedLaboratoryRoute,
+  } as any)
 const AuthenticatedLaboratoryDistributionRoute =
   AuthenticatedLaboratoryDistributionRouteImport.update({
     id: '/distribution',
@@ -1008,6 +1033,12 @@ const AuthenticatedLaboratoryCalibrationRoute =
   AuthenticatedLaboratoryCalibrationRouteImport.update({
     id: '/calibration',
     path: '/calibration',
+    getParentRoute: () => AuthenticatedLaboratoryRoute,
+  } as any)
+const AuthenticatedLaboratoryAmendmentsRoute =
+  AuthenticatedLaboratoryAmendmentsRouteImport.update({
+    id: '/amendments',
+    path: '/amendments',
     getParentRoute: () => AuthenticatedLaboratoryRoute,
   } as any)
 const AuthenticatedLaboratoryAccessionsRoute =
@@ -1619,11 +1650,29 @@ const AuthenticatedPharmacyAnalyticsColdchainRoute =
     path: '/coldchain',
     getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
   } as any)
+const AuthenticatedLaboratoryRadiologyReportingRoute =
+  AuthenticatedLaboratoryRadiologyReportingRouteImport.update({
+    id: '/reporting',
+    path: '/reporting',
+    getParentRoute: () => AuthenticatedLaboratoryRadiologyRoute,
+  } as any)
+const AuthenticatedLaboratoryPathologyReportingRoute =
+  AuthenticatedLaboratoryPathologyReportingRouteImport.update({
+    id: '/reporting',
+    path: '/reporting',
+    getParentRoute: () => AuthenticatedLaboratoryPathologyRoute,
+  } as any)
 const AuthenticatedLaboratoryOrdersIdRoute =
   AuthenticatedLaboratoryOrdersIdRouteImport.update({
     id: '/$id',
     path: '/$id',
     getParentRoute: () => AuthenticatedLaboratoryOrdersRoute,
+  } as any)
+const AuthenticatedLaboratoryMicrobiologyReportingRoute =
+  AuthenticatedLaboratoryMicrobiologyReportingRouteImport.update({
+    id: '/reporting',
+    path: '/reporting',
+    getParentRoute: () => AuthenticatedLaboratoryMicrobiologyRoute,
   } as any)
 const AuthenticatedCmsBuilderPageIdRoute =
   AuthenticatedCmsBuilderPageIdRouteImport.update({
@@ -1782,16 +1831,20 @@ export interface FileRoutesByFullPath {
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/laboratory/accessions': typeof AuthenticatedLaboratoryAccessionsRoute
+  '/laboratory/amendments': typeof AuthenticatedLaboratoryAmendmentsRoute
   '/laboratory/calibration': typeof AuthenticatedLaboratoryCalibrationRoute
   '/laboratory/distribution': typeof AuthenticatedLaboratoryDistributionRoute
+  '/laboratory/distribution-report': typeof AuthenticatedLaboratoryDistributionReportRoute
   '/laboratory/external': typeof AuthenticatedLaboratoryExternalRoute
   '/laboratory/instruments': typeof AuthenticatedLaboratoryInstrumentsRoute
-  '/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRoute
+  '/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRouteWithChildren
   '/laboratory/orders': typeof AuthenticatedLaboratoryOrdersRouteWithChildren
-  '/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRoute
+  '/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRouteWithChildren
   '/laboratory/qc': typeof AuthenticatedLaboratoryQcRoute
-  '/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRoute
+  '/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRouteWithChildren
   '/laboratory/release': typeof AuthenticatedLaboratoryReleaseRoute
+  '/laboratory/reporting': typeof AuthenticatedLaboratoryReportingRoute
+  '/laboratory/result-review': typeof AuthenticatedLaboratoryResultReviewRoute
   '/laboratory/results': typeof AuthenticatedLaboratoryResultsRoute
   '/laboratory/specimens': typeof AuthenticatedLaboratorySpecimensRoute
   '/laboratory/verification': typeof AuthenticatedLaboratoryVerificationRoute
@@ -1893,7 +1946,10 @@ export interface FileRoutesByFullPath {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/laboratory/microbiology/reporting': typeof AuthenticatedLaboratoryMicrobiologyReportingRoute
   '/laboratory/orders/$id': typeof AuthenticatedLaboratoryOrdersIdRoute
+  '/laboratory/pathology/reporting': typeof AuthenticatedLaboratoryPathologyReportingRoute
+  '/laboratory/radiology/reporting': typeof AuthenticatedLaboratoryRadiologyReportingRoute
   '/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
   '/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
   '/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
@@ -2013,16 +2069,20 @@ export interface FileRoutesByTo {
   '/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/laboratory/accessions': typeof AuthenticatedLaboratoryAccessionsRoute
+  '/laboratory/amendments': typeof AuthenticatedLaboratoryAmendmentsRoute
   '/laboratory/calibration': typeof AuthenticatedLaboratoryCalibrationRoute
   '/laboratory/distribution': typeof AuthenticatedLaboratoryDistributionRoute
+  '/laboratory/distribution-report': typeof AuthenticatedLaboratoryDistributionReportRoute
   '/laboratory/external': typeof AuthenticatedLaboratoryExternalRoute
   '/laboratory/instruments': typeof AuthenticatedLaboratoryInstrumentsRoute
-  '/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRoute
+  '/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRouteWithChildren
   '/laboratory/orders': typeof AuthenticatedLaboratoryOrdersRouteWithChildren
-  '/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRoute
+  '/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRouteWithChildren
   '/laboratory/qc': typeof AuthenticatedLaboratoryQcRoute
-  '/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRoute
+  '/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRouteWithChildren
   '/laboratory/release': typeof AuthenticatedLaboratoryReleaseRoute
+  '/laboratory/reporting': typeof AuthenticatedLaboratoryReportingRoute
+  '/laboratory/result-review': typeof AuthenticatedLaboratoryResultReviewRoute
   '/laboratory/results': typeof AuthenticatedLaboratoryResultsRoute
   '/laboratory/specimens': typeof AuthenticatedLaboratorySpecimensRoute
   '/laboratory/verification': typeof AuthenticatedLaboratoryVerificationRoute
@@ -2120,7 +2180,10 @@ export interface FileRoutesByTo {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/laboratory/microbiology/reporting': typeof AuthenticatedLaboratoryMicrobiologyReportingRoute
   '/laboratory/orders/$id': typeof AuthenticatedLaboratoryOrdersIdRoute
+  '/laboratory/pathology/reporting': typeof AuthenticatedLaboratoryPathologyReportingRoute
+  '/laboratory/radiology/reporting': typeof AuthenticatedLaboratoryRadiologyReportingRoute
   '/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
   '/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
   '/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
@@ -2261,16 +2324,20 @@ export interface FileRoutesById {
   '/_authenticated/data/timeline': typeof AuthenticatedDataTimelineRoute
   '/_authenticated/data/widgets': typeof AuthenticatedDataWidgetsRoute
   '/_authenticated/laboratory/accessions': typeof AuthenticatedLaboratoryAccessionsRoute
+  '/_authenticated/laboratory/amendments': typeof AuthenticatedLaboratoryAmendmentsRoute
   '/_authenticated/laboratory/calibration': typeof AuthenticatedLaboratoryCalibrationRoute
   '/_authenticated/laboratory/distribution': typeof AuthenticatedLaboratoryDistributionRoute
+  '/_authenticated/laboratory/distribution-report': typeof AuthenticatedLaboratoryDistributionReportRoute
   '/_authenticated/laboratory/external': typeof AuthenticatedLaboratoryExternalRoute
   '/_authenticated/laboratory/instruments': typeof AuthenticatedLaboratoryInstrumentsRoute
-  '/_authenticated/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRoute
+  '/_authenticated/laboratory/microbiology': typeof AuthenticatedLaboratoryMicrobiologyRouteWithChildren
   '/_authenticated/laboratory/orders': typeof AuthenticatedLaboratoryOrdersRouteWithChildren
-  '/_authenticated/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRoute
+  '/_authenticated/laboratory/pathology': typeof AuthenticatedLaboratoryPathologyRouteWithChildren
   '/_authenticated/laboratory/qc': typeof AuthenticatedLaboratoryQcRoute
-  '/_authenticated/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRoute
+  '/_authenticated/laboratory/radiology': typeof AuthenticatedLaboratoryRadiologyRouteWithChildren
   '/_authenticated/laboratory/release': typeof AuthenticatedLaboratoryReleaseRoute
+  '/_authenticated/laboratory/reporting': typeof AuthenticatedLaboratoryReportingRoute
+  '/_authenticated/laboratory/result-review': typeof AuthenticatedLaboratoryResultReviewRoute
   '/_authenticated/laboratory/results': typeof AuthenticatedLaboratoryResultsRoute
   '/_authenticated/laboratory/specimens': typeof AuthenticatedLaboratorySpecimensRoute
   '/_authenticated/laboratory/verification': typeof AuthenticatedLaboratoryVerificationRoute
@@ -2372,7 +2439,10 @@ export interface FileRoutesById {
   '/_authenticated/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/_authenticated/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/_authenticated/laboratory/microbiology/reporting': typeof AuthenticatedLaboratoryMicrobiologyReportingRoute
   '/_authenticated/laboratory/orders/$id': typeof AuthenticatedLaboratoryOrdersIdRoute
+  '/_authenticated/laboratory/pathology/reporting': typeof AuthenticatedLaboratoryPathologyReportingRoute
+  '/_authenticated/laboratory/radiology/reporting': typeof AuthenticatedLaboratoryRadiologyReportingRoute
   '/_authenticated/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
   '/_authenticated/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
   '/_authenticated/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
@@ -2512,8 +2582,10 @@ export interface FileRouteTypes {
     | '/data/timeline'
     | '/data/widgets'
     | '/laboratory/accessions'
+    | '/laboratory/amendments'
     | '/laboratory/calibration'
     | '/laboratory/distribution'
+    | '/laboratory/distribution-report'
     | '/laboratory/external'
     | '/laboratory/instruments'
     | '/laboratory/microbiology'
@@ -2522,6 +2594,8 @@ export interface FileRouteTypes {
     | '/laboratory/qc'
     | '/laboratory/radiology'
     | '/laboratory/release'
+    | '/laboratory/reporting'
+    | '/laboratory/result-review'
     | '/laboratory/results'
     | '/laboratory/specimens'
     | '/laboratory/verification'
@@ -2623,7 +2697,10 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/laboratory/microbiology/reporting'
     | '/laboratory/orders/$id'
+    | '/laboratory/pathology/reporting'
+    | '/laboratory/radiology/reporting'
     | '/pharmacy/analytics/coldchain'
     | '/pharmacy/analytics/controlled'
     | '/pharmacy/analytics/dispensing'
@@ -2743,8 +2820,10 @@ export interface FileRouteTypes {
     | '/data/timeline'
     | '/data/widgets'
     | '/laboratory/accessions'
+    | '/laboratory/amendments'
     | '/laboratory/calibration'
     | '/laboratory/distribution'
+    | '/laboratory/distribution-report'
     | '/laboratory/external'
     | '/laboratory/instruments'
     | '/laboratory/microbiology'
@@ -2753,6 +2832,8 @@ export interface FileRouteTypes {
     | '/laboratory/qc'
     | '/laboratory/radiology'
     | '/laboratory/release'
+    | '/laboratory/reporting'
+    | '/laboratory/result-review'
     | '/laboratory/results'
     | '/laboratory/specimens'
     | '/laboratory/verification'
@@ -2850,7 +2931,10 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/laboratory/microbiology/reporting'
     | '/laboratory/orders/$id'
+    | '/laboratory/pathology/reporting'
+    | '/laboratory/radiology/reporting'
     | '/pharmacy/analytics/coldchain'
     | '/pharmacy/analytics/controlled'
     | '/pharmacy/analytics/dispensing'
@@ -2990,8 +3074,10 @@ export interface FileRouteTypes {
     | '/_authenticated/data/timeline'
     | '/_authenticated/data/widgets'
     | '/_authenticated/laboratory/accessions'
+    | '/_authenticated/laboratory/amendments'
     | '/_authenticated/laboratory/calibration'
     | '/_authenticated/laboratory/distribution'
+    | '/_authenticated/laboratory/distribution-report'
     | '/_authenticated/laboratory/external'
     | '/_authenticated/laboratory/instruments'
     | '/_authenticated/laboratory/microbiology'
@@ -3000,6 +3086,8 @@ export interface FileRouteTypes {
     | '/_authenticated/laboratory/qc'
     | '/_authenticated/laboratory/radiology'
     | '/_authenticated/laboratory/release'
+    | '/_authenticated/laboratory/reporting'
+    | '/_authenticated/laboratory/result-review'
     | '/_authenticated/laboratory/results'
     | '/_authenticated/laboratory/specimens'
     | '/_authenticated/laboratory/verification'
@@ -3101,7 +3189,10 @@ export interface FileRouteTypes {
     | '/_authenticated/clinical/analytics/reports'
     | '/_authenticated/clinical/encounter/$id'
     | '/_authenticated/cms/builder/$pageId'
+    | '/_authenticated/laboratory/microbiology/reporting'
     | '/_authenticated/laboratory/orders/$id'
+    | '/_authenticated/laboratory/pathology/reporting'
+    | '/_authenticated/laboratory/radiology/reporting'
     | '/_authenticated/pharmacy/analytics/coldchain'
     | '/_authenticated/pharmacy/analytics/controlled'
     | '/_authenticated/pharmacy/analytics/dispensing'
@@ -4028,6 +4119,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLaboratoryResultsRouteImport
       parentRoute: typeof AuthenticatedLaboratoryRoute
     }
+    '/_authenticated/laboratory/result-review': {
+      id: '/_authenticated/laboratory/result-review'
+      path: '/result-review'
+      fullPath: '/laboratory/result-review'
+      preLoaderRoute: typeof AuthenticatedLaboratoryResultReviewRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryRoute
+    }
+    '/_authenticated/laboratory/reporting': {
+      id: '/_authenticated/laboratory/reporting'
+      path: '/reporting'
+      fullPath: '/laboratory/reporting'
+      preLoaderRoute: typeof AuthenticatedLaboratoryReportingRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryRoute
+    }
     '/_authenticated/laboratory/release': {
       id: '/_authenticated/laboratory/release'
       path: '/release'
@@ -4084,6 +4189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLaboratoryExternalRouteImport
       parentRoute: typeof AuthenticatedLaboratoryRoute
     }
+    '/_authenticated/laboratory/distribution-report': {
+      id: '/_authenticated/laboratory/distribution-report'
+      path: '/distribution-report'
+      fullPath: '/laboratory/distribution-report'
+      preLoaderRoute: typeof AuthenticatedLaboratoryDistributionReportRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryRoute
+    }
     '/_authenticated/laboratory/distribution': {
       id: '/_authenticated/laboratory/distribution'
       path: '/distribution'
@@ -4096,6 +4208,13 @@ declare module '@tanstack/react-router' {
       path: '/calibration'
       fullPath: '/laboratory/calibration'
       preLoaderRoute: typeof AuthenticatedLaboratoryCalibrationRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryRoute
+    }
+    '/_authenticated/laboratory/amendments': {
+      id: '/_authenticated/laboratory/amendments'
+      path: '/amendments'
+      fullPath: '/laboratory/amendments'
+      preLoaderRoute: typeof AuthenticatedLaboratoryAmendmentsRouteImport
       parentRoute: typeof AuthenticatedLaboratoryRoute
     }
     '/_authenticated/laboratory/accessions': {
@@ -4826,12 +4945,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsColdchainRouteImport
       parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
     }
+    '/_authenticated/laboratory/radiology/reporting': {
+      id: '/_authenticated/laboratory/radiology/reporting'
+      path: '/reporting'
+      fullPath: '/laboratory/radiology/reporting'
+      preLoaderRoute: typeof AuthenticatedLaboratoryRadiologyReportingRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryRadiologyRoute
+    }
+    '/_authenticated/laboratory/pathology/reporting': {
+      id: '/_authenticated/laboratory/pathology/reporting'
+      path: '/reporting'
+      fullPath: '/laboratory/pathology/reporting'
+      preLoaderRoute: typeof AuthenticatedLaboratoryPathologyReportingRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryPathologyRoute
+    }
     '/_authenticated/laboratory/orders/$id': {
       id: '/_authenticated/laboratory/orders/$id'
       path: '/$id'
       fullPath: '/laboratory/orders/$id'
       preLoaderRoute: typeof AuthenticatedLaboratoryOrdersIdRouteImport
       parentRoute: typeof AuthenticatedLaboratoryOrdersRoute
+    }
+    '/_authenticated/laboratory/microbiology/reporting': {
+      id: '/_authenticated/laboratory/microbiology/reporting'
+      path: '/reporting'
+      fullPath: '/laboratory/microbiology/reporting'
+      preLoaderRoute: typeof AuthenticatedLaboratoryMicrobiologyReportingRouteImport
+      parentRoute: typeof AuthenticatedLaboratoryMicrobiologyRoute
     }
     '/_authenticated/cms/builder/$pageId': {
       id: '/_authenticated/cms/builder/$pageId'
@@ -5161,6 +5301,21 @@ const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
 const AuthenticatedDataRouteWithChildren =
   AuthenticatedDataRoute._addFileChildren(AuthenticatedDataRouteChildren)
 
+interface AuthenticatedLaboratoryMicrobiologyRouteChildren {
+  AuthenticatedLaboratoryMicrobiologyReportingRoute: typeof AuthenticatedLaboratoryMicrobiologyReportingRoute
+}
+
+const AuthenticatedLaboratoryMicrobiologyRouteChildren: AuthenticatedLaboratoryMicrobiologyRouteChildren =
+  {
+    AuthenticatedLaboratoryMicrobiologyReportingRoute:
+      AuthenticatedLaboratoryMicrobiologyReportingRoute,
+  }
+
+const AuthenticatedLaboratoryMicrobiologyRouteWithChildren =
+  AuthenticatedLaboratoryMicrobiologyRoute._addFileChildren(
+    AuthenticatedLaboratoryMicrobiologyRouteChildren,
+  )
+
 interface AuthenticatedLaboratoryOrdersRouteChildren {
   AuthenticatedLaboratoryOrdersIdRoute: typeof AuthenticatedLaboratoryOrdersIdRoute
 }
@@ -5175,18 +5330,52 @@ const AuthenticatedLaboratoryOrdersRouteWithChildren =
     AuthenticatedLaboratoryOrdersRouteChildren,
   )
 
+interface AuthenticatedLaboratoryPathologyRouteChildren {
+  AuthenticatedLaboratoryPathologyReportingRoute: typeof AuthenticatedLaboratoryPathologyReportingRoute
+}
+
+const AuthenticatedLaboratoryPathologyRouteChildren: AuthenticatedLaboratoryPathologyRouteChildren =
+  {
+    AuthenticatedLaboratoryPathologyReportingRoute:
+      AuthenticatedLaboratoryPathologyReportingRoute,
+  }
+
+const AuthenticatedLaboratoryPathologyRouteWithChildren =
+  AuthenticatedLaboratoryPathologyRoute._addFileChildren(
+    AuthenticatedLaboratoryPathologyRouteChildren,
+  )
+
+interface AuthenticatedLaboratoryRadiologyRouteChildren {
+  AuthenticatedLaboratoryRadiologyReportingRoute: typeof AuthenticatedLaboratoryRadiologyReportingRoute
+}
+
+const AuthenticatedLaboratoryRadiologyRouteChildren: AuthenticatedLaboratoryRadiologyRouteChildren =
+  {
+    AuthenticatedLaboratoryRadiologyReportingRoute:
+      AuthenticatedLaboratoryRadiologyReportingRoute,
+  }
+
+const AuthenticatedLaboratoryRadiologyRouteWithChildren =
+  AuthenticatedLaboratoryRadiologyRoute._addFileChildren(
+    AuthenticatedLaboratoryRadiologyRouteChildren,
+  )
+
 interface AuthenticatedLaboratoryRouteChildren {
   AuthenticatedLaboratoryAccessionsRoute: typeof AuthenticatedLaboratoryAccessionsRoute
+  AuthenticatedLaboratoryAmendmentsRoute: typeof AuthenticatedLaboratoryAmendmentsRoute
   AuthenticatedLaboratoryCalibrationRoute: typeof AuthenticatedLaboratoryCalibrationRoute
   AuthenticatedLaboratoryDistributionRoute: typeof AuthenticatedLaboratoryDistributionRoute
+  AuthenticatedLaboratoryDistributionReportRoute: typeof AuthenticatedLaboratoryDistributionReportRoute
   AuthenticatedLaboratoryExternalRoute: typeof AuthenticatedLaboratoryExternalRoute
   AuthenticatedLaboratoryInstrumentsRoute: typeof AuthenticatedLaboratoryInstrumentsRoute
-  AuthenticatedLaboratoryMicrobiologyRoute: typeof AuthenticatedLaboratoryMicrobiologyRoute
+  AuthenticatedLaboratoryMicrobiologyRoute: typeof AuthenticatedLaboratoryMicrobiologyRouteWithChildren
   AuthenticatedLaboratoryOrdersRoute: typeof AuthenticatedLaboratoryOrdersRouteWithChildren
-  AuthenticatedLaboratoryPathologyRoute: typeof AuthenticatedLaboratoryPathologyRoute
+  AuthenticatedLaboratoryPathologyRoute: typeof AuthenticatedLaboratoryPathologyRouteWithChildren
   AuthenticatedLaboratoryQcRoute: typeof AuthenticatedLaboratoryQcRoute
-  AuthenticatedLaboratoryRadiologyRoute: typeof AuthenticatedLaboratoryRadiologyRoute
+  AuthenticatedLaboratoryRadiologyRoute: typeof AuthenticatedLaboratoryRadiologyRouteWithChildren
   AuthenticatedLaboratoryReleaseRoute: typeof AuthenticatedLaboratoryReleaseRoute
+  AuthenticatedLaboratoryReportingRoute: typeof AuthenticatedLaboratoryReportingRoute
+  AuthenticatedLaboratoryResultReviewRoute: typeof AuthenticatedLaboratoryResultReviewRoute
   AuthenticatedLaboratoryResultsRoute: typeof AuthenticatedLaboratoryResultsRoute
   AuthenticatedLaboratorySpecimensRoute: typeof AuthenticatedLaboratorySpecimensRoute
   AuthenticatedLaboratoryVerificationRoute: typeof AuthenticatedLaboratoryVerificationRoute
@@ -5197,23 +5386,31 @@ const AuthenticatedLaboratoryRouteChildren: AuthenticatedLaboratoryRouteChildren
   {
     AuthenticatedLaboratoryAccessionsRoute:
       AuthenticatedLaboratoryAccessionsRoute,
+    AuthenticatedLaboratoryAmendmentsRoute:
+      AuthenticatedLaboratoryAmendmentsRoute,
     AuthenticatedLaboratoryCalibrationRoute:
       AuthenticatedLaboratoryCalibrationRoute,
     AuthenticatedLaboratoryDistributionRoute:
       AuthenticatedLaboratoryDistributionRoute,
+    AuthenticatedLaboratoryDistributionReportRoute:
+      AuthenticatedLaboratoryDistributionReportRoute,
     AuthenticatedLaboratoryExternalRoute: AuthenticatedLaboratoryExternalRoute,
     AuthenticatedLaboratoryInstrumentsRoute:
       AuthenticatedLaboratoryInstrumentsRoute,
     AuthenticatedLaboratoryMicrobiologyRoute:
-      AuthenticatedLaboratoryMicrobiologyRoute,
+      AuthenticatedLaboratoryMicrobiologyRouteWithChildren,
     AuthenticatedLaboratoryOrdersRoute:
       AuthenticatedLaboratoryOrdersRouteWithChildren,
     AuthenticatedLaboratoryPathologyRoute:
-      AuthenticatedLaboratoryPathologyRoute,
+      AuthenticatedLaboratoryPathologyRouteWithChildren,
     AuthenticatedLaboratoryQcRoute: AuthenticatedLaboratoryQcRoute,
     AuthenticatedLaboratoryRadiologyRoute:
-      AuthenticatedLaboratoryRadiologyRoute,
+      AuthenticatedLaboratoryRadiologyRouteWithChildren,
     AuthenticatedLaboratoryReleaseRoute: AuthenticatedLaboratoryReleaseRoute,
+    AuthenticatedLaboratoryReportingRoute:
+      AuthenticatedLaboratoryReportingRoute,
+    AuthenticatedLaboratoryResultReviewRoute:
+      AuthenticatedLaboratoryResultReviewRoute,
     AuthenticatedLaboratoryResultsRoute: AuthenticatedLaboratoryResultsRoute,
     AuthenticatedLaboratorySpecimensRoute:
       AuthenticatedLaboratorySpecimensRoute,
