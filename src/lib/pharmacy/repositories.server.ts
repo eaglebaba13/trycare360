@@ -17,20 +17,27 @@ import type {
 type SB = SupabaseClient<Database>;
 
 // ---------------------------------------------------------------------------
-// unwrap helpers
+// unwrap helpers — use PostgrestResponse variants so generic inference picks
+// up the row type from the success branch of the discriminated union.
 // ---------------------------------------------------------------------------
-function unwrap<T>(res: { data: T | null; error: { message: string } | null }): T {
+import type {
+  PostgrestMaybeSingleResponse,
+  PostgrestResponse,
+  PostgrestSingleResponse,
+} from "@supabase/supabase-js";
+
+function unwrap<T>(res: PostgrestSingleResponse<T>): T {
   if (res.error) throw new Error(res.error.message);
   if (res.data === null || res.data === undefined) throw new Error("Row not found");
-  return res.data;
+  return res.data as T;
 }
-function unwrapMaybe<T>(res: { data: T | null; error: { message: string } | null }): T | null {
+function unwrapMaybe<T>(res: PostgrestMaybeSingleResponse<T>): T | null {
   if (res.error) throw new Error(res.error.message);
-  return res.data;
+  return (res.data ?? null) as T | null;
 }
-function unwrapList<T>(res: { data: T[] | null; error: { message: string } | null }): T[] {
+function unwrapList<T>(res: PostgrestResponse<T>): T[] {
   if (res.error) throw new Error(res.error.message);
-  return res.data ?? [];
+  return (res.data ?? []) as T[];
 }
 
 // ---------------------------------------------------------------------------
