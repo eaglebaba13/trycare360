@@ -188,7 +188,6 @@ export class PurchaseEngine {
         }
       }
     }
-    }
     await this.grn.insertItems(itemRows);
     // Post inventory movements
     for (const row of itemRows) {
