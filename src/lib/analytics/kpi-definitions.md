@@ -520,3 +520,185 @@ these definitions; Reports module handles export and scheduling.
 | Cross-Domain SLA Breaches | count(sla_instances where entity_type in ('lab_order','rad_order','pathology_case') and status='breached') |
 | Report Delivery Success | count(lab_distribution_logs where status='delivered') / count(lab_distribution_logs) |
 
+
+## Laboratory Phase 2.8
+
+### Executive
+
+| KPI | Formula |
+|---|---|
+| Orders | count(lab_orders in window) |
+| Completed | count(lab_orders where status='completed') |
+| Pending | count(lab_orders where status in ('pending','ordered','received')) |
+| Released | count(lab_results where status='released') |
+| Revenue | sum(invoice.total for lab_orders.invoice_id) — sourced from Revenue module |
+| Insurance % | count(lab_orders where authorization_id is not null) / count(lab_orders) |
+| External Lab % | count(lab_external_orders in window) / count(lab_orders in window) |
+| Specimen Rejection % | count(lab_specimens where status='rejected') / count(lab_specimens) |
+| Critical Value % | count(lab_results where is_critical) / count(lab_results) |
+| Average Turnaround | avg(last(turnaround_logs) - first(turnaround_logs)) per order |
+
+### Orders
+
+| KPI | Formula |
+|---|---|
+| Order Volume | count(lab_orders in window) |
+| By Status | group by lab_orders.status |
+| By Priority | group by lab_orders.priority |
+
+### Specimens
+
+| KPI | Formula |
+|---|---|
+| Total Specimens | count(lab_specimens for orders in window) |
+| Rejected Specimens | count(lab_specimens where status='rejected') |
+| Rejection Rate | rejected / total |
+| Tracking Status Breakdown | group by lab_specimens.status |
+
+### Turnaround
+
+| KPI | Formula |
+|---|---|
+| Mean TAT (min) | avg(last-first) of lab_turnaround_logs.occurred_at per order |
+| P95 TAT (min) | percentile(0.95, tat_per_order) |
+| Sampled Orders | count(orders with >= 2 turnaround logs) |
+
+### Analyzer
+
+| KPI | Formula |
+|---|---|
+| Instruments | count(lab_analyzer_instruments) |
+| Uptime | count(instruments where status='online') / count(instruments) |
+| Queue Depth | sum(open lab_analyzer_queues rows) |
+| Downtime | count(instruments where status in ('offline','maintenance')) |
+| Status Breakdown | group by lab_analyzer_instruments.status |
+
+### Quality
+
+| KPI | Formula |
+|---|---|
+| Critical Values | count(lab_results where is_critical) |
+| Rejected Results | count(lab_results where status='rejected') |
+| Delta Check Failures | count(lab_results where meta->>'delta_flag'='fail') — sourced from ResultEngine |
+| Westgard Violations | count(qc_runs where meta->>'westgard_flag' is not null) — sourced from QCEngine |
+
+### QC
+
+| KPI | Formula |
+|---|---|
+| QC Pass Rate | count(qc_runs where result='pass') / count(qc_runs) |
+| QC Failures | count(qc_runs where result='fail') |
+| Active QC Rules | count(qc_rules where is_active) |
+| QC Materials | count(qc_materials) |
+
+### Calibration
+
+| KPI | Formula |
+|---|---|
+| Calibration Overdue | count(instruments where max(calibration.next_due_at) < now()) |
+| Last Calibration | max(calibration_records.performed_at) per instrument |
+| Calibration Pass Rate | count(calibrations where result='pass') / count(calibrations) |
+
+### Verification
+
+| KPI | Formula |
+|---|---|
+| Pending Verification | count(results where status='pending') |
+| Auto-Verified | count(results where status='auto_verified') |
+| Manual Verified | count(results where status='verified') |
+| Released | count(results where status='released') |
+| Amended | count(results where status='amended') |
+
+### Release
+
+| KPI | Formula |
+|---|---|
+| Released Results | count(results where status='released') |
+| Doctor Signoff Rate | count(results where meta->>'signed_off_by' is not null) / count(released) |
+
+### Distribution
+
+| KPI | Formula |
+|---|---|
+| Total Dispatched | count(lab_distribution_logs for orders in window) |
+| Delivered | count(logs where status='delivered') |
+| Success Rate | delivered / total |
+| By Channel | group by lab_distribution_logs.channel |
+| By Status | group by lab_distribution_logs.status |
+
+### External Labs
+
+| KPI | Formula |
+|---|---|
+| External Orders | count(lab_external_orders in window) |
+| Cost | sum(cost) |
+| By Vendor | group by vendor_code |
+| By Status | group by status |
+
+### Radiology
+
+| KPI | Formula |
+|---|---|
+| Study Volume | count(rad_imaging_studies in window) |
+| Average Reporting Time | avg(reported_at - performed_at) |
+| Pending Studies | count(studies where reported_at is null) |
+| Released Reports | count(studies where reported_at is not null) |
+| Modalities | group by modality_code |
+| Body Part Distribution | group by rad_orders.body_part_id |
+
+### Pathology
+
+| KPI | Formula |
+|---|---|
+| Cases | count(lab_pathology_cases) |
+| Gross Completed | count(cases where status in ('grossing','processing','reviewing','reported','amended')) |
+| Microscopy Completed | count(cases where status in ('reviewing','reported','amended')) |
+| Diagnosis Released | count(cases where status='reported') |
+| Average TAT | avg(reported_at - created_at) |
+
+### Microbiology
+
+| KPI | Formula |
+|---|---|
+| Culture Volume | count(lab_cultures) |
+| Sensitivity Pending | count(cultures where growth_status='pending') |
+| Positive Cultures | count(cultures where growth_status='positive') |
+| Negative Cultures | count(cultures where growth_status='no_growth') |
+| TAT | avg(reported_at - incubated_at) |
+
+### Revenue
+
+| KPI | Formula |
+|---|---|
+| Billed Orders | count(lab_orders where invoice_id is not null) |
+| External Lab Cost | sum(lab_external_orders.cost) |
+| Revenue Attribution | joined via Revenue module (billing.invoices) — not computed here |
+
+### Insurance
+
+| KPI | Formula |
+|---|---|
+| Authorized Orders | count(lab_orders where authorization_id is not null) |
+| Insurance Share | authorized / total_orders |
+| Authorization Denials | joined via Insurance module (insurance.authorizations.status='denied') |
+
+### Compliance
+
+| KPI | Formula |
+|---|---|
+| Audit Events | count(lab_audit rows sampled per order) |
+| Results Amended | count(lab_results where status='amended') |
+| Critical Values Recorded | count(lab_results where is_critical) |
+| Chain-of-Custody Coverage | count(specimens with >= 2 tracking rows) / count(specimens) |
+
+### AI
+
+| KPI | Formula |
+|---|---|
+| Assistant Turns | count(lab assistant events) |
+| Acceptance Rate | count(events where status='accepted') / count(events) |
+| Rejection Rate | count(events where status='rejected') / count(events) |
+| Suggestion Categories | group by prompt_kind |
+| Average Confidence | avg(confidence) |
+| Average Response Time | avg(latency_ms) |
+| Feedback Score | avg(feedback_score) |
