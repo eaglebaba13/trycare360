@@ -176,13 +176,18 @@ export class PurchaseEngine {
       });
       // Update matching PO item received quantity (best-effort)
       if (it.poItemId) {
-        await this.sb.rpc("emit_automation_event", {
-          _tenant_id: input.tenantId,
-          _event_type: "pharmacy.po.item.received",
-          _payload: { po_item_id: it.poItemId, quantity: it.quantityReceived } as never,
-          _entity_ref: null as never,
-        }).catch(() => {/* best effort */});
+        try {
+          await this.sb.rpc("emit_automation_event", {
+            _tenant_id: input.tenantId,
+            _event_type: "pharmacy.po.item.received",
+            _payload: { po_item_id: it.poItemId, quantity: it.quantityReceived } as never,
+            _entity_ref: null as never,
+          });
+        } catch {
+          /* best effort */
+        }
       }
+    }
     }
     await this.grn.insertItems(itemRows);
     // Post inventory movements
