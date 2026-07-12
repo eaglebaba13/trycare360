@@ -3215,6 +3215,192 @@ export type Database = {
           },
         ]
       }
+      clinical_ai_audit: {
+        Row: {
+          action: string
+          actor_id: string | null
+          after_state: Json | null
+          before_state: Json | null
+          created_at: string
+          encounter_id: string | null
+          entity_id: string
+          entity_type: string
+          id: string
+          meta: Json
+          note: string | null
+          patient_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          after_state?: Json | null
+          before_state?: Json | null
+          created_at?: string
+          encounter_id?: string | null
+          entity_id: string
+          entity_type: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          after_state?: Json | null
+          before_state?: Json | null
+          created_at?: string
+          encounter_id?: string | null
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_ai_audit_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_audit_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_audit_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_ai_conversations: {
+        Row: {
+          cost_usd: number | null
+          created_at: string
+          encounter_id: string | null
+          error: string | null
+          feedback: string | null
+          feedback_note: string | null
+          id: string
+          input_context: Json
+          latency_ms: number | null
+          model: string
+          model_version: string | null
+          patient_id: string | null
+          prompt: string
+          prompt_template_code: string | null
+          prompt_template_id: string | null
+          prompt_template_version: number | null
+          purpose: string
+          requested_by: string | null
+          response: string | null
+          response_json: Json | null
+          system_prompt: string | null
+          tenant_id: string
+          tokens_input: number | null
+          tokens_output: number | null
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          cost_usd?: number | null
+          created_at?: string
+          encounter_id?: string | null
+          error?: string | null
+          feedback?: string | null
+          feedback_note?: string | null
+          id?: string
+          input_context?: Json
+          latency_ms?: number | null
+          model: string
+          model_version?: string | null
+          patient_id?: string | null
+          prompt: string
+          prompt_template_code?: string | null
+          prompt_template_id?: string | null
+          prompt_template_version?: number | null
+          purpose: string
+          requested_by?: string | null
+          response?: string | null
+          response_json?: Json | null
+          system_prompt?: string | null
+          tenant_id: string
+          tokens_input?: number | null
+          tokens_output?: number | null
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          cost_usd?: number | null
+          created_at?: string
+          encounter_id?: string | null
+          error?: string | null
+          feedback?: string | null
+          feedback_note?: string | null
+          id?: string
+          input_context?: Json
+          latency_ms?: number | null
+          model?: string
+          model_version?: string | null
+          patient_id?: string | null
+          prompt?: string
+          prompt_template_code?: string | null
+          prompt_template_id?: string | null
+          prompt_template_version?: number | null
+          purpose?: string
+          requested_by?: string | null
+          response?: string | null
+          response_json?: Json | null
+          system_prompt?: string | null
+          tenant_id?: string
+          tokens_input?: number | null
+          tokens_output?: number | null
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_ai_conversations_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_conversations_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_conversations_prompt_template_id_fkey"
+            columns: ["prompt_template_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_ai_prompt_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_conversations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinical_ai_prompt_templates: {
         Row: {
           code: string
@@ -3261,6 +3447,147 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clinical_ai_recommendations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          applied_ref: Json | null
+          body: Json
+          confidence: number | null
+          conversation_id: string | null
+          created_at: string
+          edited_at: string | null
+          edited_by: string | null
+          encounter_id: string | null
+          id: string
+          kind: string
+          meta: Json
+          model: string | null
+          model_version: string | null
+          patient_id: string
+          prompt_template_code: string | null
+          prompt_template_id: string | null
+          prompt_template_version: number | null
+          rejected_at: string | null
+          rejected_by: string | null
+          requested_by: string | null
+          severity: string | null
+          sources: Json
+          status: string
+          status_reason: string | null
+          summary: string | null
+          target_id: string | null
+          target_type: string | null
+          tenant_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          applied_ref?: Json | null
+          body?: Json
+          confidence?: number | null
+          conversation_id?: string | null
+          created_at?: string
+          edited_at?: string | null
+          edited_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          kind: string
+          meta?: Json
+          model?: string | null
+          model_version?: string | null
+          patient_id: string
+          prompt_template_code?: string | null
+          prompt_template_id?: string | null
+          prompt_template_version?: number | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          requested_by?: string | null
+          severity?: string | null
+          sources?: Json
+          status?: string
+          status_reason?: string | null
+          summary?: string | null
+          target_id?: string | null
+          target_type?: string | null
+          tenant_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          applied_ref?: Json | null
+          body?: Json
+          confidence?: number | null
+          conversation_id?: string | null
+          created_at?: string
+          edited_at?: string | null
+          edited_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          kind?: string
+          meta?: Json
+          model?: string | null
+          model_version?: string | null
+          patient_id?: string
+          prompt_template_code?: string | null
+          prompt_template_id?: string | null
+          prompt_template_version?: number | null
+          rejected_at?: string | null
+          rejected_by?: string | null
+          requested_by?: string | null
+          severity?: string | null
+          sources?: Json
+          status?: string
+          status_reason?: string | null
+          summary?: string | null
+          target_id?: string | null
+          target_type?: string | null
+          tenant_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_ai_recommendations_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_recommendations_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_recommendations_prompt_template_id_fkey"
+            columns: ["prompt_template_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_ai_prompt_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_recommendations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_ai_recs_conversation_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_ai_conversations"
             referencedColumns: ["id"]
           },
         ]
