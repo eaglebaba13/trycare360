@@ -506,12 +506,13 @@ export function DistributionQueue({ tenantId, orderId }: { tenantId: string; ord
       </CardHeader>
       <CardContent>
         <DataGrid
-          data={asRows(q.data)}
+          rows={asRows(q.data)}
+          getRowId={(r) => str((r as Row).id)}
           columns={[
-            { id: "channel", header: "Channel", cell: (r: Row) => str(r.channel) },
-            { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
-            { id: "recipient", header: "Recipient", cell: (r: Row) => str(r.recipient) || "—" },
-            { id: "sent_at", header: "Sent", cell: (r: Row) => str(r.sent_at) },
+            { id: "channel", header: "Channel", cell: (r) => str((r as Row).channel) },
+            { id: "status", header: "Status", cell: (r) => <Badge variant="outline">{str((r as Row).status)}</Badge> },
+            { id: "recipient", header: "Recipient", cell: (r) => str((r as Row).recipient) || "—" },
+            { id: "sent_at", header: "Sent", cell: (r) => str((r as Row).sent_at) },
           ]}
           isLoading={q.isLoading}
           emptyMessage="Nothing distributed yet."
