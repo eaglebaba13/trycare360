@@ -418,7 +418,6 @@ export class LaboratoryAnalyticsService {
       note: "Assistant turns are held in a server-side ring buffer; a durable AI events table will surface here in a future phase.",
     };
   }
-  }
 
   // -----------------------------------------------------------------------
   async getLaboratoryReport(w: AnalyticsWindow) {
