@@ -171,5 +171,96 @@ numbers from these definitions. No module rolls its own formula.
 | Video Consultations | count(appointments where video_url is not null) |
 
 Rule: no module rolls its own formula. All new dashboards import from this
-document and reuse the analytics tabs under `/analytics/*` and
-`/scheduling/analytics/*`.
+document and reuse the analytics tabs under `/analytics/*`,
+`/scheduling/analytics/*`, and `/clinical/analytics/*`.
+
+## Clinical / EMR (Phase 2.5 Stage 6)
+
+Single source of truth for the Clinical Analytics module
+(`/clinical/analytics`). All values are computed server-side by
+`ClinicalAnalyticsService` (`src/lib/clinical/stage6.analytics.server.ts`)
+over the Stage 1–5 tables. No duplicate reporting engine, no parallel
+event bus.
+
+### Operational
+
+| KPI | Formula |
+|---|---|
+| Daily Consultations | count(clinical_encounters where created_at::date = today) |
+| Completed Encounters | count(clinical_encounters.status in ('completed','closed')) |
+| Open Encounters | count(clinical_encounters.status in ('open','in_progress')) |
+| Treatment Plans | count(clinical_treatment_plans in window) |
+| Active Prescriptions | count(clinical_prescriptions.status in ('active','issued')) |
+| Follow-ups Due | count(clinical_followups.status in ('pending','scheduled')) |
+| Referral Volume | count(clinical_referrals in window) |
+| Clinical AI Usage | count(clinical_ai_conversations in window) |
+
+### Doctor Performance
+
+| KPI | Formula |
+|---|---|
+| Consultation Count | count(encounters group by primary_doctor_id) |
+| Avg Consultation Time | avg(ended_at - started_at) minutes per doctor |
+| Treatment Plans / Doctor | count(clinical_treatment_plans group by created_by) |
+| Follow-up Compliance | followups_completed / followups_total per doctor |
+| Referral Rate | referrals_created / encounters per doctor |
+| SOAP Completion Rate | count(soap.status in ('final','signed')) / encounters |
+| Documentation Quality | count(soap.signed_at is not null) / encounters |
+| Patient Satisfaction | avg(appointment_feedback.rating) per doctor |
+
+### Clinical Outcomes
+
+| KPI | Formula |
+|---|---|
+| Treatment Success | plans.status='completed' / total plans |
+| Recovery Rate | plans where progress.status='recovered' or percent>=100 / total |
+| Repeat Visit Rate | patients_with_more_than_one_encounter / distinct_patients |
+| Follow-up Completion | followups.status='completed' / total followups |
+| Drop-off Rate | plans.status in ('cancelled','dropped') / total plans |
+| Protocol Compliance | plans where progress.protocol_compliant != false / total |
+
+### Quality
+
+| KPI | Formula |
+|---|---|
+| Incomplete SOAP | count(closed encounters with soap absent or status='draft') |
+| Unsigned Notes | count(clinical_soap_notes.signed_at is null) |
+| Missing Consent | count(closed encounters without signed clinical_consent) |
+| Overdue Follow-ups | count(followups.status in ('pending','scheduled') and suggested_date < now) |
+| Missing Vitals | count(closed encounters without linked clinical_vitals) |
+| Missing Diagnosis | count(closed encounters with chief_complaint is null) |
+| Open Problems | count(clinical_problems.status in ('active','open')) |
+| Duplicate Problems | count(problem_text repeated per patient) |
+
+### Compliance
+
+| KPI | Formula |
+|---|---|
+| Consent Compliance | signed_consents / total_consents |
+| Clinical Signatures | count(soap.signed_at is not null) |
+| Documentation Completeness | min(1, notes_total / closed_encounters) |
+| Audit Events | count(clinical_ai_audit in window) |
+| Access Logs | count(clinical_ai_audit where entity_type like '%access%') |
+| Clinical Record Changes | count(clinical_ai_audit where entity_type like '%record%') |
+| RLS Compliance | DB-enforced (indicator = 1.0) |
+
+### Clinical AI
+
+| KPI | Formula |
+|---|---|
+| Assistant Usage | count(clinical_ai_conversations) |
+| Prompt Usage | count(conversations group by prompt_template_code) |
+| Acceptance Rate | recs.status='accepted' / (accepted + rejected) |
+| Rejection Rate | recs.status='rejected' / (accepted + rejected) |
+| Recommendation Quality | avg(recommendation.confidence) |
+| Model Latency | avg(clinical_ai_conversations.latency_ms) |
+| Token Consumption | sum(tokens_input + tokens_output) |
+| Estimated Cost | sum(clinical_ai_conversations.cost_usd) |
+| Model Error Rate | count(conversations.error is not null) / total |
+
+Enterprise Reporting (Daily / Weekly / Monthly / Custom, grouped by
+day, week, month, doctor, branch, service, diagnosis, treatment, or
+outcome) is served by the same service (`report()`). CSV export is
+in-page; PDF / Excel / scheduled delivery are delegated to the Data
+Foundation Reports module — no duplicate reporting engine.
+
