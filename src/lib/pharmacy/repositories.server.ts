@@ -46,12 +46,12 @@ function unwrapList<T>(res: PostgrestResponse<T>): T[] {
 export type DrugRow = Tables<"pharmacy_drugs">;
 export class DrugMasterRepository {
   constructor(private readonly sb: SB) {}
-  async getById(id: string) {
+  async getById(id: string): Promise<DrugRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_drugs").select("*").eq("id", id).maybeSingle(),
     );
   }
-  async getByCode(tenantId: string | null, code: string) {
+  async getByCode(tenantId: string | null, code: string): Promise<DrugRow | null> {
     let q = this.sb.from("pharmacy_drugs").select("*").eq("code", code);
     q = tenantId ? q.or(`tenant_id.eq.${tenantId},tenant_id.is.null`) : q.is("tenant_id", null);
     return unwrapMaybe(await q.limit(1).maybeSingle());
@@ -92,7 +92,7 @@ export class DrugMasterRepository {
 export type BatchRow = Tables<"pharmacy_batches">;
 export class BatchRepository {
   constructor(private readonly sb: SB) {}
-  async getById(id: string) {
+  async getById(id: string): Promise<BatchRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_batches").select("*").eq("id", id).maybeSingle(),
     );
@@ -165,7 +165,7 @@ export type WarehouseLocationRow = Tables<"pharmacy_warehouse_locations">;
 export type WarehouseBinRow = Tables<"pharmacy_warehouse_bins">;
 export class WarehouseRepository {
   constructor(private readonly sb: SB) {}
-  async getById(id: string) {
+  async getById(id: string): Promise<WarehouseRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_warehouses").select("*").eq("id", id).maybeSingle(),
     );
@@ -370,7 +370,7 @@ export class ReservationRepository {
       await this.sb.from("pharmacy_stock_reservations").insert(row).select("*").single(),
     );
   }
-  async getById(id: string) {
+  async getById(id: string): Promise<StockReservationRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_stock_reservations").select("*").eq("id", id).maybeSingle(),
     );
@@ -393,7 +393,7 @@ export class ReservationRepository {
 export type SupplierRow = Tables<"pharmacy_suppliers">;
 export class SupplierRepository {
   constructor(private readonly sb: SB) {}
-  async getById(id: string) {
+  async getById(id: string): Promise<SupplierRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_suppliers").select("*").eq("id", id).maybeSingle(),
     );
@@ -467,7 +467,7 @@ export class PurchaseOrderRepository {
         .single(),
     );
   }
-  async getById(id: string) {
+  async getById(id: string): Promise<PurchaseOrderRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_purchase_orders").select("*").eq("id", id).maybeSingle(),
     );
@@ -552,7 +552,7 @@ export class DispenseRepository {
     if (!rows.length) return [];
     return unwrapList(await this.sb.from("pharmacy_dispense_items").insert(rows).select("*"));
   }
-  async getById(id: string) {
+  async getById(id: string): Promise<DispenseRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_dispenses").select("*").eq("id", id).maybeSingle(),
     );
@@ -669,7 +669,7 @@ export class ControlledDrugRepository {
       await this.sb.from("pharmacy_controlled_register").insert(row).select("*").single(),
     );
   }
-  async latestBalance(args: { tenantId: string; warehouseId: string; drugId: string }) {
+  async latestBalance(args: { tenantId: string; warehouseId: string; drugId: string }): Promise<{ balance_after: number } | null> {
     return unwrapMaybe(
       await this.sb
         .from("pharmacy_controlled_register")
@@ -746,7 +746,7 @@ export class RecallRepository {
       await this.sb.from("pharmacy_drug_recalls").update(patch).eq("id", id).select("*").single(),
     );
   }
-  async getById(id: string) {
+  async getById(id: string): Promise<RecallRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_drug_recalls").select("*").eq("id", id).maybeSingle(),
     );
@@ -791,7 +791,7 @@ export class MedicationKitRepository {
     const rows = items.map((i) => ({ ...i, kit_id: kitId, tenant_id: tenantId }));
     return unwrapList(await this.sb.from("pharmacy_medication_kit_items").insert(rows).select("*"));
   }
-  async getById(id: string) {
+  async getById(id: string): Promise<MedicationKitRow | null> {
     return unwrapMaybe(
       await this.sb.from("pharmacy_medication_kits").select("*").eq("id", id).maybeSingle(),
     );
