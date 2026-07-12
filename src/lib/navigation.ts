@@ -149,6 +149,12 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: FlaskConical,
         permission: "lab:read",
       },
+      {
+        label: "Finance & Accounting",
+        to: "/finance",
+        icon: IndianRupee,
+        permission: "finance:read",
+      },
 
     ],
   },
