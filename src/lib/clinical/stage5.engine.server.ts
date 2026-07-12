@@ -374,7 +374,7 @@ export class ClinicalAssistantEngine {
       ok: call.ok,
       error: call.error ?? null,
       responseText: call.text,
-      responseJson: call.json,
+      responseJson: (call.json as Json | null) ?? null,
       template,
     };
   }
