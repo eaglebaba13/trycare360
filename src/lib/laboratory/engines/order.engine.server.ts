@@ -28,14 +28,10 @@ import {
   writeLabAudit,
 } from "../helpers.server";
 import { LAB_EVENTS } from "../events";
-import type {
-  OrderCancelInput,
-  OrderCreateInput,
-} from "../validators";
+import type { OrderCreateInput } from "../validators";
 
 type SB = SupabaseClient<Database>;
-type OrderCancelInput = { tenantId: string; orderId: string; reason: string };
-type OrderCancelArgs = OrderCancelInput;
+type OrderCancelArgs = { tenantId: string; orderId: string; reason: string };
 
 export class OrderEngine {
   private readonly orders: LaboratoryOrderRepository;
