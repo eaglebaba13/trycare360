@@ -70,13 +70,14 @@ function compactContext(ctx: ClinicalContext): Record<string, unknown> {
     })),
     vitals_latest: ctx.vitals[0] ?? null,
     medical_history: ctx.medicalHistory.map((m) => ({
-      condition: m.condition,
-      status: m.status,
-      onset: m.onset_date,
+      category: m.category,
+      summary: m.summary,
+      event_date: m.event_date,
     })),
     family_history: ctx.familyHistory.map((f) => ({
       relation: f.relation,
-      condition: f.condition,
+      condition: f.condition_display,
+      onset_age: f.onset_age,
     })),
     lifestyle: ctx.lifestyleHistory ?? null,
     treatment_plans: ctx.treatmentPlans.slice(0, 5).map((t) => ({
