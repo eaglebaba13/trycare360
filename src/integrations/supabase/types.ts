@@ -2768,6 +2768,365 @@ export type Database = {
           },
         ]
       }
+      billing_audit: {
+        Row: {
+          action: string
+          actor_id: string | null
+          diff: Json
+          entity_id: string
+          entity_type: string
+          id: number
+          occurred_at: string
+          reason: string | null
+          tenant_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          diff?: Json
+          entity_id: string
+          entity_type: string
+          id?: number
+          occurred_at?: string
+          reason?: string | null
+          tenant_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          diff?: Json
+          entity_id?: string
+          entity_type?: string
+          id?: number
+          occurred_at?: string
+          reason?: string | null
+          tenant_id?: string
+        }
+        Relationships: []
+      }
+      billing_estimate_items: {
+        Row: {
+          created_at: string
+          description: string
+          discount_amount: number
+          estimate_id: string
+          id: string
+          item_kind: string
+          item_ref_id: string | null
+          line_no: number
+          line_total: number
+          meta: Json
+          qty: number
+          tax_amount: number
+          tax_rule_id: string | null
+          tenant_id: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          discount_amount?: number
+          estimate_id: string
+          id?: string
+          item_kind: string
+          item_ref_id?: string | null
+          line_no: number
+          line_total?: number
+          meta?: Json
+          qty?: number
+          tax_amount?: number
+          tax_rule_id?: string | null
+          tenant_id: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          discount_amount?: number
+          estimate_id?: string
+          id?: string
+          item_kind?: string
+          item_ref_id?: string | null
+          line_no?: number
+          line_total?: number
+          meta?: Json
+          qty?: number
+          tax_amount?: number
+          tax_rule_id?: string | null
+          tenant_id?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_estimate_items_estimate_id_fkey"
+            columns: ["estimate_id"]
+            isOneToOne: false
+            referencedRelation: "billing_estimates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_estimates: {
+        Row: {
+          branch_id: string | null
+          converted_invoice_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          discount_total: number
+          estimate_no: string
+          grand_total: number
+          id: string
+          meta: Json
+          notes: string | null
+          patient_id: string | null
+          person_id: string | null
+          price_book_id: string | null
+          status: string
+          subtotal: number
+          tax_total: number
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          converted_invoice_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number
+          estimate_no: string
+          grand_total?: number
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          price_book_id?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          converted_invoice_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number
+          estimate_no?: string
+          grand_total?: number
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          price_book_id?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_estimates_price_book_id_fkey"
+            columns: ["price_book_id"]
+            isOneToOne: false
+            referencedRelation: "price_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      billing_ledger: {
+        Row: {
+          amount: number
+          balance: number | null
+          branch_id: string | null
+          claim_id: string | null
+          credit_note_id: string | null
+          currency: string
+          debit_note_id: string | null
+          entry_type: string
+          id: number
+          invoice_id: string | null
+          meta: Json
+          occurred_at: string
+          patient_id: string | null
+          payment_id: string | null
+          person_id: string | null
+          refund_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          amount: number
+          balance?: number | null
+          branch_id?: string | null
+          claim_id?: string | null
+          credit_note_id?: string | null
+          currency?: string
+          debit_note_id?: string | null
+          entry_type: string
+          id?: number
+          invoice_id?: string | null
+          meta?: Json
+          occurred_at?: string
+          patient_id?: string | null
+          payment_id?: string | null
+          person_id?: string | null
+          refund_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          amount?: number
+          balance?: number | null
+          branch_id?: string | null
+          claim_id?: string | null
+          credit_note_id?: string | null
+          currency?: string
+          debit_note_id?: string | null
+          entry_type?: string
+          id?: number
+          invoice_id?: string | null
+          meta?: Json
+          occurred_at?: string
+          patient_id?: string | null
+          payment_id?: string | null
+          person_id?: string | null
+          refund_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: []
+      }
+      billing_recurring_cycles: {
+        Row: {
+          amount: number
+          attempts: number
+          branch_id: string | null
+          cadence: string
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          meta: Json
+          next_run_at: string | null
+          person_id: string
+          source_kind: string
+          source_ref_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          amount?: number
+          attempts?: number
+          branch_id?: string | null
+          cadence: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          meta?: Json
+          next_run_at?: string | null
+          person_id: string
+          source_kind: string
+          source_ref_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          amount?: number
+          attempts?: number
+          branch_id?: string | null
+          cadence?: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          meta?: Json
+          next_run_at?: string | null
+          person_id?: string
+          source_kind?: string
+          source_ref_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      billing_recurring_runs: {
+        Row: {
+          cycle_id: string
+          error: string | null
+          id: string
+          invoice_id: string | null
+          meta: Json
+          payment_id: string | null
+          run_at: string
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          cycle_id: string
+          error?: string | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          payment_id?: string | null
+          run_at?: string
+          status: string
+          tenant_id: string
+        }
+        Update: {
+          cycle_id?: string
+          error?: string | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          payment_id?: string | null
+          run_at?: string
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_recurring_runs_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "billing_recurring_cycles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_recurring_runs_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "billing_recurring_runs_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       branch_holidays: {
         Row: {
           blocks_all: boolean
@@ -8170,6 +8529,128 @@ export type Database = {
         }
         Relationships: []
       }
+      credit_note_items: {
+        Row: {
+          created_at: string
+          credit_note_id: string
+          description: string | null
+          id: string
+          invoice_item_id: string | null
+          line_no: number
+          line_total: number
+          qty: number
+          tax_amount: number
+          tenant_id: string
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          credit_note_id: string
+          description?: string | null
+          id?: string
+          invoice_item_id?: string | null
+          line_no: number
+          line_total?: number
+          qty?: number
+          tax_amount?: number
+          tenant_id: string
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          credit_note_id?: string
+          description?: string | null
+          id?: string
+          invoice_item_id?: string | null
+          line_no?: number
+          line_total?: number
+          qty?: number
+          tax_amount?: number
+          tenant_id?: string
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_note_items_credit_note_id_fkey"
+            columns: ["credit_note_id"]
+            isOneToOne: false
+            referencedRelation: "credit_notes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "credit_note_items_invoice_item_id_fkey"
+            columns: ["invoice_item_id"]
+            isOneToOne: false
+            referencedRelation: "invoice_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      credit_notes: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          grand_total: number
+          id: string
+          invoice_id: string | null
+          issue_date: string | null
+          meta: Json
+          note_no: string
+          reason: string | null
+          status: string
+          subtotal: number
+          tax_total: number
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grand_total?: number
+          id?: string
+          invoice_id?: string | null
+          issue_date?: string | null
+          meta?: Json
+          note_no: string
+          reason?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grand_total?: number
+          id?: string
+          invoice_id?: string | null
+          issue_date?: string | null
+          meta?: Json
+          note_no?: string
+          reason?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_notes_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dashboard_layouts: {
         Row: {
           code: string
@@ -8275,6 +8756,118 @@ export type Database = {
             columns: ["layout_id"]
             isOneToOne: false
             referencedRelation: "dashboard_layouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      debit_note_items: {
+        Row: {
+          created_at: string
+          debit_note_id: string
+          description: string | null
+          id: string
+          line_no: number
+          line_total: number
+          qty: number
+          tax_amount: number
+          tenant_id: string
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          debit_note_id: string
+          description?: string | null
+          id?: string
+          line_no: number
+          line_total?: number
+          qty?: number
+          tax_amount?: number
+          tenant_id: string
+          unit_price?: number
+        }
+        Update: {
+          created_at?: string
+          debit_note_id?: string
+          description?: string | null
+          id?: string
+          line_no?: number
+          line_total?: number
+          qty?: number
+          tax_amount?: number
+          tenant_id?: string
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "debit_note_items_debit_note_id_fkey"
+            columns: ["debit_note_id"]
+            isOneToOne: false
+            referencedRelation: "debit_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      debit_notes: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          grand_total: number
+          id: string
+          invoice_id: string | null
+          issue_date: string | null
+          meta: Json
+          note_no: string
+          reason: string | null
+          status: string
+          subtotal: number
+          tax_total: number
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grand_total?: number
+          id?: string
+          invoice_id?: string | null
+          issue_date?: string | null
+          meta?: Json
+          note_no: string
+          reason?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grand_total?: number
+          id?: string
+          invoice_id?: string | null
+          issue_date?: string | null
+          meta?: Json
+          note_no?: string
+          reason?: string | null
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "debit_notes_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
             referencedColumns: ["id"]
           },
         ]
@@ -8392,6 +8985,66 @@ export type Database = {
           push_token?: string | null
           ts?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      discount_schemes: {
+        Row: {
+          code: string
+          config: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          kind: string
+          max_percent: number | null
+          name: string
+          requires_approval: boolean
+          scope: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+          value: number | null
+        }
+        Insert: {
+          code: string
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          kind: string
+          max_percent?: number | null
+          name: string
+          requires_approval?: boolean
+          scope: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+          value?: number | null
+        }
+        Update: {
+          code?: string
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          max_percent?: number | null
+          name?: string
+          requires_approval?: boolean
+          scope?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+          value?: number | null
         }
         Relationships: []
       }
@@ -9335,6 +9988,562 @@ export type Database = {
           },
         ]
       }
+      insurance_authorizations: {
+        Row: {
+          approved_amount: number | null
+          auth_no: string | null
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          denial_reason: string | null
+          documents: Json
+          id: string
+          meta: Json
+          patient_insurance_id: string
+          person_id: string
+          requested_amount: number | null
+          requested_at: string
+          requested_service: Json
+          responded_at: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          approved_amount?: number | null
+          auth_no?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          denial_reason?: string | null
+          documents?: Json
+          id?: string
+          meta?: Json
+          patient_insurance_id: string
+          person_id: string
+          requested_amount?: number | null
+          requested_at?: string
+          requested_service?: Json
+          responded_at?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          approved_amount?: number | null
+          auth_no?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          denial_reason?: string | null
+          documents?: Json
+          id?: string
+          meta?: Json
+          patient_insurance_id?: string
+          person_id?: string
+          requested_amount?: number | null
+          requested_at?: string
+          requested_service?: Json
+          responded_at?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_authorizations_patient_insurance_id_fkey"
+            columns: ["patient_insurance_id"]
+            isOneToOne: false
+            referencedRelation: "patient_insurance"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_claim_events: {
+        Row: {
+          actor_id: string | null
+          claim_id: string
+          event_type: string
+          from_status: string | null
+          id: number
+          occurred_at: string
+          payload: Json
+          tenant_id: string
+          to_status: string | null
+        }
+        Insert: {
+          actor_id?: string | null
+          claim_id: string
+          event_type: string
+          from_status?: string | null
+          id?: number
+          occurred_at?: string
+          payload?: Json
+          tenant_id: string
+          to_status?: string | null
+        }
+        Update: {
+          actor_id?: string | null
+          claim_id?: string
+          event_type?: string
+          from_status?: string | null
+          id?: number
+          occurred_at?: string
+          payload?: Json
+          tenant_id?: string
+          to_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_claim_events_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_claims"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_claim_items: {
+        Row: {
+          allowed_amount: number | null
+          billed_amount: number
+          claim_id: string
+          created_at: string
+          denial_code: string | null
+          description: string | null
+          hsn_sac: string | null
+          id: string
+          invoice_item_id: string | null
+          line_no: number
+          meta: Json
+          paid_amount: number
+          qty: number
+          service_code: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          allowed_amount?: number | null
+          billed_amount?: number
+          claim_id: string
+          created_at?: string
+          denial_code?: string | null
+          description?: string | null
+          hsn_sac?: string | null
+          id?: string
+          invoice_item_id?: string | null
+          line_no: number
+          meta?: Json
+          paid_amount?: number
+          qty?: number
+          service_code?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          allowed_amount?: number | null
+          billed_amount?: number
+          claim_id?: string
+          created_at?: string
+          denial_code?: string | null
+          description?: string | null
+          hsn_sac?: string | null
+          id?: string
+          invoice_item_id?: string | null
+          line_no?: number
+          meta?: Json
+          paid_amount?: number
+          qty?: number
+          service_code?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_claim_items_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_claims"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insurance_claim_items_invoice_item_id_fkey"
+            columns: ["invoice_item_id"]
+            isOneToOne: false
+            referencedRelation: "invoice_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_claims: {
+        Row: {
+          allowed_amount: number | null
+          authorization_id: string | null
+          billed_amount: number
+          branch_id: string | null
+          claim_no: string
+          created_at: string
+          created_by: string | null
+          denial_reason: string | null
+          documents: Json
+          external_claim_ref: string | null
+          id: string
+          invoice_id: string | null
+          meta: Json
+          paid_amount: number
+          patient_insurance_id: string
+          patient_responsibility: number
+          person_id: string | null
+          status: string
+          submission_channel: string | null
+          submitted_at: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          allowed_amount?: number | null
+          authorization_id?: string | null
+          billed_amount?: number
+          branch_id?: string | null
+          claim_no: string
+          created_at?: string
+          created_by?: string | null
+          denial_reason?: string | null
+          documents?: Json
+          external_claim_ref?: string | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          paid_amount?: number
+          patient_insurance_id: string
+          patient_responsibility?: number
+          person_id?: string | null
+          status?: string
+          submission_channel?: string | null
+          submitted_at?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          allowed_amount?: number | null
+          authorization_id?: string | null
+          billed_amount?: number
+          branch_id?: string | null
+          claim_no?: string
+          created_at?: string
+          created_by?: string | null
+          denial_reason?: string | null
+          documents?: Json
+          external_claim_ref?: string | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          paid_amount?: number
+          patient_insurance_id?: string
+          patient_responsibility?: number
+          person_id?: string | null
+          status?: string
+          submission_channel?: string | null
+          submitted_at?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_claims_authorization_id_fkey"
+            columns: ["authorization_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_authorizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insurance_claims_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insurance_claims_patient_insurance_id_fkey"
+            columns: ["patient_insurance_id"]
+            isOneToOne: false
+            referencedRelation: "patient_insurance"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_payers: {
+        Row: {
+          code: string
+          contact: Json
+          created_at: string
+          created_by: string | null
+          gst_no: string | null
+          id: string
+          is_active: boolean
+          kind: string
+          meta: Json
+          name: string
+          pan: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          contact?: Json
+          created_at?: string
+          created_by?: string | null
+          gst_no?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          meta?: Json
+          name: string
+          pan?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          contact?: Json
+          created_at?: string
+          created_by?: string | null
+          gst_no?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          meta?: Json
+          name?: string
+          pan?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      insurance_plans: {
+        Row: {
+          annual_limit: number | null
+          code: string
+          copay_percent: number
+          coverage_percent: number
+          covered_services: Json
+          created_at: string
+          created_by: string | null
+          excluded_services: Json
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          payer_id: string
+          per_visit_limit: number | null
+          plan_type: string | null
+          requires_authorization: boolean
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          annual_limit?: number | null
+          code: string
+          copay_percent?: number
+          coverage_percent?: number
+          covered_services?: Json
+          created_at?: string
+          created_by?: string | null
+          excluded_services?: Json
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          payer_id: string
+          per_visit_limit?: number | null
+          plan_type?: string | null
+          requires_authorization?: boolean
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          annual_limit?: number | null
+          code?: string
+          copay_percent?: number
+          coverage_percent?: number
+          covered_services?: Json
+          created_at?: string
+          created_by?: string | null
+          excluded_services?: Json
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          payer_id?: string
+          per_visit_limit?: number | null
+          plan_type?: string | null
+          requires_authorization?: boolean
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_plans_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_payers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_remittance_lines: {
+        Row: {
+          adjustment_amount: number
+          allowed_amount: number
+          billed_amount: number
+          claim_id: string | null
+          claim_item_id: string | null
+          created_at: string
+          denial_code: string | null
+          id: string
+          meta: Json
+          paid_amount: number
+          patient_responsibility: number
+          remark: string | null
+          remittance_id: string
+          tenant_id: string
+        }
+        Insert: {
+          adjustment_amount?: number
+          allowed_amount?: number
+          billed_amount?: number
+          claim_id?: string | null
+          claim_item_id?: string | null
+          created_at?: string
+          denial_code?: string | null
+          id?: string
+          meta?: Json
+          paid_amount?: number
+          patient_responsibility?: number
+          remark?: string | null
+          remittance_id: string
+          tenant_id: string
+        }
+        Update: {
+          adjustment_amount?: number
+          allowed_amount?: number
+          billed_amount?: number
+          claim_id?: string | null
+          claim_item_id?: string | null
+          created_at?: string
+          denial_code?: string | null
+          id?: string
+          meta?: Json
+          paid_amount?: number
+          patient_responsibility?: number
+          remark?: string | null
+          remittance_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_remittance_lines_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_claims"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insurance_remittance_lines_claim_item_id_fkey"
+            columns: ["claim_item_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_claim_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "insurance_remittance_lines_remittance_id_fkey"
+            columns: ["remittance_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_remittances"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_remittances: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          external_ref: string | null
+          id: string
+          meta: Json
+          payer_id: string
+          remit_date: string
+          remittance_no: string
+          status: string
+          tenant_id: string
+          total_amount: number
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          payer_id: string
+          remit_date: string
+          remittance_no: string
+          status?: string
+          tenant_id: string
+          total_amount?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          payer_id?: string
+          remit_date?: string
+          remittance_no?: string
+          status?: string
+          tenant_id?: string
+          total_amount?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_remittances_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_payers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       integration_api_logs: {
         Row: {
           connection_id: string | null
@@ -9803,6 +11012,337 @@ export type Database = {
           },
         ]
       }
+      invoice_discounts: {
+        Row: {
+          amount: number
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          discount_scheme_id: string | null
+          id: string
+          invoice_id: string
+          line_no: number | null
+          reason: string | null
+          scope: string
+          tenant_id: string
+        }
+        Insert: {
+          amount?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          discount_scheme_id?: string | null
+          id?: string
+          invoice_id: string
+          line_no?: number | null
+          reason?: string | null
+          scope: string
+          tenant_id: string
+        }
+        Update: {
+          amount?: number
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          discount_scheme_id?: string | null
+          id?: string
+          invoice_id?: string
+          line_no?: number | null
+          reason?: string | null
+          scope?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_discounts_discount_scheme_id_fkey"
+            columns: ["discount_scheme_id"]
+            isOneToOne: false
+            referencedRelation: "discount_schemes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_discounts_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_items: {
+        Row: {
+          created_at: string
+          description: string
+          discount_amount: number
+          discount_scheme_id: string | null
+          hsn_sac: string | null
+          id: string
+          invoice_id: string
+          item_kind: string
+          item_ref_id: string | null
+          line_no: number
+          line_total: number
+          meta: Json
+          package_ref_id: string | null
+          performer_id: string | null
+          qty: number
+          tax_amount: number
+          tax_rule_id: string | null
+          tenant_id: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          discount_amount?: number
+          discount_scheme_id?: string | null
+          hsn_sac?: string | null
+          id?: string
+          invoice_id: string
+          item_kind: string
+          item_ref_id?: string | null
+          line_no: number
+          line_total?: number
+          meta?: Json
+          package_ref_id?: string | null
+          performer_id?: string | null
+          qty?: number
+          tax_amount?: number
+          tax_rule_id?: string | null
+          tenant_id: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          discount_amount?: number
+          discount_scheme_id?: string | null
+          hsn_sac?: string | null
+          id?: string
+          invoice_id?: string
+          item_kind?: string
+          item_ref_id?: string | null
+          line_no?: number
+          line_total?: number
+          meta?: Json
+          package_ref_id?: string | null
+          performer_id?: string | null
+          qty?: number
+          tax_amount?: number
+          tax_rule_id?: string | null
+          tenant_id?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_items_discount_scheme_id_fkey"
+            columns: ["discount_scheme_id"]
+            isOneToOne: false
+            referencedRelation: "discount_schemes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_items_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoice_taxes: {
+        Row: {
+          code: string | null
+          created_at: string
+          id: string
+          invoice_id: string
+          name: string | null
+          rate_percent: number
+          tax_amount: number
+          tax_rate_id: string | null
+          taxable_amount: number
+          tenant_id: string
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          invoice_id: string
+          name?: string | null
+          rate_percent?: number
+          tax_amount?: number
+          tax_rate_id?: string | null
+          taxable_amount?: number
+          tenant_id: string
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          invoice_id?: string
+          name?: string | null
+          rate_percent?: number
+          tax_amount?: number
+          tax_rate_id?: string | null
+          taxable_amount?: number
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoice_taxes_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoice_taxes_tax_rate_id_fkey"
+            columns: ["tax_rate_id"]
+            isOneToOne: false
+            referencedRelation: "tax_rates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          amount_due: number
+          amount_paid: number
+          billing_source: string | null
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          discount_total: number
+          due_date: string | null
+          einvoice_irn: string | null
+          einvoice_qr: string | null
+          einvoice_status: string | null
+          grand_total: number
+          gst_registration_id: string | null
+          id: string
+          insurance_covered: number
+          invoice_no: string | null
+          invoice_series: string | null
+          issue_date: string | null
+          meta: Json
+          notes: string | null
+          patient_id: string | null
+          patient_responsibility: number
+          person_id: string | null
+          place_of_supply: string | null
+          price_book_id: string | null
+          primary_insurance_id: string | null
+          round_off: number
+          source_ref: Json
+          status: string
+          subtotal: number
+          tax_total: number
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          amount_due?: number
+          amount_paid?: number
+          billing_source?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number
+          due_date?: string | null
+          einvoice_irn?: string | null
+          einvoice_qr?: string | null
+          einvoice_status?: string | null
+          grand_total?: number
+          gst_registration_id?: string | null
+          id?: string
+          insurance_covered?: number
+          invoice_no?: string | null
+          invoice_series?: string | null
+          issue_date?: string | null
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          patient_responsibility?: number
+          person_id?: string | null
+          place_of_supply?: string | null
+          price_book_id?: string | null
+          primary_insurance_id?: string | null
+          round_off?: number
+          source_ref?: Json
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          amount_due?: number
+          amount_paid?: number
+          billing_source?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number
+          due_date?: string | null
+          einvoice_irn?: string | null
+          einvoice_qr?: string | null
+          einvoice_status?: string | null
+          grand_total?: number
+          gst_registration_id?: string | null
+          id?: string
+          insurance_covered?: number
+          invoice_no?: string | null
+          invoice_series?: string | null
+          issue_date?: string | null
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          patient_responsibility?: number
+          person_id?: string | null
+          place_of_supply?: string | null
+          price_book_id?: string | null
+          primary_insurance_id?: string | null
+          round_off?: number
+          source_ref?: Json
+          status?: string
+          subtotal?: number
+          tax_total?: number
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_gst_registration_id_fkey"
+            columns: ["gst_registration_id"]
+            isOneToOne: false
+            referencedRelation: "gst_registrations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_price_book_id_fkey"
+            columns: ["price_book_id"]
+            isOneToOne: false
+            referencedRelation: "price_books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_primary_insurance_fk"
+            columns: ["primary_insurance_id"]
+            isOneToOne: false
+            referencedRelation: "patient_insurance"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ip_logs: {
         Row: {
           event: string | null
@@ -9827,6 +11367,2173 @@ export type Database = {
           ip?: unknown
           ts?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      lab_accessions: {
+        Row: {
+          accession_no: string
+          branch_id: string | null
+          created_at: string
+          id: string
+          meta: Json
+          order_id: string | null
+          received_at: string
+          received_by: string | null
+          received_location: string | null
+          rejection_reason: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          accession_no: string
+          branch_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          received_at?: string
+          received_by?: string | null
+          received_location?: string | null
+          rejection_reason?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          accession_no?: string
+          branch_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          received_at?: string
+          received_by?: string | null
+          received_location?: string | null
+          rejection_reason?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_accessions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_analyzer_instruments: {
+        Row: {
+          analyzer_type_id: string | null
+          branch_id: string | null
+          code: string
+          connection: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          last_online_at: string | null
+          location: string | null
+          meta: Json
+          name: string
+          serial_no: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          analyzer_type_id?: string | null
+          branch_id?: string | null
+          code: string
+          connection?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          last_online_at?: string | null
+          location?: string | null
+          meta?: Json
+          name: string
+          serial_no?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          analyzer_type_id?: string | null
+          branch_id?: string | null
+          code?: string
+          connection?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          last_online_at?: string | null
+          location?: string | null
+          meta?: Json
+          name?: string
+          serial_no?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_analyzer_instruments_analyzer_type_id_fkey"
+            columns: ["analyzer_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_analyzer_queues: {
+        Row: {
+          completed_at: string | null
+          error: string | null
+          id: string
+          instrument_id: string
+          meta: Json
+          order_item_id: string | null
+          queued_at: string
+          specimen_id: string | null
+          started_at: string | null
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          error?: string | null
+          id?: string
+          instrument_id: string
+          meta?: Json
+          order_item_id?: string | null
+          queued_at?: string
+          specimen_id?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          error?: string | null
+          id?: string
+          instrument_id?: string
+          meta?: Json
+          order_item_id?: string | null
+          queued_at?: string
+          specimen_id?: string | null
+          started_at?: string | null
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_analyzer_queues_instrument_id_fkey"
+            columns: ["instrument_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_instruments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_analyzer_queues_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "lab_order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_analyzer_queues_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_analyzer_results: {
+        Row: {
+          flag: string | null
+          id: string
+          ingested_at: string
+          instrument_id: string
+          meta: Json
+          numeric_value: number | null
+          order_item_id: string | null
+          queue_id: string | null
+          raw_payload: Json
+          received_at: string
+          tenant_id: string
+          test_id: string | null
+          text_value: string | null
+          unit_code: string | null
+        }
+        Insert: {
+          flag?: string | null
+          id?: string
+          ingested_at?: string
+          instrument_id: string
+          meta?: Json
+          numeric_value?: number | null
+          order_item_id?: string | null
+          queue_id?: string | null
+          raw_payload?: Json
+          received_at?: string
+          tenant_id: string
+          test_id?: string | null
+          text_value?: string | null
+          unit_code?: string | null
+        }
+        Update: {
+          flag?: string | null
+          id?: string
+          ingested_at?: string
+          instrument_id?: string
+          meta?: Json
+          numeric_value?: number | null
+          order_item_id?: string | null
+          queue_id?: string | null
+          raw_payload?: Json
+          received_at?: string
+          tenant_id?: string
+          test_id?: string | null
+          text_value?: string | null
+          unit_code?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_analyzer_results_instrument_id_fkey"
+            columns: ["instrument_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_instruments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_analyzer_results_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "lab_order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_analyzer_results_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_queues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_analyzer_results_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_analyzer_types: {
+        Row: {
+          code: string
+          connectivity: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          tenant_id: string | null
+          updated_at: string
+          vendor: string | null
+        }
+        Insert: {
+          code: string
+          connectivity?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+          vendor?: string | null
+        }
+        Update: {
+          code?: string
+          connectivity?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+          vendor?: string | null
+        }
+        Relationships: []
+      }
+      lab_audit: {
+        Row: {
+          action: string
+          actor_id: string | null
+          diff: Json
+          entity_id: string
+          entity_type: string
+          id: number
+          occurred_at: string
+          reason: string | null
+          tenant_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          diff?: Json
+          entity_id: string
+          entity_type: string
+          id?: number
+          occurred_at?: string
+          reason?: string | null
+          tenant_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          diff?: Json
+          entity_id?: string
+          entity_type?: string
+          id?: number
+          occurred_at?: string
+          reason?: string | null
+          tenant_id?: string
+        }
+        Relationships: []
+      }
+      lab_calibration_records: {
+        Row: {
+          calibrated_at: string
+          created_at: string
+          document_id: string | null
+          id: string
+          instrument_id: string
+          intercept: number | null
+          meta: Json
+          method: string | null
+          next_due_at: string | null
+          performed_by: string | null
+          result: string | null
+          slope: number | null
+          tenant_id: string
+          test_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          calibrated_at?: string
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          instrument_id: string
+          intercept?: number | null
+          meta?: Json
+          method?: string | null
+          next_due_at?: string | null
+          performed_by?: string | null
+          result?: string | null
+          slope?: number | null
+          tenant_id: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          calibrated_at?: string
+          created_at?: string
+          document_id?: string | null
+          id?: string
+          instrument_id?: string
+          intercept?: number | null
+          meta?: Json
+          method?: string | null
+          next_due_at?: string | null
+          performed_by?: string | null
+          result?: string | null
+          slope?: number | null
+          tenant_id?: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_calibration_records_instrument_id_fkey"
+            columns: ["instrument_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_instruments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_calibration_records_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_container_types: {
+        Row: {
+          additive: string | null
+          cap_color: string | null
+          code: string
+          created_at: string
+          default_volume_ml: number | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          additive?: string | null
+          cap_color?: string | null
+          code: string
+          created_at?: string
+          default_volume_ml?: number | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          additive?: string | null
+          cap_color?: string | null
+          code?: string
+          created_at?: string
+          default_volume_ml?: number | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lab_critical_value_rules: {
+        Row: {
+          ack_required: boolean
+          ack_window_minutes: number
+          created_at: string
+          high_critical: number | null
+          id: string
+          is_active: boolean
+          low_critical: number | null
+          notify_channels: Json
+          qualitative_critical: string | null
+          tenant_id: string
+          test_id: string
+          updated_at: string
+        }
+        Insert: {
+          ack_required?: boolean
+          ack_window_minutes?: number
+          created_at?: string
+          high_critical?: number | null
+          id?: string
+          is_active?: boolean
+          low_critical?: number | null
+          notify_channels?: Json
+          qualitative_critical?: string | null
+          tenant_id: string
+          test_id: string
+          updated_at?: string
+        }
+        Update: {
+          ack_required?: boolean
+          ack_window_minutes?: number
+          created_at?: string
+          high_critical?: number | null
+          id?: string
+          is_active?: boolean
+          low_critical?: number | null
+          notify_channels?: Json
+          qualitative_critical?: string | null
+          tenant_id?: string
+          test_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_critical_value_rules_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_cultures: {
+        Row: {
+          colony_count: string | null
+          created_at: string
+          gram_stain: string | null
+          growth_status: string
+          id: string
+          incubated_at: string | null
+          meta: Json
+          microbiology_order_id: string | null
+          notes: string | null
+          organism_code: string | null
+          organism_name: string | null
+          reported_at: string | null
+          reported_by: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          colony_count?: string | null
+          created_at?: string
+          gram_stain?: string | null
+          growth_status?: string
+          id?: string
+          incubated_at?: string | null
+          meta?: Json
+          microbiology_order_id?: string | null
+          notes?: string | null
+          organism_code?: string | null
+          organism_name?: string | null
+          reported_at?: string | null
+          reported_by?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          colony_count?: string | null
+          created_at?: string
+          gram_stain?: string | null
+          growth_status?: string
+          id?: string
+          incubated_at?: string | null
+          meta?: Json
+          microbiology_order_id?: string | null
+          notes?: string | null
+          organism_code?: string | null
+          organism_name?: string | null
+          reported_at?: string | null
+          reported_by?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_cultures_microbiology_order_id_fkey"
+            columns: ["microbiology_order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_microbiology_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_delta_check_rules: {
+        Row: {
+          action: string
+          created_at: string
+          delta_kind: string
+          id: string
+          is_active: boolean
+          tenant_id: string
+          test_id: string
+          threshold: number
+          updated_at: string
+          window_days: number
+        }
+        Insert: {
+          action?: string
+          created_at?: string
+          delta_kind: string
+          id?: string
+          is_active?: boolean
+          tenant_id: string
+          test_id: string
+          threshold: number
+          updated_at?: string
+          window_days?: number
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          delta_kind?: string
+          id?: string
+          is_active?: boolean
+          tenant_id?: string
+          test_id?: string
+          threshold?: number
+          updated_at?: string
+          window_days?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_delta_check_rules_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_departments: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          kind: string
+          meta: Json
+          name: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          meta?: Json
+          name: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          meta?: Json
+          name?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      lab_distribution_logs: {
+        Row: {
+          actor_id: string | null
+          channel: string
+          id: number
+          meta: Json
+          order_id: string | null
+          recipient: string | null
+          sent_at: string
+          status: string
+          tenant_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          channel: string
+          id?: number
+          meta?: Json
+          order_id?: string | null
+          recipient?: string | null
+          sent_at?: string
+          status?: string
+          tenant_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          channel?: string
+          id?: number
+          meta?: Json
+          order_id?: string | null
+          recipient?: string | null
+          sent_at?: string
+          status?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_distribution_logs_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_external_orders: {
+        Row: {
+          completed_at: string | null
+          cost: number | null
+          created_at: string
+          created_by: string | null
+          currency: string | null
+          external_ref: string | null
+          id: string
+          meta: Json
+          order_id: string | null
+          status: string
+          submitted_at: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          vendor_code: string
+        }
+        Insert: {
+          completed_at?: string | null
+          cost?: number | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          status?: string
+          submitted_at?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_code: string
+        }
+        Update: {
+          completed_at?: string | null
+          cost?: number | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string | null
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          status?: string
+          submitted_at?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          vendor_code?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_external_orders_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_external_results: {
+        Row: {
+          created_at: string
+          external_order_id: string | null
+          id: string
+          ingested: boolean
+          meta: Json
+          payload: Json
+          received_at: string
+          result_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          created_at?: string
+          external_order_id?: string | null
+          id?: string
+          ingested?: boolean
+          meta?: Json
+          payload?: Json
+          received_at?: string
+          result_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          created_at?: string
+          external_order_id?: string | null
+          id?: string
+          ingested?: boolean
+          meta?: Json
+          payload?: Json
+          received_at?: string
+          result_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_external_results_external_order_id_fkey"
+            columns: ["external_order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_external_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_external_results_result_id_fkey"
+            columns: ["result_id"]
+            isOneToOne: false
+            referencedRelation: "lab_results"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_microbiology_orders: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          meta: Json
+          order_id: string | null
+          order_item_id: string | null
+          request_kind: string
+          specimen_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          order_item_id?: string | null
+          request_kind?: string
+          specimen_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          order_item_id?: string | null
+          request_kind?: string
+          specimen_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_microbiology_orders_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_microbiology_orders_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "lab_order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_microbiology_orders_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_order_items: {
+        Row: {
+          created_at: string
+          id: string
+          item_kind: string
+          meta: Json
+          order_id: string
+          panel_id: string | null
+          reflex_from_item_id: string | null
+          status: string
+          tenant_id: string
+          test_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_kind: string
+          meta?: Json
+          order_id: string
+          panel_id?: string | null
+          reflex_from_item_id?: string | null
+          status?: string
+          tenant_id: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_kind?: string
+          meta?: Json
+          order_id?: string
+          panel_id?: string | null
+          reflex_from_item_id?: string | null
+          status?: string
+          tenant_id?: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_order_items_panel_id_fkey"
+            columns: ["panel_id"]
+            isOneToOne: false
+            referencedRelation: "lab_panels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_order_items_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_orders: {
+        Row: {
+          authorization_id: string | null
+          branch_id: string | null
+          clinical_order_ref: Json
+          created_at: string
+          created_by: string | null
+          diagnosis_codes: Json
+          encounter_id: string | null
+          external_order_ref: string | null
+          fasting: boolean | null
+          id: string
+          invoice_id: string | null
+          meta: Json
+          notes: string | null
+          order_no: string
+          ordered_at: string
+          ordering_provider_id: string | null
+          patient_id: string | null
+          person_id: string | null
+          priority: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          authorization_id?: string | null
+          branch_id?: string | null
+          clinical_order_ref?: Json
+          created_at?: string
+          created_by?: string | null
+          diagnosis_codes?: Json
+          encounter_id?: string | null
+          external_order_ref?: string | null
+          fasting?: boolean | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          notes?: string | null
+          order_no: string
+          ordered_at?: string
+          ordering_provider_id?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          priority?: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          authorization_id?: string | null
+          branch_id?: string | null
+          clinical_order_ref?: Json
+          created_at?: string
+          created_by?: string | null
+          diagnosis_codes?: Json
+          encounter_id?: string | null
+          external_order_ref?: string | null
+          fasting?: boolean | null
+          id?: string
+          invoice_id?: string | null
+          meta?: Json
+          notes?: string | null
+          order_no?: string
+          ordered_at?: string
+          ordering_provider_id?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          priority?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      lab_panel_tests: {
+        Row: {
+          created_at: string
+          id: string
+          is_optional: boolean
+          panel_id: string
+          sequence: number
+          tenant_id: string
+          test_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_optional?: boolean
+          panel_id: string
+          sequence?: number
+          tenant_id: string
+          test_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_optional?: boolean
+          panel_id?: string
+          sequence?: number
+          tenant_id?: string
+          test_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_panel_tests_panel_id_fkey"
+            columns: ["panel_id"]
+            isOneToOne: false
+            referencedRelation: "lab_panels"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_panel_tests_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_panels: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          price: number | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          price?: number | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          price?: number | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_panels_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "lab_departments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_pathology_cases: {
+        Row: {
+          attachments: Json
+          branch_id: string | null
+          case_kind: string
+          case_no: string
+          created_at: string
+          created_by: string | null
+          diagnosis: string | null
+          gross_description: string | null
+          icd_o_code: string | null
+          id: string
+          meta: Json
+          microscopic_description: string | null
+          order_id: string | null
+          pathologist_id: string | null
+          reported_at: string | null
+          specimen_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          attachments?: Json
+          branch_id?: string | null
+          case_kind?: string
+          case_no: string
+          created_at?: string
+          created_by?: string | null
+          diagnosis?: string | null
+          gross_description?: string | null
+          icd_o_code?: string | null
+          id?: string
+          meta?: Json
+          microscopic_description?: string | null
+          order_id?: string | null
+          pathologist_id?: string | null
+          reported_at?: string | null
+          specimen_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          attachments?: Json
+          branch_id?: string | null
+          case_kind?: string
+          case_no?: string
+          created_at?: string
+          created_by?: string | null
+          diagnosis?: string | null
+          gross_description?: string | null
+          icd_o_code?: string | null
+          id?: string
+          meta?: Json
+          microscopic_description?: string | null
+          order_id?: string | null
+          pathologist_id?: string | null
+          reported_at?: string | null
+          specimen_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_pathology_cases_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_pathology_cases_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_qc_materials: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          expiry_date: string | null
+          id: string
+          is_active: boolean
+          level: string | null
+          lot_no: string
+          meta: Json
+          name: string
+          target_values: Json
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          level?: string | null
+          lot_no: string
+          meta?: Json
+          name: string
+          target_values?: Json
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expiry_date?: string | null
+          id?: string
+          is_active?: boolean
+          level?: string | null
+          lot_no?: string
+          meta?: Json
+          name?: string
+          target_values?: Json
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      lab_qc_rules: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          is_active: boolean
+          meta: Json
+          rule_code: string
+          tenant_id: string
+          test_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          action?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          rule_code: string
+          tenant_id: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          rule_code?: string
+          tenant_id?: string
+          test_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_qc_rules_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_qc_runs: {
+        Row: {
+          actor_id: string | null
+          comment: string | null
+          created_at: string
+          id: string
+          instrument_id: string | null
+          meta: Json
+          observed_value: number | null
+          qc_material_id: string | null
+          run_at: string
+          status: string
+          tenant_id: string
+          test_id: string | null
+          updated_at: string
+          violated_rules: Json
+          z_score: number | null
+        }
+        Insert: {
+          actor_id?: string | null
+          comment?: string | null
+          created_at?: string
+          id?: string
+          instrument_id?: string | null
+          meta?: Json
+          observed_value?: number | null
+          qc_material_id?: string | null
+          run_at?: string
+          status?: string
+          tenant_id: string
+          test_id?: string | null
+          updated_at?: string
+          violated_rules?: Json
+          z_score?: number | null
+        }
+        Update: {
+          actor_id?: string | null
+          comment?: string | null
+          created_at?: string
+          id?: string
+          instrument_id?: string | null
+          meta?: Json
+          observed_value?: number | null
+          qc_material_id?: string | null
+          run_at?: string
+          status?: string
+          tenant_id?: string
+          test_id?: string | null
+          updated_at?: string
+          violated_rules?: Json
+          z_score?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_qc_runs_instrument_id_fkey"
+            columns: ["instrument_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_instruments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_qc_runs_qc_material_id_fkey"
+            columns: ["qc_material_id"]
+            isOneToOne: false
+            referencedRelation: "lab_qc_materials"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_qc_runs_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_reference_ranges: {
+        Row: {
+          age_max_days: number | null
+          age_min_days: number | null
+          condition: string | null
+          created_at: string
+          high_value: number | null
+          id: string
+          is_active: boolean
+          low_value: number | null
+          meta: Json
+          qualitative_expected: string | null
+          range_type: string
+          sex: string | null
+          tenant_id: string
+          test_id: string
+          unit_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          age_max_days?: number | null
+          age_min_days?: number | null
+          condition?: string | null
+          created_at?: string
+          high_value?: number | null
+          id?: string
+          is_active?: boolean
+          low_value?: number | null
+          meta?: Json
+          qualitative_expected?: string | null
+          range_type?: string
+          sex?: string | null
+          tenant_id: string
+          test_id: string
+          unit_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age_max_days?: number | null
+          age_min_days?: number | null
+          condition?: string | null
+          created_at?: string
+          high_value?: number | null
+          id?: string
+          is_active?: boolean
+          low_value?: number | null
+          meta?: Json
+          qualitative_expected?: string | null
+          range_type?: string
+          sex?: string | null
+          tenant_id?: string
+          test_id?: string
+          unit_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_reference_ranges_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_reference_ranges_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "lab_units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_result_versions: {
+        Row: {
+          actor_id: string | null
+          created_at: string
+          id: string
+          reason: string | null
+          result_id: string
+          snapshot: Json
+          tenant_id: string
+          version: number
+        }
+        Insert: {
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          reason?: string | null
+          result_id: string
+          snapshot: Json
+          tenant_id: string
+          version: number
+        }
+        Update: {
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          reason?: string | null
+          result_id?: string
+          snapshot?: Json
+          tenant_id?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_result_versions_result_id_fkey"
+            columns: ["result_id"]
+            isOneToOne: false
+            referencedRelation: "lab_results"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_results: {
+        Row: {
+          amended_reason: string | null
+          attachments: Json
+          branch_id: string | null
+          coded_value: string | null
+          created_at: string
+          created_by: string | null
+          delta_flag: string | null
+          flag: string | null
+          id: string
+          is_critical: boolean
+          meta: Json
+          method: string | null
+          numeric_value: number | null
+          order_id: string | null
+          order_item_id: string | null
+          performed_at: string | null
+          performed_by: string | null
+          reference_range_text: string | null
+          released_at: string | null
+          released_by: string | null
+          specimen_id: string | null
+          status: string
+          tenant_id: string
+          test_id: string | null
+          text_value: string | null
+          unit_code: string | null
+          updated_at: string
+          updated_by: string | null
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          amended_reason?: string | null
+          attachments?: Json
+          branch_id?: string | null
+          coded_value?: string | null
+          created_at?: string
+          created_by?: string | null
+          delta_flag?: string | null
+          flag?: string | null
+          id?: string
+          is_critical?: boolean
+          meta?: Json
+          method?: string | null
+          numeric_value?: number | null
+          order_id?: string | null
+          order_item_id?: string | null
+          performed_at?: string | null
+          performed_by?: string | null
+          reference_range_text?: string | null
+          released_at?: string | null
+          released_by?: string | null
+          specimen_id?: string | null
+          status?: string
+          tenant_id: string
+          test_id?: string | null
+          text_value?: string | null
+          unit_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          amended_reason?: string | null
+          attachments?: Json
+          branch_id?: string | null
+          coded_value?: string | null
+          created_at?: string
+          created_by?: string | null
+          delta_flag?: string | null
+          flag?: string | null
+          id?: string
+          is_critical?: boolean
+          meta?: Json
+          method?: string | null
+          numeric_value?: number | null
+          order_id?: string | null
+          order_item_id?: string | null
+          performed_at?: string | null
+          performed_by?: string | null
+          reference_range_text?: string | null
+          released_at?: string | null
+          released_by?: string | null
+          specimen_id?: string | null
+          status?: string
+          tenant_id?: string
+          test_id?: string | null
+          text_value?: string | null
+          unit_code?: string | null
+          updated_at?: string
+          updated_by?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_results_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_results_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "lab_order_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_results_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_results_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "lab_test_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_sample_types: {
+        Row: {
+          category: string | null
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          loinc_code: string | null
+          meta: Json
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          loinc_code?: string | null
+          meta?: Json
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          loinc_code?: string | null
+          meta?: Json
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lab_sensitivity_panels: {
+        Row: {
+          antibiotic_code: string
+          antibiotic_name: string
+          created_at: string
+          culture_id: string | null
+          id: string
+          interpretation: string | null
+          meta: Json
+          method: string | null
+          mic: number | null
+          reported_at: string | null
+          tenant_id: string
+          updated_at: string
+        }
+        Insert: {
+          antibiotic_code: string
+          antibiotic_name: string
+          created_at?: string
+          culture_id?: string | null
+          id?: string
+          interpretation?: string | null
+          meta?: Json
+          method?: string | null
+          mic?: number | null
+          reported_at?: string | null
+          tenant_id: string
+          updated_at?: string
+        }
+        Update: {
+          antibiotic_code?: string
+          antibiotic_name?: string
+          created_at?: string
+          culture_id?: string | null
+          id?: string
+          interpretation?: string | null
+          meta?: Json
+          method?: string | null
+          mic?: number | null
+          reported_at?: string | null
+          tenant_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_sensitivity_panels_culture_id_fkey"
+            columns: ["culture_id"]
+            isOneToOne: false
+            referencedRelation: "lab_cultures"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_specimen_barcodes: {
+        Row: {
+          barcode_value: string
+          container_id: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          meta: Json
+          printed_at: string | null
+          specimen_id: string | null
+          symbology: string
+          tenant_id: string
+        }
+        Insert: {
+          barcode_value: string
+          container_id?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          printed_at?: string | null
+          specimen_id?: string | null
+          symbology?: string
+          tenant_id: string
+        }
+        Update: {
+          barcode_value?: string
+          container_id?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          printed_at?: string | null
+          specimen_id?: string | null
+          symbology?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_specimen_barcodes_container_id_fkey"
+            columns: ["container_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimen_containers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_specimen_barcodes_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_specimen_containers: {
+        Row: {
+          aliquot_of: string | null
+          container_no: string | null
+          container_type_id: string | null
+          created_at: string
+          id: string
+          meta: Json
+          specimen_id: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          volume_ml: number | null
+        }
+        Insert: {
+          aliquot_of?: string | null
+          container_no?: string | null
+          container_type_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          specimen_id: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          volume_ml?: number | null
+        }
+        Update: {
+          aliquot_of?: string | null
+          container_no?: string | null
+          container_type_id?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          specimen_id?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          volume_ml?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_specimen_containers_aliquot_of_fkey"
+            columns: ["aliquot_of"]
+            isOneToOne: false
+            referencedRelation: "lab_specimen_containers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_specimen_containers_container_type_id_fkey"
+            columns: ["container_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_container_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_specimen_containers_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_specimen_tracking: {
+        Row: {
+          actor_id: string | null
+          event: string
+          id: number
+          location: string | null
+          meta: Json
+          occurred_at: string
+          specimen_id: string
+          temperature_c: number | null
+          tenant_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          event: string
+          id?: number
+          location?: string | null
+          meta?: Json
+          occurred_at?: string
+          specimen_id: string
+          temperature_c?: number | null
+          tenant_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          event?: string
+          id?: number
+          location?: string | null
+          meta?: Json
+          occurred_at?: string
+          specimen_id?: string
+          temperature_c?: number | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_specimen_tracking_specimen_id_fkey"
+            columns: ["specimen_id"]
+            isOneToOne: false
+            referencedRelation: "lab_specimens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_specimens: {
+        Row: {
+          accession_id: string | null
+          branch_id: string | null
+          chain_of_custody: Json
+          collected_by: string | null
+          collection_at: string | null
+          collection_site: string | null
+          created_at: string
+          created_by: string | null
+          disposal_at: string | null
+          id: string
+          meta: Json
+          order_id: string | null
+          rejection_reason: string | null
+          sample_type_id: string | null
+          specimen_no: string
+          status: string
+          storage_location: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          volume_ml: number | null
+        }
+        Insert: {
+          accession_id?: string | null
+          branch_id?: string | null
+          chain_of_custody?: Json
+          collected_by?: string | null
+          collection_at?: string | null
+          collection_site?: string | null
+          created_at?: string
+          created_by?: string | null
+          disposal_at?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          rejection_reason?: string | null
+          sample_type_id?: string | null
+          specimen_no: string
+          status?: string
+          storage_location?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          volume_ml?: number | null
+        }
+        Update: {
+          accession_id?: string | null
+          branch_id?: string | null
+          chain_of_custody?: Json
+          collected_by?: string | null
+          collection_at?: string | null
+          collection_site?: string | null
+          created_at?: string
+          created_by?: string | null
+          disposal_at?: string | null
+          id?: string
+          meta?: Json
+          order_id?: string | null
+          rejection_reason?: string | null
+          sample_type_id?: string | null
+          specimen_no?: string
+          status?: string
+          storage_location?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          volume_ml?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_specimens_accession_id_fkey"
+            columns: ["accession_id"]
+            isOneToOne: false
+            referencedRelation: "lab_accessions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_specimens_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_specimens_sample_type_id_fkey"
+            columns: ["sample_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_sample_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_test_catalog: {
+        Row: {
+          analyzer_type_id: string | null
+          code: string
+          container_type_id: string | null
+          cpt_code: string | null
+          created_at: string
+          created_by: string | null
+          department_id: string | null
+          id: string
+          is_active: boolean
+          is_reflex: boolean
+          loinc_code: string | null
+          meta: Json
+          method: string | null
+          name: string
+          price: number | null
+          reflex_config: Json
+          requires_approval: boolean
+          result_kind: string
+          sample_type_id: string | null
+          short_name: string | null
+          tat_minutes: number | null
+          tenant_id: string
+          unit_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          analyzer_type_id?: string | null
+          code: string
+          container_type_id?: string | null
+          cpt_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean
+          is_reflex?: boolean
+          loinc_code?: string | null
+          meta?: Json
+          method?: string | null
+          name: string
+          price?: number | null
+          reflex_config?: Json
+          requires_approval?: boolean
+          result_kind?: string
+          sample_type_id?: string | null
+          short_name?: string | null
+          tat_minutes?: number | null
+          tenant_id: string
+          unit_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          analyzer_type_id?: string | null
+          code?: string
+          container_type_id?: string | null
+          cpt_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          department_id?: string | null
+          id?: string
+          is_active?: boolean
+          is_reflex?: boolean
+          loinc_code?: string | null
+          meta?: Json
+          method?: string | null
+          name?: string
+          price?: number | null
+          reflex_config?: Json
+          requires_approval?: boolean
+          result_kind?: string
+          sample_type_id?: string | null
+          short_name?: string | null
+          tat_minutes?: number | null
+          tenant_id?: string
+          unit_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_test_catalog_analyzer_type_id_fkey"
+            columns: ["analyzer_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_analyzer_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_test_catalog_container_type_id_fkey"
+            columns: ["container_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_container_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_test_catalog_department_id_fkey"
+            columns: ["department_id"]
+            isOneToOne: false
+            referencedRelation: "lab_departments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_test_catalog_sample_type_id_fkey"
+            columns: ["sample_type_id"]
+            isOneToOne: false
+            referencedRelation: "lab_sample_types"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_test_catalog_unit_id_fkey"
+            columns: ["unit_id"]
+            isOneToOne: false
+            referencedRelation: "lab_units"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_turnaround_logs: {
+        Row: {
+          actor_id: string | null
+          id: number
+          meta: Json
+          milestone: string
+          occurred_at: string
+          order_id: string | null
+          order_item_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          id?: number
+          meta?: Json
+          milestone: string
+          occurred_at?: string
+          order_id?: string | null
+          order_item_id?: string | null
+          tenant_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          id?: number
+          meta?: Json
+          milestone?: string
+          occurred_at?: string
+          order_id?: string | null
+          order_item_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lab_turnaround_logs_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "lab_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lab_turnaround_logs_order_item_id_fkey"
+            columns: ["order_item_id"]
+            isOneToOne: false
+            referencedRelation: "lab_order_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lab_units: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          tenant_id: string | null
+          ucum: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          tenant_id?: string | null
+          ucum?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          tenant_id?: string | null
+          ucum?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -11090,6 +14797,99 @@ export type Database = {
           },
         ]
       }
+      patient_insurance: {
+        Row: {
+          card_media_id: string | null
+          created_at: string
+          created_by: string | null
+          effective_from: string | null
+          effective_to: string | null
+          group_no: string | null
+          id: string
+          is_primary: boolean
+          member_id: string | null
+          meta: Json
+          patient_id: string | null
+          payer_id: string
+          person_id: string
+          plan_id: string | null
+          policy_no: string
+          relationship_to_subscriber: string | null
+          status: string
+          subscriber_name: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          verification_status: string | null
+          verified_at: string | null
+        }
+        Insert: {
+          card_media_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          effective_from?: string | null
+          effective_to?: string | null
+          group_no?: string | null
+          id?: string
+          is_primary?: boolean
+          member_id?: string | null
+          meta?: Json
+          patient_id?: string | null
+          payer_id: string
+          person_id: string
+          plan_id?: string | null
+          policy_no: string
+          relationship_to_subscriber?: string | null
+          status?: string
+          subscriber_name?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          verification_status?: string | null
+          verified_at?: string | null
+        }
+        Update: {
+          card_media_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          effective_from?: string | null
+          effective_to?: string | null
+          group_no?: string | null
+          id?: string
+          is_primary?: boolean
+          member_id?: string | null
+          meta?: Json
+          patient_id?: string | null
+          payer_id?: string
+          person_id?: string
+          plan_id?: string | null
+          policy_no?: string
+          relationship_to_subscriber?: string | null
+          status?: string
+          subscriber_name?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          verification_status?: string | null
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_insurance_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_payers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_insurance_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       patients: {
         Row: {
           allergies: Json
@@ -11171,6 +14971,135 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_allocations: {
+        Row: {
+          amount: number
+          created_at: string
+          credit_note_id: string | null
+          id: string
+          invoice_id: string | null
+          payment_id: string
+          tenant_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          credit_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          payment_id: string
+          tenant_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credit_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          payment_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_allocations_credit_note_id_fkey"
+            columns: ["credit_note_id"]
+            isOneToOne: false
+            referencedRelation: "credit_notes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          bank_account_id: string | null
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          external_ref: string | null
+          id: string
+          meta: Json
+          method: string
+          notes: string | null
+          patient_id: string | null
+          payment_no: string
+          person_id: string | null
+          provider: string | null
+          received_at: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          amount: number
+          bank_account_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          method: string
+          notes?: string | null
+          patient_id?: string | null
+          payment_no: string
+          person_id?: string | null
+          provider?: string | null
+          received_at?: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          amount?: number
+          bank_account_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          method?: string
+          notes?: string | null
+          patient_id?: string | null
+          payment_no?: string
+          person_id?: string | null
+          provider?: string | null
+          received_at?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_bank_account_id_fkey"
+            columns: ["bank_account_id"]
+            isOneToOne: false
+            referencedRelation: "bank_accounts"
             referencedColumns: ["id"]
           },
         ]
@@ -15721,6 +19650,125 @@ export type Database = {
         }
         Relationships: []
       }
+      price_book_items: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          is_active: boolean
+          item_code: string | null
+          item_kind: string
+          item_name: string
+          item_ref_id: string | null
+          meta: Json
+          price_book_id: string
+          tax_rule_id: string | null
+          tenant_id: string
+          unit_price: number
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          is_active?: boolean
+          item_code?: string | null
+          item_kind: string
+          item_name: string
+          item_ref_id?: string | null
+          meta?: Json
+          price_book_id: string
+          tax_rule_id?: string | null
+          tenant_id: string
+          unit_price?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          is_active?: boolean
+          item_code?: string | null
+          item_kind?: string
+          item_name?: string
+          item_ref_id?: string | null
+          meta?: Json
+          price_book_id?: string
+          tax_rule_id?: string | null
+          tenant_id?: string
+          unit_price?: number
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "price_book_items_price_book_id_fkey"
+            columns: ["price_book_id"]
+            isOneToOne: false
+            referencedRelation: "price_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      price_books: {
+        Row: {
+          branch_id: string | null
+          code: string
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          is_active: boolean
+          is_default: boolean
+          name: string
+          notes: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          branch_id?: string | null
+          code: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name: string
+          notes?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          branch_id?: string | null
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          is_active?: boolean
+          is_default?: boolean
+          name?: string
+          notes?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           active_org_unit_id: string | null
@@ -15869,6 +19917,421 @@ export type Database = {
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rad_body_parts: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          laterality_supported: boolean
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          laterality_supported?: boolean
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          laterality_supported?: boolean
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      rad_image_metadata: {
+        Row: {
+          cols: number | null
+          created_at: string
+          frame_count: number | null
+          id: string
+          instance_uid: string | null
+          meta: Json
+          rows: number | null
+          series_uid: string | null
+          sop_class_uid: string | null
+          storage_url: string | null
+          study_id: string
+          tenant_id: string
+        }
+        Insert: {
+          cols?: number | null
+          created_at?: string
+          frame_count?: number | null
+          id?: string
+          instance_uid?: string | null
+          meta?: Json
+          rows?: number | null
+          series_uid?: string | null
+          sop_class_uid?: string | null
+          storage_url?: string | null
+          study_id: string
+          tenant_id: string
+        }
+        Update: {
+          cols?: number | null
+          created_at?: string
+          frame_count?: number | null
+          id?: string
+          instance_uid?: string | null
+          meta?: Json
+          rows?: number | null
+          series_uid?: string | null
+          sop_class_uid?: string | null
+          storage_url?: string | null
+          study_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rad_image_metadata_study_id_fkey"
+            columns: ["study_id"]
+            isOneToOne: false
+            referencedRelation: "rad_imaging_studies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rad_imaging_studies: {
+        Row: {
+          accession_no: string | null
+          attachments: Json
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          impression: string | null
+          meta: Json
+          modality_code: string | null
+          performed_at: string | null
+          performed_by: string | null
+          rad_order_id: string | null
+          radiologist_id: string | null
+          report_text: string | null
+          reported_at: string | null
+          status: string
+          study_uid: string | null
+          technologist_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          accession_no?: string | null
+          attachments?: Json
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impression?: string | null
+          meta?: Json
+          modality_code?: string | null
+          performed_at?: string | null
+          performed_by?: string | null
+          rad_order_id?: string | null
+          radiologist_id?: string | null
+          report_text?: string | null
+          reported_at?: string | null
+          status?: string
+          study_uid?: string | null
+          technologist_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          accession_no?: string | null
+          attachments?: Json
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          impression?: string | null
+          meta?: Json
+          modality_code?: string | null
+          performed_at?: string | null
+          performed_by?: string | null
+          rad_order_id?: string | null
+          radiologist_id?: string | null
+          report_text?: string | null
+          reported_at?: string | null
+          status?: string
+          study_uid?: string | null
+          technologist_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rad_imaging_studies_rad_order_id_fkey"
+            columns: ["rad_order_id"]
+            isOneToOne: false
+            referencedRelation: "rad_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rad_modalities: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      rad_orders: {
+        Row: {
+          authorization_id: string | null
+          body_part_id: string | null
+          branch_id: string | null
+          clinical_history: string | null
+          created_at: string
+          created_by: string | null
+          diagnosis_codes: Json
+          encounter_id: string | null
+          id: string
+          invoice_id: string | null
+          laterality: string | null
+          meta: Json
+          modality_id: string | null
+          order_no: string
+          ordered_at: string
+          ordering_provider_id: string | null
+          patient_id: string | null
+          person_id: string | null
+          priority: string
+          scheduled_at: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          authorization_id?: string | null
+          body_part_id?: string | null
+          branch_id?: string | null
+          clinical_history?: string | null
+          created_at?: string
+          created_by?: string | null
+          diagnosis_codes?: Json
+          encounter_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          laterality?: string | null
+          meta?: Json
+          modality_id?: string | null
+          order_no: string
+          ordered_at?: string
+          ordering_provider_id?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          priority?: string
+          scheduled_at?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          authorization_id?: string | null
+          body_part_id?: string | null
+          branch_id?: string | null
+          clinical_history?: string | null
+          created_at?: string
+          created_by?: string | null
+          diagnosis_codes?: Json
+          encounter_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          laterality?: string | null
+          meta?: Json
+          modality_id?: string | null
+          order_no?: string
+          ordered_at?: string
+          ordering_provider_id?: string | null
+          patient_id?: string | null
+          person_id?: string | null
+          priority?: string
+          scheduled_at?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rad_orders_body_part_id_fkey"
+            columns: ["body_part_id"]
+            isOneToOne: false
+            referencedRelation: "rad_body_parts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rad_orders_modality_id_fkey"
+            columns: ["modality_id"]
+            isOneToOne: false
+            referencedRelation: "rad_modalities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      refund_allocations: {
+        Row: {
+          amount: number
+          created_at: string
+          credit_note_id: string | null
+          id: string
+          invoice_id: string | null
+          refund_id: string
+          tenant_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          credit_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          refund_id: string
+          tenant_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          credit_note_id?: string | null
+          id?: string
+          invoice_id?: string | null
+          refund_id?: string
+          tenant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refund_allocations_credit_note_id_fkey"
+            columns: ["credit_note_id"]
+            isOneToOne: false
+            referencedRelation: "credit_notes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refund_allocations_invoice_id_fkey"
+            columns: ["invoice_id"]
+            isOneToOne: false
+            referencedRelation: "invoices"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "refund_allocations_refund_id_fkey"
+            columns: ["refund_id"]
+            isOneToOne: false
+            referencedRelation: "refunds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      refunds: {
+        Row: {
+          amount: number
+          approval_request_id: string | null
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          external_ref: string | null
+          id: string
+          meta: Json
+          method: string | null
+          payment_id: string | null
+          processed_at: string | null
+          reason: string | null
+          refund_no: string
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          amount: number
+          approval_request_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          method?: string | null
+          payment_id?: string | null
+          processed_at?: string | null
+          reason?: string | null
+          refund_no: string
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          amount?: number
+          approval_request_id?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          external_ref?: string | null
+          id?: string
+          meta?: Json
+          method?: string | null
+          payment_id?: string | null
+          processed_at?: string | null
+          reason?: string | null
+          refund_no?: string
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
             referencedColumns: ["id"]
           },
         ]
@@ -18083,6 +22546,99 @@ export type Database = {
           },
         ]
       }
+      tax_rates: {
+        Row: {
+          code: string
+          created_at: string
+          effective_from: string | null
+          effective_to: string | null
+          id: string
+          is_active: boolean
+          is_compound: boolean
+          jurisdiction: string
+          meta: Json
+          name: string
+          rate_percent: number
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          effective_from?: string | null
+          effective_to?: string | null
+          id?: string
+          is_active?: boolean
+          is_compound?: boolean
+          jurisdiction?: string
+          meta?: Json
+          name: string
+          rate_percent?: number
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          effective_from?: string | null
+          effective_to?: string | null
+          id?: string
+          is_active?: boolean
+          is_compound?: boolean
+          jurisdiction?: string
+          meta?: Json
+          name?: string
+          rate_percent?: number
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tax_rules: {
+        Row: {
+          code: string
+          components: Json
+          created_at: string
+          created_by: string | null
+          hsn_sac: string | null
+          id: string
+          is_active: boolean
+          name: string
+          place_of_supply: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          components?: Json
+          created_at?: string
+          created_by?: string | null
+          hsn_sac?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          place_of_supply?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          components?: Json
+          created_at?: string
+          created_by?: string | null
+          hsn_sac?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          place_of_supply?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       templates: {
         Row: {
           body: string
@@ -18666,6 +23222,10 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_issue_invoice: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       can_manage_clinical_knowledge: {
         Args: { _tenant: string; _user: string }
         Returns: boolean
@@ -18674,16 +23234,76 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_manage_pathology: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_manage_qc: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_manage_radiology: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_post_remittance: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_process_refund: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_read_billing: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       can_read_clinical: {
         Args: { _tenant: string; _user: string }
+        Returns: boolean
+      }
+      can_read_insurance: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_read_lab: {
+        Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
       can_read_pharmacy: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_record_payment: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_release_results: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_submit_claim: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_verify_results: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_write_billing: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       can_write_clinical: {
         Args: { _tenant: string; _user: string }
+        Returns: boolean
+      }
+      can_write_insurance: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_write_lab: {
+        Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
       can_write_pharmacy: {
