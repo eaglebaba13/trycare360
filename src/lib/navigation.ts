@@ -22,6 +22,7 @@ import {
   Briefcase,
   IndianRupee,
   BarChart3,
+  Pill,
 } from "lucide-react";
 
 
@@ -130,6 +131,20 @@ export const NAV_GROUPS: NavGroup[] = [
       },
     ],
   },
+
+  {
+    label: "Operations",
+    items: [
+      {
+        label: "Pharmacy",
+        to: "/pharmacy",
+        icon: Pill,
+        permission: "pharmacy:read",
+      },
+    ],
+  },
+
+
 
 
 
