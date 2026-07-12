@@ -13142,6 +13142,2501 @@ export type Database = {
           },
         ]
       }
+      pharmacy_batches: {
+        Row: {
+          batch_no: string
+          cost_price: number | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          expiry_date: string
+          gst_percent: number | null
+          hsn_code: string | null
+          id: string
+          is_quarantined: boolean
+          is_recalled: boolean
+          lot_no: string | null
+          manufacture_date: string | null
+          manufacturer: string | null
+          meta: Json
+          mrp: number | null
+          quarantine_reason: string | null
+          recall_id: string | null
+          supplier_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_no: string
+          cost_price?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          expiry_date: string
+          gst_percent?: number | null
+          hsn_code?: string | null
+          id?: string
+          is_quarantined?: boolean
+          is_recalled?: boolean
+          lot_no?: string | null
+          manufacture_date?: string | null
+          manufacturer?: string | null
+          meta?: Json
+          mrp?: number | null
+          quarantine_reason?: string | null
+          recall_id?: string | null
+          supplier_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_no?: string
+          cost_price?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          expiry_date?: string
+          gst_percent?: number | null
+          hsn_code?: string | null
+          id?: string
+          is_quarantined?: boolean
+          is_recalled?: boolean
+          lot_no?: string | null
+          manufacture_date?: string | null
+          manufacturer?: string | null
+          meta?: Json
+          mrp?: number | null
+          quarantine_reason?: string | null
+          recall_id?: string | null
+          supplier_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_pharm_batches_recall"
+            columns: ["recall_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drug_recalls"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_batches_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_batches_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_coldchain_logs: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          device_id: string | null
+          excursion_threshold: Json | null
+          humidity_percent: number | null
+          id: string
+          is_excursion: boolean
+          location_id: string | null
+          meta: Json
+          quarantine_triggered: boolean
+          reading_at: string
+          source: string
+          temperature_c: number
+          tenant_id: string
+          warehouse_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          device_id?: string | null
+          excursion_threshold?: Json | null
+          humidity_percent?: number | null
+          id?: string
+          is_excursion?: boolean
+          location_id?: string | null
+          meta?: Json
+          quarantine_triggered?: boolean
+          reading_at?: string
+          source?: string
+          temperature_c: number
+          tenant_id: string
+          warehouse_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          device_id?: string | null
+          excursion_threshold?: Json | null
+          humidity_percent?: number | null
+          id?: string
+          is_excursion?: boolean
+          location_id?: string | null
+          meta?: Json
+          quarantine_triggered?: boolean
+          reading_at?: string
+          source?: string
+          temperature_c?: number
+          tenant_id?: string
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_coldchain_logs_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_coldchain_logs_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_controlled_register: {
+        Row: {
+          balance_after: number
+          batch_id: string | null
+          created_at: string
+          created_by: string | null
+          discrepancy_flag: boolean
+          discrepancy_notes: string | null
+          dispensed_by: string | null
+          drug_id: string
+          entry_type: string
+          id: string
+          meta: Json
+          occurred_at: string
+          patient_id: string | null
+          prescriber_id: string | null
+          quantity_in: number
+          quantity_out: number
+          reference_id: string | null
+          reference_type: string | null
+          schedule_code: string
+          tenant_id: string
+          unit_code: string
+          warehouse_id: string
+          witness_id: string | null
+          witness_signature_ref: string | null
+        }
+        Insert: {
+          balance_after: number
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          discrepancy_flag?: boolean
+          discrepancy_notes?: string | null
+          dispensed_by?: string | null
+          drug_id: string
+          entry_type: string
+          id?: string
+          meta?: Json
+          occurred_at?: string
+          patient_id?: string | null
+          prescriber_id?: string | null
+          quantity_in?: number
+          quantity_out?: number
+          reference_id?: string | null
+          reference_type?: string | null
+          schedule_code: string
+          tenant_id: string
+          unit_code: string
+          warehouse_id: string
+          witness_id?: string | null
+          witness_signature_ref?: string | null
+        }
+        Update: {
+          balance_after?: number
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          discrepancy_flag?: boolean
+          discrepancy_notes?: string | null
+          dispensed_by?: string | null
+          drug_id?: string
+          entry_type?: string
+          id?: string
+          meta?: Json
+          occurred_at?: string
+          patient_id?: string | null
+          prescriber_id?: string | null
+          quantity_in?: number
+          quantity_out?: number
+          reference_id?: string | null
+          reference_type?: string | null
+          schedule_code?: string
+          tenant_id?: string
+          unit_code?: string
+          warehouse_id?: string
+          witness_id?: string | null
+          witness_signature_ref?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_controlled_register_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_controlled_register_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_controlled_register_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_controlled_register_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_demand_patterns: {
+        Row: {
+          baseline: number | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          id: string
+          last_learned_at: string | null
+          pattern: Json
+          pattern_kind: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string | null
+        }
+        Insert: {
+          baseline?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          id?: string
+          last_learned_at?: string | null
+          pattern?: Json
+          pattern_kind: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string | null
+        }
+        Update: {
+          baseline?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          id?: string
+          last_learned_at?: string | null
+          pattern?: Json
+          pattern_kind?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_demand_patterns_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_demand_patterns_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_dispense_items: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          created_by: string | null
+          dispense_id: string
+          drug_id: string
+          id: string
+          is_controlled: boolean
+          kit_id: string | null
+          meta: Json
+          notes: string | null
+          prescription_item_id: string | null
+          quantity: number
+          substituted_from_drug_id: string | null
+          substitution_reason: string | null
+          tenant_id: string
+          unit_code: string
+          unit_price: number | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          dispense_id: string
+          drug_id: string
+          id?: string
+          is_controlled?: boolean
+          kit_id?: string | null
+          meta?: Json
+          notes?: string | null
+          prescription_item_id?: string | null
+          quantity: number
+          substituted_from_drug_id?: string | null
+          substitution_reason?: string | null
+          tenant_id: string
+          unit_code: string
+          unit_price?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          dispense_id?: string
+          drug_id?: string
+          id?: string
+          is_controlled?: boolean
+          kit_id?: string | null
+          meta?: Json
+          notes?: string | null
+          prescription_item_id?: string | null
+          quantity?: number
+          substituted_from_drug_id?: string | null
+          substitution_reason?: string | null
+          tenant_id?: string
+          unit_code?: string
+          unit_price?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_pharm_disp_items_kit"
+            columns: ["kit_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_medication_kits"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispense_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispense_items_dispense_id_fkey"
+            columns: ["dispense_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_dispenses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispense_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispense_items_prescription_item_id_fkey"
+            columns: ["prescription_item_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescription_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispense_items_substituted_from_drug_id_fkey"
+            columns: ["substituted_from_drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_dispenses: {
+        Row: {
+          branch_id: string | null
+          counselling_notes: string | null
+          created_at: string
+          created_by: string | null
+          dispense_date: string
+          dispense_number: string
+          dispensed_by: string | null
+          encounter_id: string | null
+          id: string
+          meta: Json
+          patient_id: string | null
+          patient_signature_ref: string | null
+          prescription_id: string | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          branch_id?: string | null
+          counselling_notes?: string | null
+          created_at?: string
+          created_by?: string | null
+          dispense_date?: string
+          dispense_number: string
+          dispensed_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          meta?: Json
+          patient_id?: string | null
+          patient_signature_ref?: string | null
+          prescription_id?: string | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          branch_id?: string | null
+          counselling_notes?: string | null
+          created_at?: string
+          created_by?: string | null
+          dispense_date?: string
+          dispense_number?: string
+          dispensed_by?: string | null
+          encounter_id?: string | null
+          id?: string
+          meta?: Json
+          patient_id?: string | null
+          patient_signature_ref?: string | null
+          prescription_id?: string | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_dispenses_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispenses_encounter_id_fkey"
+            columns: ["encounter_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_encounters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispenses_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispenses_prescription_id_fkey"
+            columns: ["prescription_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_dispenses_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_drug_aliases: {
+        Row: {
+          alias: string
+          alias_type: string
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          id: string
+          language: string | null
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          alias: string
+          alias_type?: string
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          id?: string
+          language?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          alias?: string
+          alias_type?: string
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          id?: string
+          language?: string | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_drug_aliases_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_drug_recall_items: {
+        Row: {
+          batch_id: string | null
+          batch_no: string | null
+          created_at: string
+          created_by: string | null
+          expiry_from: string | null
+          expiry_to: string | null
+          id: string
+          lot_no: string | null
+          meta: Json
+          quantity_destroyed: number
+          quantity_in_field: number | null
+          quantity_returned: number
+          recall_id: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          batch_no?: string | null
+          created_at?: string
+          created_by?: string | null
+          expiry_from?: string | null
+          expiry_to?: string | null
+          id?: string
+          lot_no?: string | null
+          meta?: Json
+          quantity_destroyed?: number
+          quantity_in_field?: number | null
+          quantity_returned?: number
+          recall_id: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          batch_no?: string | null
+          created_at?: string
+          created_by?: string | null
+          expiry_from?: string | null
+          expiry_to?: string | null
+          id?: string
+          lot_no?: string | null
+          meta?: Json
+          quantity_destroyed?: number
+          quantity_in_field?: number | null
+          quantity_returned?: number
+          recall_id?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_drug_recall_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_drug_recall_items_recall_id_fkey"
+            columns: ["recall_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drug_recalls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_drug_recalls: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          drug_id: string | null
+          id: string
+          initiated_at: string
+          manufacturer: string | null
+          meta: Json
+          reason: string
+          recall_class: string | null
+          recall_number: string
+          regulator_reference: string | null
+          scope: Json | null
+          status: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          workflow_run_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string | null
+          id?: string
+          initiated_at?: string
+          manufacturer?: string | null
+          meta?: Json
+          reason: string
+          recall_class?: string | null
+          recall_number: string
+          regulator_reference?: string | null
+          scope?: Json | null
+          status?: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          workflow_run_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string | null
+          id?: string
+          initiated_at?: string
+          manufacturer?: string | null
+          meta?: Json
+          reason?: string
+          recall_class?: string | null
+          recall_number?: string
+          regulator_reference?: string | null
+          scope?: Json | null
+          status?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          workflow_run_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_drug_recalls_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_drug_recalls_workflow_run_id_fkey"
+            columns: ["workflow_run_id"]
+            isOneToOne: false
+            referencedRelation: "workflow_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_drugs: {
+        Row: {
+          atc_code: string | null
+          barcode: string | null
+          base_unit_code: string
+          brand_name: string | null
+          category_code: string | null
+          clinical_code: string | null
+          clinical_code_system_id: string | null
+          code: string
+          controlled_schedule_code: string | null
+          created_at: string
+          created_by: string | null
+          form_code: string | null
+          generic_name: string | null
+          hsn_code: string | null
+          id: string
+          is_active: boolean
+          is_cold_chain: boolean
+          manufacturer: string | null
+          meta: Json
+          name: string
+          pack_size: number | null
+          pack_unit_code: string | null
+          requires_prescription: boolean
+          storage_condition_code: string | null
+          strength: string | null
+          strength_unit_code: string | null
+          strength_value: number | null
+          tenant_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          atc_code?: string | null
+          barcode?: string | null
+          base_unit_code: string
+          brand_name?: string | null
+          category_code?: string | null
+          clinical_code?: string | null
+          clinical_code_system_id?: string | null
+          code: string
+          controlled_schedule_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          form_code?: string | null
+          generic_name?: string | null
+          hsn_code?: string | null
+          id?: string
+          is_active?: boolean
+          is_cold_chain?: boolean
+          manufacturer?: string | null
+          meta?: Json
+          name: string
+          pack_size?: number | null
+          pack_unit_code?: string | null
+          requires_prescription?: boolean
+          storage_condition_code?: string | null
+          strength?: string | null
+          strength_unit_code?: string | null
+          strength_value?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          atc_code?: string | null
+          barcode?: string | null
+          base_unit_code?: string
+          brand_name?: string | null
+          category_code?: string | null
+          clinical_code?: string | null
+          clinical_code_system_id?: string | null
+          code?: string
+          controlled_schedule_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          form_code?: string | null
+          generic_name?: string | null
+          hsn_code?: string | null
+          id?: string
+          is_active?: boolean
+          is_cold_chain?: boolean
+          manufacturer?: string | null
+          meta?: Json
+          name?: string
+          pack_size?: number | null
+          pack_unit_code?: string | null
+          requires_prescription?: boolean
+          storage_condition_code?: string | null
+          strength?: string | null
+          strength_unit_code?: string | null
+          strength_value?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_drugs_clinical_code_system_id_fkey"
+            columns: ["clinical_code_system_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_code_systems"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_goods_receipt_items: {
+        Row: {
+          batch_id: string | null
+          bin_id: string | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          grn_id: string
+          id: string
+          location_id: string | null
+          meta: Json
+          notes: string | null
+          po_item_id: string | null
+          quantity_received: number
+          tenant_id: string
+          unit_code: string
+          unit_cost: number | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          bin_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          grn_id: string
+          id?: string
+          location_id?: string | null
+          meta?: Json
+          notes?: string | null
+          po_item_id?: string | null
+          quantity_received: number
+          tenant_id: string
+          unit_code: string
+          unit_cost?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          bin_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          grn_id?: string
+          id?: string
+          location_id?: string | null
+          meta?: Json
+          notes?: string | null
+          po_item_id?: string | null
+          quantity_received?: number
+          tenant_id?: string
+          unit_code?: string
+          unit_cost?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_bin_id_fkey"
+            columns: ["bin_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_bins"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_grn_id_fkey"
+            columns: ["grn_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_goods_receipts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipt_items_po_item_id_fkey"
+            columns: ["po_item_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_purchase_order_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_goods_receipts: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          grn_date: string
+          grn_number: string
+          id: string
+          invoice_date: string | null
+          invoice_number: string | null
+          meta: Json
+          notes: string | null
+          po_id: string | null
+          posted_at: string | null
+          status: string
+          supplier_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grn_date?: string
+          grn_number: string
+          id?: string
+          invoice_date?: string | null
+          invoice_number?: string | null
+          meta?: Json
+          notes?: string | null
+          po_id?: string | null
+          posted_at?: string | null
+          status?: string
+          supplier_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          grn_date?: string
+          grn_number?: string
+          id?: string
+          invoice_date?: string | null
+          invoice_number?: string | null
+          meta?: Json
+          notes?: string | null
+          po_id?: string | null
+          posted_at?: string | null
+          status?: string
+          supplier_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_goods_receipts_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipts_po_id_fkey"
+            columns: ["po_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_purchase_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipts_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_suppliers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_goods_receipts_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_inventory_forecasts: {
+        Row: {
+          confidence_lower: number | null
+          confidence_upper: number | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          forecast_from: string
+          forecast_to: string
+          generated_at: string
+          horizon_days: number
+          id: string
+          inputs: Json
+          meta: Json
+          model: string | null
+          model_version: string | null
+          predicted_demand: number
+          tenant_id: string
+          warehouse_id: string | null
+        }
+        Insert: {
+          confidence_lower?: number | null
+          confidence_upper?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          forecast_from: string
+          forecast_to: string
+          generated_at?: string
+          horizon_days: number
+          id?: string
+          inputs?: Json
+          meta?: Json
+          model?: string | null
+          model_version?: string | null
+          predicted_demand: number
+          tenant_id: string
+          warehouse_id?: string | null
+        }
+        Update: {
+          confidence_lower?: number | null
+          confidence_upper?: number | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          forecast_from?: string
+          forecast_to?: string
+          generated_at?: string
+          horizon_days?: number
+          id?: string
+          inputs?: Json
+          meta?: Json
+          model?: string | null
+          model_version?: string | null
+          predicted_demand?: number
+          tenant_id?: string
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_inventory_forecasts_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_forecasts_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_inventory_ledger: {
+        Row: {
+          actor_id: string | null
+          batch_id: string | null
+          bin_id: string | null
+          correlation_id: string | null
+          created_at: string
+          drug_id: string
+          id: string
+          location_id: string | null
+          meta: Json
+          occurred_at: string
+          quantity: number
+          reason_code: string | null
+          reverses_id: string | null
+          source_id: string | null
+          source_type: string
+          tenant_id: string
+          unit_code: string
+          warehouse_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          batch_id?: string | null
+          bin_id?: string | null
+          correlation_id?: string | null
+          created_at?: string
+          drug_id: string
+          id?: string
+          location_id?: string | null
+          meta?: Json
+          occurred_at?: string
+          quantity: number
+          reason_code?: string | null
+          reverses_id?: string | null
+          source_id?: string | null
+          source_type: string
+          tenant_id: string
+          unit_code: string
+          warehouse_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          batch_id?: string | null
+          bin_id?: string | null
+          correlation_id?: string | null
+          created_at?: string
+          drug_id?: string
+          id?: string
+          location_id?: string | null
+          meta?: Json
+          occurred_at?: string
+          quantity?: number
+          reason_code?: string | null
+          reverses_id?: string | null
+          source_id?: string | null
+          source_type?: string
+          tenant_id?: string
+          unit_code?: string
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_bin_id_fkey"
+            columns: ["bin_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_bins"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_reverses_id_fkey"
+            columns: ["reverses_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_inventory_ledger"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_inventory_ledger_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_medication_kit_items: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          id: string
+          is_mandatory: boolean
+          is_substitutable: boolean
+          kit_id: string
+          meta: Json
+          notes: string | null
+          quantity: number
+          tenant_id: string
+          unit_code: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          id?: string
+          is_mandatory?: boolean
+          is_substitutable?: boolean
+          kit_id: string
+          meta?: Json
+          notes?: string | null
+          quantity: number
+          tenant_id: string
+          unit_code: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          id?: string
+          is_mandatory?: boolean
+          is_substitutable?: boolean
+          kit_id?: string
+          meta?: Json
+          notes?: string | null
+          quantity?: number
+          tenant_id?: string
+          unit_code?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_medication_kit_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_medication_kit_items_kit_id_fkey"
+            columns: ["kit_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_medication_kits"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_medication_kits: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          service_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          service_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          service_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_medication_kits_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_prescription_fills: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          dispense_id: string | null
+          dispense_item_id: string | null
+          fill_number: number
+          filled_at: string
+          id: string
+          meta: Json
+          next_refill_due: string | null
+          prescription_id: string
+          prescription_item_id: string | null
+          quantity_filled: number
+          status: string
+          tenant_id: string
+          unit_code: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          dispense_id?: string | null
+          dispense_item_id?: string | null
+          fill_number?: number
+          filled_at?: string
+          id?: string
+          meta?: Json
+          next_refill_due?: string | null
+          prescription_id: string
+          prescription_item_id?: string | null
+          quantity_filled: number
+          status?: string
+          tenant_id: string
+          unit_code: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          dispense_id?: string | null
+          dispense_item_id?: string | null
+          fill_number?: number
+          filled_at?: string
+          id?: string
+          meta?: Json
+          next_refill_due?: string | null
+          prescription_id?: string
+          prescription_item_id?: string | null
+          quantity_filled?: number
+          status?: string
+          tenant_id?: string
+          unit_code?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_prescription_fills_dispense_id_fkey"
+            columns: ["dispense_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_dispenses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_prescription_fills_dispense_item_id_fkey"
+            columns: ["dispense_item_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_dispense_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_prescription_fills_prescription_id_fkey"
+            columns: ["prescription_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_prescription_fills_prescription_item_id_fkey"
+            columns: ["prescription_item_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescription_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_purchase_order_items: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          discount_percent: number | null
+          drug_id: string
+          id: string
+          line_total: number | null
+          meta: Json
+          notes: string | null
+          po_id: string
+          quantity_ordered: number
+          quantity_received: number
+          tax_percent: number | null
+          tenant_id: string
+          unit_code: string
+          unit_price: number | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          discount_percent?: number | null
+          drug_id: string
+          id?: string
+          line_total?: number | null
+          meta?: Json
+          notes?: string | null
+          po_id: string
+          quantity_ordered: number
+          quantity_received?: number
+          tax_percent?: number | null
+          tenant_id: string
+          unit_code: string
+          unit_price?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          discount_percent?: number | null
+          drug_id?: string
+          id?: string
+          line_total?: number | null
+          meta?: Json
+          notes?: string | null
+          po_id?: string
+          quantity_ordered?: number
+          quantity_received?: number
+          tax_percent?: number | null
+          tenant_id?: string
+          unit_code?: string
+          unit_price?: number | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_purchase_order_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_purchase_order_items_po_id_fkey"
+            columns: ["po_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_purchase_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_purchase_orders: {
+        Row: {
+          approval_request_id: string | null
+          approved_at: string | null
+          approved_by: string | null
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          discount_total: number | null
+          expected_date: string | null
+          grand_total: number | null
+          id: string
+          meta: Json
+          notes: string | null
+          po_date: string
+          po_number: string
+          sent_at: string | null
+          status: string
+          subtotal: number | null
+          supplier_id: string
+          tax_total: number | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string | null
+        }
+        Insert: {
+          approval_request_id?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number | null
+          expected_date?: string | null
+          grand_total?: number | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          po_date?: string
+          po_number: string
+          sent_at?: string | null
+          status?: string
+          subtotal?: number | null
+          supplier_id: string
+          tax_total?: number | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string | null
+        }
+        Update: {
+          approval_request_id?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          discount_total?: number | null
+          expected_date?: string | null
+          grand_total?: number | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          po_date?: string
+          po_number?: string
+          sent_at?: string | null
+          status?: string
+          subtotal?: number | null
+          supplier_id?: string
+          tax_total?: number | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_purchase_orders_approval_request_id_fkey"
+            columns: ["approval_request_id"]
+            isOneToOne: false
+            referencedRelation: "approval_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_purchase_orders_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_purchase_orders_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_suppliers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_purchase_orders_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_return_items: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          created_by: string | null
+          disposition: string
+          drug_id: string
+          id: string
+          meta: Json
+          notes: string | null
+          quantity: number
+          return_id: string
+          tenant_id: string
+          unit_code: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          disposition?: string
+          drug_id: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          quantity: number
+          return_id: string
+          tenant_id: string
+          unit_code: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          disposition?: string
+          drug_id?: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          quantity?: number
+          return_id?: string
+          tenant_id?: string
+          unit_code?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_return_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_return_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_return_items_return_id_fkey"
+            columns: ["return_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_returns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_returns: {
+        Row: {
+          branch_id: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          meta: Json
+          notes: string | null
+          patient_id: string | null
+          reason_code: string | null
+          return_date: string
+          return_number: string
+          return_type: string
+          source_id: string | null
+          source_type: string | null
+          status: string
+          supplier_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          reason_code?: string | null
+          return_date?: string
+          return_number: string
+          return_type: string
+          source_id?: string | null
+          source_type?: string | null
+          status?: string
+          supplier_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          branch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_id?: string | null
+          reason_code?: string | null
+          return_date?: string
+          return_number?: string
+          return_type?: string
+          source_id?: string | null
+          source_type?: string | null
+          status?: string
+          supplier_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_returns_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_returns_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_returns_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_suppliers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_returns_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_seasonal_forecasts: {
+        Row: {
+          category_code: string | null
+          created_at: string
+          created_by: string | null
+          drug_id: string | null
+          effective_from: string
+          effective_to: string
+          id: string
+          meta: Json
+          multiplier: number
+          notes: string | null
+          season_code: string
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          category_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string | null
+          effective_from: string
+          effective_to: string
+          id?: string
+          meta?: Json
+          multiplier?: number
+          notes?: string | null
+          season_code: string
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          category_code?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string | null
+          effective_from?: string
+          effective_to?: string
+          id?: string
+          meta?: Json
+          multiplier?: number
+          notes?: string | null
+          season_code?: string
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_seasonal_forecasts_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_stock_on_hand: {
+        Row: {
+          batch_id: string | null
+          bin_id: string | null
+          drug_id: string
+          id: string
+          last_movement_at: string | null
+          location_id: string | null
+          quantity_on_hand: number
+          quantity_reserved: number
+          tenant_id: string
+          unit_code: string
+          updated_at: string
+          warehouse_id: string
+        }
+        Insert: {
+          batch_id?: string | null
+          bin_id?: string | null
+          drug_id: string
+          id?: string
+          last_movement_at?: string | null
+          location_id?: string | null
+          quantity_on_hand?: number
+          quantity_reserved?: number
+          tenant_id: string
+          unit_code: string
+          updated_at?: string
+          warehouse_id: string
+        }
+        Update: {
+          batch_id?: string | null
+          bin_id?: string | null
+          drug_id?: string
+          id?: string
+          last_movement_at?: string | null
+          location_id?: string | null
+          quantity_on_hand?: number
+          quantity_reserved?: number
+          tenant_id?: string
+          unit_code?: string
+          updated_at?: string
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_stock_on_hand_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_on_hand_bin_id_fkey"
+            columns: ["bin_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_bins"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_on_hand_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_on_hand_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_on_hand_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_stock_reservations: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          expires_at: string | null
+          id: string
+          meta: Json
+          quantity: number
+          reserved_for_id: string | null
+          reserved_for_type: string
+          status: string
+          tenant_id: string
+          unit_code: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          expires_at?: string | null
+          id?: string
+          meta?: Json
+          quantity: number
+          reserved_for_id?: string | null
+          reserved_for_type: string
+          status?: string
+          tenant_id: string
+          unit_code: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          expires_at?: string | null
+          id?: string
+          meta?: Json
+          quantity?: number
+          reserved_for_id?: string | null
+          reserved_for_type?: string
+          status?: string
+          tenant_id?: string
+          unit_code?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_stock_reservations_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_reservations_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_stock_reservations_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_supplier_products: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          id: string
+          is_active: boolean
+          is_preferred: boolean
+          last_price: number | null
+          last_price_at: string | null
+          last_price_currency: string | null
+          lead_time_days: number | null
+          meta: Json
+          moq: number | null
+          supplier_id: string
+          supplier_sku: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          id?: string
+          is_active?: boolean
+          is_preferred?: boolean
+          last_price?: number | null
+          last_price_at?: string | null
+          last_price_currency?: string | null
+          lead_time_days?: number | null
+          meta?: Json
+          moq?: number | null
+          supplier_id: string
+          supplier_sku?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          id?: string
+          is_active?: boolean
+          is_preferred?: boolean
+          last_price?: number | null
+          last_price_at?: string | null
+          last_price_currency?: string | null
+          lead_time_days?: number | null
+          meta?: Json
+          moq?: number | null
+          supplier_id?: string
+          supplier_sku?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_supplier_products_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_supplier_products_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_suppliers: {
+        Row: {
+          address: Json | null
+          code: string
+          company_id: string | null
+          contact_person: string | null
+          created_at: string
+          created_by: string | null
+          drug_license_no: string | null
+          email: string | null
+          gstin: string | null
+          id: string
+          is_active: boolean
+          lead_time_days: number | null
+          legal_name: string | null
+          meta: Json
+          name: string
+          payment_terms: string | null
+          phone: string | null
+          supplier_score: number | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          address?: Json | null
+          code: string
+          company_id?: string | null
+          contact_person?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_license_no?: string | null
+          email?: string | null
+          gstin?: string | null
+          id?: string
+          is_active?: boolean
+          lead_time_days?: number | null
+          legal_name?: string | null
+          meta?: Json
+          name: string
+          payment_terms?: string | null
+          phone?: string | null
+          supplier_score?: number | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          address?: Json | null
+          code?: string
+          company_id?: string | null
+          contact_person?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_license_no?: string | null
+          email?: string | null
+          gstin?: string | null
+          id?: string
+          is_active?: boolean
+          lead_time_days?: number | null
+          legal_name?: string | null
+          meta?: Json
+          name?: string
+          payment_terms?: string | null
+          phone?: string | null
+          supplier_score?: number | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_suppliers_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_transfer_items: {
+        Row: {
+          batch_id: string | null
+          created_at: string
+          created_by: string | null
+          drug_id: string
+          id: string
+          meta: Json
+          quantity: number
+          tenant_id: string
+          transfer_id: string
+          unit_code: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id: string
+          id?: string
+          meta?: Json
+          quantity: number
+          tenant_id: string
+          transfer_id: string
+          unit_code: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          batch_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          drug_id?: string
+          id?: string
+          meta?: Json
+          quantity?: number
+          tenant_id?: string
+          transfer_id?: string
+          unit_code?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_transfer_items_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_transfer_items_drug_id_fkey"
+            columns: ["drug_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_drugs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_transfer_items_transfer_id_fkey"
+            columns: ["transfer_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_transfers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_transfers: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          from_warehouse_id: string
+          id: string
+          meta: Json
+          notes: string | null
+          received_at: string | null
+          shipped_at: string | null
+          status: string
+          tenant_id: string
+          to_warehouse_id: string
+          transfer_date: string
+          transfer_number: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          from_warehouse_id: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          received_at?: string | null
+          shipped_at?: string | null
+          status?: string
+          tenant_id: string
+          to_warehouse_id: string
+          transfer_date?: string
+          transfer_number: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          from_warehouse_id?: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          received_at?: string | null
+          shipped_at?: string | null
+          status?: string
+          tenant_id?: string
+          to_warehouse_id?: string
+          transfer_date?: string
+          transfer_number?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_transfers_from_warehouse_id_fkey"
+            columns: ["from_warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_transfers_to_warehouse_id_fkey"
+            columns: ["to_warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_warehouse_bins: {
+        Row: {
+          bin: string | null
+          capacity: number | null
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          location_id: string | null
+          meta: Json
+          rack: string | null
+          shelf: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          bin?: string | null
+          capacity?: number | null
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          location_id?: string | null
+          meta?: Json
+          rack?: string | null
+          shelf?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          bin?: string | null
+          capacity?: number | null
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          location_id?: string | null
+          meta?: Json
+          rack?: string | null
+          shelf?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_warehouse_bins_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouse_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_warehouse_bins_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_warehouse_locations: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean
+          location_type: string
+          meta: Json
+          name: string
+          temperature_max_c: number | null
+          temperature_min_c: number | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          location_type?: string
+          meta?: Json
+          name: string
+          temperature_max_c?: number | null
+          temperature_min_c?: number | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean
+          location_type?: string
+          meta?: Json
+          name?: string
+          temperature_max_c?: number | null
+          temperature_min_c?: number | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_warehouse_locations_warehouse_id_fkey"
+            columns: ["warehouse_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacy_warehouses: {
+        Row: {
+          address: Json | null
+          branch_id: string | null
+          code: string
+          created_at: string
+          created_by: string | null
+          drug_license_no: string | null
+          gstin: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          parent_id: string | null
+          tenant_id: string
+          updated_at: string
+          updated_by: string | null
+          warehouse_type: string
+        }
+        Insert: {
+          address?: Json | null
+          branch_id?: string | null
+          code: string
+          created_at?: string
+          created_by?: string | null
+          drug_license_no?: string | null
+          gstin?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          parent_id?: string | null
+          tenant_id: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_type: string
+        }
+        Update: {
+          address?: Json | null
+          branch_id?: string | null
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          drug_license_no?: string | null
+          gstin?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          parent_id?: string | null
+          tenant_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          warehouse_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacy_warehouses_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pharmacy_warehouses_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "pharmacy_warehouses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pincodes: {
         Row: {
           area_id: string | null
@@ -16163,6 +18658,14 @@ export type Database = {
         Args: { _revenue_event_id: string }
         Returns: number
       }
+      can_approve_purchase: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_dispense_controlled: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       can_manage_clinical_knowledge: {
         Args: { _tenant: string; _user: string }
         Returns: boolean
@@ -16175,8 +18678,16 @@ export type Database = {
         Args: { _tenant: string; _user: string }
         Returns: boolean
       }
+      can_read_pharmacy: {
+        Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
       can_write_clinical: {
         Args: { _tenant: string; _user: string }
+        Returns: boolean
+      }
+      can_write_pharmacy: {
+        Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
       current_tenant_id: { Args: never; Returns: string }
