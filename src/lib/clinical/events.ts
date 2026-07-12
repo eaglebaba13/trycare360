@@ -1,5 +1,5 @@
 /**
- * Clinical / EMR event contracts (Phase 2.5 Stages 2–4).
+ * Clinical / EMR event contracts (Phase 2.5 Stages 2–5).
  * All events flow through the existing Workflow Engine via
  * `emit_automation_event()`. No new event bus is introduced.
  */
@@ -39,6 +39,12 @@ export const CLINICAL_EVENTS = {
   CONSENT_UPDATED: "clinical.consent.updated",
   FOLLOWUP_CREATED: "clinical.followup.created",
   FOLLOWUP_UPDATED: "clinical.followup.updated",
+  // Stage 5 — AI Assistant (advisory)
+  AI_SUGGESTED: "clinical.ai.suggested",
+  AI_RECOMMENDATION_ACCEPTED: "clinical.ai.recommendation.accepted",
+  AI_RECOMMENDATION_REJECTED: "clinical.ai.recommendation.rejected",
+  AI_RECOMMENDATION_ARCHIVED: "clinical.ai.recommendation.archived",
+  AI_FEEDBACK_SUBMITTED: "clinical.ai.feedback.submitted",
 } as const;
 
 export type ClinicalEvent = (typeof CLINICAL_EVENTS)[keyof typeof CLINICAL_EVENTS];
