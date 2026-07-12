@@ -361,3 +361,162 @@ these definitions; Reports module handles export and scheduling.
 
 
 
+
+## Billing & Revenue (Phase 2.7)
+
+### Invoicing
+
+| KPI | Formula |
+|---|---|
+| Invoices Issued | count(invoices where status <> 'draft') |
+| Draft Invoice Count | count(invoices where status = 'draft') |
+| Voided Invoice Count | count(invoices where status = 'void') |
+| Average Invoice Value | avg(invoices.grand_total where status <> 'draft') |
+| Gross Billed | sum(invoices.grand_total where status in ('issued','partially_paid','paid')) |
+| Net Billed | gross_billed - sum(credit_notes.grand_total) |
+| Discount Total | sum(invoice_discounts.amount) |
+| Tax Collected | sum(invoice_taxes.tax_amount) |
+
+### Collections & Cash
+
+| KPI | Formula |
+|---|---|
+| Collections | sum(payments.amount where status = 'succeeded') |
+| Outstanding AR | sum(invoices.amount_due where status in ('issued','partially_paid')) |
+| DSO (Days Sales Outstanding) | (outstanding_ar / net_billed_last_90d) * 90 |
+| Ageing Buckets | count(invoices.amount_due bucketed by (issue_date - now()) 0-30 / 31-60 / 61-90 / 90+) |
+| Refund Rate | sum(refunds.amount where status='processed') / collections |
+| Refund Count | count(refunds where status='processed') |
+| Payment Mix | sum(payments.amount) group by method |
+
+### Recurring
+
+| KPI | Formula |
+|---|---|
+| Active Recurring Cycles | count(billing_recurring_cycles where status = 'active') |
+| Recurring Run Success Rate | count(runs where status='succeeded') / count(runs) |
+| Failed Recurring Runs | count(billing_recurring_runs where status='failed') |
+
+## Insurance & Claims (Phase 2.7)
+
+### Coverage & Authorization
+
+| KPI | Formula |
+|---|---|
+| Active Coverages | count(patient_insurance where status='active') |
+| Authorization Approval Rate | count(auths where status in ('approved','partially_approved')) / count(auths where status <> 'draft') |
+| Authorization Turnaround | avg(responded_at - requested_at) |
+
+### Claims
+
+| KPI | Formula |
+|---|---|
+| Claims Submitted | count(insurance_claims where status in ('submitted','acknowledged','in_review','approved','partially_approved','denied','paid','appealed','closed')) |
+| First-Pass Approval Rate | count(claims first-pass approved) / count(claims submitted) |
+| Denial Rate | count(claims where status='denied') / count(claims submitted) |
+| Average Claim Value | avg(insurance_claims.billed_amount where status='submitted') |
+| Claim Turnaround Time | avg(paid_at - submitted_at) |
+| Claim Yield | sum(insurance_claims.paid_amount) / sum(insurance_claims.billed_amount) |
+| Underpayment | sum(billed_amount - allowed_amount) where allowed_amount is not null |
+| Adjustments | sum(insurance_remittance_lines.adjustment_amount) |
+
+### Remittance
+
+| KPI | Formula |
+|---|---|
+| Remittance Posted | sum(insurance_remittances.total_amount where status in ('posted','reconciled')) |
+| Reconciliation Rate | count(remittances where status='reconciled') / count(remittances) |
+| Days To Post Remittance | avg(status_changed_to_posted_at - remit_date) |
+
+## Laboratory (Phase 2.8)
+
+### Volume & Throughput
+
+| KPI | Formula |
+|---|---|
+| Orders Placed | count(lab_orders where status <> 'draft') |
+| Tests Resulted | count(lab_results where status in ('final','amended','corrected')) |
+| Cancellation Rate | count(orders where status='cancelled') / count(orders where status <> 'draft') |
+| Reflex Rate | count(order_items where reflex_from_item_id is not null) / count(order_items) |
+| Repeat Rate | count(distinct tests re-run within 24h for same patient) / total tests |
+
+### Turnaround (TAT)
+
+| KPI | Formula |
+|---|---|
+| Order → Collect TAT | avg(collected_at - ordered_at) from lab_turnaround_logs |
+| Collect → Received TAT | avg(received_at - collected_at) |
+| Received → Verified TAT | avg(verified_at - received_at) |
+| Verified → Released TAT | avg(released_at - verified_at) |
+| Total TAT | avg(released_at - ordered_at) |
+| TAT SLA Breach Rate | count(orders where total_tat > test_catalog.tat_minutes) / count(orders) |
+
+### Quality
+
+| KPI | Formula |
+|---|---|
+| Specimen Rejection Rate | count(lab_specimens where status='rejected') / count(lab_specimens) |
+| Result Amendment Rate | count(lab_results where status='amended') / count(lab_results) |
+| Delta Check Failures | count(lab_results where delta_flag is not null) |
+| Critical Value Rate | count(lab_results where is_critical=true) / count(lab_results) |
+| Critical Value Ack Compliance | count(critical results acked within window) / count(critical results) |
+
+### QC & Calibration
+
+| KPI | Formula |
+|---|---|
+| QC In-Control Rate | count(lab_qc_runs where status='in_control') / count(lab_qc_runs) |
+| QC Out-Of-Control Count | count(lab_qc_runs where status='out_of_control') |
+| Westgard Rule Violations | count(lab_qc_runs where jsonb_array_length(violated_rules) > 0) |
+| Calibration On-Time Rate | count(calibration_records where calibrated_at <= previous next_due_at) / count(calibration_records) |
+| Calibration Failure Rate | count(calibration_records where result='failed') / count(calibration_records) |
+
+### External Lab
+
+| KPI | Formula |
+|---|---|
+| Send-Out Rate | count(lab_external_orders) / count(lab_orders) |
+| Send-Out Cost | sum(lab_external_orders.cost) |
+| External TAT | avg(completed_at - submitted_at) |
+
+## Radiology (Phase 2.8)
+
+| KPI | Formula |
+|---|---|
+| Radiology Orders | count(rad_orders where status <> 'draft') |
+| Studies Acquired | count(rad_imaging_studies where status in ('acquired','reading','reported','verified','released')) |
+| Study Reporting TAT | avg(reported_at - performed_at) |
+| Read → Report TAT | avg(reported_at - status_reading_at) |
+| Report Amendment Rate | count(rad_imaging_studies where status='amended') / count(rad_imaging_studies) |
+| Critical Finding Count | count(radiology.report.critical_finding events) |
+| Modality Utilization | count(studies) group by modality_code |
+| No-Show Rate | count(rad_orders where status='cancelled' after scheduled_at) / count(rad_orders where scheduled_at is not null) |
+
+## Pathology (Phase 2.8)
+
+| KPI | Formula |
+|---|---|
+| Cases Received | count(lab_pathology_cases) |
+| Case Reporting TAT | avg(reported_at - created_at) |
+| Case Amendment Rate | count(cases where status='amended') / count(cases where status in ('reported','amended')) |
+| Case Backlog | count(cases where status in ('received','grossing','processing','embedding','sectioning','staining','reviewing')) |
+| Pathologist Workload | count(cases) group by pathologist_id |
+
+## Microbiology (Phase 2.8)
+
+| KPI | Formula |
+|---|---|
+| Cultures Reported | count(lab_cultures where growth_status <> 'pending') |
+| Positive Culture Rate | count(cultures where growth_status='positive') / count(cultures where growth_status <> 'pending') |
+| Contamination Rate | count(cultures where growth_status='contaminated') / count(cultures where growth_status <> 'pending') |
+| Antibiogram Snapshot | count(sensitivity_panels group by organism, antibiotic, interpretation) |
+| Sensitivity Turnaround | avg(sensitivity.reported_at - culture.incubated_at) |
+
+## Turnaround & Quality (Cross-domain, Phase 2.8)
+
+| KPI | Formula |
+|---|---|
+| Aggregate Diagnostic TAT | weighted avg(total_tat) across lab / radiology / pathology |
+| Cross-Domain SLA Breaches | count(sla_instances where entity_type in ('lab_order','rad_order','pathology_case') and status='breached') |
+| Report Delivery Success | count(lab_distribution_logs where status='delivered') / count(lab_distribution_logs) |
+
