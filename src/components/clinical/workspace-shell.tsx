@@ -145,11 +145,7 @@ export function ClinicalWorkspaceShell({
               Automation runs are tracked in the Workflow module.
             </p>
           </PanelCard>
-          <PanelCard icon={<Sparkles className="h-3.5 w-3.5" />} title="AI Recommendations">
-            <p className="text-xs text-muted-foreground">
-              AI Clinical Assistant lands in Stage 5 (advisory only).
-            </p>
-          </PanelCard>
+          <ClinicalAssistantPanel ctx={ctx} />
           {rightExtras}
         </aside>
       </div>
