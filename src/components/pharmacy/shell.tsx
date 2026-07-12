@@ -13,9 +13,14 @@ export const PHARMACY_TABS = [
   { to: "/pharmacy/dispense", label: "Dispense" },
   { to: "/pharmacy/returns", label: "Returns" },
   { to: "/pharmacy/controlled", label: "Controlled" },
+  { to: "/pharmacy/purchase", label: "Purchase" },
+  { to: "/pharmacy/grn", label: "GRN" },
   { to: "/pharmacy/master", label: "Drug Master" },
   { to: "/pharmacy/warehouses", label: "Warehouses" },
   { to: "/pharmacy/suppliers", label: "Suppliers" },
+  { to: "/pharmacy/recalls", label: "Drug Recall" },
+  { to: "/pharmacy/coldchain", label: "Cold Chain" },
+  { to: "/pharmacy/integrations", label: "Integrations" },
 ];
 
 export function PharmacyHeader() {

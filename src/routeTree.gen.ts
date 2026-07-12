@@ -96,11 +96,16 @@ import { Route as AuthenticatedPharmacyWarehousesRouteImport } from './routes/_a
 import { Route as AuthenticatedPharmacyTransfersRouteImport } from './routes/_authenticated/pharmacy.transfers'
 import { Route as AuthenticatedPharmacySuppliersRouteImport } from './routes/_authenticated/pharmacy.suppliers'
 import { Route as AuthenticatedPharmacyReturnsRouteImport } from './routes/_authenticated/pharmacy.returns'
+import { Route as AuthenticatedPharmacyRecallsRouteImport } from './routes/_authenticated/pharmacy.recalls'
+import { Route as AuthenticatedPharmacyPurchaseRouteImport } from './routes/_authenticated/pharmacy.purchase'
 import { Route as AuthenticatedPharmacyMasterRouteImport } from './routes/_authenticated/pharmacy.master'
 import { Route as AuthenticatedPharmacyInventoryRouteImport } from './routes/_authenticated/pharmacy.inventory'
+import { Route as AuthenticatedPharmacyIntegrationsRouteImport } from './routes/_authenticated/pharmacy.integrations'
+import { Route as AuthenticatedPharmacyGrnRouteImport } from './routes/_authenticated/pharmacy.grn'
 import { Route as AuthenticatedPharmacyExpiryRouteImport } from './routes/_authenticated/pharmacy.expiry'
 import { Route as AuthenticatedPharmacyDispenseRouteImport } from './routes/_authenticated/pharmacy.dispense'
 import { Route as AuthenticatedPharmacyControlledRouteImport } from './routes/_authenticated/pharmacy.controlled'
+import { Route as AuthenticatedPharmacyColdchainRouteImport } from './routes/_authenticated/pharmacy.coldchain'
 import { Route as AuthenticatedPharmacyBatchesRouteImport } from './routes/_authenticated/pharmacy.batches'
 import { Route as AuthenticatedPharmacyAdjustmentsRouteImport } from './routes/_authenticated/pharmacy.adjustments'
 import { Route as AuthenticatedPeopleVerificationRouteImport } from './routes/_authenticated/people.verification'
@@ -211,6 +216,8 @@ import { Route as AuthenticatedSchedulingAnalyticsQueueRouteImport } from './rou
 import { Route as AuthenticatedSchedulingAnalyticsPatientsRouteImport } from './routes/_authenticated/scheduling.analytics.patients'
 import { Route as AuthenticatedSchedulingAnalyticsCommunicationRouteImport } from './routes/_authenticated/scheduling.analytics.communication'
 import { Route as AuthenticatedSchedulingAnalyticsCapacityRouteImport } from './routes/_authenticated/scheduling.analytics.capacity'
+import { Route as AuthenticatedPharmacySuppliersIdRouteImport } from './routes/_authenticated/pharmacy.suppliers.$id'
+import { Route as AuthenticatedPharmacyPurchaseIdRouteImport } from './routes/_authenticated/pharmacy.purchase.$id'
 import { Route as AuthenticatedPharmacyDispenseIdRouteImport } from './routes/_authenticated/pharmacy.dispense.$id'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedClinicalEncounterIdRouteImport } from './routes/_authenticated/clinical.encounter.$id'
@@ -704,6 +711,18 @@ const AuthenticatedPharmacyReturnsRoute =
     path: '/returns',
     getParentRoute: () => AuthenticatedPharmacyRoute,
   } as any)
+const AuthenticatedPharmacyRecallsRoute =
+  AuthenticatedPharmacyRecallsRouteImport.update({
+    id: '/recalls',
+    path: '/recalls',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
+const AuthenticatedPharmacyPurchaseRoute =
+  AuthenticatedPharmacyPurchaseRouteImport.update({
+    id: '/purchase',
+    path: '/purchase',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
 const AuthenticatedPharmacyMasterRoute =
   AuthenticatedPharmacyMasterRouteImport.update({
     id: '/master',
@@ -714,6 +733,18 @@ const AuthenticatedPharmacyInventoryRoute =
   AuthenticatedPharmacyInventoryRouteImport.update({
     id: '/inventory',
     path: '/inventory',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
+const AuthenticatedPharmacyIntegrationsRoute =
+  AuthenticatedPharmacyIntegrationsRouteImport.update({
+    id: '/integrations',
+    path: '/integrations',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
+const AuthenticatedPharmacyGrnRoute =
+  AuthenticatedPharmacyGrnRouteImport.update({
+    id: '/grn',
+    path: '/grn',
     getParentRoute: () => AuthenticatedPharmacyRoute,
   } as any)
 const AuthenticatedPharmacyExpiryRoute =
@@ -732,6 +763,12 @@ const AuthenticatedPharmacyControlledRoute =
   AuthenticatedPharmacyControlledRouteImport.update({
     id: '/controlled',
     path: '/controlled',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
+const AuthenticatedPharmacyColdchainRoute =
+  AuthenticatedPharmacyColdchainRouteImport.update({
+    id: '/coldchain',
+    path: '/coldchain',
     getParentRoute: () => AuthenticatedPharmacyRoute,
   } as any)
 const AuthenticatedPharmacyBatchesRoute =
@@ -1375,6 +1412,18 @@ const AuthenticatedSchedulingAnalyticsCapacityRoute =
     path: '/capacity',
     getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
   } as any)
+const AuthenticatedPharmacySuppliersIdRoute =
+  AuthenticatedPharmacySuppliersIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedPharmacySuppliersRoute,
+  } as any)
+const AuthenticatedPharmacyPurchaseIdRoute =
+  AuthenticatedPharmacyPurchaseIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedPharmacyPurchaseRoute,
+  } as any)
 const AuthenticatedPharmacyDispenseIdRoute =
   AuthenticatedPharmacyDispenseIdRouteImport.update({
     id: '/$id',
@@ -1556,13 +1605,18 @@ export interface FileRoutesByFullPath {
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/pharmacy/adjustments': typeof AuthenticatedPharmacyAdjustmentsRoute
   '/pharmacy/batches': typeof AuthenticatedPharmacyBatchesRoute
+  '/pharmacy/coldchain': typeof AuthenticatedPharmacyColdchainRoute
   '/pharmacy/controlled': typeof AuthenticatedPharmacyControlledRoute
   '/pharmacy/dispense': typeof AuthenticatedPharmacyDispenseRouteWithChildren
   '/pharmacy/expiry': typeof AuthenticatedPharmacyExpiryRoute
+  '/pharmacy/grn': typeof AuthenticatedPharmacyGrnRoute
+  '/pharmacy/integrations': typeof AuthenticatedPharmacyIntegrationsRoute
   '/pharmacy/inventory': typeof AuthenticatedPharmacyInventoryRoute
   '/pharmacy/master': typeof AuthenticatedPharmacyMasterRoute
+  '/pharmacy/purchase': typeof AuthenticatedPharmacyPurchaseRouteWithChildren
+  '/pharmacy/recalls': typeof AuthenticatedPharmacyRecallsRoute
   '/pharmacy/returns': typeof AuthenticatedPharmacyReturnsRoute
-  '/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRoute
+  '/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRouteWithChildren
   '/pharmacy/transfers': typeof AuthenticatedPharmacyTransfersRoute
   '/pharmacy/warehouses': typeof AuthenticatedPharmacyWarehousesRoute
   '/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
@@ -1628,6 +1682,8 @@ export interface FileRoutesByFullPath {
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
+  '/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
+  '/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
   '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
   '/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
@@ -1753,13 +1809,18 @@ export interface FileRoutesByTo {
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/pharmacy/adjustments': typeof AuthenticatedPharmacyAdjustmentsRoute
   '/pharmacy/batches': typeof AuthenticatedPharmacyBatchesRoute
+  '/pharmacy/coldchain': typeof AuthenticatedPharmacyColdchainRoute
   '/pharmacy/controlled': typeof AuthenticatedPharmacyControlledRoute
   '/pharmacy/dispense': typeof AuthenticatedPharmacyDispenseRouteWithChildren
   '/pharmacy/expiry': typeof AuthenticatedPharmacyExpiryRoute
+  '/pharmacy/grn': typeof AuthenticatedPharmacyGrnRoute
+  '/pharmacy/integrations': typeof AuthenticatedPharmacyIntegrationsRoute
   '/pharmacy/inventory': typeof AuthenticatedPharmacyInventoryRoute
   '/pharmacy/master': typeof AuthenticatedPharmacyMasterRoute
+  '/pharmacy/purchase': typeof AuthenticatedPharmacyPurchaseRouteWithChildren
+  '/pharmacy/recalls': typeof AuthenticatedPharmacyRecallsRoute
   '/pharmacy/returns': typeof AuthenticatedPharmacyReturnsRoute
-  '/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRoute
+  '/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRouteWithChildren
   '/pharmacy/transfers': typeof AuthenticatedPharmacyTransfersRoute
   '/pharmacy/warehouses': typeof AuthenticatedPharmacyWarehousesRoute
   '/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
@@ -1822,6 +1883,8 @@ export interface FileRoutesByTo {
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
+  '/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
+  '/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
   '/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
   '/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
@@ -1967,13 +2030,18 @@ export interface FileRoutesById {
   '/_authenticated/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/_authenticated/pharmacy/adjustments': typeof AuthenticatedPharmacyAdjustmentsRoute
   '/_authenticated/pharmacy/batches': typeof AuthenticatedPharmacyBatchesRoute
+  '/_authenticated/pharmacy/coldchain': typeof AuthenticatedPharmacyColdchainRoute
   '/_authenticated/pharmacy/controlled': typeof AuthenticatedPharmacyControlledRoute
   '/_authenticated/pharmacy/dispense': typeof AuthenticatedPharmacyDispenseRouteWithChildren
   '/_authenticated/pharmacy/expiry': typeof AuthenticatedPharmacyExpiryRoute
+  '/_authenticated/pharmacy/grn': typeof AuthenticatedPharmacyGrnRoute
+  '/_authenticated/pharmacy/integrations': typeof AuthenticatedPharmacyIntegrationsRoute
   '/_authenticated/pharmacy/inventory': typeof AuthenticatedPharmacyInventoryRoute
   '/_authenticated/pharmacy/master': typeof AuthenticatedPharmacyMasterRoute
+  '/_authenticated/pharmacy/purchase': typeof AuthenticatedPharmacyPurchaseRouteWithChildren
+  '/_authenticated/pharmacy/recalls': typeof AuthenticatedPharmacyRecallsRoute
   '/_authenticated/pharmacy/returns': typeof AuthenticatedPharmacyReturnsRoute
-  '/_authenticated/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRoute
+  '/_authenticated/pharmacy/suppliers': typeof AuthenticatedPharmacySuppliersRouteWithChildren
   '/_authenticated/pharmacy/transfers': typeof AuthenticatedPharmacyTransfersRoute
   '/_authenticated/pharmacy/warehouses': typeof AuthenticatedPharmacyWarehousesRoute
   '/_authenticated/revenue/attribution': typeof AuthenticatedRevenueAttributionRoute
@@ -2039,6 +2107,8 @@ export interface FileRoutesById {
   '/_authenticated/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
   '/_authenticated/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
+  '/_authenticated/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
+  '/_authenticated/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
   '/_authenticated/scheduling/analytics/capacity': typeof AuthenticatedSchedulingAnalyticsCapacityRoute
   '/_authenticated/scheduling/analytics/communication': typeof AuthenticatedSchedulingAnalyticsCommunicationRoute
   '/_authenticated/scheduling/analytics/patients': typeof AuthenticatedSchedulingAnalyticsPatientsRoute
@@ -2183,11 +2253,16 @@ export interface FileRouteTypes {
     | '/people/verification'
     | '/pharmacy/adjustments'
     | '/pharmacy/batches'
+    | '/pharmacy/coldchain'
     | '/pharmacy/controlled'
     | '/pharmacy/dispense'
     | '/pharmacy/expiry'
+    | '/pharmacy/grn'
+    | '/pharmacy/integrations'
     | '/pharmacy/inventory'
     | '/pharmacy/master'
+    | '/pharmacy/purchase'
+    | '/pharmacy/recalls'
     | '/pharmacy/returns'
     | '/pharmacy/suppliers'
     | '/pharmacy/transfers'
@@ -2255,6 +2330,8 @@ export interface FileRouteTypes {
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
     | '/pharmacy/dispense/$id'
+    | '/pharmacy/purchase/$id'
+    | '/pharmacy/suppliers/$id'
     | '/scheduling/analytics/capacity'
     | '/scheduling/analytics/communication'
     | '/scheduling/analytics/patients'
@@ -2380,11 +2457,16 @@ export interface FileRouteTypes {
     | '/people/verification'
     | '/pharmacy/adjustments'
     | '/pharmacy/batches'
+    | '/pharmacy/coldchain'
     | '/pharmacy/controlled'
     | '/pharmacy/dispense'
     | '/pharmacy/expiry'
+    | '/pharmacy/grn'
+    | '/pharmacy/integrations'
     | '/pharmacy/inventory'
     | '/pharmacy/master'
+    | '/pharmacy/purchase'
+    | '/pharmacy/recalls'
     | '/pharmacy/returns'
     | '/pharmacy/suppliers'
     | '/pharmacy/transfers'
@@ -2449,6 +2531,8 @@ export interface FileRouteTypes {
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
     | '/pharmacy/dispense/$id'
+    | '/pharmacy/purchase/$id'
+    | '/pharmacy/suppliers/$id'
     | '/scheduling/analytics/capacity'
     | '/scheduling/analytics/communication'
     | '/scheduling/analytics/patients'
@@ -2593,11 +2677,16 @@ export interface FileRouteTypes {
     | '/_authenticated/people/verification'
     | '/_authenticated/pharmacy/adjustments'
     | '/_authenticated/pharmacy/batches'
+    | '/_authenticated/pharmacy/coldchain'
     | '/_authenticated/pharmacy/controlled'
     | '/_authenticated/pharmacy/dispense'
     | '/_authenticated/pharmacy/expiry'
+    | '/_authenticated/pharmacy/grn'
+    | '/_authenticated/pharmacy/integrations'
     | '/_authenticated/pharmacy/inventory'
     | '/_authenticated/pharmacy/master'
+    | '/_authenticated/pharmacy/purchase'
+    | '/_authenticated/pharmacy/recalls'
     | '/_authenticated/pharmacy/returns'
     | '/_authenticated/pharmacy/suppliers'
     | '/_authenticated/pharmacy/transfers'
@@ -2665,6 +2754,8 @@ export interface FileRouteTypes {
     | '/_authenticated/clinical/encounter/$id'
     | '/_authenticated/cms/builder/$pageId'
     | '/_authenticated/pharmacy/dispense/$id'
+    | '/_authenticated/pharmacy/purchase/$id'
+    | '/_authenticated/pharmacy/suppliers/$id'
     | '/_authenticated/scheduling/analytics/capacity'
     | '/_authenticated/scheduling/analytics/communication'
     | '/_authenticated/scheduling/analytics/patients'
@@ -3326,6 +3417,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPharmacyReturnsRouteImport
       parentRoute: typeof AuthenticatedPharmacyRoute
     }
+    '/_authenticated/pharmacy/recalls': {
+      id: '/_authenticated/pharmacy/recalls'
+      path: '/recalls'
+      fullPath: '/pharmacy/recalls'
+      preLoaderRoute: typeof AuthenticatedPharmacyRecallsRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
+    '/_authenticated/pharmacy/purchase': {
+      id: '/_authenticated/pharmacy/purchase'
+      path: '/purchase'
+      fullPath: '/pharmacy/purchase'
+      preLoaderRoute: typeof AuthenticatedPharmacyPurchaseRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
     '/_authenticated/pharmacy/master': {
       id: '/_authenticated/pharmacy/master'
       path: '/master'
@@ -3338,6 +3443,20 @@ declare module '@tanstack/react-router' {
       path: '/inventory'
       fullPath: '/pharmacy/inventory'
       preLoaderRoute: typeof AuthenticatedPharmacyInventoryRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
+    '/_authenticated/pharmacy/integrations': {
+      id: '/_authenticated/pharmacy/integrations'
+      path: '/integrations'
+      fullPath: '/pharmacy/integrations'
+      preLoaderRoute: typeof AuthenticatedPharmacyIntegrationsRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
+    '/_authenticated/pharmacy/grn': {
+      id: '/_authenticated/pharmacy/grn'
+      path: '/grn'
+      fullPath: '/pharmacy/grn'
+      preLoaderRoute: typeof AuthenticatedPharmacyGrnRouteImport
       parentRoute: typeof AuthenticatedPharmacyRoute
     }
     '/_authenticated/pharmacy/expiry': {
@@ -3359,6 +3478,13 @@ declare module '@tanstack/react-router' {
       path: '/controlled'
       fullPath: '/pharmacy/controlled'
       preLoaderRoute: typeof AuthenticatedPharmacyControlledRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
+    '/_authenticated/pharmacy/coldchain': {
+      id: '/_authenticated/pharmacy/coldchain'
+      path: '/coldchain'
+      fullPath: '/pharmacy/coldchain'
+      preLoaderRoute: typeof AuthenticatedPharmacyColdchainRouteImport
       parentRoute: typeof AuthenticatedPharmacyRoute
     }
     '/_authenticated/pharmacy/batches': {
@@ -4131,6 +4257,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsCapacityRouteImport
       parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
     }
+    '/_authenticated/pharmacy/suppliers/$id': {
+      id: '/_authenticated/pharmacy/suppliers/$id'
+      path: '/$id'
+      fullPath: '/pharmacy/suppliers/$id'
+      preLoaderRoute: typeof AuthenticatedPharmacySuppliersIdRouteImport
+      parentRoute: typeof AuthenticatedPharmacySuppliersRoute
+    }
+    '/_authenticated/pharmacy/purchase/$id': {
+      id: '/_authenticated/pharmacy/purchase/$id'
+      path: '/$id'
+      fullPath: '/pharmacy/purchase/$id'
+      preLoaderRoute: typeof AuthenticatedPharmacyPurchaseIdRouteImport
+      parentRoute: typeof AuthenticatedPharmacyPurchaseRoute
+    }
     '/_authenticated/pharmacy/dispense/$id': {
       id: '/_authenticated/pharmacy/dispense/$id'
       path: '/$id'
@@ -4567,16 +4707,50 @@ const AuthenticatedPharmacyDispenseRouteWithChildren =
     AuthenticatedPharmacyDispenseRouteChildren,
   )
 
+interface AuthenticatedPharmacyPurchaseRouteChildren {
+  AuthenticatedPharmacyPurchaseIdRoute: typeof AuthenticatedPharmacyPurchaseIdRoute
+}
+
+const AuthenticatedPharmacyPurchaseRouteChildren: AuthenticatedPharmacyPurchaseRouteChildren =
+  {
+    AuthenticatedPharmacyPurchaseIdRoute: AuthenticatedPharmacyPurchaseIdRoute,
+  }
+
+const AuthenticatedPharmacyPurchaseRouteWithChildren =
+  AuthenticatedPharmacyPurchaseRoute._addFileChildren(
+    AuthenticatedPharmacyPurchaseRouteChildren,
+  )
+
+interface AuthenticatedPharmacySuppliersRouteChildren {
+  AuthenticatedPharmacySuppliersIdRoute: typeof AuthenticatedPharmacySuppliersIdRoute
+}
+
+const AuthenticatedPharmacySuppliersRouteChildren: AuthenticatedPharmacySuppliersRouteChildren =
+  {
+    AuthenticatedPharmacySuppliersIdRoute:
+      AuthenticatedPharmacySuppliersIdRoute,
+  }
+
+const AuthenticatedPharmacySuppliersRouteWithChildren =
+  AuthenticatedPharmacySuppliersRoute._addFileChildren(
+    AuthenticatedPharmacySuppliersRouteChildren,
+  )
+
 interface AuthenticatedPharmacyRouteChildren {
   AuthenticatedPharmacyAdjustmentsRoute: typeof AuthenticatedPharmacyAdjustmentsRoute
   AuthenticatedPharmacyBatchesRoute: typeof AuthenticatedPharmacyBatchesRoute
+  AuthenticatedPharmacyColdchainRoute: typeof AuthenticatedPharmacyColdchainRoute
   AuthenticatedPharmacyControlledRoute: typeof AuthenticatedPharmacyControlledRoute
   AuthenticatedPharmacyDispenseRoute: typeof AuthenticatedPharmacyDispenseRouteWithChildren
   AuthenticatedPharmacyExpiryRoute: typeof AuthenticatedPharmacyExpiryRoute
+  AuthenticatedPharmacyGrnRoute: typeof AuthenticatedPharmacyGrnRoute
+  AuthenticatedPharmacyIntegrationsRoute: typeof AuthenticatedPharmacyIntegrationsRoute
   AuthenticatedPharmacyInventoryRoute: typeof AuthenticatedPharmacyInventoryRoute
   AuthenticatedPharmacyMasterRoute: typeof AuthenticatedPharmacyMasterRoute
+  AuthenticatedPharmacyPurchaseRoute: typeof AuthenticatedPharmacyPurchaseRouteWithChildren
+  AuthenticatedPharmacyRecallsRoute: typeof AuthenticatedPharmacyRecallsRoute
   AuthenticatedPharmacyReturnsRoute: typeof AuthenticatedPharmacyReturnsRoute
-  AuthenticatedPharmacySuppliersRoute: typeof AuthenticatedPharmacySuppliersRoute
+  AuthenticatedPharmacySuppliersRoute: typeof AuthenticatedPharmacySuppliersRouteWithChildren
   AuthenticatedPharmacyTransfersRoute: typeof AuthenticatedPharmacyTransfersRoute
   AuthenticatedPharmacyWarehousesRoute: typeof AuthenticatedPharmacyWarehousesRoute
   AuthenticatedPharmacyIndexRoute: typeof AuthenticatedPharmacyIndexRoute
@@ -4585,14 +4759,22 @@ interface AuthenticatedPharmacyRouteChildren {
 const AuthenticatedPharmacyRouteChildren: AuthenticatedPharmacyRouteChildren = {
   AuthenticatedPharmacyAdjustmentsRoute: AuthenticatedPharmacyAdjustmentsRoute,
   AuthenticatedPharmacyBatchesRoute: AuthenticatedPharmacyBatchesRoute,
+  AuthenticatedPharmacyColdchainRoute: AuthenticatedPharmacyColdchainRoute,
   AuthenticatedPharmacyControlledRoute: AuthenticatedPharmacyControlledRoute,
   AuthenticatedPharmacyDispenseRoute:
     AuthenticatedPharmacyDispenseRouteWithChildren,
   AuthenticatedPharmacyExpiryRoute: AuthenticatedPharmacyExpiryRoute,
+  AuthenticatedPharmacyGrnRoute: AuthenticatedPharmacyGrnRoute,
+  AuthenticatedPharmacyIntegrationsRoute:
+    AuthenticatedPharmacyIntegrationsRoute,
   AuthenticatedPharmacyInventoryRoute: AuthenticatedPharmacyInventoryRoute,
   AuthenticatedPharmacyMasterRoute: AuthenticatedPharmacyMasterRoute,
+  AuthenticatedPharmacyPurchaseRoute:
+    AuthenticatedPharmacyPurchaseRouteWithChildren,
+  AuthenticatedPharmacyRecallsRoute: AuthenticatedPharmacyRecallsRoute,
   AuthenticatedPharmacyReturnsRoute: AuthenticatedPharmacyReturnsRoute,
-  AuthenticatedPharmacySuppliersRoute: AuthenticatedPharmacySuppliersRoute,
+  AuthenticatedPharmacySuppliersRoute:
+    AuthenticatedPharmacySuppliersRouteWithChildren,
   AuthenticatedPharmacyTransfersRoute: AuthenticatedPharmacyTransfersRoute,
   AuthenticatedPharmacyWarehousesRoute: AuthenticatedPharmacyWarehousesRoute,
   AuthenticatedPharmacyIndexRoute: AuthenticatedPharmacyIndexRoute,
