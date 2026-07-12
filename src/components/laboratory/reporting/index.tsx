@@ -334,11 +334,12 @@ export function AmendmentHistoryPanel({ tenantId, result }: { tenantId: string; 
   const [text, setText] = useState("");
   const call = useServerFn(amendResult);
   const qc = useQueryClient();
+  const resultId = str(result?.id);
   const mut = useMutation({
     mutationFn: () => call({
       data: {
-        tenantId: str(result?.tenant_id) || "",
-        resultId: str(result?.id),
+        tenantId,
+        resultId,
         reason,
         numericValue: numeric ? Number(numeric) : null,
         textValue: text || null,
@@ -352,8 +353,6 @@ export function AmendmentHistoryPanel({ tenantId, result }: { tenantId: string; 
     },
     onError: (e) => toast.error((e as Error).message),
   });
-  const tenantId = str(result?.tenant_id);
-  const resultId = str(result?.id);
   return (
     <Card>
       <CardHeader className="pb-2 flex flex-row items-center justify-between">
