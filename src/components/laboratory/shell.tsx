@@ -97,20 +97,29 @@ export function LaboratoryNotesPanel({ notes }: { notes?: string | null }) {
 export function LaboratoryAuditPanel({ items }: { items: Array<{ at: string; actor?: string | null; event: string; detail?: string | null }> }) {
   return (
     <TimelinePanel
-      items={items.map((i, idx) => ({
-        id: String(idx),
-        at: i.at,
+      items={items.map((i) => ({
+        ts: i.at,
+        event_type: i.event,
         title: i.event,
-        description: i.detail ?? undefined,
-        actor: i.actor ?? undefined,
+        body: i.detail ?? (i.actor ? `by ${i.actor}` : null),
       }))}
     />
   );
 }
 
-export function LaboratoryTimeline({ items }: { items: Array<{ id: string; at: string; title: string; description?: string; actor?: string }> }) {
-  return <TimelinePanel items={items} />;
+export function LaboratoryTimeline({ items }: { items: Array<{ id?: string; at: string; title: string; description?: string; actor?: string; event?: string }> }) {
+  return (
+    <TimelinePanel
+      items={items.map((i) => ({
+        ts: i.at,
+        event_type: i.event ?? "event",
+        title: i.title,
+        body: i.description ?? (i.actor ? `by ${i.actor}` : null),
+      }))}
+    />
+  );
 }
+
 
 export function LaboratoryDashboardCards({
   totalOrders,
