@@ -132,6 +132,20 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
 
+  {
+    label: "Operations",
+    items: [
+      {
+        label: "Pharmacy",
+        to: "/pharmacy",
+        icon: Pill,
+        permission: "pharmacy:read",
+      },
+    ],
+  },
+
+
+
 
 
   {
