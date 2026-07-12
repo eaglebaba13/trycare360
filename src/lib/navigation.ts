@@ -23,6 +23,8 @@ import {
   IndianRupee,
   BarChart3,
   Pill,
+  FlaskConical,
+
 } from "lucide-react";
 
 
@@ -141,6 +143,13 @@ export const NAV_GROUPS: NavGroup[] = [
         icon: Pill,
         permission: "pharmacy:read",
       },
+      {
+        label: "Laboratory",
+        to: "/laboratory",
+        icon: FlaskConical,
+        permission: "lab:read",
+      },
+
     ],
   },
 
