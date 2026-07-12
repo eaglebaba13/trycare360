@@ -227,7 +227,7 @@ export function LaboratoryKpiBar({ kpis }: { kpis: LaboratoryExecutiveKpiInput }
   );
 }
 
-export function KpiCards({ items }: { items: Array<{ label: string; value: string | number; icon?: React.ComponentType<{ className?: string }>; tone?: "info" | "success" | "warning" | "danger" }> }) {
+export function KpiCards({ items }: { items: Array<{ label: string; value: string | number; icon?: typeof Microscope; tone?: "info" | "success" | "warning" | "danger" }> }) {
   return (
     <KpiGrid>
       {items.map((it) => (
