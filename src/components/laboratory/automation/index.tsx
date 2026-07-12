@@ -144,13 +144,13 @@ export function AnalyzerQueue({ tenantId, instrumentId }: { tenantId: string; in
   });
   const rows = asRows(q.data);
   const columns: DataGridColumn<Row>[] = [
-    { key: "id", header: "Queue ID", accessor: (r) => str(r.id).slice(0, 8) },
-    { key: "status", header: "Status", accessor: (r) => <Badge variant="outline">{str(r.status)}</Badge> },
-    { key: "order_item_id", header: "Order Item", accessor: (r) => str(r.order_item_id).slice(0, 8) },
-    { key: "queued_at", header: "Queued", accessor: (r) => str(r.queued_at) },
-    { key: "completed_at", header: "Completed", accessor: (r) => str(r.completed_at) || "—" },
+    { id: "id", header: "Queue ID", cell: (r: Row) => str(r.id).slice(0, 8) },
+    { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
+    { id: "order_item_id", header: "Order Item", cell: (r: Row) => str(r.order_item_id).slice(0, 8) },
+    { id: "queued_at", header: "Queued", cell: (r: Row) => str(r.queued_at) },
+    { id: "completed_at", header: "Completed", cell: (r: Row) => str(r.completed_at) || "—" },
   ];
-  return <DataGrid data={rows} columns={columns} isLoading={q.isLoading} emptyMessage="No queue items." />;
+  return <DataGrid rows={rows} getRowId={(r) => str(r.id)} columns={columns} isLoading={q.isLoading} emptyMessage="No queue items." />;
 }
 
 export function AutomationQueue({ tenantId }: { tenantId: string }) {
@@ -281,11 +281,10 @@ export function CalibrationMonitor({ tenantId, instrumentId }: { tenantId: strin
       <CardHeader className="pb-2"><CardTitle className="text-sm flex items-center gap-2"><Gauge className="h-3.5 w-3.5" />Calibration monitor</CardTitle></CardHeader>
       <CardContent>
         <DataGrid
-          data={rows}
-          columns={[
-            { key: "performed_at", header: "Performed", accessor: (r) => str(r.performed_at) },
-            { key: "status", header: "Status", accessor: (r) => <Badge variant="outline">{str(r.status)}</Badge> },
-            { key: "notes", header: "Notes", accessor: (r) => str(r.notes) },
+          rows={rows} getRowId={(r) => str(r.id)} columns={[
+            { id: "performed_at", header: "Performed", cell: (r: Row) => str(r.performed_at) },
+            { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
+            { id: "notes", header: "Notes", cell: (r: Row) => str(r.notes) },
           ]}
           isLoading={q.isLoading}
           emptyMessage="No calibration records."
@@ -312,13 +311,12 @@ export function QCMonitor({ tenantId, testId }: { tenantId: string; testId: stri
       <CardHeader className="pb-2"><CardTitle className="text-sm flex items-center gap-2"><FlaskConical className="h-3.5 w-3.5" />QC runs (recent)</CardTitle></CardHeader>
       <CardContent>
         <DataGrid
-          data={rows}
-          columns={[
-            { key: "performed_at", header: "Performed", accessor: (r) => str(r.performed_at) },
-            { key: "level", header: "Level", accessor: (r) => str(r.level) },
-            { key: "value", header: "Value", accessor: (r) => str(r.value) },
-            { key: "passed", header: "Result", accessor: (r) => (r.passed ? <Badge className="bg-emerald-500/20 text-emerald-700">Pass</Badge> : <Badge variant="destructive">Fail</Badge>) },
-            { key: "violations", header: "Rules", accessor: (r) => Array.isArray(r.violations) ? (r.violations as string[]).join(", ") : "—" },
+          rows={rows} getRowId={(r) => str(r.id)} columns={[
+            { id: "performed_at", header: "Performed", cell: (r: Row) => str(r.performed_at) },
+            { id: "level", header: "Level", cell: (r: Row) => str(r.level) },
+            { id: "value", header: "Value", cell: (r: Row) => str(r.value) },
+            { id: "passed", header: "Result", cell: (r: Row) => (r.passed ? <Badge className="bg-emerald-500/20 text-emerald-700">Pass</Badge> : <Badge variant="destructive">Fail</Badge>) },
+            { id: "violations", header: "Rules", cell: (r: Row) => Array.isArray(r.violations) ? (r.violations as string[]).join(", ") : "—" },
           ]}
           isLoading={q.isLoading}
           emptyMessage="No QC runs recorded."
@@ -467,12 +465,11 @@ export function VendorQueue({ items }: { items?: Row[] }) {
   const rows = items ?? [];
   return (
     <DataGrid
-      data={rows}
-      columns={[
-        { key: "vendor_code", header: "Vendor", accessor: (r) => str(r.vendor_code) },
-        { key: "status", header: "Status", accessor: (r) => <Badge variant="outline">{str(r.status)}</Badge> },
-        { key: "submitted_at", header: "Submitted", accessor: (r) => str(r.submitted_at) },
-        { key: "completed_at", header: "Completed", accessor: (r) => str(r.completed_at) || "—" },
+      rows={rows} getRowId={(r) => str(r.id)} columns={[
+        { id: "vendor_code", header: "Vendor", cell: (r: Row) => str(r.vendor_code) },
+        { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
+        { id: "submitted_at", header: "Submitted", cell: (r: Row) => str(r.submitted_at) },
+        { id: "completed_at", header: "Completed", cell: (r: Row) => str(r.completed_at) || "—" },
       ]}
       emptyMessage="No external submissions."
     />
@@ -511,10 +508,10 @@ export function DistributionQueue({ tenantId, orderId }: { tenantId: string; ord
         <DataGrid
           data={asRows(q.data)}
           columns={[
-            { key: "channel", header: "Channel", accessor: (r) => str(r.channel) },
-            { key: "status", header: "Status", accessor: (r) => <Badge variant="outline">{str(r.status)}</Badge> },
-            { key: "recipient", header: "Recipient", accessor: (r) => str(r.recipient) || "—" },
-            { key: "sent_at", header: "Sent", accessor: (r) => str(r.sent_at) },
+            { id: "channel", header: "Channel", cell: (r: Row) => str(r.channel) },
+            { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
+            { id: "recipient", header: "Recipient", cell: (r: Row) => str(r.recipient) || "—" },
+            { id: "sent_at", header: "Sent", cell: (r: Row) => str(r.sent_at) },
           ]}
           isLoading={q.isLoading}
           emptyMessage="Nothing distributed yet."
@@ -691,13 +688,12 @@ export function AuditViewer({ tenantId, scope }: { tenantId: string; scope: stri
       <CardHeader className="pb-2"><CardTitle className="text-sm flex items-center gap-2"><ScrollText className="h-3.5 w-3.5" />AI audit trail</CardTitle></CardHeader>
       <CardContent>
         <DataGrid
-          data={list}
-          columns={[
-            { key: "createdAt", header: "When", accessor: (r) => str(r.createdAt) },
-            { key: "purpose", header: "Purpose", accessor: (r) => str(r.purpose) },
-            { key: "status", header: "Status", accessor: (r) => <Badge variant="outline">{str(r.status)}</Badge> },
-            { key: "model", header: "Model", accessor: (r) => str(r.model) },
-            { key: "latencyMs", header: "Latency", accessor: (r) => `${str(r.latencyMs)} ms` },
+          rows={list} getRowId={(r) => str(r.id)} columns={[
+            { id: "createdAt", header: "When", cell: (r: Row) => str(r.createdAt) },
+            { id: "purpose", header: "Purpose", cell: (r: Row) => str(r.purpose) },
+            { id: "status", header: "Status", cell: (r: Row) => <Badge variant="outline">{str(r.status)}</Badge> },
+            { id: "model", header: "Model", cell: (r: Row) => str(r.model) },
+            { id: "latencyMs", header: "Latency", cell: (r: Row) => `${str(r.latencyMs)} ms` },
           ]}
           emptyMessage="No AI activity yet."
         />
