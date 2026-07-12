@@ -262,12 +262,12 @@ export function PurchaseApprovalCard({
 // ---------------------------------------------------------------------------
 export function PurchaseStatusTimeline({ po }: { po: PoRow }) {
   const items: TimelineItem[] = [
-    { id: "created", title: "PO created", timestamp: po.created_at, tone: "default" },
-    po.po_date ? { id: "po", title: "PO dated", timestamp: po.po_date, tone: "info" } : null,
+    { ts: po.created_at, event_type: "created", title: "PO created" },
+    po.po_date ? { ts: po.po_date, event_type: "dated", title: "PO dated" } : null,
     po.expected_date
-      ? { id: "expected", title: "Expected delivery", timestamp: po.expected_date, tone: "info" }
+      ? { ts: po.expected_date, event_type: "expected", title: "Expected delivery" }
       : null,
-    { id: "current", title: `Status: ${po.status}`, timestamp: new Date().toISOString(), tone: "success" },
+    { ts: new Date().toISOString(), event_type: po.status, title: `Status: ${po.status}` },
   ].filter(Boolean) as TimelineItem[];
   return <TimelinePanel items={items} />;
 }
