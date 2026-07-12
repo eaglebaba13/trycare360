@@ -31,6 +31,12 @@ export const LABORATORY_TABS = [
   { to: "/laboratory/distribution", label: "Distribution" },
   { to: "/laboratory/distribution-report", label: "Distribution Report" },
   { to: "/laboratory/external", label: "External Labs" },
+  { to: "/laboratory/automation", label: "Automation" },
+  { to: "/laboratory/analyzers", label: "Analyzers" },
+  { to: "/laboratory/instrument-monitor", label: "Instrument Monitor" },
+  { to: "/laboratory/integrations", label: "Integrations" },
+  { to: "/laboratory/external-labs", label: "External Labs Hub" },
+  { to: "/laboratory/ai", label: "AI Assistant" },
 ];
 
 export function LaboratoryHeader() {
