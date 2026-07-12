@@ -14,7 +14,6 @@ import { type ReactNode } from "react";
 import {
   Loader2,
   Stethoscope,
-  Sparkles,
   ListChecks,
   Workflow,
 } from "lucide-react";
@@ -23,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ClinicalAssistantPanel } from "./ai-assistant";
 import type { ClinicalContextData } from "./use-clinical-context";
 import {
   BillingSummaryPanel,
