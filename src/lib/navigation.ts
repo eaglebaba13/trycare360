@@ -22,6 +22,7 @@ import {
   Briefcase,
   IndianRupee,
   BarChart3,
+  Pill,
 } from "lucide-react";
 
 
