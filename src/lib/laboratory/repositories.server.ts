@@ -31,16 +31,19 @@ type AnyRes =
   | PostgrestMaybeSingleResponse<unknown>
   | PostgrestResponse<unknown>;
 
-function unwrap<T = unknown>(res: AnyRes): T {
+// biome-ignore lint/suspicious/noExplicitAny: intentional — see note above
+function unwrap<T = any>(res: AnyRes): T {
   if (res.error) throw new Error(res.error.message);
   if (res.data === null || res.data === undefined) throw new Error("Row not found");
   return res.data as T;
 }
-function unwrapMaybe<T = unknown>(res: AnyRes): T | null {
+// biome-ignore lint/suspicious/noExplicitAny: intentional
+function unwrapMaybe<T = any>(res: AnyRes): T | null {
   if (res.error) throw new Error(res.error.message);
   return ((res.data ?? null) as T | null);
 }
-function unwrapList<T = unknown>(res: AnyRes): T[] {
+// biome-ignore lint/suspicious/noExplicitAny: intentional
+function unwrapList<T = any>(res: AnyRes): T[] {
   if (res.error) throw new Error(res.error.message);
   return ((res.data ?? []) as T[]);
 }
