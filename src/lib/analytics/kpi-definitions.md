@@ -264,3 +264,100 @@ outcome) is served by the same service (`report()`). CSV export is
 in-page; PDF / Excel / scheduled delivery are delegated to the Data
 Foundation Reports module — no duplicate reporting engine.
 
+---
+
+## Pharmacy (Phase 2.6)
+
+All formulas read from the Pharmacy Inventory Ledger (immutable append-only)
+and the projection tables. No parallel counters. Analytics Engine consumes
+these definitions; Reports module handles export and scheduling.
+
+### Inventory & Stock
+
+| KPI | Formula |
+|---|---|
+| Stock On Hand (value) | sum(pharmacy_stock_on_hand.quantity_on_hand * batch.cost_price) |
+| Stock On Hand (units) | sum(pharmacy_stock_on_hand.quantity_on_hand) |
+| Inventory Turns | dispensed_units_in_period / avg(stock_on_hand_units_in_period) |
+| Days of Supply | avg(stock_on_hand_units) / (dispensed_units_in_period / days_in_period) |
+| Stockout Count | count(distinct drug_id where stock_on_hand = 0 at any point in period) |
+| Stockout Rate | stockout_count / distinct_active_drugs |
+| Slow-Moving SKUs | count(drug_id where no dispense in last 90 days AND stock_on_hand > 0) |
+| Dead Stock (value) | sum(cost_price * on_hand) where no dispense in last 180 days |
+| Near-Expiry Units (90d) | sum(stock_on_hand) where batch.expiry_date <= now() + interval '90 days' |
+| Expired Write-off (value) | sum(ledger.quantity * batch.cost_price) where source_type = 'expiry' |
+| Wastage Rate | expired_write_off_value / total_purchase_value_in_period |
+
+### Dispensing
+
+| KPI | Formula |
+|---|---|
+| Total Dispenses | count(pharmacy_dispenses where status IN ('completed','partial')) |
+| Dispensed Units | sum(pharmacy_dispense_items.quantity) |
+| Prescription Fill Rate | count(distinct prescription_id filled) / count(distinct clinical_prescriptions in period) |
+| Partial Dispense Rate | count(dispenses where status = 'partial') / total_dispenses |
+| Generic Substitution Rate | count(dispense_items where substituted_from_drug_id is not null) / total_dispense_items |
+| Avg Time to Dispense | avg(dispense.created_at - prescription.created_at) |
+| Kit Dispense Count | count(dispense_items where kit_id is not null group by kit_id) |
+
+### Procurement
+
+| KPI | Formula |
+|---|---|
+| PO Count | count(pharmacy_purchase_orders) |
+| PO Value | sum(pharmacy_purchase_orders.grand_total) |
+| Avg PO Cycle Time | avg(sent_at - created_at) |
+| Avg PO Approval Time | avg(approved_at - created_at) where approved_at is not null |
+| GRN Posting Delay | avg(grn.posted_at - grn.grn_date) |
+| PO Fulfillment Rate | sum(po_items.quantity_received) / sum(po_items.quantity_ordered) |
+| Supplier On-Time Rate | count(grn where posted_at <= po.expected_date) / count(grn) |
+| Supplier Score | avg(supplier_score) weighted by PO value |
+
+### Warehouse & Transfers
+
+| KPI | Formula |
+|---|---|
+| Transfer Count | count(pharmacy_transfers) |
+| Transfer Cycle Time | avg(received_at - shipped_at) where status = 'received' |
+| Warehouse Stock Value | sum(soh.quantity * batch.cost_price) group by warehouse_id |
+| Bin Utilization | sum(soh.quantity) / sum(bin.capacity) where capacity is not null |
+
+### Controlled Drugs
+
+| KPI | Formula |
+|---|---|
+| Controlled Dispenses | count(pharmacy_controlled_register where entry_type = 'dispense') |
+| Controlled Discrepancy Count | count(pharmacy_controlled_register where discrepancy_flag = true) |
+| Controlled Balance | latest balance_after per (warehouse_id, drug_id, batch_id) |
+| Witness Compliance | count(entries where witness_id is not null) / count(entries where entry_type='dispense') |
+
+### Cold Chain
+
+| KPI | Formula |
+|---|---|
+| Excursion Count | count(pharmacy_coldchain_logs where is_excursion = true) |
+| Excursion Rate | excursion_count / total_readings |
+| Quarantine Triggered Count | count(coldchain_logs where quarantine_triggered = true) |
+| Longest Excursion Duration | max(consecutive excursion window per location) |
+
+### Recall & Compliance
+
+| KPI | Formula |
+|---|---|
+| Active Recalls | count(pharmacy_drug_recalls where status = 'active') |
+| Recall Response Time | avg(completed_at - initiated_at) where status = 'completed' |
+| Recall Return Rate | sum(recall_items.quantity_returned) / sum(recall_items.quantity_in_field) |
+| Recall Destroy Rate | sum(recall_items.quantity_destroyed) / sum(recall_items.quantity_in_field) |
+| Patient Exposure Count | count(distinct patient_id from dispense_items joined to recall.batch_id) |
+
+### Forecast (Addendum B — dashboards only when engine ships)
+
+| KPI | Formula |
+|---|---|
+| Forecast Accuracy (MAPE) | avg(abs(actual - predicted) / actual) over forecast horizon |
+| Reorder Suggestions Accepted | count(reorder events accepted) / count(reorder events suggested) |
+| Predicted Shortage Count | count(distinct drug_id where predicted_demand > (stock_on_hand + on_order) within horizon) |
+| Predicted Overstock Count | count(distinct drug_id where stock_on_hand > 3 * predicted_demand within horizon) |
+
+
+
