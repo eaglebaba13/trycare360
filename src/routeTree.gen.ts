@@ -107,6 +107,7 @@ import { Route as AuthenticatedPharmacyDispenseRouteImport } from './routes/_aut
 import { Route as AuthenticatedPharmacyControlledRouteImport } from './routes/_authenticated/pharmacy.controlled'
 import { Route as AuthenticatedPharmacyColdchainRouteImport } from './routes/_authenticated/pharmacy.coldchain'
 import { Route as AuthenticatedPharmacyBatchesRouteImport } from './routes/_authenticated/pharmacy.batches'
+import { Route as AuthenticatedPharmacyAnalyticsRouteImport } from './routes/_authenticated/pharmacy.analytics'
 import { Route as AuthenticatedPharmacyAdjustmentsRouteImport } from './routes/_authenticated/pharmacy.adjustments'
 import { Route as AuthenticatedPeopleVerificationRouteImport } from './routes/_authenticated/people.verification'
 import { Route as AuthenticatedPeopleTagsRouteImport } from './routes/_authenticated/people.tags'
@@ -190,6 +191,7 @@ import { Route as AuthenticatedSettingsIntegrationsIndexRouteImport } from './ro
 import { Route as AuthenticatedSettingsCompaniesIndexRouteImport } from './routes/_authenticated/settings.companies.index'
 import { Route as AuthenticatedSchedulingIntegrationsIndexRouteImport } from './routes/_authenticated/scheduling.integrations.index'
 import { Route as AuthenticatedSchedulingAnalyticsIndexRouteImport } from './routes/_authenticated/scheduling.analytics.index'
+import { Route as AuthenticatedPharmacyAnalyticsIndexRouteImport } from './routes/_authenticated/pharmacy.analytics.index'
 import { Route as AuthenticatedClinicalAnalyticsIndexRouteImport } from './routes/_authenticated/clinical.analytics.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
@@ -219,6 +221,15 @@ import { Route as AuthenticatedSchedulingAnalyticsCapacityRouteImport } from './
 import { Route as AuthenticatedPharmacySuppliersIdRouteImport } from './routes/_authenticated/pharmacy.suppliers.$id'
 import { Route as AuthenticatedPharmacyPurchaseIdRouteImport } from './routes/_authenticated/pharmacy.purchase.$id'
 import { Route as AuthenticatedPharmacyDispenseIdRouteImport } from './routes/_authenticated/pharmacy.dispense.$id'
+import { Route as AuthenticatedPharmacyAnalyticsSuppliersRouteImport } from './routes/_authenticated/pharmacy.analytics.suppliers'
+import { Route as AuthenticatedPharmacyAnalyticsReportsRouteImport } from './routes/_authenticated/pharmacy.analytics.reports'
+import { Route as AuthenticatedPharmacyAnalyticsProcurementRouteImport } from './routes/_authenticated/pharmacy.analytics.procurement'
+import { Route as AuthenticatedPharmacyAnalyticsInventoryRouteImport } from './routes/_authenticated/pharmacy.analytics.inventory'
+import { Route as AuthenticatedPharmacyAnalyticsForecastingRouteImport } from './routes/_authenticated/pharmacy.analytics.forecasting'
+import { Route as AuthenticatedPharmacyAnalyticsExpiryRouteImport } from './routes/_authenticated/pharmacy.analytics.expiry'
+import { Route as AuthenticatedPharmacyAnalyticsDispensingRouteImport } from './routes/_authenticated/pharmacy.analytics.dispensing'
+import { Route as AuthenticatedPharmacyAnalyticsControlledRouteImport } from './routes/_authenticated/pharmacy.analytics.controlled'
+import { Route as AuthenticatedPharmacyAnalyticsColdchainRouteImport } from './routes/_authenticated/pharmacy.analytics.coldchain'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedClinicalEncounterIdRouteImport } from './routes/_authenticated/clinical.encounter.$id'
 import { Route as AuthenticatedClinicalAnalyticsReportsRouteImport } from './routes/_authenticated/clinical.analytics.reports'
@@ -777,6 +788,12 @@ const AuthenticatedPharmacyBatchesRoute =
     path: '/batches',
     getParentRoute: () => AuthenticatedPharmacyRoute,
   } as any)
+const AuthenticatedPharmacyAnalyticsRoute =
+  AuthenticatedPharmacyAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedPharmacyRoute,
+  } as any)
 const AuthenticatedPharmacyAdjustmentsRoute =
   AuthenticatedPharmacyAdjustmentsRouteImport.update({
     id: '/adjustments',
@@ -1260,6 +1277,12 @@ const AuthenticatedSchedulingAnalyticsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedSchedulingAnalyticsRoute,
   } as any)
+const AuthenticatedPharmacyAnalyticsIndexRoute =
+  AuthenticatedPharmacyAnalyticsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
 const AuthenticatedClinicalAnalyticsIndexRoute =
   AuthenticatedClinicalAnalyticsIndexRouteImport.update({
     id: '/',
@@ -1429,6 +1452,60 @@ const AuthenticatedPharmacyDispenseIdRoute =
     id: '/$id',
     path: '/$id',
     getParentRoute: () => AuthenticatedPharmacyDispenseRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsSuppliersRoute =
+  AuthenticatedPharmacyAnalyticsSuppliersRouteImport.update({
+    id: '/suppliers',
+    path: '/suppliers',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsReportsRoute =
+  AuthenticatedPharmacyAnalyticsReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsProcurementRoute =
+  AuthenticatedPharmacyAnalyticsProcurementRouteImport.update({
+    id: '/procurement',
+    path: '/procurement',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsInventoryRoute =
+  AuthenticatedPharmacyAnalyticsInventoryRouteImport.update({
+    id: '/inventory',
+    path: '/inventory',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsForecastingRoute =
+  AuthenticatedPharmacyAnalyticsForecastingRouteImport.update({
+    id: '/forecasting',
+    path: '/forecasting',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsExpiryRoute =
+  AuthenticatedPharmacyAnalyticsExpiryRouteImport.update({
+    id: '/expiry',
+    path: '/expiry',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsDispensingRoute =
+  AuthenticatedPharmacyAnalyticsDispensingRouteImport.update({
+    id: '/dispensing',
+    path: '/dispensing',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsControlledRoute =
+  AuthenticatedPharmacyAnalyticsControlledRouteImport.update({
+    id: '/controlled',
+    path: '/controlled',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
+  } as any)
+const AuthenticatedPharmacyAnalyticsColdchainRoute =
+  AuthenticatedPharmacyAnalyticsColdchainRouteImport.update({
+    id: '/coldchain',
+    path: '/coldchain',
+    getParentRoute: () => AuthenticatedPharmacyAnalyticsRoute,
   } as any)
 const AuthenticatedCmsBuilderPageIdRoute =
   AuthenticatedCmsBuilderPageIdRouteImport.update({
@@ -1604,6 +1681,7 @@ export interface FileRoutesByFullPath {
   '/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/pharmacy/adjustments': typeof AuthenticatedPharmacyAdjustmentsRoute
+  '/pharmacy/analytics': typeof AuthenticatedPharmacyAnalyticsRouteWithChildren
   '/pharmacy/batches': typeof AuthenticatedPharmacyBatchesRoute
   '/pharmacy/coldchain': typeof AuthenticatedPharmacyColdchainRoute
   '/pharmacy/controlled': typeof AuthenticatedPharmacyControlledRoute
@@ -1681,6 +1759,15 @@ export interface FileRoutesByFullPath {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
+  '/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
+  '/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
+  '/pharmacy/analytics/expiry': typeof AuthenticatedPharmacyAnalyticsExpiryRoute
+  '/pharmacy/analytics/forecasting': typeof AuthenticatedPharmacyAnalyticsForecastingRoute
+  '/pharmacy/analytics/inventory': typeof AuthenticatedPharmacyAnalyticsInventoryRoute
+  '/pharmacy/analytics/procurement': typeof AuthenticatedPharmacyAnalyticsProcurementRoute
+  '/pharmacy/analytics/reports': typeof AuthenticatedPharmacyAnalyticsReportsRoute
+  '/pharmacy/analytics/suppliers': typeof AuthenticatedPharmacyAnalyticsSuppliersRoute
   '/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
   '/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
   '/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
@@ -1710,6 +1797,7 @@ export interface FileRoutesByFullPath {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/clinical/analytics/': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/pharmacy/analytics/': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -1882,6 +1970,15 @@ export interface FileRoutesByTo {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
+  '/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
+  '/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
+  '/pharmacy/analytics/expiry': typeof AuthenticatedPharmacyAnalyticsExpiryRoute
+  '/pharmacy/analytics/forecasting': typeof AuthenticatedPharmacyAnalyticsForecastingRoute
+  '/pharmacy/analytics/inventory': typeof AuthenticatedPharmacyAnalyticsInventoryRoute
+  '/pharmacy/analytics/procurement': typeof AuthenticatedPharmacyAnalyticsProcurementRoute
+  '/pharmacy/analytics/reports': typeof AuthenticatedPharmacyAnalyticsReportsRoute
+  '/pharmacy/analytics/suppliers': typeof AuthenticatedPharmacyAnalyticsSuppliersRoute
   '/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
   '/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
   '/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
@@ -1911,6 +2008,7 @@ export interface FileRoutesByTo {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/clinical/analytics': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/pharmacy/analytics': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/scheduling/integrations': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/settings/companies': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -2029,6 +2127,7 @@ export interface FileRoutesById {
   '/_authenticated/people/tags': typeof AuthenticatedPeopleTagsRoute
   '/_authenticated/people/verification': typeof AuthenticatedPeopleVerificationRoute
   '/_authenticated/pharmacy/adjustments': typeof AuthenticatedPharmacyAdjustmentsRoute
+  '/_authenticated/pharmacy/analytics': typeof AuthenticatedPharmacyAnalyticsRouteWithChildren
   '/_authenticated/pharmacy/batches': typeof AuthenticatedPharmacyBatchesRoute
   '/_authenticated/pharmacy/coldchain': typeof AuthenticatedPharmacyColdchainRoute
   '/_authenticated/pharmacy/controlled': typeof AuthenticatedPharmacyControlledRoute
@@ -2106,6 +2205,15 @@ export interface FileRoutesById {
   '/_authenticated/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/_authenticated/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/_authenticated/pharmacy/analytics/coldchain': typeof AuthenticatedPharmacyAnalyticsColdchainRoute
+  '/_authenticated/pharmacy/analytics/controlled': typeof AuthenticatedPharmacyAnalyticsControlledRoute
+  '/_authenticated/pharmacy/analytics/dispensing': typeof AuthenticatedPharmacyAnalyticsDispensingRoute
+  '/_authenticated/pharmacy/analytics/expiry': typeof AuthenticatedPharmacyAnalyticsExpiryRoute
+  '/_authenticated/pharmacy/analytics/forecasting': typeof AuthenticatedPharmacyAnalyticsForecastingRoute
+  '/_authenticated/pharmacy/analytics/inventory': typeof AuthenticatedPharmacyAnalyticsInventoryRoute
+  '/_authenticated/pharmacy/analytics/procurement': typeof AuthenticatedPharmacyAnalyticsProcurementRoute
+  '/_authenticated/pharmacy/analytics/reports': typeof AuthenticatedPharmacyAnalyticsReportsRoute
+  '/_authenticated/pharmacy/analytics/suppliers': typeof AuthenticatedPharmacyAnalyticsSuppliersRoute
   '/_authenticated/pharmacy/dispense/$id': typeof AuthenticatedPharmacyDispenseIdRoute
   '/_authenticated/pharmacy/purchase/$id': typeof AuthenticatedPharmacyPurchaseIdRoute
   '/_authenticated/pharmacy/suppliers/$id': typeof AuthenticatedPharmacySuppliersIdRoute
@@ -2135,6 +2243,7 @@ export interface FileRoutesById {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/clinical/analytics/': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/_authenticated/pharmacy/analytics/': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/_authenticated/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
   '/_authenticated/scheduling/integrations/': typeof AuthenticatedSchedulingIntegrationsIndexRoute
   '/_authenticated/settings/companies/': typeof AuthenticatedSettingsCompaniesIndexRoute
@@ -2252,6 +2361,7 @@ export interface FileRouteTypes {
     | '/people/tags'
     | '/people/verification'
     | '/pharmacy/adjustments'
+    | '/pharmacy/analytics'
     | '/pharmacy/batches'
     | '/pharmacy/coldchain'
     | '/pharmacy/controlled'
@@ -2329,6 +2439,15 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/pharmacy/analytics/coldchain'
+    | '/pharmacy/analytics/controlled'
+    | '/pharmacy/analytics/dispensing'
+    | '/pharmacy/analytics/expiry'
+    | '/pharmacy/analytics/forecasting'
+    | '/pharmacy/analytics/inventory'
+    | '/pharmacy/analytics/procurement'
+    | '/pharmacy/analytics/reports'
+    | '/pharmacy/analytics/suppliers'
     | '/pharmacy/dispense/$id'
     | '/pharmacy/purchase/$id'
     | '/pharmacy/suppliers/$id'
@@ -2358,6 +2477,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/clinical/analytics/'
+    | '/pharmacy/analytics/'
     | '/scheduling/analytics/'
     | '/scheduling/integrations/'
     | '/settings/companies/'
@@ -2530,6 +2650,15 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/pharmacy/analytics/coldchain'
+    | '/pharmacy/analytics/controlled'
+    | '/pharmacy/analytics/dispensing'
+    | '/pharmacy/analytics/expiry'
+    | '/pharmacy/analytics/forecasting'
+    | '/pharmacy/analytics/inventory'
+    | '/pharmacy/analytics/procurement'
+    | '/pharmacy/analytics/reports'
+    | '/pharmacy/analytics/suppliers'
     | '/pharmacy/dispense/$id'
     | '/pharmacy/purchase/$id'
     | '/pharmacy/suppliers/$id'
@@ -2559,6 +2688,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/clinical/analytics'
+    | '/pharmacy/analytics'
     | '/scheduling/analytics'
     | '/scheduling/integrations'
     | '/settings/companies'
@@ -2676,6 +2806,7 @@ export interface FileRouteTypes {
     | '/_authenticated/people/tags'
     | '/_authenticated/people/verification'
     | '/_authenticated/pharmacy/adjustments'
+    | '/_authenticated/pharmacy/analytics'
     | '/_authenticated/pharmacy/batches'
     | '/_authenticated/pharmacy/coldchain'
     | '/_authenticated/pharmacy/controlled'
@@ -2753,6 +2884,15 @@ export interface FileRouteTypes {
     | '/_authenticated/clinical/analytics/reports'
     | '/_authenticated/clinical/encounter/$id'
     | '/_authenticated/cms/builder/$pageId'
+    | '/_authenticated/pharmacy/analytics/coldchain'
+    | '/_authenticated/pharmacy/analytics/controlled'
+    | '/_authenticated/pharmacy/analytics/dispensing'
+    | '/_authenticated/pharmacy/analytics/expiry'
+    | '/_authenticated/pharmacy/analytics/forecasting'
+    | '/_authenticated/pharmacy/analytics/inventory'
+    | '/_authenticated/pharmacy/analytics/procurement'
+    | '/_authenticated/pharmacy/analytics/reports'
+    | '/_authenticated/pharmacy/analytics/suppliers'
     | '/_authenticated/pharmacy/dispense/$id'
     | '/_authenticated/pharmacy/purchase/$id'
     | '/_authenticated/pharmacy/suppliers/$id'
@@ -2782,6 +2922,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/_authenticated/clinical/analytics/'
+    | '/_authenticated/pharmacy/analytics/'
     | '/_authenticated/scheduling/analytics/'
     | '/_authenticated/scheduling/integrations/'
     | '/_authenticated/settings/companies/'
@@ -3494,6 +3635,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPharmacyBatchesRouteImport
       parentRoute: typeof AuthenticatedPharmacyRoute
     }
+    '/_authenticated/pharmacy/analytics': {
+      id: '/_authenticated/pharmacy/analytics'
+      path: '/analytics'
+      fullPath: '/pharmacy/analytics'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedPharmacyRoute
+    }
     '/_authenticated/pharmacy/adjustments': {
       id: '/_authenticated/pharmacy/adjustments'
       path: '/adjustments'
@@ -4075,6 +4223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSchedulingAnalyticsIndexRouteImport
       parentRoute: typeof AuthenticatedSchedulingAnalyticsRoute
     }
+    '/_authenticated/pharmacy/analytics/': {
+      id: '/_authenticated/pharmacy/analytics/'
+      path: '/'
+      fullPath: '/pharmacy/analytics/'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsIndexRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
     '/_authenticated/clinical/analytics/': {
       id: '/_authenticated/clinical/analytics/'
       path: '/'
@@ -4277,6 +4432,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/pharmacy/dispense/$id'
       preLoaderRoute: typeof AuthenticatedPharmacyDispenseIdRouteImport
       parentRoute: typeof AuthenticatedPharmacyDispenseRoute
+    }
+    '/_authenticated/pharmacy/analytics/suppliers': {
+      id: '/_authenticated/pharmacy/analytics/suppliers'
+      path: '/suppliers'
+      fullPath: '/pharmacy/analytics/suppliers'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsSuppliersRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/reports': {
+      id: '/_authenticated/pharmacy/analytics/reports'
+      path: '/reports'
+      fullPath: '/pharmacy/analytics/reports'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsReportsRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/procurement': {
+      id: '/_authenticated/pharmacy/analytics/procurement'
+      path: '/procurement'
+      fullPath: '/pharmacy/analytics/procurement'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsProcurementRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/inventory': {
+      id: '/_authenticated/pharmacy/analytics/inventory'
+      path: '/inventory'
+      fullPath: '/pharmacy/analytics/inventory'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsInventoryRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/forecasting': {
+      id: '/_authenticated/pharmacy/analytics/forecasting'
+      path: '/forecasting'
+      fullPath: '/pharmacy/analytics/forecasting'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsForecastingRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/expiry': {
+      id: '/_authenticated/pharmacy/analytics/expiry'
+      path: '/expiry'
+      fullPath: '/pharmacy/analytics/expiry'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsExpiryRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/dispensing': {
+      id: '/_authenticated/pharmacy/analytics/dispensing'
+      path: '/dispensing'
+      fullPath: '/pharmacy/analytics/dispensing'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsDispensingRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/controlled': {
+      id: '/_authenticated/pharmacy/analytics/controlled'
+      path: '/controlled'
+      fullPath: '/pharmacy/analytics/controlled'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsControlledRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
+    }
+    '/_authenticated/pharmacy/analytics/coldchain': {
+      id: '/_authenticated/pharmacy/analytics/coldchain'
+      path: '/coldchain'
+      fullPath: '/pharmacy/analytics/coldchain'
+      preLoaderRoute: typeof AuthenticatedPharmacyAnalyticsColdchainRouteImport
+      parentRoute: typeof AuthenticatedPharmacyAnalyticsRoute
     }
     '/_authenticated/cms/builder/$pageId': {
       id: '/_authenticated/cms/builder/$pageId'
@@ -4693,6 +4911,48 @@ const AuthenticatedPeopleRouteChildren: AuthenticatedPeopleRouteChildren = {
 const AuthenticatedPeopleRouteWithChildren =
   AuthenticatedPeopleRoute._addFileChildren(AuthenticatedPeopleRouteChildren)
 
+interface AuthenticatedPharmacyAnalyticsRouteChildren {
+  AuthenticatedPharmacyAnalyticsColdchainRoute: typeof AuthenticatedPharmacyAnalyticsColdchainRoute
+  AuthenticatedPharmacyAnalyticsControlledRoute: typeof AuthenticatedPharmacyAnalyticsControlledRoute
+  AuthenticatedPharmacyAnalyticsDispensingRoute: typeof AuthenticatedPharmacyAnalyticsDispensingRoute
+  AuthenticatedPharmacyAnalyticsExpiryRoute: typeof AuthenticatedPharmacyAnalyticsExpiryRoute
+  AuthenticatedPharmacyAnalyticsForecastingRoute: typeof AuthenticatedPharmacyAnalyticsForecastingRoute
+  AuthenticatedPharmacyAnalyticsInventoryRoute: typeof AuthenticatedPharmacyAnalyticsInventoryRoute
+  AuthenticatedPharmacyAnalyticsProcurementRoute: typeof AuthenticatedPharmacyAnalyticsProcurementRoute
+  AuthenticatedPharmacyAnalyticsReportsRoute: typeof AuthenticatedPharmacyAnalyticsReportsRoute
+  AuthenticatedPharmacyAnalyticsSuppliersRoute: typeof AuthenticatedPharmacyAnalyticsSuppliersRoute
+  AuthenticatedPharmacyAnalyticsIndexRoute: typeof AuthenticatedPharmacyAnalyticsIndexRoute
+}
+
+const AuthenticatedPharmacyAnalyticsRouteChildren: AuthenticatedPharmacyAnalyticsRouteChildren =
+  {
+    AuthenticatedPharmacyAnalyticsColdchainRoute:
+      AuthenticatedPharmacyAnalyticsColdchainRoute,
+    AuthenticatedPharmacyAnalyticsControlledRoute:
+      AuthenticatedPharmacyAnalyticsControlledRoute,
+    AuthenticatedPharmacyAnalyticsDispensingRoute:
+      AuthenticatedPharmacyAnalyticsDispensingRoute,
+    AuthenticatedPharmacyAnalyticsExpiryRoute:
+      AuthenticatedPharmacyAnalyticsExpiryRoute,
+    AuthenticatedPharmacyAnalyticsForecastingRoute:
+      AuthenticatedPharmacyAnalyticsForecastingRoute,
+    AuthenticatedPharmacyAnalyticsInventoryRoute:
+      AuthenticatedPharmacyAnalyticsInventoryRoute,
+    AuthenticatedPharmacyAnalyticsProcurementRoute:
+      AuthenticatedPharmacyAnalyticsProcurementRoute,
+    AuthenticatedPharmacyAnalyticsReportsRoute:
+      AuthenticatedPharmacyAnalyticsReportsRoute,
+    AuthenticatedPharmacyAnalyticsSuppliersRoute:
+      AuthenticatedPharmacyAnalyticsSuppliersRoute,
+    AuthenticatedPharmacyAnalyticsIndexRoute:
+      AuthenticatedPharmacyAnalyticsIndexRoute,
+  }
+
+const AuthenticatedPharmacyAnalyticsRouteWithChildren =
+  AuthenticatedPharmacyAnalyticsRoute._addFileChildren(
+    AuthenticatedPharmacyAnalyticsRouteChildren,
+  )
+
 interface AuthenticatedPharmacyDispenseRouteChildren {
   AuthenticatedPharmacyDispenseIdRoute: typeof AuthenticatedPharmacyDispenseIdRoute
 }
@@ -4738,6 +4998,7 @@ const AuthenticatedPharmacySuppliersRouteWithChildren =
 
 interface AuthenticatedPharmacyRouteChildren {
   AuthenticatedPharmacyAdjustmentsRoute: typeof AuthenticatedPharmacyAdjustmentsRoute
+  AuthenticatedPharmacyAnalyticsRoute: typeof AuthenticatedPharmacyAnalyticsRouteWithChildren
   AuthenticatedPharmacyBatchesRoute: typeof AuthenticatedPharmacyBatchesRoute
   AuthenticatedPharmacyColdchainRoute: typeof AuthenticatedPharmacyColdchainRoute
   AuthenticatedPharmacyControlledRoute: typeof AuthenticatedPharmacyControlledRoute
@@ -4758,6 +5019,8 @@ interface AuthenticatedPharmacyRouteChildren {
 
 const AuthenticatedPharmacyRouteChildren: AuthenticatedPharmacyRouteChildren = {
   AuthenticatedPharmacyAdjustmentsRoute: AuthenticatedPharmacyAdjustmentsRoute,
+  AuthenticatedPharmacyAnalyticsRoute:
+    AuthenticatedPharmacyAnalyticsRouteWithChildren,
   AuthenticatedPharmacyBatchesRoute: AuthenticatedPharmacyBatchesRoute,
   AuthenticatedPharmacyColdchainRoute: AuthenticatedPharmacyColdchainRoute,
   AuthenticatedPharmacyControlledRoute: AuthenticatedPharmacyControlledRoute,

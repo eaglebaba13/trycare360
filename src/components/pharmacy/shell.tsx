@@ -21,6 +21,7 @@ export const PHARMACY_TABS = [
   { to: "/pharmacy/recalls", label: "Drug Recall" },
   { to: "/pharmacy/coldchain", label: "Cold Chain" },
   { to: "/pharmacy/integrations", label: "Integrations" },
+  { to: "/pharmacy/analytics", label: "Analytics" },
 ];
 
 export function PharmacyHeader() {
