@@ -332,13 +332,13 @@ export class LaboratoryAnalyticsService {
   async getMicrobiologyAnalytics(w: AnalyticsWindow) {
     const { data, error } = await this.sb
       .from("lab_cultures")
-      .select("id, growth_status, incubated_at, reported_at, micro_order_id")
+      .select("id, growth_status, incubated_at, reported_at, microbiology_order_id")
       .eq("tenant_id", w.tenantId)
       .limit(500);
     if (error) throw new Error(error.message);
-    const rows = data ?? [];
-    const byGrowth = tallyBy(rows as Array<Record<string, unknown>>, "growth_status");
-    const reported = rows.filter((r) => (r as { reported_at: string | null }).reported_at).length;
+    const rows = (data ?? []) as Array<Record<string, unknown>>;
+    const byGrowth = tallyBy(rows, "growth_status");
+    const reported = rows.filter((r) => r.reported_at).length;
     return {
       cultures: rows.length,
       reported,
