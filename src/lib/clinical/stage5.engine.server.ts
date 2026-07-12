@@ -200,7 +200,7 @@ export interface AssistantRunResult {
   ok: boolean;
   error?: string | null;
   responseText: string;
-  responseJson: unknown;
+  responseJson: Json | null;
   template: PromptTemplateRow | null;
 }
 
