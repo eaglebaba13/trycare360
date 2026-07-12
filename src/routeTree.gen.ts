@@ -143,6 +143,7 @@ import { Route as AuthenticatedCmsAcademyRouteImport } from './routes/_authentic
 import { Route as AuthenticatedClinicalTreatmentPlansRouteImport } from './routes/_authenticated/clinical.treatment-plans'
 import { Route as AuthenticatedClinicalSecondOpinionsRouteImport } from './routes/_authenticated/clinical.second-opinions'
 import { Route as AuthenticatedClinicalReferralsRouteImport } from './routes/_authenticated/clinical.referrals'
+import { Route as AuthenticatedClinicalRecommendationsRouteImport } from './routes/_authenticated/clinical.recommendations'
 import { Route as AuthenticatedClinicalPrescriptionsRouteImport } from './routes/_authenticated/clinical.prescriptions'
 import { Route as AuthenticatedClinicalPatientsRouteImport } from './routes/_authenticated/clinical.patients'
 import { Route as AuthenticatedClinicalMyDayRouteImport } from './routes/_authenticated/clinical.my-day'
@@ -150,6 +151,7 @@ import { Route as AuthenticatedClinicalMediaRouteImport } from './routes/_authen
 import { Route as AuthenticatedClinicalKnowledgeRouteImport } from './routes/_authenticated/clinical.knowledge'
 import { Route as AuthenticatedClinicalEncountersRouteImport } from './routes/_authenticated/clinical.encounters'
 import { Route as AuthenticatedClinicalDashboardRouteImport } from './routes/_authenticated/clinical.dashboard'
+import { Route as AuthenticatedClinicalAssistantRouteImport } from './routes/_authenticated/clinical.assistant'
 import { Route as AuthenticatedAutomationWorkflowsRouteImport } from './routes/_authenticated/automation.workflows'
 import { Route as AuthenticatedAutomationTriggersRouteImport } from './routes/_authenticated/automation.triggers'
 import { Route as AuthenticatedAutomationTemplatesRouteImport } from './routes/_authenticated/automation.templates'
@@ -948,6 +950,12 @@ const AuthenticatedClinicalReferralsRoute =
     path: '/referrals',
     getParentRoute: () => AuthenticatedClinicalRoute,
   } as any)
+const AuthenticatedClinicalRecommendationsRoute =
+  AuthenticatedClinicalRecommendationsRouteImport.update({
+    id: '/recommendations',
+    path: '/recommendations',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
 const AuthenticatedClinicalPrescriptionsRoute =
   AuthenticatedClinicalPrescriptionsRouteImport.update({
     id: '/prescriptions',
@@ -988,6 +996,12 @@ const AuthenticatedClinicalDashboardRoute =
   AuthenticatedClinicalDashboardRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
+    getParentRoute: () => AuthenticatedClinicalRoute,
+  } as any)
+const AuthenticatedClinicalAssistantRoute =
+  AuthenticatedClinicalAssistantRouteImport.update({
+    id: '/assistant',
+    path: '/assistant',
     getParentRoute: () => AuthenticatedClinicalRoute,
   } as any)
 const AuthenticatedAutomationWorkflowsRoute =
@@ -1323,6 +1337,7 @@ export interface FileRoutesByFullPath {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/clinical/assistant': typeof AuthenticatedClinicalAssistantRoute
   '/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
   '/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
   '/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
@@ -1330,6 +1345,7 @@ export interface FileRoutesByFullPath {
   '/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
   '/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
   '/clinical/prescriptions': typeof AuthenticatedClinicalPrescriptionsRoute
+  '/clinical/recommendations': typeof AuthenticatedClinicalRecommendationsRoute
   '/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
   '/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/clinical/treatment-plans': typeof AuthenticatedClinicalTreatmentPlansRoute
@@ -1498,6 +1514,7 @@ export interface FileRoutesByTo {
   '/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/clinical/assistant': typeof AuthenticatedClinicalAssistantRoute
   '/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
   '/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
   '/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
@@ -1505,6 +1522,7 @@ export interface FileRoutesByTo {
   '/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
   '/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
   '/clinical/prescriptions': typeof AuthenticatedClinicalPrescriptionsRoute
+  '/clinical/recommendations': typeof AuthenticatedClinicalRecommendationsRoute
   '/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
   '/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/clinical/treatment-plans': typeof AuthenticatedClinicalTreatmentPlansRoute
@@ -1688,6 +1706,7 @@ export interface FileRoutesById {
   '/_authenticated/automation/templates': typeof AuthenticatedAutomationTemplatesRoute
   '/_authenticated/automation/triggers': typeof AuthenticatedAutomationTriggersRoute
   '/_authenticated/automation/workflows': typeof AuthenticatedAutomationWorkflowsRoute
+  '/_authenticated/clinical/assistant': typeof AuthenticatedClinicalAssistantRoute
   '/_authenticated/clinical/dashboard': typeof AuthenticatedClinicalDashboardRoute
   '/_authenticated/clinical/encounters': typeof AuthenticatedClinicalEncountersRoute
   '/_authenticated/clinical/knowledge': typeof AuthenticatedClinicalKnowledgeRoute
@@ -1695,6 +1714,7 @@ export interface FileRoutesById {
   '/_authenticated/clinical/my-day': typeof AuthenticatedClinicalMyDayRoute
   '/_authenticated/clinical/patients': typeof AuthenticatedClinicalPatientsRoute
   '/_authenticated/clinical/prescriptions': typeof AuthenticatedClinicalPrescriptionsRoute
+  '/_authenticated/clinical/recommendations': typeof AuthenticatedClinicalRecommendationsRoute
   '/_authenticated/clinical/referrals': typeof AuthenticatedClinicalReferralsRoute
   '/_authenticated/clinical/second-opinions': typeof AuthenticatedClinicalSecondOpinionsRoute
   '/_authenticated/clinical/treatment-plans': typeof AuthenticatedClinicalTreatmentPlansRoute
@@ -1880,6 +1900,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/clinical/assistant'
     | '/clinical/dashboard'
     | '/clinical/encounters'
     | '/clinical/knowledge'
@@ -1887,6 +1908,7 @@ export interface FileRouteTypes {
     | '/clinical/my-day'
     | '/clinical/patients'
     | '/clinical/prescriptions'
+    | '/clinical/recommendations'
     | '/clinical/referrals'
     | '/clinical/second-opinions'
     | '/clinical/treatment-plans'
@@ -2055,6 +2077,7 @@ export interface FileRouteTypes {
     | '/automation/templates'
     | '/automation/triggers'
     | '/automation/workflows'
+    | '/clinical/assistant'
     | '/clinical/dashboard'
     | '/clinical/encounters'
     | '/clinical/knowledge'
@@ -2062,6 +2085,7 @@ export interface FileRouteTypes {
     | '/clinical/my-day'
     | '/clinical/patients'
     | '/clinical/prescriptions'
+    | '/clinical/recommendations'
     | '/clinical/referrals'
     | '/clinical/second-opinions'
     | '/clinical/treatment-plans'
@@ -2244,6 +2268,7 @@ export interface FileRouteTypes {
     | '/_authenticated/automation/templates'
     | '/_authenticated/automation/triggers'
     | '/_authenticated/automation/workflows'
+    | '/_authenticated/clinical/assistant'
     | '/_authenticated/clinical/dashboard'
     | '/_authenticated/clinical/encounters'
     | '/_authenticated/clinical/knowledge'
@@ -2251,6 +2276,7 @@ export interface FileRouteTypes {
     | '/_authenticated/clinical/my-day'
     | '/_authenticated/clinical/patients'
     | '/_authenticated/clinical/prescriptions'
+    | '/_authenticated/clinical/recommendations'
     | '/_authenticated/clinical/referrals'
     | '/_authenticated/clinical/second-opinions'
     | '/_authenticated/clinical/treatment-plans'
@@ -3348,6 +3374,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedClinicalReferralsRouteImport
       parentRoute: typeof AuthenticatedClinicalRoute
     }
+    '/_authenticated/clinical/recommendations': {
+      id: '/_authenticated/clinical/recommendations'
+      path: '/recommendations'
+      fullPath: '/clinical/recommendations'
+      preLoaderRoute: typeof AuthenticatedClinicalRecommendationsRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
     '/_authenticated/clinical/prescriptions': {
       id: '/_authenticated/clinical/prescriptions'
       path: '/prescriptions'
@@ -3395,6 +3428,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/clinical/dashboard'
       preLoaderRoute: typeof AuthenticatedClinicalDashboardRouteImport
+      parentRoute: typeof AuthenticatedClinicalRoute
+    }
+    '/_authenticated/clinical/assistant': {
+      id: '/_authenticated/clinical/assistant'
+      path: '/assistant'
+      fullPath: '/clinical/assistant'
+      preLoaderRoute: typeof AuthenticatedClinicalAssistantRouteImport
       parentRoute: typeof AuthenticatedClinicalRoute
     }
     '/_authenticated/automation/workflows': {
@@ -3808,6 +3848,7 @@ const AuthenticatedAutomationRouteWithChildren =
   )
 
 interface AuthenticatedClinicalRouteChildren {
+  AuthenticatedClinicalAssistantRoute: typeof AuthenticatedClinicalAssistantRoute
   AuthenticatedClinicalDashboardRoute: typeof AuthenticatedClinicalDashboardRoute
   AuthenticatedClinicalEncountersRoute: typeof AuthenticatedClinicalEncountersRoute
   AuthenticatedClinicalKnowledgeRoute: typeof AuthenticatedClinicalKnowledgeRoute
@@ -3815,6 +3856,7 @@ interface AuthenticatedClinicalRouteChildren {
   AuthenticatedClinicalMyDayRoute: typeof AuthenticatedClinicalMyDayRoute
   AuthenticatedClinicalPatientsRoute: typeof AuthenticatedClinicalPatientsRoute
   AuthenticatedClinicalPrescriptionsRoute: typeof AuthenticatedClinicalPrescriptionsRoute
+  AuthenticatedClinicalRecommendationsRoute: typeof AuthenticatedClinicalRecommendationsRoute
   AuthenticatedClinicalReferralsRoute: typeof AuthenticatedClinicalReferralsRoute
   AuthenticatedClinicalSecondOpinionsRoute: typeof AuthenticatedClinicalSecondOpinionsRoute
   AuthenticatedClinicalTreatmentPlansRoute: typeof AuthenticatedClinicalTreatmentPlansRoute
@@ -3823,6 +3865,7 @@ interface AuthenticatedClinicalRouteChildren {
 }
 
 const AuthenticatedClinicalRouteChildren: AuthenticatedClinicalRouteChildren = {
+  AuthenticatedClinicalAssistantRoute: AuthenticatedClinicalAssistantRoute,
   AuthenticatedClinicalDashboardRoute: AuthenticatedClinicalDashboardRoute,
   AuthenticatedClinicalEncountersRoute: AuthenticatedClinicalEncountersRoute,
   AuthenticatedClinicalKnowledgeRoute: AuthenticatedClinicalKnowledgeRoute,
@@ -3831,6 +3874,8 @@ const AuthenticatedClinicalRouteChildren: AuthenticatedClinicalRouteChildren = {
   AuthenticatedClinicalPatientsRoute: AuthenticatedClinicalPatientsRoute,
   AuthenticatedClinicalPrescriptionsRoute:
     AuthenticatedClinicalPrescriptionsRoute,
+  AuthenticatedClinicalRecommendationsRoute:
+    AuthenticatedClinicalRecommendationsRoute,
   AuthenticatedClinicalReferralsRoute: AuthenticatedClinicalReferralsRoute,
   AuthenticatedClinicalSecondOpinionsRoute:
     AuthenticatedClinicalSecondOpinionsRoute,

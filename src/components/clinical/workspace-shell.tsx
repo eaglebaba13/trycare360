@@ -14,7 +14,6 @@ import { type ReactNode } from "react";
 import {
   Loader2,
   Stethoscope,
-  Sparkles,
   ListChecks,
   Workflow,
 } from "lucide-react";
@@ -23,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ClinicalAssistantPanel } from "./ai-assistant";
 import type { ClinicalContextData } from "./use-clinical-context";
 import {
   BillingSummaryPanel,
@@ -145,11 +145,7 @@ export function ClinicalWorkspaceShell({
               Automation runs are tracked in the Workflow module.
             </p>
           </PanelCard>
-          <PanelCard icon={<Sparkles className="h-3.5 w-3.5" />} title="AI Recommendations">
-            <p className="text-xs text-muted-foreground">
-              AI Clinical Assistant lands in Stage 5 (advisory only).
-            </p>
-          </PanelCard>
+          <ClinicalAssistantPanel ctx={ctx} />
           {rightExtras}
         </aside>
       </div>
