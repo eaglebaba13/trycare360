@@ -22,18 +22,27 @@ import type {
 
 type SB = SupabaseClient<Database>;
 
-function unwrap<T>(res: PostgrestSingleResponse<T>): T {
+// The PostgREST generics deepen the type graph enough that `.select("*")`
+// sometimes resolves to `never` in the success branch of the discriminated
+// union. We stay loose here (`any` payload) and rely on the repository
+// method's explicit return annotation to give the caller a strong type.
+type AnyRes =
+  | PostgrestSingleResponse<unknown>
+  | PostgrestMaybeSingleResponse<unknown>
+  | PostgrestResponse<unknown>;
+
+function unwrap<T = unknown>(res: AnyRes): T {
   if (res.error) throw new Error(res.error.message);
   if (res.data === null || res.data === undefined) throw new Error("Row not found");
   return res.data as T;
 }
-function unwrapMaybe<T>(res: PostgrestMaybeSingleResponse<T>): T | null {
+function unwrapMaybe<T = unknown>(res: AnyRes): T | null {
   if (res.error) throw new Error(res.error.message);
-  return (res.data ?? null) as T | null;
+  return ((res.data ?? null) as T | null);
 }
-function unwrapList<T>(res: PostgrestResponse<T>): T[] {
+function unwrapList<T = unknown>(res: AnyRes): T[] {
   if (res.error) throw new Error(res.error.message);
-  return (res.data ?? []) as T[];
+  return ((res.data ?? []) as T[]);
 }
 
 // ---------------------------------------------------------------------------
