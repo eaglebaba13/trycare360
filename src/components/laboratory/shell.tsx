@@ -37,6 +37,7 @@ export const LABORATORY_TABS = [
   { to: "/laboratory/integrations", label: "Integrations" },
   { to: "/laboratory/external-labs", label: "External Labs Hub" },
   { to: "/laboratory/ai", label: "AI Assistant" },
+  { to: "/laboratory/analytics", label: "Analytics" },
 ];
 
 export function LaboratoryHeader() {
