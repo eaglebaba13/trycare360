@@ -401,43 +401,23 @@ export class LaboratoryAnalyticsService {
   }
 
   // -----------------------------------------------------------------------
-  async getAiAnalytics(w: AnalyticsWindow) {
-    const { data, error } = await this.sb
-      .from("lab_ai_assistant_events")
-      .select("id, prompt_kind, status, confidence, latency_ms, feedback_score")
-      .eq("tenant_id", w.tenantId)
-      .limit(500);
-    if (error) {
-      return {
-        totalTurns: 0,
-        byStatus: {},
-        byKind: {},
-        acceptanceRate: 0,
-        rejectionRate: 0,
-        avgConfidence: 0,
-        avgLatencyMs: 0,
-        avgFeedback: 0,
-        note: "AI analytics table not available yet.",
-      };
-    }
-    const rows = data ?? [];
-    const byStatus = tallyBy(rows as Array<Record<string, unknown>>, "status");
-    const byKind = tallyBy(rows as Array<Record<string, unknown>>, "prompt_kind");
-    const accepted = byStatus.accepted ?? 0;
-    const rejected = byStatus.rejected ?? 0;
-    const scored = rows.length ? rows.length : 1;
-    const sum = (k: "confidence" | "latency_ms" | "feedback_score") =>
-      rows.reduce((a, r) => a + Number((r as Record<string, unknown>)[k] ?? 0), 0);
+  // AI analytics — Stage 5 keeps assistant turns in an in-memory server
+  // store, not a Supabase table. Analytics surfaces defaults until a
+  // durable AI event table lands in a later phase.
+  // -----------------------------------------------------------------------
+  async getAiAnalytics(_w: AnalyticsWindow) {
     return {
-      totalTurns: rows.length,
-      byStatus,
-      byKind,
-      acceptanceRate: rows.length ? accepted / rows.length : 0,
-      rejectionRate: rows.length ? rejected / rows.length : 0,
-      avgConfidence: sum("confidence") / scored,
-      avgLatencyMs: Math.round(sum("latency_ms") / scored),
-      avgFeedback: sum("feedback_score") / scored,
+      totalTurns: 0,
+      byStatus: {} as Record<string, number>,
+      byKind: {} as Record<string, number>,
+      acceptanceRate: 0,
+      rejectionRate: 0,
+      avgConfidence: 0,
+      avgLatencyMs: 0,
+      avgFeedback: 0,
+      note: "Assistant turns are held in a server-side ring buffer; a durable AI events table will surface here in a future phase.",
     };
+  }
   }
 
   // -----------------------------------------------------------------------
