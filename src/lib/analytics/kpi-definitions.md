@@ -702,3 +702,108 @@ these definitions; Reports module handles export and scheduling.
 | Average Confidence | avg(confidence) |
 | Average Response Time | avg(latency_ms) |
 | Feedback Score | avg(feedback_score) |
+
+## Finance & Accounting (Phase 2.9)
+
+Reuses `fin_journal_lines`, `fin_receipts`, `fin_payments`, `fin_expenses`,
+`fin_revenue_recognition`, `fin_branch_pnl`, `fin_franchise_pnl`,
+`fin_royalty_ledger`, `fin_royalty_settlements`, `fin_ar_ledger`,
+`fin_ap_ledger`, `fin_tax_ledger`, `fin_budgets`/`fin_budget_lines`,
+`fin_forecasts`, `fin_fixed_assets`, `fin_depreciation_schedule`.
+
+### General ledger
+
+| KPI | Formula |
+|---|---|
+| Total Debits | sum(fin_journal_lines.debit) where entry.status='posted' |
+| Total Credits | sum(fin_journal_lines.credit) where entry.status='posted' |
+| Trial Balance Balanced | total_debits = total_credits |
+| Posted Journal Count | count(fin_journal_entries.status='posted') |
+| Draft Journal Count | count(fin_journal_entries.status='draft') |
+| Unbalanced Journals | count(entries where sum(debit) <> sum(credit)) |
+
+### Profitability
+
+| KPI | Formula |
+|---|---|
+| Revenue (P&L) | sum(fin_journal_lines.credit) where account.account_type='income' |
+| COGS | sum(fin_journal_lines.debit) where account.account_subtype='cogs' |
+| Gross Profit | revenue - cogs |
+| Operating Expense | sum(fin_journal_lines.debit) where account.account_type='expense' and subtype != 'cogs' |
+| EBITDA | gross_profit - operating_expense |
+| Depreciation | sum(fin_depreciation_schedule.depreciation_amount) posted in period |
+| Net Profit | ebitda - depreciation - interest - tax |
+| Branch Net Margin % | fin_branch_pnl.net_profit / fin_branch_pnl.revenue |
+| Franchise Net Payable | fin_franchise_pnl.net_payable |
+
+### Cash & bank
+
+| KPI | Formula |
+|---|---|
+| Cash Inflow | sum(fin_receipts.amount) where status='posted' |
+| Cash Outflow | sum(fin_payments.amount) where status='posted' |
+| Net Cash Flow | inflow - outflow |
+| Bank Balance | sum(bank.opening_balance) + sum(receipts on bank) - sum(payments on bank) |
+| Unreconciled Bank Lines | count(fin_bank_reconciliations.unmatched_lines) |
+| Petty Cash Outstanding | sum(fin_petty_cash.amount) where status <> 'posted' |
+
+### Accounts receivable / payable
+
+| KPI | Formula |
+|---|---|
+| AR Outstanding | sum(fin_ar_ledger.balance) where status='open' |
+| AR Aging Buckets | group by (now() - entry_date) into 0-30 / 31-60 / 61-90 / 90+ |
+| AP Outstanding | sum(fin_ap_ledger.balance) where status='open' |
+| DSO | avg(days between invoice_date and payment_date) |
+| DPO | avg(days between bill_date and payment_date) |
+| Overdue AR % | overdue_ar / total_ar |
+| Overdue AP % | overdue_ap / total_ap |
+
+### Expenses
+
+| KPI | Formula |
+|---|---|
+| Expenses by Category | sum(fin_expenses.total_amount) group by category |
+| Expenses vs Budget | actual_expense / budget_amount |
+| Pending Expense Approvals | count(fin_expenses.status='submitted') |
+| Employee Reimbursements | sum(fin_expenses.total_amount) where employee_id is not null |
+
+### Royalty & franchise
+
+| KPI | Formula |
+|---|---|
+| Royalty Accrued | sum(fin_royalty_ledger.final_amount) where status='accrued' |
+| Royalty Settled | sum(fin_royalty_settlements.net_amount) where status='paid' |
+| Royalty Outstanding | accrued - settled |
+| Royalty Coverage Ratio | settled / accrued |
+| Franchise Revenue Contribution | sum(fin_franchise_pnl.revenue) / total_revenue |
+| Overdue Royalty Days | date_now - max(period_to) where status <> 'paid' |
+
+### Tax
+
+| KPI | Formula |
+|---|---|
+| GST Output | sum(cgst+sgst+igst+cess) where tax_type='gst_output' |
+| GST Input | sum(cgst+sgst+igst+cess) where tax_type='gst_input' |
+| Net GST Payable | gst_output - gst_input |
+| TDS Deducted | sum(fin_tax_ledger.tds_amount) where tax_type='tds' |
+| TCS Collected | sum(fin_tax_ledger.tcs_amount) where tax_type='tcs' |
+| Tax Return Filed % | filed_returns / due_returns |
+
+### Assets
+
+| KPI | Formula |
+|---|---|
+| Gross Fixed Assets | sum(fin_fixed_assets.acquisition_cost) where status='active' |
+| Accumulated Depreciation | max(fin_depreciation_schedule.accumulated_depreciation) per asset |
+| Net Book Value | gross_fa - accumulated_depreciation |
+| Asset Disposal Gain/Loss | sum(disposal_value - book_value) where status='disposed' |
+
+### Budgets & forecasts
+
+| KPI | Formula |
+|---|---|
+| Budget Utilization % | actual / budget |
+| Budget Variance | actual - budget |
+| Forecast Accuracy % | 1 - abs(actual - forecast) / actual |
+| Forecast Horizon Coverage | count(forecasts with horizon_months >= 12) |
