@@ -807,3 +807,115 @@ Reuses `fin_journal_lines`, `fin_receipts`, `fin_payments`, `fin_expenses`,
 | Budget Variance | actual - budget |
 | Forecast Accuracy % | 1 - abs(actual - forecast) / actual |
 | Forecast Horizon Coverage | count(forecasts with horizon_months >= 12) |
+
+## Finance Phase 2.9 — Stage 6 Analytics
+
+Read-only executive BI. Every KPI below is computed server-side by
+`FinanceAnalyticsService` (`src/lib/finance/analytics.server.ts`) over Stage 2
+repositories. No client-side accounting formulas; posting math and closing
+logic remain in the Stage 2/4 engines.
+
+### Executive
+| KPI | Source |
+|---|---|
+| Bank Balance | sum(fin_bank_accounts.opening_balance) |
+| Cash Position | Bank Balance |
+| Cash Inflow | sum(fin_receipts.amount) in window |
+| Cash Outflow | sum(fin_payments.amount) in window |
+| Net Cash | Cash Inflow − Cash Outflow |
+| Open Bills Amount | sum(fin_vendor_bills.balance_amount) where status not in (paid, voided) |
+| Open Expenses Amount | sum(fin_expenses.amount) where status in (submitted, pending_approval) |
+
+### General Ledger
+| KPI | Source |
+|---|---|
+| Total Journals | count(fin_journal_entries) in window |
+| Posted / Draft / Reversed / Voided | count by status |
+| Accounts | count(fin_chart_of_accounts) |
+
+### Revenue
+| KPI | Source |
+|---|---|
+| Revenue Total | sum(fin_receipts.amount) in window |
+| Revenue by Method | sum(fin_receipts.amount) group by payment_mode |
+| Revenue by Branch | sum(fin_receipts.amount) group by branch_id |
+
+### Expenses
+| KPI | Source |
+|---|---|
+| Expense Total | sum(fin_expenses.amount) in window |
+| By Category | sum(fin_expenses.amount) group by category |
+| By Status | count(fin_expenses) group by status |
+
+### Profitability (delegates to FinancialReportEngine at close)
+| KPI | Source |
+|---|---|
+| Gross Profit | Revenue − Expenses |
+| Operating Margin | Gross Profit ÷ Revenue |
+| Net Profit | see FinancialReportEngine.profitLoss (Stage 2) |
+| EBITDA | see FinancialReportEngine.profitLoss (Stage 2) |
+
+### Cash Flow
+| KPI | Source |
+|---|---|
+| Inflow / Outflow | sum(fin_receipts.amount), sum(fin_payments.amount + fin_petty_cash.amount) |
+| By Day | group by receipt_date / payment_date |
+
+### AR / AP
+| KPI | Source |
+|---|---|
+| AR Balance | sum(fin_ar_ledger.debit − credit) in window |
+| AP Balance | sum(fin_ap_ledger.credit − debit) in window |
+| AR Aging / AP Aging | delegated to FinancialReportEngine (Stage 2) |
+| Collections | Cash Inflow |
+| Vendor Payments | Cash Outflow (payments) |
+
+### Assets / Depreciation
+| KPI | Source |
+|---|---|
+| Asset Count | count(fin_fixed_assets) |
+| Gross Asset Value | sum(fin_fixed_assets.acquisition_cost) |
+| Net Book Value | acquisition_cost − accumulated_depreciation (schedule) |
+| Accumulated Depreciation | max(fin_depreciation_schedule.accumulated_depreciation) per asset |
+| Period Depreciation Expense | latest fin_depreciation_schedule.depreciation_amount |
+
+### Budgets / Forecasts
+| KPI | Source |
+|---|---|
+| Active Budgets | count(fin_budgets) |
+| Budget Variance | see BudgetEngine (Stage 2) |
+| Forecast Count | count(fin_forecasts) |
+| Forecast Accuracy | see ForecastEngine (Stage 2) |
+
+### Royalty
+| KPI | Source |
+|---|---|
+| Rules | count(fin_royalty_rules) |
+| Settlements | count(fin_royalty_settlements) |
+| Gross Royalty | sum(fin_royalty_settlements.gross_amount) |
+| Net Royalty | sum(fin_royalty_settlements.net_amount) |
+
+### Tax (GST / TDS / TCS)
+| KPI | Source |
+|---|---|
+| CGST / SGST / IGST / Cess | sum(fin_tax_ledger.<col>) in window |
+| Tax by Type | group by tax_type |
+| GST / TDS / TCS Collected | filtered fin_tax_ledger totals |
+
+### Franchise
+| KPI | Source |
+|---|---|
+| Franchises | distinct(fin_royalty_settlements.franchise_org_unit_id) |
+| Settled Amount | sum(net_amount) where status = 'settled' |
+| Pending Amount | sum(net_amount) where status ≠ 'settled' |
+| Franchise Profitability | see FinancialReportEngine + BudgetEngine per branch |
+
+### Compliance / Audit / Treasury / Banking
+| KPI | Source |
+|---|---|
+| Tax Entries | count(fin_tax_ledger) in window |
+| Audit Events | count(fin_audit_log) |
+| Bank Balance | sum(fin_bank_accounts.opening_balance) |
+| Liquidity | Bank Balance |
+| Commitments | Open Bills Amount |
+| Expected Inflow | Cash Inflow (window) |

@@ -184,6 +184,7 @@ import { Route as AuthenticatedFinanceBalanceSheetRouteImport } from './routes/_
 import { Route as AuthenticatedFinanceAuditRouteImport } from './routes/_authenticated/finance.audit'
 import { Route as AuthenticatedFinanceAssetsRouteImport } from './routes/_authenticated/finance.assets'
 import { Route as AuthenticatedFinanceApprovalsRouteImport } from './routes/_authenticated/finance.approvals'
+import { Route as AuthenticatedFinanceAnalyticsRouteImport } from './routes/_authenticated/finance.analytics'
 import { Route as AuthenticatedFinanceAccountsReceivableRouteImport } from './routes/_authenticated/finance.accounts-receivable'
 import { Route as AuthenticatedFinanceAccountsPayableRouteImport } from './routes/_authenticated/finance.accounts-payable'
 import { Route as AuthenticatedFinanceAccountsRouteImport } from './routes/_authenticated/finance.accounts'
@@ -253,6 +254,7 @@ import { Route as AuthenticatedSchedulingIntegrationsIndexRouteImport } from './
 import { Route as AuthenticatedSchedulingAnalyticsIndexRouteImport } from './routes/_authenticated/scheduling.analytics.index'
 import { Route as AuthenticatedPharmacyAnalyticsIndexRouteImport } from './routes/_authenticated/pharmacy.analytics.index'
 import { Route as AuthenticatedLaboratoryAnalyticsIndexRouteImport } from './routes/_authenticated/laboratory.analytics.index'
+import { Route as AuthenticatedFinanceAnalyticsIndexRouteImport } from './routes/_authenticated/finance.analytics.index'
 import { Route as AuthenticatedClinicalAnalyticsIndexRouteImport } from './routes/_authenticated/clinical.analytics.index'
 import { Route as ApiPublicWebhooksSlugRouteImport } from './routes/api/public/webhooks.$slug'
 import { Route as ApiPublicIntegrationsProcessJobsRouteImport } from './routes/api/public/integrations.process-jobs'
@@ -312,6 +314,26 @@ import { Route as AuthenticatedLaboratoryAnalyticsAnalyzersRouteImport } from '.
 import { Route as AuthenticatedLaboratoryAnalyticsAiRouteImport } from './routes/_authenticated/laboratory.analytics.ai'
 import { Route as AuthenticatedFinanceVendorBillsIdRouteImport } from './routes/_authenticated/finance.vendor-bills.$id'
 import { Route as AuthenticatedFinanceJournalIdRouteImport } from './routes/_authenticated/finance.journal.$id'
+import { Route as AuthenticatedFinanceAnalyticsTreasuryRouteImport } from './routes/_authenticated/finance.analytics.treasury'
+import { Route as AuthenticatedFinanceAnalyticsTaxRouteImport } from './routes/_authenticated/finance.analytics.tax'
+import { Route as AuthenticatedFinanceAnalyticsRoyaltyRouteImport } from './routes/_authenticated/finance.analytics.royalty'
+import { Route as AuthenticatedFinanceAnalyticsRevenueRouteImport } from './routes/_authenticated/finance.analytics.revenue'
+import { Route as AuthenticatedFinanceAnalyticsReportsRouteImport } from './routes/_authenticated/finance.analytics.reports'
+import { Route as AuthenticatedFinanceAnalyticsProfitabilityRouteImport } from './routes/_authenticated/finance.analytics.profitability'
+import { Route as AuthenticatedFinanceAnalyticsGeneralLedgerRouteImport } from './routes/_authenticated/finance.analytics.general-ledger'
+import { Route as AuthenticatedFinanceAnalyticsFranchiseRouteImport } from './routes/_authenticated/finance.analytics.franchise'
+import { Route as AuthenticatedFinanceAnalyticsForecastsRouteImport } from './routes/_authenticated/finance.analytics.forecasts'
+import { Route as AuthenticatedFinanceAnalyticsExpensesRouteImport } from './routes/_authenticated/finance.analytics.expenses'
+import { Route as AuthenticatedFinanceAnalyticsExecutiveRouteImport } from './routes/_authenticated/finance.analytics.executive'
+import { Route as AuthenticatedFinanceAnalyticsDepreciationRouteImport } from './routes/_authenticated/finance.analytics.depreciation'
+import { Route as AuthenticatedFinanceAnalyticsComplianceRouteImport } from './routes/_authenticated/finance.analytics.compliance'
+import { Route as AuthenticatedFinanceAnalyticsCashflowRouteImport } from './routes/_authenticated/finance.analytics.cashflow'
+import { Route as AuthenticatedFinanceAnalyticsBudgetsRouteImport } from './routes/_authenticated/finance.analytics.budgets'
+import { Route as AuthenticatedFinanceAnalyticsBankingRouteImport } from './routes/_authenticated/finance.analytics.banking'
+import { Route as AuthenticatedFinanceAnalyticsAuditRouteImport } from './routes/_authenticated/finance.analytics.audit'
+import { Route as AuthenticatedFinanceAnalyticsAssetsRouteImport } from './routes/_authenticated/finance.analytics.assets'
+import { Route as AuthenticatedFinanceAnalyticsArRouteImport } from './routes/_authenticated/finance.analytics.ar'
+import { Route as AuthenticatedFinanceAnalyticsApRouteImport } from './routes/_authenticated/finance.analytics.ap'
 import { Route as AuthenticatedCmsBuilderPageIdRouteImport } from './routes/_authenticated/cms.builder.$pageId'
 import { Route as AuthenticatedClinicalEncounterIdRouteImport } from './routes/_authenticated/clinical.encounter.$id'
 import { Route as AuthenticatedClinicalAnalyticsReportsRouteImport } from './routes/_authenticated/clinical.analytics.reports'
@@ -1325,6 +1347,12 @@ const AuthenticatedFinanceApprovalsRoute =
     path: '/approvals',
     getParentRoute: () => AuthenticatedFinanceRoute,
   } as any)
+const AuthenticatedFinanceAnalyticsRoute =
+  AuthenticatedFinanceAnalyticsRouteImport.update({
+    id: '/analytics',
+    path: '/analytics',
+    getParentRoute: () => AuthenticatedFinanceRoute,
+  } as any)
 const AuthenticatedFinanceAccountsReceivableRoute =
   AuthenticatedFinanceAccountsReceivableRouteImport.update({
     id: '/accounts-receivable',
@@ -1728,6 +1756,12 @@ const AuthenticatedLaboratoryAnalyticsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedLaboratoryAnalyticsRoute,
   } as any)
+const AuthenticatedFinanceAnalyticsIndexRoute =
+  AuthenticatedFinanceAnalyticsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
 const AuthenticatedClinicalAnalyticsIndexRoute =
   AuthenticatedClinicalAnalyticsIndexRouteImport.update({
     id: '/',
@@ -2078,6 +2112,126 @@ const AuthenticatedFinanceJournalIdRoute =
     path: '/journal/$id',
     getParentRoute: () => AuthenticatedFinanceRoute,
   } as any)
+const AuthenticatedFinanceAnalyticsTreasuryRoute =
+  AuthenticatedFinanceAnalyticsTreasuryRouteImport.update({
+    id: '/treasury',
+    path: '/treasury',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsTaxRoute =
+  AuthenticatedFinanceAnalyticsTaxRouteImport.update({
+    id: '/tax',
+    path: '/tax',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsRoyaltyRoute =
+  AuthenticatedFinanceAnalyticsRoyaltyRouteImport.update({
+    id: '/royalty',
+    path: '/royalty',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsRevenueRoute =
+  AuthenticatedFinanceAnalyticsRevenueRouteImport.update({
+    id: '/revenue',
+    path: '/revenue',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsReportsRoute =
+  AuthenticatedFinanceAnalyticsReportsRouteImport.update({
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsProfitabilityRoute =
+  AuthenticatedFinanceAnalyticsProfitabilityRouteImport.update({
+    id: '/profitability',
+    path: '/profitability',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsGeneralLedgerRoute =
+  AuthenticatedFinanceAnalyticsGeneralLedgerRouteImport.update({
+    id: '/general-ledger',
+    path: '/general-ledger',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsFranchiseRoute =
+  AuthenticatedFinanceAnalyticsFranchiseRouteImport.update({
+    id: '/franchise',
+    path: '/franchise',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsForecastsRoute =
+  AuthenticatedFinanceAnalyticsForecastsRouteImport.update({
+    id: '/forecasts',
+    path: '/forecasts',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsExpensesRoute =
+  AuthenticatedFinanceAnalyticsExpensesRouteImport.update({
+    id: '/expenses',
+    path: '/expenses',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsExecutiveRoute =
+  AuthenticatedFinanceAnalyticsExecutiveRouteImport.update({
+    id: '/executive',
+    path: '/executive',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsDepreciationRoute =
+  AuthenticatedFinanceAnalyticsDepreciationRouteImport.update({
+    id: '/depreciation',
+    path: '/depreciation',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsComplianceRoute =
+  AuthenticatedFinanceAnalyticsComplianceRouteImport.update({
+    id: '/compliance',
+    path: '/compliance',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsCashflowRoute =
+  AuthenticatedFinanceAnalyticsCashflowRouteImport.update({
+    id: '/cashflow',
+    path: '/cashflow',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsBudgetsRoute =
+  AuthenticatedFinanceAnalyticsBudgetsRouteImport.update({
+    id: '/budgets',
+    path: '/budgets',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsBankingRoute =
+  AuthenticatedFinanceAnalyticsBankingRouteImport.update({
+    id: '/banking',
+    path: '/banking',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsAuditRoute =
+  AuthenticatedFinanceAnalyticsAuditRouteImport.update({
+    id: '/audit',
+    path: '/audit',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsAssetsRoute =
+  AuthenticatedFinanceAnalyticsAssetsRouteImport.update({
+    id: '/assets',
+    path: '/assets',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsArRoute =
+  AuthenticatedFinanceAnalyticsArRouteImport.update({
+    id: '/ar',
+    path: '/ar',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
+const AuthenticatedFinanceAnalyticsApRoute =
+  AuthenticatedFinanceAnalyticsApRouteImport.update({
+    id: '/ap',
+    path: '/ap',
+    getParentRoute: () => AuthenticatedFinanceAnalyticsRoute,
+  } as any)
 const AuthenticatedCmsBuilderPageIdRoute =
   AuthenticatedCmsBuilderPageIdRouteImport.update({
     id: '/builder/$pageId',
@@ -2238,6 +2392,7 @@ export interface FileRoutesByFullPath {
   '/finance/accounts': typeof AuthenticatedFinanceAccountsRoute
   '/finance/accounts-payable': typeof AuthenticatedFinanceAccountsPayableRoute
   '/finance/accounts-receivable': typeof AuthenticatedFinanceAccountsReceivableRoute
+  '/finance/analytics': typeof AuthenticatedFinanceAnalyticsRouteWithChildren
   '/finance/approvals': typeof AuthenticatedFinanceApprovalsRoute
   '/finance/assets': typeof AuthenticatedFinanceAssetsRoute
   '/finance/audit': typeof AuthenticatedFinanceAuditRoute
@@ -2390,6 +2545,26 @@ export interface FileRoutesByFullPath {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/finance/analytics/ap': typeof AuthenticatedFinanceAnalyticsApRoute
+  '/finance/analytics/ar': typeof AuthenticatedFinanceAnalyticsArRoute
+  '/finance/analytics/assets': typeof AuthenticatedFinanceAnalyticsAssetsRoute
+  '/finance/analytics/audit': typeof AuthenticatedFinanceAnalyticsAuditRoute
+  '/finance/analytics/banking': typeof AuthenticatedFinanceAnalyticsBankingRoute
+  '/finance/analytics/budgets': typeof AuthenticatedFinanceAnalyticsBudgetsRoute
+  '/finance/analytics/cashflow': typeof AuthenticatedFinanceAnalyticsCashflowRoute
+  '/finance/analytics/compliance': typeof AuthenticatedFinanceAnalyticsComplianceRoute
+  '/finance/analytics/depreciation': typeof AuthenticatedFinanceAnalyticsDepreciationRoute
+  '/finance/analytics/executive': typeof AuthenticatedFinanceAnalyticsExecutiveRoute
+  '/finance/analytics/expenses': typeof AuthenticatedFinanceAnalyticsExpensesRoute
+  '/finance/analytics/forecasts': typeof AuthenticatedFinanceAnalyticsForecastsRoute
+  '/finance/analytics/franchise': typeof AuthenticatedFinanceAnalyticsFranchiseRoute
+  '/finance/analytics/general-ledger': typeof AuthenticatedFinanceAnalyticsGeneralLedgerRoute
+  '/finance/analytics/profitability': typeof AuthenticatedFinanceAnalyticsProfitabilityRoute
+  '/finance/analytics/reports': typeof AuthenticatedFinanceAnalyticsReportsRoute
+  '/finance/analytics/revenue': typeof AuthenticatedFinanceAnalyticsRevenueRoute
+  '/finance/analytics/royalty': typeof AuthenticatedFinanceAnalyticsRoyaltyRoute
+  '/finance/analytics/tax': typeof AuthenticatedFinanceAnalyticsTaxRoute
+  '/finance/analytics/treasury': typeof AuthenticatedFinanceAnalyticsTreasuryRoute
   '/finance/journal/$id': typeof AuthenticatedFinanceJournalIdRoute
   '/finance/vendor-bills/$id': typeof AuthenticatedFinanceVendorBillsIdRoute
   '/laboratory/analytics/ai': typeof AuthenticatedLaboratoryAnalyticsAiRoute
@@ -2449,6 +2624,7 @@ export interface FileRoutesByFullPath {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/clinical/analytics/': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/finance/analytics/': typeof AuthenticatedFinanceAnalyticsIndexRoute
   '/laboratory/analytics/': typeof AuthenticatedLaboratoryAnalyticsIndexRoute
   '/pharmacy/analytics/': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
@@ -2680,6 +2856,26 @@ export interface FileRoutesByTo {
   '/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/finance/analytics/ap': typeof AuthenticatedFinanceAnalyticsApRoute
+  '/finance/analytics/ar': typeof AuthenticatedFinanceAnalyticsArRoute
+  '/finance/analytics/assets': typeof AuthenticatedFinanceAnalyticsAssetsRoute
+  '/finance/analytics/audit': typeof AuthenticatedFinanceAnalyticsAuditRoute
+  '/finance/analytics/banking': typeof AuthenticatedFinanceAnalyticsBankingRoute
+  '/finance/analytics/budgets': typeof AuthenticatedFinanceAnalyticsBudgetsRoute
+  '/finance/analytics/cashflow': typeof AuthenticatedFinanceAnalyticsCashflowRoute
+  '/finance/analytics/compliance': typeof AuthenticatedFinanceAnalyticsComplianceRoute
+  '/finance/analytics/depreciation': typeof AuthenticatedFinanceAnalyticsDepreciationRoute
+  '/finance/analytics/executive': typeof AuthenticatedFinanceAnalyticsExecutiveRoute
+  '/finance/analytics/expenses': typeof AuthenticatedFinanceAnalyticsExpensesRoute
+  '/finance/analytics/forecasts': typeof AuthenticatedFinanceAnalyticsForecastsRoute
+  '/finance/analytics/franchise': typeof AuthenticatedFinanceAnalyticsFranchiseRoute
+  '/finance/analytics/general-ledger': typeof AuthenticatedFinanceAnalyticsGeneralLedgerRoute
+  '/finance/analytics/profitability': typeof AuthenticatedFinanceAnalyticsProfitabilityRoute
+  '/finance/analytics/reports': typeof AuthenticatedFinanceAnalyticsReportsRoute
+  '/finance/analytics/revenue': typeof AuthenticatedFinanceAnalyticsRevenueRoute
+  '/finance/analytics/royalty': typeof AuthenticatedFinanceAnalyticsRoyaltyRoute
+  '/finance/analytics/tax': typeof AuthenticatedFinanceAnalyticsTaxRoute
+  '/finance/analytics/treasury': typeof AuthenticatedFinanceAnalyticsTreasuryRoute
   '/finance/journal/$id': typeof AuthenticatedFinanceJournalIdRoute
   '/finance/vendor-bills/$id': typeof AuthenticatedFinanceVendorBillsIdRoute
   '/laboratory/analytics/ai': typeof AuthenticatedLaboratoryAnalyticsAiRoute
@@ -2739,6 +2935,7 @@ export interface FileRoutesByTo {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/clinical/analytics': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/finance/analytics': typeof AuthenticatedFinanceAnalyticsIndexRoute
   '/laboratory/analytics': typeof AuthenticatedLaboratoryAnalyticsIndexRoute
   '/pharmacy/analytics': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/scheduling/analytics': typeof AuthenticatedSchedulingAnalyticsIndexRoute
@@ -2845,6 +3042,7 @@ export interface FileRoutesById {
   '/_authenticated/finance/accounts': typeof AuthenticatedFinanceAccountsRoute
   '/_authenticated/finance/accounts-payable': typeof AuthenticatedFinanceAccountsPayableRoute
   '/_authenticated/finance/accounts-receivable': typeof AuthenticatedFinanceAccountsReceivableRoute
+  '/_authenticated/finance/analytics': typeof AuthenticatedFinanceAnalyticsRouteWithChildren
   '/_authenticated/finance/approvals': typeof AuthenticatedFinanceApprovalsRoute
   '/_authenticated/finance/assets': typeof AuthenticatedFinanceAssetsRoute
   '/_authenticated/finance/audit': typeof AuthenticatedFinanceAuditRoute
@@ -2997,6 +3195,26 @@ export interface FileRoutesById {
   '/_authenticated/clinical/analytics/reports': typeof AuthenticatedClinicalAnalyticsReportsRoute
   '/_authenticated/clinical/encounter/$id': typeof AuthenticatedClinicalEncounterIdRoute
   '/_authenticated/cms/builder/$pageId': typeof AuthenticatedCmsBuilderPageIdRoute
+  '/_authenticated/finance/analytics/ap': typeof AuthenticatedFinanceAnalyticsApRoute
+  '/_authenticated/finance/analytics/ar': typeof AuthenticatedFinanceAnalyticsArRoute
+  '/_authenticated/finance/analytics/assets': typeof AuthenticatedFinanceAnalyticsAssetsRoute
+  '/_authenticated/finance/analytics/audit': typeof AuthenticatedFinanceAnalyticsAuditRoute
+  '/_authenticated/finance/analytics/banking': typeof AuthenticatedFinanceAnalyticsBankingRoute
+  '/_authenticated/finance/analytics/budgets': typeof AuthenticatedFinanceAnalyticsBudgetsRoute
+  '/_authenticated/finance/analytics/cashflow': typeof AuthenticatedFinanceAnalyticsCashflowRoute
+  '/_authenticated/finance/analytics/compliance': typeof AuthenticatedFinanceAnalyticsComplianceRoute
+  '/_authenticated/finance/analytics/depreciation': typeof AuthenticatedFinanceAnalyticsDepreciationRoute
+  '/_authenticated/finance/analytics/executive': typeof AuthenticatedFinanceAnalyticsExecutiveRoute
+  '/_authenticated/finance/analytics/expenses': typeof AuthenticatedFinanceAnalyticsExpensesRoute
+  '/_authenticated/finance/analytics/forecasts': typeof AuthenticatedFinanceAnalyticsForecastsRoute
+  '/_authenticated/finance/analytics/franchise': typeof AuthenticatedFinanceAnalyticsFranchiseRoute
+  '/_authenticated/finance/analytics/general-ledger': typeof AuthenticatedFinanceAnalyticsGeneralLedgerRoute
+  '/_authenticated/finance/analytics/profitability': typeof AuthenticatedFinanceAnalyticsProfitabilityRoute
+  '/_authenticated/finance/analytics/reports': typeof AuthenticatedFinanceAnalyticsReportsRoute
+  '/_authenticated/finance/analytics/revenue': typeof AuthenticatedFinanceAnalyticsRevenueRoute
+  '/_authenticated/finance/analytics/royalty': typeof AuthenticatedFinanceAnalyticsRoyaltyRoute
+  '/_authenticated/finance/analytics/tax': typeof AuthenticatedFinanceAnalyticsTaxRoute
+  '/_authenticated/finance/analytics/treasury': typeof AuthenticatedFinanceAnalyticsTreasuryRoute
   '/_authenticated/finance/journal/$id': typeof AuthenticatedFinanceJournalIdRoute
   '/_authenticated/finance/vendor-bills/$id': typeof AuthenticatedFinanceVendorBillsIdRoute
   '/_authenticated/laboratory/analytics/ai': typeof AuthenticatedLaboratoryAnalyticsAiRoute
@@ -3056,6 +3274,7 @@ export interface FileRoutesById {
   '/api/public/integrations/process-jobs': typeof ApiPublicIntegrationsProcessJobsRoute
   '/api/public/webhooks/$slug': typeof ApiPublicWebhooksSlugRoute
   '/_authenticated/clinical/analytics/': typeof AuthenticatedClinicalAnalyticsIndexRoute
+  '/_authenticated/finance/analytics/': typeof AuthenticatedFinanceAnalyticsIndexRoute
   '/_authenticated/laboratory/analytics/': typeof AuthenticatedLaboratoryAnalyticsIndexRoute
   '/_authenticated/pharmacy/analytics/': typeof AuthenticatedPharmacyAnalyticsIndexRoute
   '/_authenticated/scheduling/analytics/': typeof AuthenticatedSchedulingAnalyticsIndexRoute
@@ -3161,6 +3380,7 @@ export interface FileRouteTypes {
     | '/finance/accounts'
     | '/finance/accounts-payable'
     | '/finance/accounts-receivable'
+    | '/finance/analytics'
     | '/finance/approvals'
     | '/finance/assets'
     | '/finance/audit'
@@ -3313,6 +3533,26 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/finance/analytics/ap'
+    | '/finance/analytics/ar'
+    | '/finance/analytics/assets'
+    | '/finance/analytics/audit'
+    | '/finance/analytics/banking'
+    | '/finance/analytics/budgets'
+    | '/finance/analytics/cashflow'
+    | '/finance/analytics/compliance'
+    | '/finance/analytics/depreciation'
+    | '/finance/analytics/executive'
+    | '/finance/analytics/expenses'
+    | '/finance/analytics/forecasts'
+    | '/finance/analytics/franchise'
+    | '/finance/analytics/general-ledger'
+    | '/finance/analytics/profitability'
+    | '/finance/analytics/reports'
+    | '/finance/analytics/revenue'
+    | '/finance/analytics/royalty'
+    | '/finance/analytics/tax'
+    | '/finance/analytics/treasury'
     | '/finance/journal/$id'
     | '/finance/vendor-bills/$id'
     | '/laboratory/analytics/ai'
@@ -3372,6 +3612,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/clinical/analytics/'
+    | '/finance/analytics/'
     | '/laboratory/analytics/'
     | '/pharmacy/analytics/'
     | '/scheduling/analytics/'
@@ -3603,6 +3844,26 @@ export interface FileRouteTypes {
     | '/clinical/analytics/reports'
     | '/clinical/encounter/$id'
     | '/cms/builder/$pageId'
+    | '/finance/analytics/ap'
+    | '/finance/analytics/ar'
+    | '/finance/analytics/assets'
+    | '/finance/analytics/audit'
+    | '/finance/analytics/banking'
+    | '/finance/analytics/budgets'
+    | '/finance/analytics/cashflow'
+    | '/finance/analytics/compliance'
+    | '/finance/analytics/depreciation'
+    | '/finance/analytics/executive'
+    | '/finance/analytics/expenses'
+    | '/finance/analytics/forecasts'
+    | '/finance/analytics/franchise'
+    | '/finance/analytics/general-ledger'
+    | '/finance/analytics/profitability'
+    | '/finance/analytics/reports'
+    | '/finance/analytics/revenue'
+    | '/finance/analytics/royalty'
+    | '/finance/analytics/tax'
+    | '/finance/analytics/treasury'
     | '/finance/journal/$id'
     | '/finance/vendor-bills/$id'
     | '/laboratory/analytics/ai'
@@ -3662,6 +3923,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/clinical/analytics'
+    | '/finance/analytics'
     | '/laboratory/analytics'
     | '/pharmacy/analytics'
     | '/scheduling/analytics'
@@ -3767,6 +4029,7 @@ export interface FileRouteTypes {
     | '/_authenticated/finance/accounts'
     | '/_authenticated/finance/accounts-payable'
     | '/_authenticated/finance/accounts-receivable'
+    | '/_authenticated/finance/analytics'
     | '/_authenticated/finance/approvals'
     | '/_authenticated/finance/assets'
     | '/_authenticated/finance/audit'
@@ -3919,6 +4182,26 @@ export interface FileRouteTypes {
     | '/_authenticated/clinical/analytics/reports'
     | '/_authenticated/clinical/encounter/$id'
     | '/_authenticated/cms/builder/$pageId'
+    | '/_authenticated/finance/analytics/ap'
+    | '/_authenticated/finance/analytics/ar'
+    | '/_authenticated/finance/analytics/assets'
+    | '/_authenticated/finance/analytics/audit'
+    | '/_authenticated/finance/analytics/banking'
+    | '/_authenticated/finance/analytics/budgets'
+    | '/_authenticated/finance/analytics/cashflow'
+    | '/_authenticated/finance/analytics/compliance'
+    | '/_authenticated/finance/analytics/depreciation'
+    | '/_authenticated/finance/analytics/executive'
+    | '/_authenticated/finance/analytics/expenses'
+    | '/_authenticated/finance/analytics/forecasts'
+    | '/_authenticated/finance/analytics/franchise'
+    | '/_authenticated/finance/analytics/general-ledger'
+    | '/_authenticated/finance/analytics/profitability'
+    | '/_authenticated/finance/analytics/reports'
+    | '/_authenticated/finance/analytics/revenue'
+    | '/_authenticated/finance/analytics/royalty'
+    | '/_authenticated/finance/analytics/tax'
+    | '/_authenticated/finance/analytics/treasury'
     | '/_authenticated/finance/journal/$id'
     | '/_authenticated/finance/vendor-bills/$id'
     | '/_authenticated/laboratory/analytics/ai'
@@ -3978,6 +4261,7 @@ export interface FileRouteTypes {
     | '/api/public/integrations/process-jobs'
     | '/api/public/webhooks/$slug'
     | '/_authenticated/clinical/analytics/'
+    | '/_authenticated/finance/analytics/'
     | '/_authenticated/laboratory/analytics/'
     | '/_authenticated/pharmacy/analytics/'
     | '/_authenticated/scheduling/analytics/'
@@ -5231,6 +5515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceApprovalsRouteImport
       parentRoute: typeof AuthenticatedFinanceRoute
     }
+    '/_authenticated/finance/analytics': {
+      id: '/_authenticated/finance/analytics'
+      path: '/analytics'
+      fullPath: '/finance/analytics'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsRouteImport
+      parentRoute: typeof AuthenticatedFinanceRoute
+    }
     '/_authenticated/finance/accounts-receivable': {
       id: '/_authenticated/finance/accounts-receivable'
       path: '/accounts-receivable'
@@ -5714,6 +6005,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLaboratoryAnalyticsIndexRouteImport
       parentRoute: typeof AuthenticatedLaboratoryAnalyticsRoute
     }
+    '/_authenticated/finance/analytics/': {
+      id: '/_authenticated/finance/analytics/'
+      path: '/'
+      fullPath: '/finance/analytics/'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsIndexRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
     '/_authenticated/clinical/analytics/': {
       id: '/_authenticated/clinical/analytics/'
       path: '/'
@@ -6127,6 +6425,146 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFinanceJournalIdRouteImport
       parentRoute: typeof AuthenticatedFinanceRoute
     }
+    '/_authenticated/finance/analytics/treasury': {
+      id: '/_authenticated/finance/analytics/treasury'
+      path: '/treasury'
+      fullPath: '/finance/analytics/treasury'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsTreasuryRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/tax': {
+      id: '/_authenticated/finance/analytics/tax'
+      path: '/tax'
+      fullPath: '/finance/analytics/tax'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsTaxRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/royalty': {
+      id: '/_authenticated/finance/analytics/royalty'
+      path: '/royalty'
+      fullPath: '/finance/analytics/royalty'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsRoyaltyRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/revenue': {
+      id: '/_authenticated/finance/analytics/revenue'
+      path: '/revenue'
+      fullPath: '/finance/analytics/revenue'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsRevenueRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/reports': {
+      id: '/_authenticated/finance/analytics/reports'
+      path: '/reports'
+      fullPath: '/finance/analytics/reports'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsReportsRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/profitability': {
+      id: '/_authenticated/finance/analytics/profitability'
+      path: '/profitability'
+      fullPath: '/finance/analytics/profitability'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsProfitabilityRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/general-ledger': {
+      id: '/_authenticated/finance/analytics/general-ledger'
+      path: '/general-ledger'
+      fullPath: '/finance/analytics/general-ledger'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsGeneralLedgerRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/franchise': {
+      id: '/_authenticated/finance/analytics/franchise'
+      path: '/franchise'
+      fullPath: '/finance/analytics/franchise'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsFranchiseRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/forecasts': {
+      id: '/_authenticated/finance/analytics/forecasts'
+      path: '/forecasts'
+      fullPath: '/finance/analytics/forecasts'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsForecastsRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/expenses': {
+      id: '/_authenticated/finance/analytics/expenses'
+      path: '/expenses'
+      fullPath: '/finance/analytics/expenses'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsExpensesRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/executive': {
+      id: '/_authenticated/finance/analytics/executive'
+      path: '/executive'
+      fullPath: '/finance/analytics/executive'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsExecutiveRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/depreciation': {
+      id: '/_authenticated/finance/analytics/depreciation'
+      path: '/depreciation'
+      fullPath: '/finance/analytics/depreciation'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsDepreciationRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/compliance': {
+      id: '/_authenticated/finance/analytics/compliance'
+      path: '/compliance'
+      fullPath: '/finance/analytics/compliance'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsComplianceRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/cashflow': {
+      id: '/_authenticated/finance/analytics/cashflow'
+      path: '/cashflow'
+      fullPath: '/finance/analytics/cashflow'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsCashflowRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/budgets': {
+      id: '/_authenticated/finance/analytics/budgets'
+      path: '/budgets'
+      fullPath: '/finance/analytics/budgets'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsBudgetsRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/banking': {
+      id: '/_authenticated/finance/analytics/banking'
+      path: '/banking'
+      fullPath: '/finance/analytics/banking'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsBankingRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/audit': {
+      id: '/_authenticated/finance/analytics/audit'
+      path: '/audit'
+      fullPath: '/finance/analytics/audit'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsAuditRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/assets': {
+      id: '/_authenticated/finance/analytics/assets'
+      path: '/assets'
+      fullPath: '/finance/analytics/assets'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsAssetsRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/ar': {
+      id: '/_authenticated/finance/analytics/ar'
+      path: '/ar'
+      fullPath: '/finance/analytics/ar'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsArRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
+    '/_authenticated/finance/analytics/ap': {
+      id: '/_authenticated/finance/analytics/ap'
+      path: '/ap'
+      fullPath: '/finance/analytics/ap'
+      preLoaderRoute: typeof AuthenticatedFinanceAnalyticsApRouteImport
+      parentRoute: typeof AuthenticatedFinanceAnalyticsRoute
+    }
     '/_authenticated/cms/builder/$pageId': {
       id: '/_authenticated/cms/builder/$pageId'
       path: '/builder/$pageId'
@@ -6455,6 +6893,79 @@ const AuthenticatedDataRouteChildren: AuthenticatedDataRouteChildren = {
 const AuthenticatedDataRouteWithChildren =
   AuthenticatedDataRoute._addFileChildren(AuthenticatedDataRouteChildren)
 
+interface AuthenticatedFinanceAnalyticsRouteChildren {
+  AuthenticatedFinanceAnalyticsApRoute: typeof AuthenticatedFinanceAnalyticsApRoute
+  AuthenticatedFinanceAnalyticsArRoute: typeof AuthenticatedFinanceAnalyticsArRoute
+  AuthenticatedFinanceAnalyticsAssetsRoute: typeof AuthenticatedFinanceAnalyticsAssetsRoute
+  AuthenticatedFinanceAnalyticsAuditRoute: typeof AuthenticatedFinanceAnalyticsAuditRoute
+  AuthenticatedFinanceAnalyticsBankingRoute: typeof AuthenticatedFinanceAnalyticsBankingRoute
+  AuthenticatedFinanceAnalyticsBudgetsRoute: typeof AuthenticatedFinanceAnalyticsBudgetsRoute
+  AuthenticatedFinanceAnalyticsCashflowRoute: typeof AuthenticatedFinanceAnalyticsCashflowRoute
+  AuthenticatedFinanceAnalyticsComplianceRoute: typeof AuthenticatedFinanceAnalyticsComplianceRoute
+  AuthenticatedFinanceAnalyticsDepreciationRoute: typeof AuthenticatedFinanceAnalyticsDepreciationRoute
+  AuthenticatedFinanceAnalyticsExecutiveRoute: typeof AuthenticatedFinanceAnalyticsExecutiveRoute
+  AuthenticatedFinanceAnalyticsExpensesRoute: typeof AuthenticatedFinanceAnalyticsExpensesRoute
+  AuthenticatedFinanceAnalyticsForecastsRoute: typeof AuthenticatedFinanceAnalyticsForecastsRoute
+  AuthenticatedFinanceAnalyticsFranchiseRoute: typeof AuthenticatedFinanceAnalyticsFranchiseRoute
+  AuthenticatedFinanceAnalyticsGeneralLedgerRoute: typeof AuthenticatedFinanceAnalyticsGeneralLedgerRoute
+  AuthenticatedFinanceAnalyticsProfitabilityRoute: typeof AuthenticatedFinanceAnalyticsProfitabilityRoute
+  AuthenticatedFinanceAnalyticsReportsRoute: typeof AuthenticatedFinanceAnalyticsReportsRoute
+  AuthenticatedFinanceAnalyticsRevenueRoute: typeof AuthenticatedFinanceAnalyticsRevenueRoute
+  AuthenticatedFinanceAnalyticsRoyaltyRoute: typeof AuthenticatedFinanceAnalyticsRoyaltyRoute
+  AuthenticatedFinanceAnalyticsTaxRoute: typeof AuthenticatedFinanceAnalyticsTaxRoute
+  AuthenticatedFinanceAnalyticsTreasuryRoute: typeof AuthenticatedFinanceAnalyticsTreasuryRoute
+  AuthenticatedFinanceAnalyticsIndexRoute: typeof AuthenticatedFinanceAnalyticsIndexRoute
+}
+
+const AuthenticatedFinanceAnalyticsRouteChildren: AuthenticatedFinanceAnalyticsRouteChildren =
+  {
+    AuthenticatedFinanceAnalyticsApRoute: AuthenticatedFinanceAnalyticsApRoute,
+    AuthenticatedFinanceAnalyticsArRoute: AuthenticatedFinanceAnalyticsArRoute,
+    AuthenticatedFinanceAnalyticsAssetsRoute:
+      AuthenticatedFinanceAnalyticsAssetsRoute,
+    AuthenticatedFinanceAnalyticsAuditRoute:
+      AuthenticatedFinanceAnalyticsAuditRoute,
+    AuthenticatedFinanceAnalyticsBankingRoute:
+      AuthenticatedFinanceAnalyticsBankingRoute,
+    AuthenticatedFinanceAnalyticsBudgetsRoute:
+      AuthenticatedFinanceAnalyticsBudgetsRoute,
+    AuthenticatedFinanceAnalyticsCashflowRoute:
+      AuthenticatedFinanceAnalyticsCashflowRoute,
+    AuthenticatedFinanceAnalyticsComplianceRoute:
+      AuthenticatedFinanceAnalyticsComplianceRoute,
+    AuthenticatedFinanceAnalyticsDepreciationRoute:
+      AuthenticatedFinanceAnalyticsDepreciationRoute,
+    AuthenticatedFinanceAnalyticsExecutiveRoute:
+      AuthenticatedFinanceAnalyticsExecutiveRoute,
+    AuthenticatedFinanceAnalyticsExpensesRoute:
+      AuthenticatedFinanceAnalyticsExpensesRoute,
+    AuthenticatedFinanceAnalyticsForecastsRoute:
+      AuthenticatedFinanceAnalyticsForecastsRoute,
+    AuthenticatedFinanceAnalyticsFranchiseRoute:
+      AuthenticatedFinanceAnalyticsFranchiseRoute,
+    AuthenticatedFinanceAnalyticsGeneralLedgerRoute:
+      AuthenticatedFinanceAnalyticsGeneralLedgerRoute,
+    AuthenticatedFinanceAnalyticsProfitabilityRoute:
+      AuthenticatedFinanceAnalyticsProfitabilityRoute,
+    AuthenticatedFinanceAnalyticsReportsRoute:
+      AuthenticatedFinanceAnalyticsReportsRoute,
+    AuthenticatedFinanceAnalyticsRevenueRoute:
+      AuthenticatedFinanceAnalyticsRevenueRoute,
+    AuthenticatedFinanceAnalyticsRoyaltyRoute:
+      AuthenticatedFinanceAnalyticsRoyaltyRoute,
+    AuthenticatedFinanceAnalyticsTaxRoute:
+      AuthenticatedFinanceAnalyticsTaxRoute,
+    AuthenticatedFinanceAnalyticsTreasuryRoute:
+      AuthenticatedFinanceAnalyticsTreasuryRoute,
+    AuthenticatedFinanceAnalyticsIndexRoute:
+      AuthenticatedFinanceAnalyticsIndexRoute,
+  }
+
+const AuthenticatedFinanceAnalyticsRouteWithChildren =
+  AuthenticatedFinanceAnalyticsRoute._addFileChildren(
+    AuthenticatedFinanceAnalyticsRouteChildren,
+  )
+
 interface AuthenticatedFinanceVendorBillsRouteChildren {
   AuthenticatedFinanceVendorBillsIdRoute: typeof AuthenticatedFinanceVendorBillsIdRoute
 }
@@ -6474,6 +6985,7 @@ interface AuthenticatedFinanceRouteChildren {
   AuthenticatedFinanceAccountsRoute: typeof AuthenticatedFinanceAccountsRoute
   AuthenticatedFinanceAccountsPayableRoute: typeof AuthenticatedFinanceAccountsPayableRoute
   AuthenticatedFinanceAccountsReceivableRoute: typeof AuthenticatedFinanceAccountsReceivableRoute
+  AuthenticatedFinanceAnalyticsRoute: typeof AuthenticatedFinanceAnalyticsRouteWithChildren
   AuthenticatedFinanceApprovalsRoute: typeof AuthenticatedFinanceApprovalsRoute
   AuthenticatedFinanceAssetsRoute: typeof AuthenticatedFinanceAssetsRoute
   AuthenticatedFinanceAuditRoute: typeof AuthenticatedFinanceAuditRoute
@@ -6512,6 +7024,8 @@ const AuthenticatedFinanceRouteChildren: AuthenticatedFinanceRouteChildren = {
     AuthenticatedFinanceAccountsPayableRoute,
   AuthenticatedFinanceAccountsReceivableRoute:
     AuthenticatedFinanceAccountsReceivableRoute,
+  AuthenticatedFinanceAnalyticsRoute:
+    AuthenticatedFinanceAnalyticsRouteWithChildren,
   AuthenticatedFinanceApprovalsRoute: AuthenticatedFinanceApprovalsRoute,
   AuthenticatedFinanceAssetsRoute: AuthenticatedFinanceAssetsRoute,
   AuthenticatedFinanceAuditRoute: AuthenticatedFinanceAuditRoute,
