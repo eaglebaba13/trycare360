@@ -118,7 +118,7 @@ export class FinanceAnalyticsService {
     ]);
     const cashInflow = sum(receipts.filter((r) => inWindow(r.receipt_date, w)), (r) => num(r.amount));
     const cashOutflow = sum(payments.filter((r) => inWindow(r.payment_date, w)), (r) => num(r.amount));
-    const bankBalance = sum(banks, (r) => num(r.current_balance));
+    const bankBalance = sum(banks, (r) => num(r.opening_balance));
     const openBills = bills.filter((b) => b.status !== "paid" && b.status !== "voided");
     const openExpenses = expenses.filter((e) => e.status === "submitted" || e.status === "pending_approval");
     return {
@@ -168,7 +168,7 @@ export class FinanceAnalyticsService {
 
   async getExpenses(w: AnalyticsWindow) {
     const expenses = await this.expenses.list(w.tenantId, null, 2000);
-    const scoped = expenses.filter((e) => inWindow(e.expense_date, w));
+    const scoped = expenses.filter((e) => inWindow(e.voucher_date, w));
     return {
       total: sum(scoped, (e) => num(e.amount)),
       count: scoped.length,
@@ -233,7 +233,7 @@ export class FinanceAnalyticsService {
     return {
       count: rows.length,
       gross: sum(rows, (r) => num(r.acquisition_cost)),
-      nbv: sum(rows, (r) => num(r.book_value ?? r.acquisition_cost)),
+      nbv: sum(rows, (r) => num(r.acquisition_cost)),
       byStatus: tallyBy(rows as unknown as Record<string, unknown>[], "status"),
     };
   }
@@ -337,10 +337,10 @@ export class FinanceAnalyticsService {
     ]);
     return {
       accounts: banks.length,
-      balance: sum(banks, (r) => num(r.current_balance)),
+      balance: sum(banks, (r) => num(r.opening_balance)),
       recentInflow: sum(receipts.filter((r) => inWindow(r.receipt_date, w)), (r) => num(r.amount)),
       recentOutflow: sum(payments.filter((r) => inWindow(r.payment_date, w)), (r) => num(r.amount)),
-      byBank: banks.map((b) => ({ id: b.id, name: b.bank_name, balance: num(b.current_balance) })),
+      byBank: banks.map((b) => ({ id: b.id, name: b.bank_name, balance: num(b.opening_balance) })),
     };
   }
 
