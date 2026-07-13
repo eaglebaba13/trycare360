@@ -431,6 +431,64 @@ export const reportWindowSchema = z.object({
   to: dateStr,
 });
 
+// ---------------------------------------------------------------------------
+// Stage 4 — Automation
+// ---------------------------------------------------------------------------
+export const sourcePostSchema = z.object({
+  tenantId: uuid,
+  orgUnitId: optionalUuid,
+  branchId: optionalUuid,
+  entryDate: dateStr,
+  amount: z.number().positive(),
+  currency: z.string().default("INR"),
+  sourceModule: z.enum([
+    "clinical", "laboratory", "radiology", "pharmacy", "scheduling",
+    "consultation", "membership", "package", "product", "insurance",
+  ]),
+  referenceId: uuid,
+  referenceType: z.string().min(1).optional(),
+  description: z.string().nullish(),
+  partnerType: z.string().nullish(),
+  partnerId: optionalUuid,
+  metadata: jsonRecord.optional(),
+});
+
+export const monthEndSchema = z.object({
+  tenantId: uuid,
+  periodId: uuid,
+  closePeriod: z.boolean().default(false),
+  runDepreciation: z.boolean().default(true),
+});
+export const yearEndSchema = z.object({
+  tenantId: uuid,
+  fiscalYearId: uuid,
+  closeYear: z.boolean().default(false),
+});
+export const depreciationBatchSchema = z.object({
+  tenantId: uuid,
+  orgUnitId: optionalUuid,
+  scheduleDate: dateStr,
+  periodId: optionalUuid,
+});
+export const bankAutoMatchSchema = z.object({
+  tenantId: uuid,
+  orgUnitId: optionalUuid,
+  bankAccountId: uuid,
+  statementDate: dateStr,
+  openingBalance: z.number(),
+  closingBalance: z.number(),
+  statementLines: z
+    .array(
+      z.object({
+        date: dateStr,
+        amount: z.number(),
+        reference: z.string().nullish(),
+        description: z.string().nullish(),
+      }),
+    )
+    .default([]),
+});
+
 export type JournalCreateInput = z.infer<typeof journalCreateSchema>;
 export type ReceiptRecordInput = z.infer<typeof receiptRecordSchema>;
 export type PaymentRecordInput = z.infer<typeof paymentRecordSchema>;
@@ -444,3 +502,8 @@ export type VendorBillCreateInput = z.infer<typeof vendorBillCreateSchema>;
 export type VendorPaymentInput = z.infer<typeof vendorPaymentSchema>;
 export type TaxPostInput = z.infer<typeof taxPostSchema>;
 export type ReportWindowInput = z.infer<typeof reportWindowSchema>;
+export type SourcePostInput = z.infer<typeof sourcePostSchema>;
+export type MonthEndInput = z.infer<typeof monthEndSchema>;
+export type YearEndInput = z.infer<typeof yearEndSchema>;
+export type DepreciationBatchInput = z.infer<typeof depreciationBatchSchema>;
+export type BankAutoMatchInput = z.infer<typeof bankAutoMatchSchema>;
