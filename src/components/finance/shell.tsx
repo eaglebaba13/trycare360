@@ -11,6 +11,7 @@ import { IndianRupee, BookOpen, Wallet, Banknote, Receipt, Landmark, Building2, 
 export const FINANCE_TABS = [
   { to: "/finance", label: "Overview", exact: true },
   { to: "/finance/executive", label: "Executive" },
+  { to: "/finance/analytics", label: "Analytics" },
   { to: "/finance/approvals", label: "Approvals" },
   { to: "/finance/period-close", label: "Period Close" },
   { to: "/finance/accounts", label: "Accounts" },

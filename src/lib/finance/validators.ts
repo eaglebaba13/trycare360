@@ -507,3 +507,17 @@ export type MonthEndInput = z.infer<typeof monthEndSchema>;
 export type YearEndInput = z.infer<typeof yearEndSchema>;
 export type DepreciationBatchInput = z.infer<typeof depreciationBatchSchema>;
 export type BankAutoMatchInput = z.infer<typeof bankAutoMatchSchema>;
+
+// ---------------------------------------------------------------------------
+// Phase 2.9 Stage 6 — analytics window
+// ---------------------------------------------------------------------------
+export const analyticsWindowSchema = z.object({
+  tenantId: uuid,
+  from: dateStr.optional(),
+  to: dateStr.optional(),
+  branchId: optionalUuid,
+  franchiseOrgUnitId: optionalUuid,
+  costCenterId: optionalUuid,
+  department: z.string().optional(),
+});
+export type AnalyticsWindow = z.infer<typeof analyticsWindowSchema>;
