@@ -6,6 +6,7 @@ import type { Database } from "@/integrations/supabase/types";
 import { TaxRepository } from "../repositories.server";
 import { emitFinanceEvent, writeFinanceAudit } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type { taxPostSchema } from "../validators";
 import type { z } from "zod";
 
@@ -52,6 +53,22 @@ export class TaxEngine {
       actorId,
       after: row as never,
     });
+    const amount =
+      Number(input.cgst) + Number(input.sgst) + Number(input.igst) + Number(input.cess) +
+      Number(input.tdsAmount) + Number(input.tcsAmount);
+    if (amount > 0) {
+      await new AutomationEngine(this.sb).postTaxAccrual(
+        {
+          tenantId: input.tenantId,
+          orgUnitId: input.orgUnitId ?? null,
+          entryDate: input.entryDate,
+          amount,
+          ledgerId: row.id,
+          taxType: input.taxType,
+        },
+        actorId,
+      );
+    }
     return row;
   }
 }
