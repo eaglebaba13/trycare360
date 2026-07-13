@@ -39,10 +39,10 @@ export interface YearEndInput {
 
 export interface PeriodSnapshot {
   periodId: string;
-  trialBalance: unknown;
-  profitLoss: unknown;
-  balanceSheet: unknown;
-  cashFlow: unknown;
+  trialBalance: Record<string, unknown>;
+  profitLoss: Record<string, unknown>;
+  balanceSheet: Record<string, unknown>;
+  cashFlow: Record<string, unknown>;
 }
 
 export class PeriodCloseEngine {
