@@ -919,3 +919,28 @@ logic remain in the Stage 2/4 engines.
 | Liquidity | Bank Balance |
 | Commitments | Open Bills Amount |
 | Expected Inflow | Cash Inflow (window) |
+
+## Patient Portal (Phase 2.10)
+
+### Patient Engagement
+| KPI | Source |
+|---|---|
+| Daily Active Users | distinct(patient_portal_sessions.patient_user_id) where started_at::date = today |
+| Monthly Active Users | distinct(patient_portal_sessions.patient_user_id) in last 30d |
+| Patient Retention | cohort of patient_profiles retained (session in window ÷ signups in prior window) |
+| Patient Lifetime Value | sum(invoices.total_amount) per patient (existing billing) |
+| Patient Satisfaction | avg(patient_feedback.rating) |
+| Average Session | avg(patient_portal_sessions.duration_seconds) |
+
+### Adoption & Growth
+| KPI | Source |
+|---|---|
+| Appointments Booked | count(appointments) where source = 'portal' (existing scheduling) |
+| Digital Payments | count(payments) where channel = 'portal' (existing billing) |
+| Membership Growth | count(patient_memberships) where started_at in window |
+| Wallet Balance | sum(patient_wallet.balance) |
+| Reward Redemptions | count(patient_reward_redemptions) in window |
+| Notification Delivery | count(patient_notification_history where status='delivered') ÷ count(sent) |
+| Portal Adoption | distinct(patient_profiles.patient_user_id) ÷ distinct(patients.id) |
+| Teleconsult Adoption | count(appointments where mode='teleconsult' and source='portal') ÷ count(appointments where source='portal') |
+| Document Downloads | count(patient_activity_log where action='document.download') |
