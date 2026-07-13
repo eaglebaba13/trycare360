@@ -309,14 +309,10 @@ export class FinanceAnalyticsService {
   }
 
   async getCompliance(w: AnalyticsWindow) {
-    const [taxes, periods] = await Promise.all([
-      this.taxes.list({ tenantId: w.tenantId, from: w.from, to: w.to, limit: 500 }),
-      this.periods.list({ tenantId: w.tenantId, status: null } as never).catch(async () => []),
-    ]);
+    const taxes = await this.taxes.list({ tenantId: w.tenantId, from: w.from, to: w.to, limit: 500 });
     return {
       taxEntries: taxes.length,
       taxByStatus: tallyBy(taxes as unknown as Record<string, unknown>[], "status"),
-      periods: Array.isArray(periods) ? periods.length : 0,
     };
   }
 
