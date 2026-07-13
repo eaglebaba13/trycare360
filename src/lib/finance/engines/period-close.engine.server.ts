@@ -10,7 +10,7 @@
  *  - carry retained earnings on year-end
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database, Tables } from "@/integrations/supabase/types";
+import type { Database, Json, Tables } from "@/integrations/supabase/types";
 import { AccountingEngine } from "./accounting.engine.server";
 import { AssetEngine } from "./asset.engine.server";
 import { AutomationEngine } from "./automation.engine.server";
@@ -39,10 +39,10 @@ export interface YearEndInput {
 
 export interface PeriodSnapshot {
   periodId: string;
-  trialBalance: Record<string, unknown>;
-  profitLoss: Record<string, unknown>;
-  balanceSheet: Record<string, unknown>;
-  cashFlow: Record<string, unknown>;
+  trialBalance: Json;
+  profitLoss: Json;
+  balanceSheet: Json;
+  cashFlow: Json;
 }
 
 export class PeriodCloseEngine {
@@ -161,7 +161,13 @@ export class PeriodCloseEngine {
       balanceSheet,
       cashFlow,
     });
-    return { periodId: "", trialBalance, profitLoss, balanceSheet, cashFlow };
+    return {
+      periodId: "",
+      trialBalance: trialBalance as unknown as Json,
+      profitLoss: profitLoss as unknown as Json,
+      balanceSheet: balanceSheet as unknown as Json,
+      cashFlow: cashFlow as unknown as Json,
+    };
   }
 
   async runMonthEnd(input: MonthEndInput, actorId: string) {
