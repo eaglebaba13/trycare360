@@ -15,6 +15,7 @@ import {
   writeFinanceAudit,
 } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type {
   assetDepreciationSchema,
   assetDisposeSchema,
@@ -111,6 +112,17 @@ export class AssetEngine {
       actorId,
       metadata: { scheduleId: schedule.id, amount: monthly },
     });
+    await new AutomationEngine(this.sb).postDepreciation(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: asset.org_unit_id,
+        entryDate: input.scheduleDate,
+        amount: Math.round(monthly * 100) / 100,
+        scheduleId: schedule.id,
+        assetId: asset.id,
+      },
+      actorId,
+    );
     return schedule;
   }
 
