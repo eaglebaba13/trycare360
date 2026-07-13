@@ -168,7 +168,7 @@ export class FinanceAnalyticsService {
 
   async getExpenses(w: AnalyticsWindow) {
     const expenses = await this.expenses.list(w.tenantId, null, 2000);
-    const scoped = expenses.filter((e) => inWindow(e.voucher_date, w));
+    const scoped = expenses.filter((e) => inWindow(e.expense_date, w));
     return {
       total: sum(scoped, (e) => num(e.amount)),
       count: scoped.length,
@@ -197,7 +197,7 @@ export class FinanceAnalyticsService {
     ]);
     const rs = receipts.filter((r) => inWindow(r.receipt_date, w));
     const ps = payments.filter((r) => inWindow(r.payment_date, w));
-    const pc = petty.filter((r) => inWindow(r.expense_date, w));
+    const pc = petty.filter((r) => inWindow(r.voucher_date, w));
     return {
       inflow: sum(rs, (r) => num(r.amount)),
       outflow: sum(ps, (r) => num(r.amount)) + sum(pc, (r) => num(r.amount)),
