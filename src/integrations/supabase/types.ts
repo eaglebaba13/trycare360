@@ -17717,6 +17717,837 @@ export type Database = {
           },
         ]
       }
+      patient_activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          ip_address: unknown
+          meta: Json
+          patient_user_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      patient_app_preferences: {
+        Row: {
+          created_at: string
+          currency: string | null
+          home_screen: string | null
+          id: string
+          language: string | null
+          meta: Json
+          patient_user_id: string
+          timezone: string | null
+          units: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string | null
+          home_screen?: string | null
+          id?: string
+          language?: string | null
+          meta?: Json
+          patient_user_id: string
+          timezone?: string | null
+          units?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string | null
+          home_screen?: string | null
+          id?: string
+          language?: string | null
+          meta?: Json
+          patient_user_id?: string
+          timezone?: string | null
+          units?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_bookmarks: {
+        Row: {
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          label: string | null
+          meta: Json
+          patient_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          label?: string | null
+          meta?: Json
+          patient_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          label?: string | null
+          meta?: Json
+          patient_user_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_chat_messages: {
+        Row: {
+          attachments: Json
+          body: string | null
+          conversation_id: string
+          created_at: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          read_at: string | null
+          sender_role: string
+          sender_user_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          attachments?: Json
+          body?: string | null
+          conversation_id: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          read_at?: string | null
+          sender_role: string
+          sender_user_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attachments?: Json
+          body?: string | null
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          read_at?: string | null
+          sender_role?: string
+          sender_user_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_chat_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "patient_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_conversations: {
+        Row: {
+          channel: string
+          created_at: string
+          id: string
+          last_message_at: string | null
+          meta: Json
+          patient_user_id: string
+          status: string
+          tenant_id: string | null
+          topic: string | null
+          updated_at: string
+        }
+        Insert: {
+          channel?: string
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          meta?: Json
+          patient_user_id: string
+          status?: string
+          tenant_id?: string | null
+          topic?: string | null
+          updated_at?: string
+        }
+        Update: {
+          channel?: string
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          meta?: Json
+          patient_user_id?: string
+          status?: string
+          tenant_id?: string | null
+          topic?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_conversations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_dashboard_preferences: {
+        Row: {
+          created_at: string
+          hidden_sections: Json
+          id: string
+          layout: Json
+          meta: Json
+          patient_user_id: string
+          updated_at: string
+          widgets: Json
+        }
+        Insert: {
+          created_at?: string
+          hidden_sections?: Json
+          id?: string
+          layout?: Json
+          meta?: Json
+          patient_user_id: string
+          updated_at?: string
+          widgets?: Json
+        }
+        Update: {
+          created_at?: string
+          hidden_sections?: Json
+          id?: string
+          layout?: Json
+          meta?: Json
+          patient_user_id?: string
+          updated_at?: string
+          widgets?: Json
+        }
+        Relationships: []
+      }
+      patient_devices: {
+        Row: {
+          app_version: string | null
+          created_at: string
+          device_id: string
+          id: string
+          is_trusted: boolean
+          last_seen_at: string | null
+          meta: Json
+          model: string | null
+          os_version: string | null
+          patient_user_id: string
+          platform: string
+          revoked_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          app_version?: string | null
+          created_at?: string
+          device_id: string
+          id?: string
+          is_trusted?: boolean
+          last_seen_at?: string | null
+          meta?: Json
+          model?: string | null
+          os_version?: string | null
+          patient_user_id: string
+          platform: string
+          revoked_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          app_version?: string | null
+          created_at?: string
+          device_id?: string
+          id?: string
+          is_trusted?: boolean
+          last_seen_at?: string | null
+          meta?: Json
+          model?: string | null
+          os_version?: string | null
+          patient_user_id?: string
+          platform?: string
+          revoked_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_digital_consents: {
+        Row: {
+          consent_type: string
+          created_at: string
+          granted_at: string | null
+          id: string
+          ip_address: unknown
+          meta: Json
+          patient_user_id: string
+          revoked_at: string | null
+          signature: string | null
+          status: string
+          tenant_id: string | null
+          updated_at: string
+          version: string
+        }
+        Insert: {
+          consent_type: string
+          created_at?: string
+          granted_at?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id: string
+          revoked_at?: string | null
+          signature?: string | null
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+          version: string
+        }
+        Update: {
+          consent_type?: string
+          created_at?: string
+          granted_at?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id?: string
+          revoked_at?: string | null
+          signature?: string | null
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_digital_consents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_document_folders: {
+        Row: {
+          color: string | null
+          created_at: string
+          icon: string | null
+          id: string
+          name: string
+          parent_id: string | null
+          patient_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name: string
+          parent_id?: string | null
+          patient_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name?: string
+          parent_id?: string | null
+          patient_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_document_folders_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "patient_document_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_documents: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          document_id: string | null
+          folder_id: string | null
+          id: string
+          is_shared: boolean
+          meta: Json
+          mime_type: string | null
+          patient_user_id: string
+          size_bytes: number | null
+          storage_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          document_id?: string | null
+          folder_id?: string | null
+          id?: string
+          is_shared?: boolean
+          meta?: Json
+          mime_type?: string | null
+          patient_user_id: string
+          size_bytes?: number | null
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          document_id?: string | null
+          folder_id?: string | null
+          id?: string
+          is_shared?: boolean
+          meta?: Json
+          mime_type?: string | null
+          patient_user_id?: string
+          size_bytes?: number | null
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_documents_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_documents_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "patient_document_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_email_preferences: {
+        Row: {
+          created_at: string
+          digest_frequency: string | null
+          email: string | null
+          id: string
+          is_verified: boolean
+          marketing_opt_in: boolean
+          meta: Json
+          patient_user_id: string
+          transactional_opt_in: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          digest_frequency?: string | null
+          email?: string | null
+          id?: string
+          is_verified?: boolean
+          marketing_opt_in?: boolean
+          meta?: Json
+          patient_user_id: string
+          transactional_opt_in?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          digest_frequency?: string | null
+          email?: string | null
+          id?: string
+          is_verified?: boolean
+          marketing_opt_in?: boolean
+          meta?: Json
+          patient_user_id?: string
+          transactional_opt_in?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_family_accounts: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          meta: Json
+          name: string
+          primary_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          meta?: Json
+          name: string
+          primary_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          meta?: Json
+          name?: string
+          primary_user_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_family_members: {
+        Row: {
+          accepted_at: string | null
+          can_book: boolean
+          can_manage: boolean
+          can_pay: boolean
+          can_view: boolean
+          created_at: string
+          display_name: string | null
+          family_account_id: string | null
+          id: string
+          invited_at: string | null
+          member_patient_id: string | null
+          member_user_id: string | null
+          primary_user_id: string
+          relationship: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          can_book?: boolean
+          can_manage?: boolean
+          can_pay?: boolean
+          can_view?: boolean
+          created_at?: string
+          display_name?: string | null
+          family_account_id?: string | null
+          id?: string
+          invited_at?: string | null
+          member_patient_id?: string | null
+          member_user_id?: string | null
+          primary_user_id: string
+          relationship: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          can_book?: boolean
+          can_manage?: boolean
+          can_pay?: boolean
+          can_view?: boolean
+          created_at?: string
+          display_name?: string | null
+          family_account_id?: string | null
+          id?: string
+          invited_at?: string | null
+          member_patient_id?: string | null
+          member_user_id?: string | null
+          primary_user_id?: string
+          relationship?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_family_members_family_account_id_fkey"
+            columns: ["family_account_id"]
+            isOneToOne: false
+            referencedRelation: "patient_family_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_family_members_member_patient_id_fkey"
+            columns: ["member_patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_favourites: {
+        Row: {
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_feedback: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          rating: number | null
+          sentiment: string | null
+          target_id: string | null
+          target_type: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          rating?: number | null
+          sentiment?: string | null
+          target_id?: string | null
+          target_type: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          rating?: number | null
+          sentiment?: string | null
+          target_id?: string | null
+          target_type?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_feedback_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_health_goals: {
+        Row: {
+          created_at: string
+          current_value: number | null
+          description: string | null
+          goal_type: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          progress_pct: number | null
+          start_date: string | null
+          status: string
+          target_date: string | null
+          target_unit: string | null
+          target_value: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          goal_type: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          progress_pct?: number | null
+          start_date?: string | null
+          status?: string
+          target_date?: string | null
+          target_unit?: string | null
+          target_value?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          goal_type?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          progress_pct?: number | null
+          start_date?: string | null
+          status?: string
+          target_date?: string | null
+          target_unit?: string | null
+          target_value?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_health_metrics: {
+        Row: {
+          created_at: string
+          device_id: string | null
+          id: string
+          meta: Json
+          metric_code: string
+          patient_user_id: string
+          recorded_at: string
+          source: string | null
+          unit: string | null
+          updated_at: string
+          value: number | null
+          value_text: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          meta?: Json
+          metric_code: string
+          patient_user_id: string
+          recorded_at?: string
+          source?: string | null
+          unit?: string | null
+          updated_at?: string
+          value?: number | null
+          value_text?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          meta?: Json
+          metric_code?: string
+          patient_user_id?: string
+          recorded_at?: string
+          source?: string | null
+          unit?: string | null
+          updated_at?: string
+          value?: number | null
+          value_text?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_health_metrics_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "patient_devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_health_passport: {
+        Row: {
+          allergies: Json
+          blood_group: string | null
+          chronic_conditions: Json
+          created_at: string
+          current_medications: Json
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          organ_donor: boolean
+          passport_code: string
+          patient_user_id: string
+          qr_payload: string | null
+          updated_at: string
+        }
+        Insert: {
+          allergies?: Json
+          blood_group?: string | null
+          chronic_conditions?: Json
+          created_at?: string
+          current_medications?: Json
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          organ_donor?: boolean
+          passport_code: string
+          patient_user_id: string
+          qr_payload?: string | null
+          updated_at?: string
+        }
+        Update: {
+          allergies?: Json
+          blood_group?: string | null
+          chronic_conditions?: Json
+          created_at?: string
+          current_medications?: Json
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          organ_donor?: boolean
+          passport_code?: string
+          patient_user_id?: string
+          qr_payload?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       patient_insurance: {
         Row: {
           card_media_id: string | null
@@ -17809,6 +18640,1093 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      patient_loyalty_accounts: {
+        Row: {
+          created_at: string
+          id: string
+          lifetime_earned: number
+          lifetime_redeemed: number
+          meta: Json
+          patient_user_id: string
+          points_balance: number
+          program_code: string
+          status: string
+          tenant_id: string | null
+          tier: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lifetime_earned?: number
+          lifetime_redeemed?: number
+          meta?: Json
+          patient_user_id: string
+          points_balance?: number
+          program_code: string
+          status?: string
+          tenant_id?: string | null
+          tier?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lifetime_earned?: number
+          lifetime_redeemed?: number
+          meta?: Json
+          patient_user_id?: string
+          points_balance?: number
+          program_code?: string
+          status?: string
+          tenant_id?: string | null
+          tier?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_loyalty_accounts_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_loyalty_transactions: {
+        Row: {
+          account_id: string
+          balance_after: number | null
+          created_at: string
+          direction: string
+          id: string
+          meta: Json
+          note: string | null
+          patient_user_id: string
+          points: number
+          reference_id: string | null
+          reference_type: string | null
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          balance_after?: number | null
+          created_at?: string
+          direction: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_user_id: string
+          points: number
+          reference_id?: string | null
+          reference_type?: string | null
+          source: string
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          balance_after?: number | null
+          created_at?: string
+          direction?: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_user_id?: string
+          points?: number
+          reference_id?: string | null
+          reference_type?: string | null
+          source?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_loyalty_transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "patient_loyalty_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_membership_history: {
+        Row: {
+          created_at: string
+          event: string
+          from_status: string | null
+          id: string
+          membership_id: string
+          meta: Json
+          note: string | null
+          patient_user_id: string
+          to_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          event: string
+          from_status?: string | null
+          id?: string
+          membership_id: string
+          meta?: Json
+          note?: string | null
+          patient_user_id: string
+          to_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          event?: string
+          from_status?: string | null
+          id?: string
+          membership_id?: string
+          meta?: Json
+          note?: string | null
+          patient_user_id?: string
+          to_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_membership_history_membership_id_fkey"
+            columns: ["membership_id"]
+            isOneToOne: false
+            referencedRelation: "patient_memberships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_memberships: {
+        Row: {
+          auto_renew: boolean
+          created_at: string
+          currency: string | null
+          expires_at: string | null
+          id: string
+          meta: Json
+          patient_user_id: string
+          plan_code: string
+          plan_name: string | null
+          price: number | null
+          started_at: string
+          status: string
+          tenant_id: string | null
+          tier: string | null
+          updated_at: string
+        }
+        Insert: {
+          auto_renew?: boolean
+          created_at?: string
+          currency?: string | null
+          expires_at?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          plan_code: string
+          plan_name?: string | null
+          price?: number | null
+          started_at?: string
+          status?: string
+          tenant_id?: string | null
+          tier?: string | null
+          updated_at?: string
+        }
+        Update: {
+          auto_renew?: boolean
+          created_at?: string
+          currency?: string | null
+          expires_at?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          plan_code?: string
+          plan_name?: string | null
+          price?: number | null
+          started_at?: string
+          status?: string
+          tenant_id?: string | null
+          tier?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_memberships_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_notification_history: {
+        Row: {
+          body: string | null
+          category: string | null
+          channel: string
+          clicked_at: string | null
+          created_at: string
+          delivered_at: string | null
+          id: string
+          meta: Json
+          patient_user_id: string
+          read_at: string | null
+          reference_id: string | null
+          reference_type: string | null
+          sent_at: string | null
+          status: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          category?: string | null
+          channel: string
+          clicked_at?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          read_at?: string | null
+          reference_id?: string | null
+          reference_type?: string | null
+          sent_at?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          category?: string | null
+          channel?: string
+          clicked_at?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          read_at?: string | null
+          reference_id?: string | null
+          reference_type?: string | null
+          sent_at?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_notification_preferences: {
+        Row: {
+          category: string
+          channel: string
+          created_at: string
+          enabled: boolean
+          id: string
+          patient_user_id: string
+          quiet_hours_end: string | null
+          quiet_hours_start: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          channel: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          patient_user_id: string
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          channel?: string
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          patient_user_id?: string
+          quiet_hours_end?: string | null
+          quiet_hours_start?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_portal_sessions: {
+        Row: {
+          created_at: string
+          device_id: string | null
+          duration_seconds: number | null
+          ended_at: string | null
+          id: string
+          ip_address: unknown
+          meta: Json
+          patient_user_id: string
+          started_at: string
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id: string
+          started_at?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_id?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          ip_address?: unknown
+          meta?: Json
+          patient_user_id?: string
+          started_at?: string
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_portal_sessions_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "patient_devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_preferences: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          key: string
+          patient_user_id: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          key: string
+          patient_user_id: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          key?: string
+          patient_user_id?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      patient_profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          cover_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          last_seen_at: string | null
+          locale: string | null
+          meta: Json
+          onboarded_at: string | null
+          onboarding_completed: boolean
+          patient_id: string | null
+          patient_user_id: string
+          person_id: string | null
+          tenant_id: string | null
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          cover_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_seen_at?: string | null
+          locale?: string | null
+          meta?: Json
+          onboarded_at?: string | null
+          onboarding_completed?: boolean
+          patient_id?: string | null
+          patient_user_id: string
+          person_id?: string | null
+          tenant_id?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          cover_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_seen_at?: string | null
+          locale?: string | null
+          meta?: Json
+          onboarded_at?: string | null
+          onboarding_completed?: boolean
+          patient_id?: string | null
+          patient_user_id?: string
+          person_id?: string | null
+          tenant_id?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_profiles_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_profiles_person_id_fkey"
+            columns: ["person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_profiles_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_push_tokens: {
+        Row: {
+          created_at: string
+          device_id: string | null
+          id: string
+          is_active: boolean
+          last_used_at: string | null
+          patient_user_id: string
+          provider: string
+          token: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          patient_user_id: string
+          provider: string
+          token: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string | null
+          id?: string
+          is_active?: boolean
+          last_used_at?: string | null
+          patient_user_id?: string
+          provider?: string
+          token?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_relationships: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          patient_user_id: string
+          related_patient_id: string | null
+          related_user_id: string | null
+          relationship: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          patient_user_id: string
+          related_patient_id?: string | null
+          related_user_id?: string | null
+          relationship: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          patient_user_id?: string
+          related_patient_id?: string | null
+          related_user_id?: string | null
+          relationship?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_relationships_related_patient_id_fkey"
+            columns: ["related_patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_reward_redemptions: {
+        Row: {
+          amount_used: number | null
+          created_at: string
+          fulfilled_at: string | null
+          id: string
+          loyalty_account_id: string | null
+          meta: Json
+          patient_user_id: string
+          points_used: number
+          redeemed_at: string | null
+          redemption_code: string | null
+          reward_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount_used?: number | null
+          created_at?: string
+          fulfilled_at?: string | null
+          id?: string
+          loyalty_account_id?: string | null
+          meta?: Json
+          patient_user_id: string
+          points_used?: number
+          redeemed_at?: string | null
+          redemption_code?: string | null
+          reward_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount_used?: number | null
+          created_at?: string
+          fulfilled_at?: string | null
+          id?: string
+          loyalty_account_id?: string | null
+          meta?: Json
+          patient_user_id?: string
+          points_used?: number
+          redeemed_at?: string | null
+          redemption_code?: string | null
+          reward_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_reward_redemptions_loyalty_account_id_fkey"
+            columns: ["loyalty_account_id"]
+            isOneToOne: false
+            referencedRelation: "patient_loyalty_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "patient_reward_redemptions_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "patient_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_rewards: {
+        Row: {
+          code: string
+          cost_amount: number | null
+          cost_points: number
+          created_at: string
+          currency: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          meta: Json
+          name: string
+          reward_type: string
+          stock: number | null
+          tenant_id: string | null
+          updated_at: string
+          valid_from: string | null
+          valid_to: string | null
+        }
+        Insert: {
+          code: string
+          cost_amount?: number | null
+          cost_points?: number
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name: string
+          reward_type: string
+          stock?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Update: {
+          code?: string
+          cost_amount?: number | null
+          cost_points?: number
+          created_at?: string
+          currency?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          meta?: Json
+          name?: string
+          reward_type?: string
+          stock?: number | null
+          tenant_id?: string | null
+          updated_at?: string
+          valid_from?: string | null
+          valid_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_rewards_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_saved_doctors: {
+        Row: {
+          created_at: string
+          doctor_person_id: string | null
+          id: string
+          meta: Json
+          patient_user_id: string
+          saved_at: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          doctor_person_id?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          saved_at?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          doctor_person_id?: string | null
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          saved_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_saved_doctors_doctor_person_id_fkey"
+            columns: ["doctor_person_id"]
+            isOneToOne: false
+            referencedRelation: "persons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_saved_prescriptions: {
+        Row: {
+          created_at: string
+          id: string
+          meta: Json
+          notes: string | null
+          patient_user_id: string
+          prescription_id: string | null
+          saved_at: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_user_id: string
+          prescription_id?: string | null
+          saved_at?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          notes?: string | null
+          patient_user_id?: string
+          prescription_id?: string | null
+          saved_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_saved_prescriptions_prescription_id_fkey"
+            columns: ["prescription_id"]
+            isOneToOne: false
+            referencedRelation: "clinical_prescriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_saved_reports: {
+        Row: {
+          created_at: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          reference_id: string | null
+          report_type: string
+          saved_at: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          reference_id?: string | null
+          report_type: string
+          saved_at?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          reference_id?: string | null
+          report_type?: string
+          saved_at?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_settings: {
+        Row: {
+          created_at: string
+          id: string
+          patient_user_id: string
+          settings: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          patient_user_id: string
+          settings?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          patient_user_id?: string
+          settings?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_sms_preferences: {
+        Row: {
+          created_at: string
+          id: string
+          is_verified: boolean
+          marketing_opt_in: boolean
+          meta: Json
+          patient_user_id: string
+          phone_e164: string | null
+          transactional_opt_in: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_verified?: boolean
+          marketing_opt_in?: boolean
+          meta?: Json
+          patient_user_id: string
+          phone_e164?: string | null
+          transactional_opt_in?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_verified?: boolean
+          marketing_opt_in?: boolean
+          meta?: Json
+          patient_user_id?: string
+          phone_e164?: string | null
+          transactional_opt_in?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_support_tickets: {
+        Row: {
+          assigned_to: string | null
+          body: string | null
+          category: string | null
+          created_at: string
+          id: string
+          meta: Json
+          patient_user_id: string
+          priority: string
+          resolved_at: string | null
+          status: string
+          subject: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          body?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          priority?: string
+          resolved_at?: string | null
+          status?: string
+          subject: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          body?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          priority?: string
+          resolved_at?: string | null
+          status?: string
+          subject?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_support_tickets_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_theme_preferences: {
+        Row: {
+          accent_color: string | null
+          created_at: string
+          font_scale: number | null
+          high_contrast: boolean
+          id: string
+          meta: Json
+          patient_user_id: string
+          reduce_motion: boolean
+          theme: string
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string | null
+          created_at?: string
+          font_scale?: number | null
+          high_contrast?: boolean
+          id?: string
+          meta?: Json
+          patient_user_id: string
+          reduce_motion?: boolean
+          theme?: string
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string | null
+          created_at?: string
+          font_scale?: number | null
+          high_contrast?: boolean
+          id?: string
+          meta?: Json
+          patient_user_id?: string
+          reduce_motion?: boolean
+          theme?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_wallet: {
+        Row: {
+          balance: number
+          created_at: string
+          currency: string
+          id: string
+          lifetime_credit: number
+          lifetime_debit: number
+          meta: Json
+          patient_user_id: string
+          status: string
+          tenant_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          lifetime_credit?: number
+          lifetime_debit?: number
+          meta?: Json
+          patient_user_id: string
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          lifetime_credit?: number
+          lifetime_debit?: number
+          meta?: Json
+          patient_user_id?: string
+          status?: string
+          tenant_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_wallet_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_wallet_transactions: {
+        Row: {
+          amount: number
+          balance_after: number | null
+          created_at: string
+          direction: string
+          id: string
+          meta: Json
+          note: string | null
+          patient_user_id: string
+          reference_id: string | null
+          reference_type: string | null
+          source: string
+          updated_at: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          balance_after?: number | null
+          created_at?: string
+          direction: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_user_id: string
+          reference_id?: string | null
+          reference_type?: string | null
+          source: string
+          updated_at?: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          balance_after?: number | null
+          created_at?: string
+          direction?: string
+          id?: string
+          meta?: Json
+          note?: string | null
+          patient_user_id?: string
+          reference_id?: string | null
+          reference_type?: string | null
+          source?: string
+          updated_at?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "patient_wallet"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patient_whatsapp_preferences: {
+        Row: {
+          created_at: string
+          id: string
+          is_opted_in: boolean
+          meta: Json
+          opted_in_at: string | null
+          opted_out_at: string | null
+          patient_user_id: string
+          phone_e164: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_opted_in?: boolean
+          meta?: Json
+          opted_in_at?: string | null
+          opted_out_at?: string | null
+          patient_user_id: string
+          phone_e164?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_opted_in?: boolean
+          meta?: Json
+          opted_in_at?: string | null
+          opted_out_at?: string | null
+          patient_user_id?: string
+          phone_e164?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       patients: {
         Row: {
@@ -26154,6 +28072,8 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_manage_family: { Args: { _primary_user: string }; Returns: boolean }
+      can_manage_membership: { Args: { _row_user: string }; Returns: boolean }
       can_manage_pathology: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
@@ -26166,6 +28086,7 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_manage_wallet: { Args: { _row_user: string }; Returns: boolean }
       can_post_remittance: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
@@ -26188,6 +28109,10 @@ export type Database = {
       }
       can_read_lab: {
         Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_read_patient_portal: {
+        Args: { _row_user: string; _tenant: string }
         Returns: boolean
       }
       can_read_pharmacy: {
@@ -26224,6 +28149,10 @@ export type Database = {
       }
       can_write_lab: {
         Args: { _tenant_id: string; _user_id: string }
+        Returns: boolean
+      }
+      can_write_patient_portal: {
+        Args: { _row_user: string; _tenant: string }
         Returns: boolean
       }
       can_write_pharmacy: {
