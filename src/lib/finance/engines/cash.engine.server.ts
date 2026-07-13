@@ -17,6 +17,7 @@ import {
   writeFinanceAudit,
 } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type {
   bankReconSchema,
   paymentRecordSchema,
@@ -87,6 +88,24 @@ export class CashEngine {
       subtitle: `${input.partnerType} · ${input.method}`,
       keywords: `receipt ${number} ${input.method}`,
     });
+    await new AutomationEngine(this.sb).postReceipt(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: input.orgUnitId ?? null,
+        branchId: input.branchId ?? null,
+        entryDate: input.receiptDate,
+        amount: Number(input.amount),
+        currency: input.currency,
+        method: input.method,
+        receiptId: receipt.id,
+        partnerType: input.partnerType,
+        partnerId: input.partnerId ?? null,
+      },
+      actorId,
+    );
+    await emitFinanceEvent(this.sb, input.tenantId, FINANCE_EVENTS.ReceiptPosted, {
+      receiptId: receipt.id,
+    });
     return receipt;
   }
 
@@ -124,6 +143,24 @@ export class CashEngine {
     await emitFinanceEvent(this.sb, input.tenantId, FINANCE_EVENTS.PaymentRecorded, {
       paymentId: payment.id,
       amount: input.amount,
+    });
+    await new AutomationEngine(this.sb).postPayment(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: input.orgUnitId ?? null,
+        branchId: input.branchId ?? null,
+        entryDate: input.paymentDate,
+        amount: Number(input.amount),
+        currency: input.currency,
+        method: input.method,
+        paymentId: payment.id,
+        partnerType: input.partnerType,
+        partnerId: input.partnerId ?? null,
+      },
+      actorId,
+    );
+    await emitFinanceEvent(this.sb, input.tenantId, FINANCE_EVENTS.PaymentPosted, {
+      paymentId: payment.id,
     });
     return payment;
   }

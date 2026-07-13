@@ -11,6 +11,7 @@ import {
   writeFinanceAudit,
 } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type {
   vendorBillCreateSchema,
   vendorBillIdSchema,
@@ -118,6 +119,22 @@ export class VendorEngine {
       before: bill as never,
       after: updated as never,
     });
+    await new AutomationEngine(this.sb).postVendorBill(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: bill.org_unit_id,
+        branchId: bill.branch_id,
+        entryDate: bill.bill_date,
+        amount: Number(bill.total_amount),
+        currency: bill.currency,
+        billId: bill.id,
+        vendorId: bill.vendor_id,
+      },
+      actorId,
+    );
+    await emitFinanceEvent(this.sb, input.tenantId, FINANCE_EVENTS.VendorBillPosted, {
+      billId: bill.id,
+    });
     return updated;
   }
 
@@ -170,6 +187,22 @@ export class VendorEngine {
       after: updatedBill as never,
       metadata: { paymentId: payment.id },
     });
+    await new AutomationEngine(this.sb).postPayment(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: bill.org_unit_id,
+        branchId: bill.branch_id,
+        entryDate: input.paymentDate,
+        amount: Number(input.amount),
+        currency: bill.currency,
+        method: input.method,
+        paymentId: payment.id,
+        partnerType: "vendor",
+        partnerId: bill.vendor_id,
+        referenceType: "vendor_bill_payment",
+      },
+      actorId,
+    );
     return { bill: updatedBill, payment };
   }
 }

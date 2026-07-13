@@ -18,6 +18,7 @@ import {
   writeFinanceAudit,
 } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type {
   royaltyCalculateSchema,
   royaltyRuleUpsertSchema,
@@ -113,6 +114,17 @@ export class RoyaltyEngine {
       actorId,
       after: ledgerRow as never,
     });
+    await new AutomationEngine(this.sb).postRoyaltyAccrual(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: rule.org_unit_id,
+        entryDate: new Date().toISOString().slice(0, 10),
+        amount: finalAmount,
+        ledgerId: ledgerRow.id,
+        franchiseOrgUnitId: input.franchiseOrgUnitId,
+      },
+      actorId,
+    );
     return ledgerRow;
   }
 
@@ -171,6 +183,17 @@ export class RoyaltyEngine {
       actorId,
       after: settlement as never,
     });
+    await new AutomationEngine(this.sb).postRoyaltySettlement(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: input.orgUnitId ?? null,
+        entryDate: input.settlementDate,
+        amount: net,
+        settlementId: settlement.id,
+        franchiseOrgUnitId: input.franchiseOrgUnitId,
+      },
+      actorId,
+    );
     return settlement;
   }
 }

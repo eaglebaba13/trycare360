@@ -14,6 +14,7 @@ import {
   writeFinanceAudit,
 } from "../helpers.server";
 import { FINANCE_EVENTS } from "../events";
+import { AutomationEngine } from "./automation.engine.server";
 import type {
   expenseDecisionSchema,
   expenseSubmitSchema,
@@ -101,6 +102,24 @@ export class ExpenseEngine {
       expenseId: expense.id,
       reason: input.reason,
     });
+    if (input.decision === "approve") {
+      await new AutomationEngine(this.sb).postExpense(
+        {
+          tenantId: input.tenantId,
+          orgUnitId: expense.org_unit_id,
+          branchId: expense.branch_id,
+          entryDate: expense.expense_date,
+          amount: Number(expense.total_amount),
+          currency: expense.currency,
+          expenseId: expense.id,
+          category: expense.category,
+        },
+        actorId,
+      );
+      await emitFinanceEvent(this.sb, input.tenantId, FINANCE_EVENTS.ExpensePosted, {
+        expenseId: expense.id,
+      });
+    }
     return updated;
   }
 }
