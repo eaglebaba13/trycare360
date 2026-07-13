@@ -1,9 +1,9 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  IndianRupee, Wallet, Banknote, Receipt, Building2, Landmark, TrendingUp,
-  ShieldCheck, ClipboardCheck, CircleDollarSign, FileBarChart, Scale, Users,
+  Wallet, Banknote, Receipt, Building2, Landmark, TrendingUp,
+  ShieldCheck, ClipboardCheck, CircleDollarSign, FileBarChart, Scale, IndianRupee,
 } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,74 +17,100 @@ import { TimelinePanel } from "@/components/standards/timeline-panel";
 import { toast } from "sonner";
 
 import { listJournalEntries } from "@/lib/finance/journal.functions";
-import { listReceipts, listPayments, listBankAccounts } from "@/lib/finance/cash.functions";
+import { listReceipts, listBankAccounts } from "@/lib/finance/cash.functions";
 import { listExpenses, approveExpense } from "@/lib/finance/expenses.functions";
 import { listVendorBills, approveVendorBill } from "@/lib/finance/vendor.functions";
-import { listAssets } from "@/lib/finance/assets.functions";
 import { listBudgets } from "@/lib/finance/budget.functions";
 import { listForecasts } from "@/lib/finance/forecast.functions";
-import { listRoyaltyRules, listRoyaltySettlements } from "@/lib/finance/royalty.functions";
+import { listRoyaltySettlements } from "@/lib/finance/royalty.functions";
 import { listTaxes } from "@/lib/finance/tax.functions";
-import { listPeriodsByYear, listFiscalYears, closePeriod, openPeriod } from "@/lib/finance/chart.functions";
-import { trialBalance, profitLoss, balanceSheet, cashFlow } from "@/lib/finance/reports.functions";
 import {
   runMonthEnd, runYearEnd, runDepreciationBatch, autoMatchBankStatement, postSourceRevenue,
 } from "@/lib/finance/automation.functions";
+import { trialBalance, profitLoss, balanceSheet, cashFlow } from "@/lib/finance/reports.functions";
 
-const fmtINR = (n: number | null | undefined) =>
-  n == null ? "—" : `₹${Number(n).toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
+import {
+  BankReconciliationWorkspace as _BankRecon,
+  ExpenseWorkspace as _ExpenseWs,
+  AssetWorkspace as _AssetWs,
+  DepreciationPanel as _DepPanel,
+  BudgetWorkspace as _BudgetWs,
+  ForecastWorkspace as _ForecastWs,
+  RoyaltyDashboard as _RoyaltyDash,
+  TaxDashboard as _TaxDash,
+  TrialBalanceViewer as _TB,
+  ProfitLossViewer as _PL,
+  BalanceSheetViewer as _BS,
+  CashFlowViewer as _CF,
+  FiscalPeriodsPanel as _Periods,
+} from "./workspaces";
 
-// ─────────────────────────────────────────────────────────────
-// KPI cards
-// ─────────────────────────────────────────────────────────────
+type Row = Record<string, unknown>;
+const rows = (d: unknown): Row[] => (((d as { rows?: Row[] } | undefined)?.rows) ?? []);
+const str = (v: unknown) => (v == null ? "" : String(v));
+const num = (v: unknown) => (v == null ? 0 : Number(v));
+const fmtINR = (n: unknown) => `₹${num(n).toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
+
+// Re-export reused workspaces so route files can import them from operations
+export {
+  _BankRecon as BankReconciliationWorkspace,
+  _ExpenseWs as ExpenseApprovalWorkspace,
+  _AssetWs as AssetManagementWorkspace,
+  _DepPanel as DepreciationWorkspace,
+  _BudgetWs as BudgetWorkspace,
+  _ForecastWs as ForecastWorkspace,
+  _RoyaltyDash as RoyaltyWorkspace,
+  _TaxDash as TaxWorkspace,
+  _TB as TrialBalanceViewer,
+  _PL as ProfitLossViewer,
+  _BS as BalanceSheetViewer,
+  _CF as CashFlowViewer,
+};
+
+// ─────────────────────────── KPI cards ───────────────────────────
 export function CashPositionCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listBankAccounts);
   const q = useQuery({ queryKey: ["fin", "bank", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const balance = (q.data ?? []).reduce((s: number, r: { current_balance?: number | null }) => s + Number(r.current_balance ?? 0), 0);
-  return <KpiCard label="Cash position" value={fmtINR(balance)} icon={Wallet} tone="info" hint={`${(q.data ?? []).length} bank accounts`} />;
+  const list = rows(q.data);
+  const balance = list.reduce((s, r) => s + num(r.current_balance), 0);
+  return <KpiCard label="Cash position" value={fmtINR(balance)} icon={Wallet} tone="info" hint={`${list.length} bank accounts`} />;
 }
-
 export function OutstandingInvoicesCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listReceipts);
   const q = useQuery({ queryKey: ["fin", "ar", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const total = (q.data ?? []).reduce((s: number, r: { amount?: number | null }) => s + Number(r.amount ?? 0), 0);
+  const total = rows(q.data).reduce((s, r) => s + num(r.amount), 0);
   return <KpiCard label="Receipts (recent)" value={fmtINR(total)} icon={CircleDollarSign} tone="success" />;
 }
-
 export function OutstandingVendorBillsCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listVendorBills);
   const q = useQuery({ queryKey: ["fin", "ap", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const open = (q.data ?? []).filter((r: { status?: string }) => r.status !== "paid" && r.status !== "voided");
-  const total = open.reduce((s: number, r: { total?: number | null }) => s + Number(r.total ?? 0), 0);
+  const open = rows(q.data).filter((r) => str(r.status) !== "paid" && str(r.status) !== "voided");
+  const total = open.reduce((s, r) => s + num(r.balance_amount ?? r.total_amount ?? r.total), 0);
   return <KpiCard label="Open vendor bills" value={fmtINR(total)} icon={Building2} tone="warning" hint={`${open.length} pending`} />;
 }
-
 export function RoyaltySummaryCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listRoyaltySettlements);
   const q = useQuery({ queryKey: ["fin", "royalty", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const total = (q.data ?? []).reduce((s: number, r: { amount?: number | null }) => s + Number(r.amount ?? 0), 0);
+  const total = rows(q.data).reduce((s, r) => s + num(r.net_amount ?? r.gross_amount ?? r.amount), 0);
   return <KpiCard label="Royalty settled" value={fmtINR(total)} icon={Scale} />;
 }
-
 export function TaxSummaryCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listTaxes);
   const q = useQuery({ queryKey: ["fin", "tax", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const total = (q.data ?? []).reduce((s: number, r: { amount?: number | null }) => s + Number(r.amount ?? 0), 0);
-  return <KpiCard label="Tax ledger" value={fmtINR(total)} icon={ShieldCheck} />;
+  const list = rows(q.data);
+  const total = list.reduce((s, r) => s + num(r.cgst) + num(r.sgst) + num(r.igst) + num(r.cess) + num(r.amount), 0);
+  return <KpiCard label="Tax ledger" value={fmtINR(total)} icon={ShieldCheck} hint={`${list.length} entries`} />;
 }
-
 export function BudgetVarianceCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listBudgets);
   const q = useQuery({ queryKey: ["fin", "budgets", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  return <KpiCard label="Active budgets" value={(q.data ?? []).length} icon={TrendingUp} />;
+  return <KpiCard label="Active budgets" value={rows(q.data).length} icon={TrendingUp} />;
 }
-
 export function ForecastVarianceCard({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listForecasts);
   const q = useQuery({ queryKey: ["fin", "forecasts", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  return <KpiCard label="Forecasts" value={(q.data ?? []).length} icon={FileBarChart} />;
+  return <KpiCard label="Forecasts" value={rows(q.data).length} icon={FileBarChart} />;
 }
-
 export function FinancialHealthCards({ tenantId }: { tenantId: string }) {
   return (
     <KpiGrid>
@@ -100,15 +126,10 @@ export function FinancialHealthCards({ tenantId }: { tenantId: string }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Executive dashboard
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────── Executive / Operations ───────────────────────────
 export function FinanceExecutiveDashboard({ tenantId }: { tenantId: string }) {
-  const journalsFn = useServerFn(listJournalEntries);
-  const journals = useQuery({
-    queryKey: ["fin", "journals-exec", tenantId],
-    queryFn: () => journalsFn({ data: { tenantId, limit: 20 } }),
-  });
+  const fn = useServerFn(listJournalEntries);
+  const q = useQuery({ queryKey: ["fin", "journals-exec", tenantId], queryFn: () => fn({ data: { tenantId, limit: 20 } }) });
   return (
     <div className="space-y-4">
       <FinancialHealthCards tenantId={tenantId} />
@@ -117,11 +138,11 @@ export function FinanceExecutiveDashboard({ tenantId }: { tenantId: string }) {
           <CardHeader className="pb-2"><CardTitle className="text-sm">Recent journal activity</CardTitle></CardHeader>
           <CardContent>
             <TimelinePanel
-              items={(journals.data ?? []).slice(0, 10).map((j: { id: string; posted_at?: string | null; created_at?: string; journal_no?: string; memo?: string | null; status?: string }) => ({
-                ts: j.posted_at ?? j.created_at ?? new Date().toISOString(),
-                event_type: j.status ?? "journal",
-                title: `Journal ${j.journal_no ?? j.id.slice(0, 8)}`,
-                body: j.memo ?? null,
+              items={rows(q.data).slice(0, 10).map((j) => ({
+                ts: str(j.posted_at ?? j.entry_date ?? j.created_at) || new Date().toISOString(),
+                event_type: str(j.status) || "journal",
+                title: `Journal ${str(j.entry_number ?? j.journal_no ?? j.id).slice(0, 12)}`,
+                body: str(j.description ?? j.memo) || null,
               }))}
               emptyMessage="No journal activity."
             />
@@ -133,9 +154,6 @@ export function FinanceExecutiveDashboard({ tenantId }: { tenantId: string }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Operations / Approvals
-// ─────────────────────────────────────────────────────────────
 export function FinanceOperationsWorkspace({ tenantId }: { tenantId: string }) {
   return (
     <div className="space-y-4">
@@ -165,8 +183,8 @@ export function ApprovalQueue({ tenantId }: { tenantId: string }) {
   const qc = useQueryClient();
   const expenses = useQuery({ queryKey: ["fin", "expenses", tenantId], queryFn: () => expensesFn({ data: { tenantId } }) });
   const bills = useQuery({ queryKey: ["fin", "bills", tenantId], queryFn: () => billsFn({ data: { tenantId } }) });
-  const pendExp = (expenses.data ?? []).filter((e: { status?: string }) => e.status === "submitted" || e.status === "pending");
-  const pendBills = (bills.data ?? []).filter((b: { status?: string }) => b.status === "submitted" || b.status === "pending");
+  const pendExp = rows(expenses.data).filter((e) => ["submitted", "pending", "pending_approval"].includes(str(e.status)));
+  const pendBills = rows(bills.data).filter((b) => ["submitted", "pending", "pending_approval"].includes(str(b.status)));
   const invalidate = () => {
     qc.invalidateQueries({ queryKey: ["fin", "expenses", tenantId] });
     qc.invalidateQueries({ queryKey: ["fin", "bills", tenantId] });
@@ -179,12 +197,12 @@ export function ApprovalQueue({ tenantId }: { tenantId: string }) {
           <div className="mb-2 text-xs font-medium uppercase text-muted-foreground">Expenses</div>
           {pendExp.length === 0 ? <div className="text-xs italic text-muted-foreground">No pending expenses.</div> : (
             <ul className="space-y-2">
-              {pendExp.slice(0, 10).map((e: { id: string; amount?: number; description?: string | null }) => (
-                <li key={e.id} className="flex items-center justify-between gap-2 rounded border p-2 text-sm">
-                  <span className="truncate">{e.description ?? e.id.slice(0, 8)} — <span className="tabular-nums">{fmtINR(e.amount)}</span></span>
+              {pendExp.slice(0, 10).map((e) => (
+                <li key={str(e.id)} className="flex items-center justify-between gap-2 rounded border p-2 text-sm">
+                  <span className="truncate">{str(e.description) || str(e.id).slice(0, 8)} — <span className="tabular-nums">{fmtINR(e.amount)}</span></span>
                   <Button size="sm" variant="outline"
                     onClick={async () => {
-                      try { await approveExp({ data: { tenantId, expenseId: e.id } }); toast.success("Expense approved"); invalidate(); }
+                      try { await approveExp({ data: { tenantId, expenseId: str(e.id) } }); toast.success("Expense approved"); invalidate(); }
                       catch (err) { toast.error((err as Error).message); }
                     }}>Approve</Button>
                 </li>
@@ -196,12 +214,12 @@ export function ApprovalQueue({ tenantId }: { tenantId: string }) {
           <div className="mb-2 text-xs font-medium uppercase text-muted-foreground">Vendor bills</div>
           {pendBills.length === 0 ? <div className="text-xs italic text-muted-foreground">No pending bills.</div> : (
             <ul className="space-y-2">
-              {pendBills.slice(0, 10).map((b: { id: string; total?: number; vendor_name?: string | null; bill_no?: string | null }) => (
-                <li key={b.id} className="flex items-center justify-between gap-2 rounded border p-2 text-sm">
-                  <span className="truncate">{b.bill_no ?? b.id.slice(0, 8)} — {b.vendor_name ?? ""} — <span className="tabular-nums">{fmtINR(b.total)}</span></span>
+              {pendBills.slice(0, 10).map((b) => (
+                <li key={str(b.id)} className="flex items-center justify-between gap-2 rounded border p-2 text-sm">
+                  <span className="truncate">{str(b.bill_number ?? b.bill_no ?? b.id).slice(0, 20)} — {str(b.vendor_name ?? "")} — <span className="tabular-nums">{fmtINR(b.total_amount ?? b.total)}</span></span>
                   <Button size="sm" variant="outline"
                     onClick={async () => {
-                      try { await approveBill({ data: { tenantId, billId: b.id } }); toast.success("Bill approved"); invalidate(); }
+                      try { await approveBill({ data: { tenantId, billId: str(b.id) } }); toast.success("Bill approved"); invalidate(); }
                       catch (err) { toast.error((err as Error).message); }
                     }}>Approve</Button>
                 </li>
@@ -217,16 +235,16 @@ export function ApprovalQueue({ tenantId }: { tenantId: string }) {
 export function PostingQueue({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listJournalEntries);
   const q = useQuery({ queryKey: ["fin", "journals-draft", tenantId], queryFn: () => fn({ data: { tenantId, limit: 50 } }) });
-  const drafts = (q.data ?? []).filter((r: { status?: string }) => r.status === "draft");
+  const drafts = rows(q.data).filter((r) => str(r.status) === "draft");
   return (
     <Card>
       <CardHeader className="pb-2"><CardTitle className="text-sm">Posting queue</CardTitle></CardHeader>
       <CardContent>
         {drafts.length === 0 ? <div className="text-xs italic text-muted-foreground">No draft journals.</div> : (
           <ul className="space-y-1 text-sm">
-            {drafts.map((j: { id: string; journal_no?: string; memo?: string | null }) => (
-              <li key={j.id} className="flex items-center justify-between rounded border p-2">
-                <span className="truncate">{j.journal_no ?? j.id.slice(0, 8)}</span>
+            {drafts.map((j) => (
+              <li key={str(j.id)} className="flex items-center justify-between rounded border p-2">
+                <span className="truncate">{str(j.entry_number ?? j.journal_no ?? j.id).slice(0, 20)}</span>
                 <Badge variant="secondary">draft</Badge>
               </li>
             ))}
@@ -237,69 +255,16 @@ export function PostingQueue({ tenantId }: { tenantId: string }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Period close
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────── Period close ───────────────────────────
 export function PeriodCloseWorkspace({ tenantId }: { tenantId: string }) {
-  const yearsFn = useServerFn(listFiscalYears);
-  const years = useQuery({ queryKey: ["fin", "fy", tenantId], queryFn: () => yearsFn({ data: { tenantId } }) });
-  const [fyId, setFyId] = useState<string | null>(null);
-  const activeFy = fyId ?? (years.data?.[0]?.id as string | undefined) ?? null;
   return (
     <div className="space-y-4">
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Fiscal years</CardTitle></CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          {(years.data ?? []).map((y: { id: string; name?: string; start_date?: string; end_date?: string; is_active?: boolean }) => (
-            <Button key={y.id} size="sm" variant={activeFy === y.id ? "default" : "outline"} onClick={() => setFyId(y.id)}>
-              {y.name ?? `${y.start_date} → ${y.end_date}`}
-            </Button>
-          ))}
-          {(years.data ?? []).length === 0 && <span className="text-xs italic text-muted-foreground">No fiscal years defined.</span>}
-        </CardContent>
-      </Card>
-      {activeFy && <PeriodsPanel tenantId={tenantId} fiscalYearId={activeFy} />}
+      <_Periods tenantId={tenantId} />
       <div className="grid gap-4 md:grid-cols-2">
         <MonthEndChecklist tenantId={tenantId} />
         <YearEndChecklist tenantId={tenantId} />
       </div>
     </div>
-  );
-}
-
-function PeriodsPanel({ tenantId, fiscalYearId }: { tenantId: string; fiscalYearId: string }) {
-  const fn = useServerFn(listPeriodsByYear);
-  const close = useServerFn(closePeriod);
-  const open = useServerFn(openPeriod);
-  const qc = useQueryClient();
-  const q = useQuery({
-    queryKey: ["fin", "periods", tenantId, fiscalYearId],
-    queryFn: () => fn({ data: { tenantId, fiscalYearId } }),
-  });
-  type Period = { id: string; name?: string; start_date?: string; end_date?: string; status?: string };
-  const cols: DataGridColumn<Period>[] = [
-    { key: "name", header: "Period", cell: (r) => r.name ?? `${r.start_date} → ${r.end_date}` },
-    { key: "status", header: "Status", cell: (r) => <Badge variant={r.status === "closed" ? "destructive" : "secondary"}>{r.status}</Badge> },
-    {
-      key: "actions", header: "", cell: (r) => (
-        <Button size="sm" variant="outline" onClick={async () => {
-          try {
-            if (r.status === "closed") await open({ data: { tenantId, periodId: r.id } });
-            else await close({ data: { tenantId, periodId: r.id } });
-            toast.success("Updated");
-            qc.invalidateQueries({ queryKey: ["fin", "periods", tenantId, fiscalYearId] });
-          } catch (err) { toast.error((err as Error).message); }
-        }}>{r.status === "closed" ? "Reopen" : "Close"}</Button>
-      ),
-    },
-  ];
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Periods</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={q.data ?? []} columns={cols} rowKey={(r) => r.id} />
-      </CardContent>
-    </Card>
   );
 }
 
@@ -364,13 +329,25 @@ export function YearEndChecklist({ tenantId }: { tenantId: string }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Cash / AR / AP / Revenue
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────── Cash / AR / AP / Revenue ───────────────────────────
 export function CashManagementDashboard({ tenantId }: { tenantId: string }) {
   const banksFn = useServerFn(listBankAccounts);
   const banks = useQuery({ queryKey: ["fin", "bank", tenantId], queryFn: () => banksFn({ data: { tenantId } }) });
   const match = useServerFn(autoMatchBankStatement);
+  const cols: DataGridColumn<Row>[] = [
+    { id: "name", header: "Bank", cell: (r) => str(r.bank_name ?? r.name) || "—" },
+    { id: "acc", header: "Account", cell: (r) => str(r.account_number ?? r.account_no) || "—" },
+    { id: "bal", header: "Balance", cell: (r) => fmtINR(r.current_balance) },
+    {
+      id: "act", header: "", cell: (r) => (
+        <Button size="sm" variant="outline"
+          onClick={async () => {
+            try { await match({ data: { tenantId, bankAccountId: str(r.id) } }); toast.success("Auto-match run"); }
+            catch (err) { toast.error((err as Error).message); }
+          }}>Auto-match</Button>
+      ),
+    },
+  ];
   return (
     <div className="space-y-4">
       <KpiGrid>
@@ -380,26 +357,7 @@ export function CashManagementDashboard({ tenantId }: { tenantId: string }) {
       </KpiGrid>
       <Card>
         <CardHeader className="pb-2"><CardTitle className="text-sm">Bank accounts</CardTitle></CardHeader>
-        <CardContent>
-          <DataGrid
-            data={banks.data ?? []}
-            rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "name", header: "Bank", cell: (r: { name?: string }) => r.name ?? "—" },
-              { key: "account_no", header: "Account", cell: (r: { account_no?: string }) => r.account_no ?? "—" },
-              { key: "balance", header: "Balance", cell: (r: { current_balance?: number }) => fmtINR(r.current_balance) },
-              {
-                key: "actions", header: "", cell: (r: { id: string }) => (
-                  <Button size="sm" variant="outline"
-                    onClick={async () => {
-                      try { await match({ data: { tenantId, bankAccountId: r.id } }); toast.success("Auto-match run"); }
-                      catch (err) { toast.error((err as Error).message); }
-                    }}>Auto-match</Button>
-                ),
-              },
-            ]}
-          />
-        </CardContent>
+        <CardContent><DataGrid rows={rows(banks.data)} columns={cols} getRowId={(r) => str(r.id)} isLoading={banks.isLoading} /></CardContent>
       </Card>
     </div>
   );
@@ -408,23 +366,18 @@ export function CashManagementDashboard({ tenantId }: { tenantId: string }) {
 export function AccountsReceivableWorkspace({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listReceipts);
   const q = useQuery({ queryKey: ["fin", "ar", tenantId], queryFn: () => fn({ data: { tenantId } }) });
+  const cols: DataGridColumn<Row>[] = [
+    { id: "date", header: "Date", cell: (r) => str(r.receipt_date ?? r.entry_date) || "—" },
+    { id: "payer", header: "Payer", cell: (r) => str(r.payer_name) || "—" },
+    { id: "amt", header: "Amount", cell: (r) => fmtINR(r.amount) },
+    { id: "st", header: "Status", cell: (r) => <Badge variant="secondary">{str(r.status) || "—"}</Badge> },
+  ];
   return (
     <div className="space-y-4">
       <KpiGrid><OutstandingInvoicesCard tenantId={tenantId} /></KpiGrid>
       <Card>
         <CardHeader className="pb-2"><CardTitle className="text-sm">Receipts</CardTitle></CardHeader>
-        <CardContent>
-          <DataGrid
-            data={q.data ?? []}
-            rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "date", header: "Date", cell: (r: { receipt_date?: string }) => r.receipt_date ?? "—" },
-              { key: "payer", header: "Payer", cell: (r: { payer_name?: string | null }) => r.payer_name ?? "—" },
-              { key: "amount", header: "Amount", cell: (r: { amount?: number }) => fmtINR(r.amount) },
-              { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-            ]}
-          />
-        </CardContent>
+        <CardContent><DataGrid rows={rows(q.data)} columns={cols} getRowId={(r) => str(r.id)} isLoading={q.isLoading} /></CardContent>
       </Card>
     </div>
   );
@@ -433,23 +386,19 @@ export function AccountsReceivableWorkspace({ tenantId }: { tenantId: string }) 
 export function AccountsPayableWorkspace({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listVendorBills);
   const q = useQuery({ queryKey: ["fin", "bills", tenantId], queryFn: () => fn({ data: { tenantId } }) });
+  const cols: DataGridColumn<Row>[] = [
+    { id: "no", header: "Bill", cell: (r) => str(r.bill_number ?? r.bill_no ?? r.id).slice(0, 20) },
+    { id: "vendor", header: "Vendor", cell: (r) => str(r.vendor_name) || "—" },
+    { id: "total", header: "Total", cell: (r) => fmtINR(r.total_amount ?? r.total) },
+    { id: "bal", header: "Balance", cell: (r) => fmtINR(r.balance_amount) },
+    { id: "st", header: "Status", cell: (r) => <Badge variant="secondary">{str(r.status) || "—"}</Badge> },
+  ];
   return (
     <div className="space-y-4">
       <KpiGrid><OutstandingVendorBillsCard tenantId={tenantId} /></KpiGrid>
       <Card>
         <CardHeader className="pb-2"><CardTitle className="text-sm">Vendor bills</CardTitle></CardHeader>
-        <CardContent>
-          <DataGrid
-            data={q.data ?? []}
-            rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "no", header: "Bill", cell: (r: { bill_no?: string | null; id: string }) => r.bill_no ?? r.id.slice(0, 8) },
-              { key: "vendor", header: "Vendor", cell: (r: { vendor_name?: string | null }) => r.vendor_name ?? "—" },
-              { key: "total", header: "Total", cell: (r: { total?: number }) => fmtINR(r.total) },
-              { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-            ]}
-          />
-        </CardContent>
+        <CardContent><DataGrid rows={rows(q.data)} columns={cols} getRowId={(r) => str(r.id)} isLoading={q.isLoading} /></CardContent>
       </Card>
     </div>
   );
@@ -460,7 +409,7 @@ export function RevenueRecognitionWorkspace({ tenantId }: { tenantId: string }) 
   const [ref, setRef] = useState("");
   const [source, setSource] = useState("clinical");
   const mut = useMutation({
-    mutationFn: () => post({ data: { tenantId, sourceType: source, referenceId: ref } }),
+    mutationFn: () => post({ data: { tenantId, sourceType: source, referenceId: ref } as never }),
     onSuccess: () => toast.success("Revenue posted"),
     onError: (e: Error) => toast.error(e.message),
   });
@@ -488,181 +437,35 @@ export function RevenueRecognitionWorkspace({ tenantId }: { tenantId: string }) 
   );
 }
 
-// ─────────────────────────────────────────────────────────────
-// Expense / Asset / Budget / Forecast / Royalty / Tax
-// ─────────────────────────────────────────────────────────────
-export function ExpenseApprovalWorkspace({ tenantId }: { tenantId: string }) {
-  return <ApprovalQueue tenantId={tenantId} />;
-}
-
-export function AssetManagementWorkspace({ tenantId }: { tenantId: string }) {
-  const fn = useServerFn(listAssets);
-  const q = useQuery({ queryKey: ["fin", "assets", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Fixed assets</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid
-          data={q.data ?? []}
-          rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "name", header: "Asset", cell: (r: { name?: string; id: string }) => r.name ?? r.id.slice(0, 8) },
-            { key: "cost", header: "Cost", cell: (r: { cost?: number }) => fmtINR(r.cost) },
-            { key: "book", header: "Book value", cell: (r: { book_value?: number }) => fmtINR(r.book_value) },
-            { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-          ]}
-        />
-      </CardContent>
-    </Card>
-  );
-}
-
-export function DepreciationWorkspace({ tenantId }: { tenantId: string }) {
-  const dep = useServerFn(runDepreciationBatch);
-  const [period, setPeriod] = useState("");
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Depreciation batch</CardTitle></CardHeader>
-      <CardContent className="space-y-3">
-        <div className="space-y-1">
-          <Label className="text-xs">Period ID</Label>
-          <Input value={period} onChange={(e) => setPeriod(e.target.value)} placeholder="fiscal_period_id" />
-        </div>
-        <Button disabled={!period} onClick={async () => {
-          try { await dep({ data: { tenantId, periodId: period } }); toast.success("Depreciation posted"); }
-          catch (err) { toast.error((err as Error).message); }
-        }}>Run</Button>
-      </CardContent>
-    </Card>
-  );
-}
-
-export function BudgetWorkspace({ tenantId }: { tenantId: string }) {
-  const fn = useServerFn(listBudgets);
-  const q = useQuery({ queryKey: ["fin", "budgets", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Budgets</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={q.data ?? []} rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "name", header: "Name", cell: (r: { name?: string }) => r.name ?? "—" },
-            { key: "period", header: "Period", cell: (r: { period?: string }) => r.period ?? "—" },
-            { key: "amount", header: "Amount", cell: (r: { total_amount?: number }) => fmtINR(r.total_amount) },
-          ]} />
-      </CardContent>
-    </Card>
-  );
-}
-
-export function ForecastWorkspace({ tenantId }: { tenantId: string }) {
-  const fn = useServerFn(listForecasts);
-  const q = useQuery({ queryKey: ["fin", "forecasts", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Forecasts</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={q.data ?? []} rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "name", header: "Name", cell: (r: { name?: string }) => r.name ?? "—" },
-            { key: "horizon", header: "Horizon", cell: (r: { horizon?: string }) => r.horizon ?? "—" },
-          ]} />
-      </CardContent>
-    </Card>
-  );
-}
-
-export function RoyaltyWorkspace({ tenantId }: { tenantId: string }) {
-  const rulesFn = useServerFn(listRoyaltyRules);
-  const settleFn = useServerFn(listRoyaltySettlements);
-  const rules = useQuery({ queryKey: ["fin", "royalty-rules", tenantId], queryFn: () => rulesFn({ data: { tenantId } }) });
-  const settle = useQuery({ queryKey: ["fin", "royalty-settle", tenantId], queryFn: () => settleFn({ data: { tenantId } }) });
-  return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Royalty rules</CardTitle></CardHeader>
-        <CardContent>
-          <DataGrid data={rules.data ?? []} rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "name", header: "Rule", cell: (r: { name?: string }) => r.name ?? "—" },
-              { key: "rate", header: "Rate", cell: (r: { rate?: number }) => r.rate != null ? `${r.rate}%` : "—" },
-            ]} />
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Settlements</CardTitle></CardHeader>
-        <CardContent>
-          <DataGrid data={settle.data ?? []} rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "period", header: "Period", cell: (r: { period?: string }) => r.period ?? "—" },
-              { key: "amount", header: "Amount", cell: (r: { amount?: number }) => fmtINR(r.amount) },
-              { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-            ]} />
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-export function TaxWorkspace({ tenantId }: { tenantId: string }) {
-  const fn = useServerFn(listTaxes);
-  const q = useQuery({ queryKey: ["fin", "tax", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const rows = q.data ?? [];
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">Tax ledger</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={rows} rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "type", header: "Type", cell: (r: { tax_type?: string }) => r.tax_type ?? "—" },
-            { key: "period", header: "Period", cell: (r: { period?: string }) => r.period ?? "—" },
-            { key: "amount", header: "Amount", cell: (r: { amount?: number }) => fmtINR(r.amount) },
-            { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-          ]} />
-      </CardContent>
-    </Card>
-  );
-}
-
+// ─────────────────────────── GST / TDS ───────────────────────────
 export function GSTWorkspace({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listTaxes);
   const q = useQuery({ queryKey: ["fin", "tax", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const rows = (q.data ?? []).filter((r: { tax_type?: string }) => (r.tax_type ?? "").toLowerCase().includes("gst"));
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">GST</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={rows} rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "type", header: "Type", cell: (r: { tax_type?: string }) => r.tax_type ?? "—" },
-            { key: "amount", header: "Amount", cell: (r: { amount?: number }) => fmtINR(r.amount) },
-          ]} />
-      </CardContent>
-    </Card>
-  );
+  const list = rows(q.data).filter((r) => str(r.tax_type ?? r.type ?? "").toLowerCase().includes("gst"));
+  const cols: DataGridColumn<Row>[] = [
+    { id: "d", header: "Date", cell: (r) => str(r.entry_date) || "—" },
+    { id: "t", header: "Type", cell: (r) => str(r.tax_type ?? r.type) || "—" },
+    { id: "cgst", header: "CGST", cell: (r) => fmtINR(r.cgst) },
+    { id: "sgst", header: "SGST", cell: (r) => fmtINR(r.sgst) },
+    { id: "igst", header: "IGST", cell: (r) => fmtINR(r.igst) },
+    { id: "cess", header: "Cess", cell: (r) => fmtINR(r.cess) },
+  ];
+  return <Card><CardHeader className="pb-2"><CardTitle className="text-sm">GST ledger</CardTitle></CardHeader><CardContent><DataGrid rows={list} columns={cols} getRowId={(r) => str(r.id)} isLoading={q.isLoading} /></CardContent></Card>;
 }
 
 export function TDSWorkspace({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listTaxes);
   const q = useQuery({ queryKey: ["fin", "tax", tenantId], queryFn: () => fn({ data: { tenantId } }) });
-  const rows = (q.data ?? []).filter((r: { tax_type?: string }) => (r.tax_type ?? "").toLowerCase().includes("tds"));
-  return (
-    <Card>
-      <CardHeader className="pb-2"><CardTitle className="text-sm">TDS</CardTitle></CardHeader>
-      <CardContent>
-        <DataGrid data={rows} rowKey={(r: { id: string }) => r.id}
-          columns={[
-            { key: "type", header: "Type", cell: (r: { tax_type?: string }) => r.tax_type ?? "—" },
-            { key: "amount", header: "Amount", cell: (r: { amount?: number }) => fmtINR(r.amount) },
-          ]} />
-      </CardContent>
-    </Card>
-  );
+  const list = rows(q.data).filter((r) => str(r.tax_type ?? r.type ?? "").toLowerCase().includes("tds"));
+  const cols: DataGridColumn<Row>[] = [
+    { id: "d", header: "Date", cell: (r) => str(r.entry_date) || "—" },
+    { id: "t", header: "Type", cell: (r) => str(r.tax_type ?? r.type) || "—" },
+    { id: "amt", header: "Amount", cell: (r) => fmtINR(r.amount) },
+  ];
+  return <Card><CardHeader className="pb-2"><CardTitle className="text-sm">TDS ledger</CardTitle></CardHeader><CardContent><DataGrid rows={list} columns={cols} getRowId={(r) => str(r.id)} isLoading={q.isLoading} /></CardContent></Card>;
 }
 
-// ─────────────────────────────────────────────────────────────
-// Compliance / Audit / Treasury / Intercompany / Reports
-// ─────────────────────────────────────────────────────────────
+// ─────────────────────────── Compliance / Audit / Treasury / IC ───────────────────────────
 export function ComplianceWorkspace({ tenantId }: { tenantId: string }) {
   return (
     <div className="space-y-4">
@@ -689,11 +492,11 @@ export function AuditWorkspace({ tenantId }: { tenantId: string }) {
       <CardHeader className="pb-2"><CardTitle className="text-sm">Audit trail (journals)</CardTitle></CardHeader>
       <CardContent>
         <TimelinePanel
-          items={(q.data ?? []).map((j: { id: string; posted_at?: string | null; created_at?: string; journal_no?: string; status?: string; memo?: string | null }) => ({
-            ts: j.posted_at ?? j.created_at ?? new Date().toISOString(),
-            event_type: j.status ?? "journal",
-            title: `Journal ${j.journal_no ?? j.id.slice(0, 8)}`,
-            body: j.memo ?? null,
+          items={rows(q.data).map((j) => ({
+            ts: str(j.posted_at ?? j.entry_date ?? j.created_at) || new Date().toISOString(),
+            event_type: str(j.status) || "journal",
+            title: `Journal ${str(j.entry_number ?? j.journal_no ?? j.id).slice(0, 20)}`,
+            body: str(j.description ?? j.memo) || null,
           }))}
         />
       </CardContent>
@@ -718,34 +521,32 @@ export function TreasuryWorkspace({ tenantId }: { tenantId: string }) {
 export function IntercompanyWorkspace({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listJournalEntries);
   const q = useQuery({ queryKey: ["fin", "ic", tenantId], queryFn: () => fn({ data: { tenantId, limit: 100 } }) });
-  const rows = (q.data ?? []).filter((r: { memo?: string | null; reference_type?: string | null }) =>
-    (r.reference_type ?? "").toLowerCase().includes("intercompany") ||
-    (r.memo ?? "").toLowerCase().includes("intercompany"));
+  const list = rows(q.data).filter((r) =>
+    str(r.reference_type).toLowerCase().includes("intercompany") ||
+    str(r.description ?? r.memo).toLowerCase().includes("intercompany"));
+  const cols: DataGridColumn<Row>[] = [
+    { id: "no", header: "Journal", cell: (r) => str(r.entry_number ?? r.journal_no ?? r.id).slice(0, 20) },
+    { id: "memo", header: "Memo", cell: (r) => str(r.description ?? r.memo) || "—" },
+    { id: "st", header: "Status", cell: (r) => <Badge variant="secondary">{str(r.status) || "—"}</Badge> },
+  ];
   return (
     <Card>
       <CardHeader className="pb-2"><CardTitle className="text-sm">Intercompany journals</CardTitle></CardHeader>
       <CardContent>
-        {rows.length === 0 ? <div className="text-xs italic text-muted-foreground">No intercompany entries.</div> : (
-          <DataGrid data={rows} rowKey={(r: { id: string }) => r.id}
-            columns={[
-              { key: "no", header: "Journal", cell: (r: { journal_no?: string; id: string }) => r.journal_no ?? r.id.slice(0, 8) },
-              { key: "memo", header: "Memo", cell: (r: { memo?: string | null }) => r.memo ?? "—" },
-              { key: "status", header: "Status", cell: (r: { status?: string }) => <Badge variant="secondary">{r.status ?? "—"}</Badge> },
-            ]} />
-        )}
+        {list.length === 0 ? <div className="text-xs italic text-muted-foreground">No intercompany entries.</div>
+          : <DataGrid rows={list} columns={cols} getRowId={(r) => str(r.id)} isLoading={q.isLoading} />}
       </CardContent>
     </Card>
   );
 }
 
-// Report viewers (read-only projections)
+// ─────────────────────────── Reports ───────────────────────────
 function useDateWindow() {
   const now = new Date();
   const [from, setFrom] = useState(new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10));
   const [to, setTo] = useState(now.toISOString().slice(0, 10));
   return { from, to, setFrom, setTo };
 }
-
 function DateBar({ w }: { w: ReturnType<typeof useDateWindow> }) {
   return (
     <div className="flex flex-wrap items-end gap-2 rounded border bg-card p-2">
@@ -754,7 +555,6 @@ function DateBar({ w }: { w: ReturnType<typeof useDateWindow> }) {
     </div>
   );
 }
-
 function ReportBlock({ title, data }: { title: string; data: unknown }) {
   return (
     <Card>
@@ -766,29 +566,17 @@ function ReportBlock({ title, data }: { title: string; data: unknown }) {
   );
 }
 
-export function TrialBalanceViewer({ tenantId }: { tenantId: string }) {
-  const w = useDateWindow(); const fn = useServerFn(trialBalance);
-  const q = useQuery({ queryKey: ["fin", "tb", tenantId, w.from, w.to], queryFn: () => fn({ data: { tenantId, from: w.from, to: w.to } }) });
-  return <div className="space-y-2"><DateBar w={w} /><ReportBlock title="Trial balance" data={q.data} /></div>;
-}
-export function ProfitLossViewer({ tenantId }: { tenantId: string }) {
-  const w = useDateWindow(); const fn = useServerFn(profitLoss);
-  const q = useQuery({ queryKey: ["fin", "pl", tenantId, w.from, w.to], queryFn: () => fn({ data: { tenantId, from: w.from, to: w.to } }) });
-  return <div className="space-y-2"><DateBar w={w} /><ReportBlock title="Profit &amp; loss" data={q.data} /></div>;
-}
-export function BalanceSheetViewer({ tenantId }: { tenantId: string }) {
-  const w = useDateWindow(); const fn = useServerFn(balanceSheet);
-  const q = useQuery({ queryKey: ["fin", "bs", tenantId, w.to], queryFn: () => fn({ data: { tenantId, asOf: w.to } }) });
-  return <div className="space-y-2"><DateBar w={w} /><ReportBlock title="Balance sheet" data={q.data} /></div>;
-}
-export function CashFlowViewer({ tenantId }: { tenantId: string }) {
-  const w = useDateWindow(); const fn = useServerFn(cashFlow);
-  const q = useQuery({ queryKey: ["fin", "cf", tenantId, w.from, w.to], queryFn: () => fn({ data: { tenantId, from: w.from, to: w.to } }) });
-  return <div className="space-y-2"><DateBar w={w} /><ReportBlock title="Cash flow" data={q.data} /></div>;
-}
-
 export function FinancialReportWorkspace({ tenantId }: { tenantId: string }) {
+  const w = useDateWindow();
+  const tb = useServerFn(trialBalance);
+  const pl = useServerFn(profitLoss);
+  const bs = useServerFn(balanceSheet);
+  const cf = useServerFn(cashFlow);
   const [tab, setTab] = useState<"tb" | "pl" | "bs" | "cf">("tb");
+  const qTb = useQuery({ queryKey: ["fin", "tb", tenantId, w.from, w.to], queryFn: () => tb({ data: { tenantId, from: w.from, to: w.to } as never }), enabled: tab === "tb" });
+  const qPl = useQuery({ queryKey: ["fin", "pl", tenantId, w.from, w.to], queryFn: () => pl({ data: { tenantId, from: w.from, to: w.to } as never }), enabled: tab === "pl" });
+  const qBs = useQuery({ queryKey: ["fin", "bs", tenantId, w.to], queryFn: () => bs({ data: { tenantId, asOf: w.to } as never }), enabled: tab === "bs" });
+  const qCf = useQuery({ queryKey: ["fin", "cf", tenantId, w.from, w.to], queryFn: () => cf({ data: { tenantId, from: w.from, to: w.to } as never }), enabled: tab === "cf" });
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-2">
@@ -798,29 +586,37 @@ export function FinancialReportWorkspace({ tenantId }: { tenantId: string }) {
           <Button key={k} size="sm" variant={tab === k ? "default" : "outline"} onClick={() => setTab(k)}>{label}</Button>
         ))}
       </div>
-      {tab === "tb" && <TrialBalanceViewer tenantId={tenantId} />}
-      {tab === "pl" && <ProfitLossViewer tenantId={tenantId} />}
-      {tab === "bs" && <BalanceSheetViewer tenantId={tenantId} />}
-      {tab === "cf" && <CashFlowViewer tenantId={tenantId} />}
+      <DateBar w={w} />
+      {tab === "tb" && <ReportBlock title="Trial balance" data={qTb.data} />}
+      {tab === "pl" && <ReportBlock title="Profit & loss" data={qPl.data} />}
+      {tab === "bs" && <ReportBlock title="Balance sheet" data={qBs.data} />}
+      {tab === "cf" && <ReportBlock title="Cash flow" data={qCf.data} />}
     </div>
   );
 }
 
-// Journal viewer (fallback wrapping workspaces JournalGrid via inline query)
 export function JournalViewer({ tenantId }: { tenantId: string }) {
   const fn = useServerFn(listJournalEntries);
   const q = useQuery({ queryKey: ["fin", "journals-view", tenantId], queryFn: () => fn({ data: { tenantId, limit: 200 } }) });
-  const items = useMemo(() => (q.data ?? []).map((j: { id: string; journal_no?: string; status?: string; memo?: string | null; posted_at?: string | null; created_at?: string }) => ({
-    ts: j.posted_at ?? j.created_at ?? new Date().toISOString(),
-    event_type: j.status ?? "journal",
-    title: `Journal ${j.journal_no ?? j.id.slice(0, 8)}`,
-    body: j.memo ?? null,
-  })), [q.data]);
-  return <Card><CardHeader className="pb-2"><CardTitle className="text-sm">Journals</CardTitle></CardHeader><CardContent><TimelinePanel items={items} /></CardContent></Card>;
+  return (
+    <Card>
+      <CardHeader className="pb-2"><CardTitle className="text-sm">Journals</CardTitle></CardHeader>
+      <CardContent>
+        <TimelinePanel
+          items={rows(q.data).map((j) => ({
+            ts: str(j.posted_at ?? j.entry_date ?? j.created_at) || new Date().toISOString(),
+            event_type: str(j.status) || "journal",
+            title: `Journal ${str(j.entry_number ?? j.journal_no ?? j.id).slice(0, 20)}`,
+            body: str(j.description ?? j.memo) || null,
+          }))}
+        />
+      </CardContent>
+    </Card>
+  );
 }
 
-// Ribbon / passthrough helpers
-export function FinanceStatusRibbon({ items }: { items: Array<{ label: string; value: ReactNode; tone?: "info" | "success" | "warning" | "danger" }> }) {
+// ─────────────────────────── Ribbon / misc ───────────────────────────
+export function FinanceStatusRibbon({ items }: { items: Array<{ label: string; value: ReactNode }> }) {
   return (
     <div className="flex flex-wrap gap-2 rounded-md border bg-card p-2">
       {items.map((i, idx) => (
@@ -832,12 +628,7 @@ export function FinanceStatusRibbon({ items }: { items: Array<{ label: string; v
     </div>
   );
 }
-
 export const FinancialTimeline = TimelinePanel;
-export function FinancePeopleHint({ tenantId }: { tenantId: string }) {
-  void tenantId;
-  return <div className="inline-flex items-center gap-1 text-xs text-muted-foreground"><Users className="h-3 w-3" /> reuses platform approvals</div>;
-}
 export const FinanceCurrencyIcon = IndianRupee;
 export const FinanceReceiptIcon = Receipt;
 export const FinanceAssetIcon = Landmark;
