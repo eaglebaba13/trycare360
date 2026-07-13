@@ -187,6 +187,22 @@ export class VendorEngine {
       after: updatedBill as never,
       metadata: { paymentId: payment.id },
     });
+    await new AutomationEngine(this.sb).postPayment(
+      {
+        tenantId: input.tenantId,
+        orgUnitId: bill.org_unit_id,
+        branchId: bill.branch_id,
+        entryDate: input.paymentDate,
+        amount: Number(input.amount),
+        currency: bill.currency,
+        method: input.method,
+        paymentId: payment.id,
+        partnerType: "vendor",
+        partnerId: bill.vendor_id,
+        referenceType: "vendor_bill_payment",
+      },
+      actorId,
+    );
     return { bill: updatedBill, payment };
   }
 }
