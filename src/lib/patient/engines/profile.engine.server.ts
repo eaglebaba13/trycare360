@@ -68,7 +68,7 @@ export class PatientProfileEngine {
   async getPreferences(userId: string) {
     return new PatientPreferencesRepository(this.sb).list(userId);
   }
-  async upsertPreference(userId: string, input: { category: string; key: string; value: unknown }) {
+  async upsertPreference(userId: string, input: { category: string; key: string; value?: unknown }) {
     const row = await new PatientPreferencesRepository(this.sb).upsert({
       patient_user_id: userId,
       category: input.category,
