@@ -5,6 +5,14 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {
+  SUPER_ADMIN_ROLE_CODE,
+  canRevealSuperAdminIdentity,
+  sanitizeActorPayload,
+  sanitizeRoleMaster,
+  sanitizeUserList,
+  sanitizeUserRoleRows,
+} from "@/lib/security/superadmin-stealth.server";
 
 // ---------- ORG TREE ----------
 export type OrgUnitRow = {
