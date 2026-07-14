@@ -29,6 +29,7 @@ import { Route as AuthenticatedRevenueRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPharmacyRouteImport } from './routes/_authenticated/pharmacy'
 import { Route as AuthenticatedPeopleRouteImport } from './routes/_authenticated/people'
 import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
+import { Route as AuthenticatedPatientRouteImport } from './routes/_authenticated/patient'
 import { Route as AuthenticatedOrganizationRouteImport } from './routes/_authenticated/organization'
 import { Route as AuthenticatedLeadsRouteImport } from './routes/_authenticated/leads'
 import { Route as AuthenticatedLaboratoryRouteImport } from './routes/_authenticated/laboratory'
@@ -52,6 +53,7 @@ import { Route as AuthenticatedRevenueIndexRouteImport } from './routes/_authent
 import { Route as AuthenticatedPharmacyIndexRouteImport } from './routes/_authenticated/pharmacy.index'
 import { Route as AuthenticatedPeopleIndexRouteImport } from './routes/_authenticated/people.index'
 import { Route as AuthenticatedPatientsIndexRouteImport } from './routes/_authenticated/patients.index'
+import { Route as AuthenticatedPatientIndexRouteImport } from './routes/_authenticated/patient.index'
 import { Route as AuthenticatedOrganizationIndexRouteImport } from './routes/_authenticated/organization.index'
 import { Route as AuthenticatedLeadsIndexRouteImport } from './routes/_authenticated/leads.index'
 import { Route as AuthenticatedLaboratoryIndexRouteImport } from './routes/_authenticated/laboratory.index'
@@ -124,6 +126,29 @@ import { Route as AuthenticatedPeopleDuplicatesRouteImport } from './routes/_aut
 import { Route as AuthenticatedPeopleAuditRouteImport } from './routes/_authenticated/people.audit'
 import { Route as AuthenticatedPeoplePersonIdRouteImport } from './routes/_authenticated/people.$personId'
 import { Route as AuthenticatedPatientsPersonIdRouteImport } from './routes/_authenticated/patients.$personId'
+import { Route as AuthenticatedPatientWalletRouteImport } from './routes/_authenticated/patient.wallet'
+import { Route as AuthenticatedPatientTeleconsultRouteImport } from './routes/_authenticated/patient.teleconsult'
+import { Route as AuthenticatedPatientSupportRouteImport } from './routes/_authenticated/patient.support'
+import { Route as AuthenticatedPatientSettingsRouteImport } from './routes/_authenticated/patient.settings'
+import { Route as AuthenticatedPatientRewardsRouteImport } from './routes/_authenticated/patient.rewards'
+import { Route as AuthenticatedPatientRecordsRouteImport } from './routes/_authenticated/patient.records'
+import { Route as AuthenticatedPatientRadiologyRouteImport } from './routes/_authenticated/patient.radiology'
+import { Route as AuthenticatedPatientProfileRouteImport } from './routes/_authenticated/patient.profile'
+import { Route as AuthenticatedPatientPrescriptionsRouteImport } from './routes/_authenticated/patient.prescriptions'
+import { Route as AuthenticatedPatientPaymentsRouteImport } from './routes/_authenticated/patient.payments'
+import { Route as AuthenticatedPatientPathologyRouteImport } from './routes/_authenticated/patient.pathology'
+import { Route as AuthenticatedPatientPassportRouteImport } from './routes/_authenticated/patient.passport'
+import { Route as AuthenticatedPatientNotificationsRouteImport } from './routes/_authenticated/patient.notifications'
+import { Route as AuthenticatedPatientMembershipRouteImport } from './routes/_authenticated/patient.membership'
+import { Route as AuthenticatedPatientLoyaltyRouteImport } from './routes/_authenticated/patient.loyalty'
+import { Route as AuthenticatedPatientLabReportsRouteImport } from './routes/_authenticated/patient.lab-reports'
+import { Route as AuthenticatedPatientHealthRouteImport } from './routes/_authenticated/patient.health'
+import { Route as AuthenticatedPatientFeedbackRouteImport } from './routes/_authenticated/patient.feedback'
+import { Route as AuthenticatedPatientFamilyRouteImport } from './routes/_authenticated/patient.family'
+import { Route as AuthenticatedPatientDocumentsRouteImport } from './routes/_authenticated/patient.documents'
+import { Route as AuthenticatedPatientDevicesRouteImport } from './routes/_authenticated/patient.devices'
+import { Route as AuthenticatedPatientConsentsRouteImport } from './routes/_authenticated/patient.consents'
+import { Route as AuthenticatedPatientAppointmentsRouteImport } from './routes/_authenticated/patient.appointments'
 import { Route as AuthenticatedOrganizationUsersRouteImport } from './routes/_authenticated/organization.users'
 import { Route as AuthenticatedOrganizationTreeRouteImport } from './routes/_authenticated/organization.tree'
 import { Route as AuthenticatedOrganizationRolesRouteImport } from './routes/_authenticated/organization.roles'
@@ -444,6 +469,11 @@ const AuthenticatedPatientsRoute = AuthenticatedPatientsRouteImport.update({
   path: '/patients',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPatientRoute = AuthenticatedPatientRouteImport.update({
+  id: '/patient',
+  path: '/patient',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedOrganizationRoute =
   AuthenticatedOrganizationRouteImport.update({
     id: '/organization',
@@ -567,6 +597,12 @@ const AuthenticatedPatientsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedPatientsRoute,
+  } as any)
+const AuthenticatedPatientIndexRoute =
+  AuthenticatedPatientIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedPatientRoute,
   } as any)
 const AuthenticatedOrganizationIndexRoute =
   AuthenticatedOrganizationIndexRouteImport.update({
@@ -988,6 +1024,144 @@ const AuthenticatedPatientsPersonIdRoute =
     id: '/$personId',
     path: '/$personId',
     getParentRoute: () => AuthenticatedPatientsRoute,
+  } as any)
+const AuthenticatedPatientWalletRoute =
+  AuthenticatedPatientWalletRouteImport.update({
+    id: '/wallet',
+    path: '/wallet',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientTeleconsultRoute =
+  AuthenticatedPatientTeleconsultRouteImport.update({
+    id: '/teleconsult',
+    path: '/teleconsult',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientSupportRoute =
+  AuthenticatedPatientSupportRouteImport.update({
+    id: '/support',
+    path: '/support',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientSettingsRoute =
+  AuthenticatedPatientSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientRewardsRoute =
+  AuthenticatedPatientRewardsRouteImport.update({
+    id: '/rewards',
+    path: '/rewards',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientRecordsRoute =
+  AuthenticatedPatientRecordsRouteImport.update({
+    id: '/records',
+    path: '/records',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientRadiologyRoute =
+  AuthenticatedPatientRadiologyRouteImport.update({
+    id: '/radiology',
+    path: '/radiology',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientProfileRoute =
+  AuthenticatedPatientProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientPrescriptionsRoute =
+  AuthenticatedPatientPrescriptionsRouteImport.update({
+    id: '/prescriptions',
+    path: '/prescriptions',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientPaymentsRoute =
+  AuthenticatedPatientPaymentsRouteImport.update({
+    id: '/payments',
+    path: '/payments',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientPathologyRoute =
+  AuthenticatedPatientPathologyRouteImport.update({
+    id: '/pathology',
+    path: '/pathology',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientPassportRoute =
+  AuthenticatedPatientPassportRouteImport.update({
+    id: '/passport',
+    path: '/passport',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientNotificationsRoute =
+  AuthenticatedPatientNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientMembershipRoute =
+  AuthenticatedPatientMembershipRouteImport.update({
+    id: '/membership',
+    path: '/membership',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientLoyaltyRoute =
+  AuthenticatedPatientLoyaltyRouteImport.update({
+    id: '/loyalty',
+    path: '/loyalty',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientLabReportsRoute =
+  AuthenticatedPatientLabReportsRouteImport.update({
+    id: '/lab-reports',
+    path: '/lab-reports',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientHealthRoute =
+  AuthenticatedPatientHealthRouteImport.update({
+    id: '/health',
+    path: '/health',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientFeedbackRoute =
+  AuthenticatedPatientFeedbackRouteImport.update({
+    id: '/feedback',
+    path: '/feedback',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientFamilyRoute =
+  AuthenticatedPatientFamilyRouteImport.update({
+    id: '/family',
+    path: '/family',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientDocumentsRoute =
+  AuthenticatedPatientDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientDevicesRoute =
+  AuthenticatedPatientDevicesRouteImport.update({
+    id: '/devices',
+    path: '/devices',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientConsentsRoute =
+  AuthenticatedPatientConsentsRouteImport.update({
+    id: '/consents',
+    path: '/consents',
+    getParentRoute: () => AuthenticatedPatientRoute,
+  } as any)
+const AuthenticatedPatientAppointmentsRoute =
+  AuthenticatedPatientAppointmentsRouteImport.update({
+    id: '/appointments',
+    path: '/appointments',
+    getParentRoute: () => AuthenticatedPatientRoute,
   } as any)
 const AuthenticatedOrganizationUsersRoute =
   AuthenticatedOrganizationUsersRouteImport.update({
@@ -2315,6 +2489,7 @@ export interface FileRoutesByFullPath {
   '/laboratory': typeof AuthenticatedLaboratoryRouteWithChildren
   '/leads': typeof AuthenticatedLeadsRouteWithChildren
   '/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/patient': typeof AuthenticatedPatientRouteWithChildren
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/people': typeof AuthenticatedPeopleRouteWithChildren
   '/pharmacy': typeof AuthenticatedPharmacyRouteWithChildren
@@ -2453,6 +2628,29 @@ export interface FileRoutesByFullPath {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/patient/appointments': typeof AuthenticatedPatientAppointmentsRoute
+  '/patient/consents': typeof AuthenticatedPatientConsentsRoute
+  '/patient/devices': typeof AuthenticatedPatientDevicesRoute
+  '/patient/documents': typeof AuthenticatedPatientDocumentsRoute
+  '/patient/family': typeof AuthenticatedPatientFamilyRoute
+  '/patient/feedback': typeof AuthenticatedPatientFeedbackRoute
+  '/patient/health': typeof AuthenticatedPatientHealthRoute
+  '/patient/lab-reports': typeof AuthenticatedPatientLabReportsRoute
+  '/patient/loyalty': typeof AuthenticatedPatientLoyaltyRoute
+  '/patient/membership': typeof AuthenticatedPatientMembershipRoute
+  '/patient/notifications': typeof AuthenticatedPatientNotificationsRoute
+  '/patient/passport': typeof AuthenticatedPatientPassportRoute
+  '/patient/pathology': typeof AuthenticatedPatientPathologyRoute
+  '/patient/payments': typeof AuthenticatedPatientPaymentsRoute
+  '/patient/prescriptions': typeof AuthenticatedPatientPrescriptionsRoute
+  '/patient/profile': typeof AuthenticatedPatientProfileRoute
+  '/patient/radiology': typeof AuthenticatedPatientRadiologyRoute
+  '/patient/records': typeof AuthenticatedPatientRecordsRoute
+  '/patient/rewards': typeof AuthenticatedPatientRewardsRoute
+  '/patient/settings': typeof AuthenticatedPatientSettingsRoute
+  '/patient/support': typeof AuthenticatedPatientSupportRoute
+  '/patient/teleconsult': typeof AuthenticatedPatientTeleconsultRoute
+  '/patient/wallet': typeof AuthenticatedPatientWalletRoute
   '/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/people/audit': typeof AuthenticatedPeopleAuditRoute
@@ -2525,6 +2723,7 @@ export interface FileRoutesByFullPath {
   '/laboratory/': typeof AuthenticatedLaboratoryIndexRoute
   '/leads/': typeof AuthenticatedLeadsIndexRoute
   '/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/patient/': typeof AuthenticatedPatientIndexRoute
   '/patients/': typeof AuthenticatedPatientsIndexRoute
   '/people/': typeof AuthenticatedPeopleIndexRoute
   '/pharmacy/': typeof AuthenticatedPharmacyIndexRoute
@@ -2768,6 +2967,29 @@ export interface FileRoutesByTo {
   '/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/patient/appointments': typeof AuthenticatedPatientAppointmentsRoute
+  '/patient/consents': typeof AuthenticatedPatientConsentsRoute
+  '/patient/devices': typeof AuthenticatedPatientDevicesRoute
+  '/patient/documents': typeof AuthenticatedPatientDocumentsRoute
+  '/patient/family': typeof AuthenticatedPatientFamilyRoute
+  '/patient/feedback': typeof AuthenticatedPatientFeedbackRoute
+  '/patient/health': typeof AuthenticatedPatientHealthRoute
+  '/patient/lab-reports': typeof AuthenticatedPatientLabReportsRoute
+  '/patient/loyalty': typeof AuthenticatedPatientLoyaltyRoute
+  '/patient/membership': typeof AuthenticatedPatientMembershipRoute
+  '/patient/notifications': typeof AuthenticatedPatientNotificationsRoute
+  '/patient/passport': typeof AuthenticatedPatientPassportRoute
+  '/patient/pathology': typeof AuthenticatedPatientPathologyRoute
+  '/patient/payments': typeof AuthenticatedPatientPaymentsRoute
+  '/patient/prescriptions': typeof AuthenticatedPatientPrescriptionsRoute
+  '/patient/profile': typeof AuthenticatedPatientProfileRoute
+  '/patient/radiology': typeof AuthenticatedPatientRadiologyRoute
+  '/patient/records': typeof AuthenticatedPatientRecordsRoute
+  '/patient/rewards': typeof AuthenticatedPatientRewardsRoute
+  '/patient/settings': typeof AuthenticatedPatientSettingsRoute
+  '/patient/support': typeof AuthenticatedPatientSupportRoute
+  '/patient/teleconsult': typeof AuthenticatedPatientTeleconsultRoute
+  '/patient/wallet': typeof AuthenticatedPatientWalletRoute
   '/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/people/audit': typeof AuthenticatedPeopleAuditRoute
@@ -2836,6 +3058,7 @@ export interface FileRoutesByTo {
   '/laboratory': typeof AuthenticatedLaboratoryIndexRoute
   '/leads': typeof AuthenticatedLeadsIndexRoute
   '/organization': typeof AuthenticatedOrganizationIndexRoute
+  '/patient': typeof AuthenticatedPatientIndexRoute
   '/patients': typeof AuthenticatedPatientsIndexRoute
   '/people': typeof AuthenticatedPeopleIndexRoute
   '/pharmacy': typeof AuthenticatedPharmacyIndexRoute
@@ -2964,6 +3187,7 @@ export interface FileRoutesById {
   '/_authenticated/laboratory': typeof AuthenticatedLaboratoryRouteWithChildren
   '/_authenticated/leads': typeof AuthenticatedLeadsRouteWithChildren
   '/_authenticated/organization': typeof AuthenticatedOrganizationRouteWithChildren
+  '/_authenticated/patient': typeof AuthenticatedPatientRouteWithChildren
   '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
   '/_authenticated/people': typeof AuthenticatedPeopleRouteWithChildren
   '/_authenticated/pharmacy': typeof AuthenticatedPharmacyRouteWithChildren
@@ -3103,6 +3327,29 @@ export interface FileRoutesById {
   '/_authenticated/organization/roles': typeof AuthenticatedOrganizationRolesRoute
   '/_authenticated/organization/tree': typeof AuthenticatedOrganizationTreeRoute
   '/_authenticated/organization/users': typeof AuthenticatedOrganizationUsersRoute
+  '/_authenticated/patient/appointments': typeof AuthenticatedPatientAppointmentsRoute
+  '/_authenticated/patient/consents': typeof AuthenticatedPatientConsentsRoute
+  '/_authenticated/patient/devices': typeof AuthenticatedPatientDevicesRoute
+  '/_authenticated/patient/documents': typeof AuthenticatedPatientDocumentsRoute
+  '/_authenticated/patient/family': typeof AuthenticatedPatientFamilyRoute
+  '/_authenticated/patient/feedback': typeof AuthenticatedPatientFeedbackRoute
+  '/_authenticated/patient/health': typeof AuthenticatedPatientHealthRoute
+  '/_authenticated/patient/lab-reports': typeof AuthenticatedPatientLabReportsRoute
+  '/_authenticated/patient/loyalty': typeof AuthenticatedPatientLoyaltyRoute
+  '/_authenticated/patient/membership': typeof AuthenticatedPatientMembershipRoute
+  '/_authenticated/patient/notifications': typeof AuthenticatedPatientNotificationsRoute
+  '/_authenticated/patient/passport': typeof AuthenticatedPatientPassportRoute
+  '/_authenticated/patient/pathology': typeof AuthenticatedPatientPathologyRoute
+  '/_authenticated/patient/payments': typeof AuthenticatedPatientPaymentsRoute
+  '/_authenticated/patient/prescriptions': typeof AuthenticatedPatientPrescriptionsRoute
+  '/_authenticated/patient/profile': typeof AuthenticatedPatientProfileRoute
+  '/_authenticated/patient/radiology': typeof AuthenticatedPatientRadiologyRoute
+  '/_authenticated/patient/records': typeof AuthenticatedPatientRecordsRoute
+  '/_authenticated/patient/rewards': typeof AuthenticatedPatientRewardsRoute
+  '/_authenticated/patient/settings': typeof AuthenticatedPatientSettingsRoute
+  '/_authenticated/patient/support': typeof AuthenticatedPatientSupportRoute
+  '/_authenticated/patient/teleconsult': typeof AuthenticatedPatientTeleconsultRoute
+  '/_authenticated/patient/wallet': typeof AuthenticatedPatientWalletRoute
   '/_authenticated/patients/$personId': typeof AuthenticatedPatientsPersonIdRoute
   '/_authenticated/people/$personId': typeof AuthenticatedPeoplePersonIdRoute
   '/_authenticated/people/audit': typeof AuthenticatedPeopleAuditRoute
@@ -3175,6 +3422,7 @@ export interface FileRoutesById {
   '/_authenticated/laboratory/': typeof AuthenticatedLaboratoryIndexRoute
   '/_authenticated/leads/': typeof AuthenticatedLeadsIndexRoute
   '/_authenticated/organization/': typeof AuthenticatedOrganizationIndexRoute
+  '/_authenticated/patient/': typeof AuthenticatedPatientIndexRoute
   '/_authenticated/patients/': typeof AuthenticatedPatientsIndexRoute
   '/_authenticated/people/': typeof AuthenticatedPeopleIndexRoute
   '/_authenticated/pharmacy/': typeof AuthenticatedPharmacyIndexRoute
@@ -3303,6 +3551,7 @@ export interface FileRouteTypes {
     | '/laboratory'
     | '/leads'
     | '/organization'
+    | '/patient'
     | '/patients'
     | '/people'
     | '/pharmacy'
@@ -3441,6 +3690,29 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/patient/appointments'
+    | '/patient/consents'
+    | '/patient/devices'
+    | '/patient/documents'
+    | '/patient/family'
+    | '/patient/feedback'
+    | '/patient/health'
+    | '/patient/lab-reports'
+    | '/patient/loyalty'
+    | '/patient/membership'
+    | '/patient/notifications'
+    | '/patient/passport'
+    | '/patient/pathology'
+    | '/patient/payments'
+    | '/patient/prescriptions'
+    | '/patient/profile'
+    | '/patient/radiology'
+    | '/patient/records'
+    | '/patient/rewards'
+    | '/patient/settings'
+    | '/patient/support'
+    | '/patient/teleconsult'
+    | '/patient/wallet'
     | '/patients/$personId'
     | '/people/$personId'
     | '/people/audit'
@@ -3513,6 +3785,7 @@ export interface FileRouteTypes {
     | '/laboratory/'
     | '/leads/'
     | '/organization/'
+    | '/patient/'
     | '/patients/'
     | '/people/'
     | '/pharmacy/'
@@ -3756,6 +4029,29 @@ export interface FileRouteTypes {
     | '/organization/roles'
     | '/organization/tree'
     | '/organization/users'
+    | '/patient/appointments'
+    | '/patient/consents'
+    | '/patient/devices'
+    | '/patient/documents'
+    | '/patient/family'
+    | '/patient/feedback'
+    | '/patient/health'
+    | '/patient/lab-reports'
+    | '/patient/loyalty'
+    | '/patient/membership'
+    | '/patient/notifications'
+    | '/patient/passport'
+    | '/patient/pathology'
+    | '/patient/payments'
+    | '/patient/prescriptions'
+    | '/patient/profile'
+    | '/patient/radiology'
+    | '/patient/records'
+    | '/patient/rewards'
+    | '/patient/settings'
+    | '/patient/support'
+    | '/patient/teleconsult'
+    | '/patient/wallet'
     | '/patients/$personId'
     | '/people/$personId'
     | '/people/audit'
@@ -3824,6 +4120,7 @@ export interface FileRouteTypes {
     | '/laboratory'
     | '/leads'
     | '/organization'
+    | '/patient'
     | '/patients'
     | '/people'
     | '/pharmacy'
@@ -3951,6 +4248,7 @@ export interface FileRouteTypes {
     | '/_authenticated/laboratory'
     | '/_authenticated/leads'
     | '/_authenticated/organization'
+    | '/_authenticated/patient'
     | '/_authenticated/patients'
     | '/_authenticated/people'
     | '/_authenticated/pharmacy'
@@ -4090,6 +4388,29 @@ export interface FileRouteTypes {
     | '/_authenticated/organization/roles'
     | '/_authenticated/organization/tree'
     | '/_authenticated/organization/users'
+    | '/_authenticated/patient/appointments'
+    | '/_authenticated/patient/consents'
+    | '/_authenticated/patient/devices'
+    | '/_authenticated/patient/documents'
+    | '/_authenticated/patient/family'
+    | '/_authenticated/patient/feedback'
+    | '/_authenticated/patient/health'
+    | '/_authenticated/patient/lab-reports'
+    | '/_authenticated/patient/loyalty'
+    | '/_authenticated/patient/membership'
+    | '/_authenticated/patient/notifications'
+    | '/_authenticated/patient/passport'
+    | '/_authenticated/patient/pathology'
+    | '/_authenticated/patient/payments'
+    | '/_authenticated/patient/prescriptions'
+    | '/_authenticated/patient/profile'
+    | '/_authenticated/patient/radiology'
+    | '/_authenticated/patient/records'
+    | '/_authenticated/patient/rewards'
+    | '/_authenticated/patient/settings'
+    | '/_authenticated/patient/support'
+    | '/_authenticated/patient/teleconsult'
+    | '/_authenticated/patient/wallet'
     | '/_authenticated/patients/$personId'
     | '/_authenticated/people/$personId'
     | '/_authenticated/people/audit'
@@ -4162,6 +4483,7 @@ export interface FileRouteTypes {
     | '/_authenticated/laboratory/'
     | '/_authenticated/leads/'
     | '/_authenticated/organization/'
+    | '/_authenticated/patient/'
     | '/_authenticated/patients/'
     | '/_authenticated/people/'
     | '/_authenticated/pharmacy/'
@@ -4430,6 +4752,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPatientsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/patient': {
+      id: '/_authenticated/patient'
+      path: '/patient'
+      fullPath: '/patient'
+      preLoaderRoute: typeof AuthenticatedPatientRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/organization': {
       id: '/_authenticated/organization'
       path: '/organization'
@@ -4590,6 +4919,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/'
       preLoaderRoute: typeof AuthenticatedPatientsIndexRouteImport
       parentRoute: typeof AuthenticatedPatientsRoute
+    }
+    '/_authenticated/patient/': {
+      id: '/_authenticated/patient/'
+      path: '/'
+      fullPath: '/patient/'
+      preLoaderRoute: typeof AuthenticatedPatientIndexRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
     }
     '/_authenticated/organization/': {
       id: '/_authenticated/organization/'
@@ -5094,6 +5430,167 @@ declare module '@tanstack/react-router' {
       fullPath: '/patients/$personId'
       preLoaderRoute: typeof AuthenticatedPatientsPersonIdRouteImport
       parentRoute: typeof AuthenticatedPatientsRoute
+    }
+    '/_authenticated/patient/wallet': {
+      id: '/_authenticated/patient/wallet'
+      path: '/wallet'
+      fullPath: '/patient/wallet'
+      preLoaderRoute: typeof AuthenticatedPatientWalletRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/teleconsult': {
+      id: '/_authenticated/patient/teleconsult'
+      path: '/teleconsult'
+      fullPath: '/patient/teleconsult'
+      preLoaderRoute: typeof AuthenticatedPatientTeleconsultRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/support': {
+      id: '/_authenticated/patient/support'
+      path: '/support'
+      fullPath: '/patient/support'
+      preLoaderRoute: typeof AuthenticatedPatientSupportRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/settings': {
+      id: '/_authenticated/patient/settings'
+      path: '/settings'
+      fullPath: '/patient/settings'
+      preLoaderRoute: typeof AuthenticatedPatientSettingsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/rewards': {
+      id: '/_authenticated/patient/rewards'
+      path: '/rewards'
+      fullPath: '/patient/rewards'
+      preLoaderRoute: typeof AuthenticatedPatientRewardsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/records': {
+      id: '/_authenticated/patient/records'
+      path: '/records'
+      fullPath: '/patient/records'
+      preLoaderRoute: typeof AuthenticatedPatientRecordsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/radiology': {
+      id: '/_authenticated/patient/radiology'
+      path: '/radiology'
+      fullPath: '/patient/radiology'
+      preLoaderRoute: typeof AuthenticatedPatientRadiologyRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/profile': {
+      id: '/_authenticated/patient/profile'
+      path: '/profile'
+      fullPath: '/patient/profile'
+      preLoaderRoute: typeof AuthenticatedPatientProfileRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/prescriptions': {
+      id: '/_authenticated/patient/prescriptions'
+      path: '/prescriptions'
+      fullPath: '/patient/prescriptions'
+      preLoaderRoute: typeof AuthenticatedPatientPrescriptionsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/payments': {
+      id: '/_authenticated/patient/payments'
+      path: '/payments'
+      fullPath: '/patient/payments'
+      preLoaderRoute: typeof AuthenticatedPatientPaymentsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/pathology': {
+      id: '/_authenticated/patient/pathology'
+      path: '/pathology'
+      fullPath: '/patient/pathology'
+      preLoaderRoute: typeof AuthenticatedPatientPathologyRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/passport': {
+      id: '/_authenticated/patient/passport'
+      path: '/passport'
+      fullPath: '/patient/passport'
+      preLoaderRoute: typeof AuthenticatedPatientPassportRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/notifications': {
+      id: '/_authenticated/patient/notifications'
+      path: '/notifications'
+      fullPath: '/patient/notifications'
+      preLoaderRoute: typeof AuthenticatedPatientNotificationsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/membership': {
+      id: '/_authenticated/patient/membership'
+      path: '/membership'
+      fullPath: '/patient/membership'
+      preLoaderRoute: typeof AuthenticatedPatientMembershipRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/loyalty': {
+      id: '/_authenticated/patient/loyalty'
+      path: '/loyalty'
+      fullPath: '/patient/loyalty'
+      preLoaderRoute: typeof AuthenticatedPatientLoyaltyRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/lab-reports': {
+      id: '/_authenticated/patient/lab-reports'
+      path: '/lab-reports'
+      fullPath: '/patient/lab-reports'
+      preLoaderRoute: typeof AuthenticatedPatientLabReportsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/health': {
+      id: '/_authenticated/patient/health'
+      path: '/health'
+      fullPath: '/patient/health'
+      preLoaderRoute: typeof AuthenticatedPatientHealthRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/feedback': {
+      id: '/_authenticated/patient/feedback'
+      path: '/feedback'
+      fullPath: '/patient/feedback'
+      preLoaderRoute: typeof AuthenticatedPatientFeedbackRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/family': {
+      id: '/_authenticated/patient/family'
+      path: '/family'
+      fullPath: '/patient/family'
+      preLoaderRoute: typeof AuthenticatedPatientFamilyRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/documents': {
+      id: '/_authenticated/patient/documents'
+      path: '/documents'
+      fullPath: '/patient/documents'
+      preLoaderRoute: typeof AuthenticatedPatientDocumentsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/devices': {
+      id: '/_authenticated/patient/devices'
+      path: '/devices'
+      fullPath: '/patient/devices'
+      preLoaderRoute: typeof AuthenticatedPatientDevicesRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/consents': {
+      id: '/_authenticated/patient/consents'
+      path: '/consents'
+      fullPath: '/patient/consents'
+      preLoaderRoute: typeof AuthenticatedPatientConsentsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
+    }
+    '/_authenticated/patient/appointments': {
+      id: '/_authenticated/patient/appointments'
+      path: '/appointments'
+      fullPath: '/patient/appointments'
+      preLoaderRoute: typeof AuthenticatedPatientAppointmentsRouteImport
+      parentRoute: typeof AuthenticatedPatientRoute
     }
     '/_authenticated/organization/users': {
       id: '/_authenticated/organization/users'
@@ -7308,6 +7805,65 @@ const AuthenticatedOrganizationRouteWithChildren =
     AuthenticatedOrganizationRouteChildren,
   )
 
+interface AuthenticatedPatientRouteChildren {
+  AuthenticatedPatientAppointmentsRoute: typeof AuthenticatedPatientAppointmentsRoute
+  AuthenticatedPatientConsentsRoute: typeof AuthenticatedPatientConsentsRoute
+  AuthenticatedPatientDevicesRoute: typeof AuthenticatedPatientDevicesRoute
+  AuthenticatedPatientDocumentsRoute: typeof AuthenticatedPatientDocumentsRoute
+  AuthenticatedPatientFamilyRoute: typeof AuthenticatedPatientFamilyRoute
+  AuthenticatedPatientFeedbackRoute: typeof AuthenticatedPatientFeedbackRoute
+  AuthenticatedPatientHealthRoute: typeof AuthenticatedPatientHealthRoute
+  AuthenticatedPatientLabReportsRoute: typeof AuthenticatedPatientLabReportsRoute
+  AuthenticatedPatientLoyaltyRoute: typeof AuthenticatedPatientLoyaltyRoute
+  AuthenticatedPatientMembershipRoute: typeof AuthenticatedPatientMembershipRoute
+  AuthenticatedPatientNotificationsRoute: typeof AuthenticatedPatientNotificationsRoute
+  AuthenticatedPatientPassportRoute: typeof AuthenticatedPatientPassportRoute
+  AuthenticatedPatientPathologyRoute: typeof AuthenticatedPatientPathologyRoute
+  AuthenticatedPatientPaymentsRoute: typeof AuthenticatedPatientPaymentsRoute
+  AuthenticatedPatientPrescriptionsRoute: typeof AuthenticatedPatientPrescriptionsRoute
+  AuthenticatedPatientProfileRoute: typeof AuthenticatedPatientProfileRoute
+  AuthenticatedPatientRadiologyRoute: typeof AuthenticatedPatientRadiologyRoute
+  AuthenticatedPatientRecordsRoute: typeof AuthenticatedPatientRecordsRoute
+  AuthenticatedPatientRewardsRoute: typeof AuthenticatedPatientRewardsRoute
+  AuthenticatedPatientSettingsRoute: typeof AuthenticatedPatientSettingsRoute
+  AuthenticatedPatientSupportRoute: typeof AuthenticatedPatientSupportRoute
+  AuthenticatedPatientTeleconsultRoute: typeof AuthenticatedPatientTeleconsultRoute
+  AuthenticatedPatientWalletRoute: typeof AuthenticatedPatientWalletRoute
+  AuthenticatedPatientIndexRoute: typeof AuthenticatedPatientIndexRoute
+}
+
+const AuthenticatedPatientRouteChildren: AuthenticatedPatientRouteChildren = {
+  AuthenticatedPatientAppointmentsRoute: AuthenticatedPatientAppointmentsRoute,
+  AuthenticatedPatientConsentsRoute: AuthenticatedPatientConsentsRoute,
+  AuthenticatedPatientDevicesRoute: AuthenticatedPatientDevicesRoute,
+  AuthenticatedPatientDocumentsRoute: AuthenticatedPatientDocumentsRoute,
+  AuthenticatedPatientFamilyRoute: AuthenticatedPatientFamilyRoute,
+  AuthenticatedPatientFeedbackRoute: AuthenticatedPatientFeedbackRoute,
+  AuthenticatedPatientHealthRoute: AuthenticatedPatientHealthRoute,
+  AuthenticatedPatientLabReportsRoute: AuthenticatedPatientLabReportsRoute,
+  AuthenticatedPatientLoyaltyRoute: AuthenticatedPatientLoyaltyRoute,
+  AuthenticatedPatientMembershipRoute: AuthenticatedPatientMembershipRoute,
+  AuthenticatedPatientNotificationsRoute:
+    AuthenticatedPatientNotificationsRoute,
+  AuthenticatedPatientPassportRoute: AuthenticatedPatientPassportRoute,
+  AuthenticatedPatientPathologyRoute: AuthenticatedPatientPathologyRoute,
+  AuthenticatedPatientPaymentsRoute: AuthenticatedPatientPaymentsRoute,
+  AuthenticatedPatientPrescriptionsRoute:
+    AuthenticatedPatientPrescriptionsRoute,
+  AuthenticatedPatientProfileRoute: AuthenticatedPatientProfileRoute,
+  AuthenticatedPatientRadiologyRoute: AuthenticatedPatientRadiologyRoute,
+  AuthenticatedPatientRecordsRoute: AuthenticatedPatientRecordsRoute,
+  AuthenticatedPatientRewardsRoute: AuthenticatedPatientRewardsRoute,
+  AuthenticatedPatientSettingsRoute: AuthenticatedPatientSettingsRoute,
+  AuthenticatedPatientSupportRoute: AuthenticatedPatientSupportRoute,
+  AuthenticatedPatientTeleconsultRoute: AuthenticatedPatientTeleconsultRoute,
+  AuthenticatedPatientWalletRoute: AuthenticatedPatientWalletRoute,
+  AuthenticatedPatientIndexRoute: AuthenticatedPatientIndexRoute,
+}
+
+const AuthenticatedPatientRouteWithChildren =
+  AuthenticatedPatientRoute._addFileChildren(AuthenticatedPatientRouteChildren)
+
 interface AuthenticatedPatientsRouteChildren {
   AuthenticatedPatientsPersonIdRoute: typeof AuthenticatedPatientsPersonIdRoute
   AuthenticatedPatientsIndexRoute: typeof AuthenticatedPatientsIndexRoute
@@ -7741,6 +8297,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLaboratoryRoute: typeof AuthenticatedLaboratoryRouteWithChildren
   AuthenticatedLeadsRoute: typeof AuthenticatedLeadsRouteWithChildren
   AuthenticatedOrganizationRoute: typeof AuthenticatedOrganizationRouteWithChildren
+  AuthenticatedPatientRoute: typeof AuthenticatedPatientRouteWithChildren
   AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
   AuthenticatedPeopleRoute: typeof AuthenticatedPeopleRouteWithChildren
   AuthenticatedPharmacyRoute: typeof AuthenticatedPharmacyRouteWithChildren
@@ -7763,6 +8320,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLaboratoryRoute: AuthenticatedLaboratoryRouteWithChildren,
   AuthenticatedLeadsRoute: AuthenticatedLeadsRouteWithChildren,
   AuthenticatedOrganizationRoute: AuthenticatedOrganizationRouteWithChildren,
+  AuthenticatedPatientRoute: AuthenticatedPatientRouteWithChildren,
   AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
   AuthenticatedPeopleRoute: AuthenticatedPeopleRouteWithChildren,
   AuthenticatedPharmacyRoute: AuthenticatedPharmacyRouteWithChildren,
