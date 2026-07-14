@@ -423,10 +423,10 @@ export const listUserRoles = createServerFn({ method: "GET" })
   .handler(async ({ context, data }) => {
     const { data: rows, error } = await context.supabase
       .from("user_roles")
-      .select("id, role_code, org_unit_id, tenant_id, valid_from, valid_to")
+      .select("id, user_id, role_code, org_unit_id, tenant_id, valid_from, valid_to")
       .eq("user_id", data.user_id);
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return sanitizeUserRoleRows(context.supabase, rows ?? [], context.userId);
   });
 
 export const listRoleHistory = createServerFn({ method: "GET" })
@@ -443,7 +443,12 @@ export const listRoleHistory = createServerFn({ method: "GET" })
     if (data.user_id) q = q.eq("user_id", data.user_id);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    // 1) drop rows that name the super_admin role or a super identity
+    const cleaned = await sanitizeUserRoleRows(context.supabase, rows ?? [], context.userId);
+    // 2) mask performed_by when the actor is a super admin
+    return sanitizeActorPayload(context.supabase, cleaned, context.userId, {
+      actorKeys: ["performed_by"],
+    });
   });
 
 // ---------- SUMMARY ----------
