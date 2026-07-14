@@ -61,11 +61,7 @@ import { formatDateTime } from "@/lib/standards-format";
 import { PatientShell, PatientEmpty } from "./shell";
 import { askPatientAI, suggestPatientActions } from "@/lib/patient/ai.functions";
 import { getPatientPortalDashboard } from "@/lib/patient/dashboard.functions";
-import {
-  listMyClinicalSummaryOptional,
-  listMyPrescriptions,
-  listMyLabReports,
-} from "@/lib/patient/records.functions.helpers";
+import { listMyPrescriptions } from "@/lib/patient/records.functions";
 import { listMyAppointments } from "@/lib/patient/appointments.functions";
 import { listFamilyMembers } from "@/lib/patient/family.functions";
 import { listMyDocuments } from "@/lib/patient/documents.functions";
