@@ -658,7 +658,8 @@ export const listAuditLogs = createServerFn({ method: "GET" })
     if (data.q) q = q.or(`table_name.ilike.%${data.q}%,action.ilike.%${data.q}%,row_id.ilike.%${data.q}%`);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return (rows ?? []).map((r) => ({ ...r, ip: r.ip == null ? null : String(r.ip) }));
+    const withIp = (rows ?? []).map((r) => ({ ...r, ip: r.ip == null ? null : String(r.ip) }));
+    return sanitizeActorPayload(context.supabase, withIp, context.userId);
   });
 
 
@@ -678,7 +679,7 @@ export const listActivityLogs = createServerFn({ method: "GET" })
     if (data.actorId) q = q.eq("actor_id", data.actorId);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return sanitizeActorPayload(context.supabase, rows ?? [], context.userId);
   });
 
 export const listIpLogs = createServerFn({ method: "GET" })
