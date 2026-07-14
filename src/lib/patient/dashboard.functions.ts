@@ -11,9 +11,10 @@ export const getPatientPortalDashboard = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => dashboardSchema.parse(d ?? {}))
   .handler(async ({ context, data }) => {
     const engine = new DashboardEngine(context.supabase);
-    return await engine.getDashboard({
+    const dashboard = await engine.getDashboard({
       viewerUserId: context.userId,
       targetUserId: data.targetUserId,
       limit: data.limit,
     });
+    return dashboard as never;
   });
