@@ -28127,6 +28127,7 @@ export type Database = {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
       }
+      can_reveal_super_admin: { Args: { _viewer: string }; Returns: boolean }
       can_submit_claim: {
         Args: { _tenant_id: string; _user_id: string }
         Returns: boolean
@@ -28213,6 +28214,10 @@ export type Database = {
       }
       is_config_admin: { Args: { _user_id: string }; Returns: boolean }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_super_admin_target: {
+        Args: { _target_user_id: string }
+        Returns: boolean
+      }
       is_tenant_member: { Args: { _tenant_id: string }; Returns: boolean }
       log_interaction: {
         Args: {

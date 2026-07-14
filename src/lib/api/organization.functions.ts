@@ -5,6 +5,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import {
+  SUPER_ADMIN_ROLE_CODE,
+  canRevealSuperAdminIdentity,
+  sanitizeActorPayload,
+  sanitizeRoleMaster,
+  sanitizeUserRoleRows,
+} from "@/lib/security/superadmin-stealth.server";
 
 // ---------- ORG TREE ----------
 export type OrgUnitRow = {
@@ -105,7 +112,7 @@ export const listRoles = createServerFn({ method: "GET" })
       .select("code, name, level, description, is_customer_facing")
       .order("level", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return sanitizeRoleMaster(data ?? [], context.userId, context.supabase);
   });
 
 export const listPermissions = createServerFn({ method: "GET" })
@@ -126,7 +133,9 @@ export const listRolePermissions = createServerFn({ method: "GET" })
       .from("role_permissions")
       .select("role_code, permission_code");
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    if (await canRevealSuperAdminIdentity(context.supabase, context.userId)) return rows;
+    return rows.filter((r) => r.role_code !== SUPER_ADMIN_ROLE_CODE);
   });
 
 export const setRolePermission = createServerFn({ method: "POST" })
@@ -276,27 +285,26 @@ export const listUsers = createServerFn({ method: "GET" })
       });
       rMap.set(r.user_id, list);
     }
-    const HIDDEN = new Set(["super_admin"]);
-    return authUsers.users
-      .map((u) => {
-        const p = pMap.get(u.id);
-        return {
-          id: u.id,
-          email: u.email ?? p?.email ?? null,
-          full_name: p?.full_name ?? null,
-          avatar_url: p?.avatar_url ?? null,
-          is_active: !u.banned_until || new Date(u.banned_until) < new Date(),
-          created_at: u.created_at,
-          roles: rMap.get(u.id) ?? [],
-        };
-      })
-      .filter((u) => {
-        if (isSuper) return true;
-        // Hide users whose every role is a hidden platform-owner role
-        const roles = u.roles;
-        if (roles.length === 0) return true;
-        return roles.some((r) => !HIDDEN.has(r.role_code));
-      });
+    const HIDDEN = new Set([SUPER_ADMIN_ROLE_CODE]);
+    const rawUsers = authUsers.users.map((u) => {
+      const p = pMap.get(u.id);
+      return {
+        id: u.id,
+        email: u.email ?? p?.email ?? null,
+        full_name: p?.full_name ?? null,
+        avatar_url: p?.avatar_url ?? null,
+        is_active: !u.banned_until || new Date(u.banned_until) < new Date(),
+        created_at: u.created_at,
+        roles: (rMap.get(u.id) ?? []).filter((r) => !HIDDEN.has(r.role_code)),
+      };
+    });
+    // Stealth rule (§8): even Super Admins do not see Super Admin identities
+    // in normal user lists. Real forensic access is service_role only.
+    const filtered = rawUsers.filter((u) => {
+      const raw = rMap.get(u.id) ?? [];
+      return !raw.some((r) => HIDDEN.has(r.role_code));
+    });
+    return filtered;
   });
 
 // biome-ignore lint/suspicious/noExplicitAny: broadly-typed context to accept auth-middleware ctx
@@ -414,10 +422,10 @@ export const listUserRoles = createServerFn({ method: "GET" })
   .handler(async ({ context, data }) => {
     const { data: rows, error } = await context.supabase
       .from("user_roles")
-      .select("id, role_code, org_unit_id, tenant_id, valid_from, valid_to")
+      .select("id, user_id, role_code, org_unit_id, tenant_id, valid_from, valid_to")
       .eq("user_id", data.user_id);
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return sanitizeUserRoleRows(context.supabase, rows ?? [], context.userId);
   });
 
 export const listRoleHistory = createServerFn({ method: "GET" })
@@ -434,7 +442,12 @@ export const listRoleHistory = createServerFn({ method: "GET" })
     if (data.user_id) q = q.eq("user_id", data.user_id);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    // 1) drop rows that name the super_admin role or a super identity
+    const cleaned = await sanitizeUserRoleRows(context.supabase, rows ?? [], context.userId);
+    // 2) mask performed_by when the actor is a super admin
+    return sanitizeActorPayload(context.supabase, cleaned, context.userId, {
+      actorKeys: ["performed_by"],
+    });
   });
 
 // ---------- SUMMARY ----------
