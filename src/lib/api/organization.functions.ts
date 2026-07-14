@@ -113,7 +113,7 @@ export const listRoles = createServerFn({ method: "GET" })
       .select("code, name, level, description, is_customer_facing")
       .order("level", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return sanitizeRoleMaster(data ?? [], context.userId, context.supabase);
   });
 
 export const listPermissions = createServerFn({ method: "GET" })
@@ -134,7 +134,9 @@ export const listRolePermissions = createServerFn({ method: "GET" })
       .from("role_permissions")
       .select("role_code, permission_code");
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    if (await canRevealSuperAdminIdentity(context.supabase, context.userId)) return rows;
+    return rows.filter((r) => r.role_code !== SUPER_ADMIN_ROLE_CODE);
   });
 
 export const setRolePermission = createServerFn({ method: "POST" })
