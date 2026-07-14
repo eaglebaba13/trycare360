@@ -11,7 +11,7 @@ export const listPortalSessions = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => emptySchema.parse(d ?? {}))
   .handler(async ({ context }) => {
     const engine = new SessionEngine(context.supabase);
-    return { rows: await engine.list(context.userId) };
+    return ({ rows: await engine.list(context.userId) } as never);
   });
 
 export const revokePortalSession = createServerFn({ method: "POST" })
@@ -19,5 +19,5 @@ export const revokePortalSession = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => revokeSessionSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new SessionEngine(context.supabase);
-    return { session: await engine.revoke(context.userId, data.sessionId) };
+    return ({ session: await engine.revoke(context.userId, data.sessionId) } as never);
   });

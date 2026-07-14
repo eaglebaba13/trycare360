@@ -16,7 +16,7 @@ export const getMyPatientProfile = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => emptySchema.parse(d ?? {}))
   .handler(async ({ context }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { profile: await engine.getProfile(context.userId) };
+    return ({ profile: await engine.getProfile(context.userId) } as never);
   });
 
 export const updateMyPatientProfile = createServerFn({ method: "POST" })
@@ -24,7 +24,7 @@ export const updateMyPatientProfile = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => updateProfileSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { profile: await engine.updateProfile(context.userId, data) };
+    return ({ profile: await engine.updateProfile(context.userId, data) } as never);
   });
 
 export const getMyPreferences = createServerFn({ method: "GET" })
@@ -32,7 +32,7 @@ export const getMyPreferences = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => emptySchema.parse(d ?? {}))
   .handler(async ({ context }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { rows: await engine.getPreferences(context.userId) };
+    return ({ rows: await engine.getPreferences(context.userId) } as never);
   });
 
 export const updateMyPreferences = createServerFn({ method: "POST" })
@@ -40,7 +40,7 @@ export const updateMyPreferences = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => upsertPreferenceSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { preference: await engine.upsertPreference(context.userId, data) };
+    return ({ preference: await engine.upsertPreference(context.userId, data) } as never);
   });
 
 export const getMySettings = createServerFn({ method: "GET" })
@@ -48,7 +48,7 @@ export const getMySettings = createServerFn({ method: "GET" })
   .inputValidator((d: unknown) => emptySchema.parse(d ?? {}))
   .handler(async ({ context }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { settings: await engine.getSettings(context.userId) };
+    return ({ settings: await engine.getSettings(context.userId) } as never);
   });
 
 export const updateMySettings = createServerFn({ method: "POST" })
@@ -56,5 +56,5 @@ export const updateMySettings = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => updateSettingsSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new PatientProfileEngine(context.supabase);
-    return { settings: await engine.updateSettings(context.userId, data.settings) };
+    return ({ settings: await engine.updateSettings(context.userId, data.settings) } as never);
   });
