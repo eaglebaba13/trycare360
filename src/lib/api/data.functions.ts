@@ -36,7 +36,7 @@ export const listTimeline = createServerFn({ method: "GET" })
     if (data.eventType) q = q.eq("event_type", data.eventType);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return rows ?? [];
+    return sanitizeActorPayload(context.supabase, rows ?? [], context.userId);
   });
 
 export const logTimelineEvent = createServerFn({ method: "POST" })
