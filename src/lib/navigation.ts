@@ -46,6 +46,17 @@ export type NavGroup = {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
+    label: "Patient Portal",
+    items: [
+      { label: "My Health", to: "/patient", icon: HeartPulse, permission: "patient:read" },
+      { label: "Appointments", to: "/patient/appointments", icon: CalendarDays, permission: "patient:read" },
+      { label: "Records", to: "/patient/records", icon: Stethoscope, permission: "patient:read" },
+      { label: "Documents", to: "/patient/documents", icon: FileText, permission: "patient:read" },
+      { label: "Wallet", to: "/patient/wallet", icon: IndianRupee, permission: "patient:read" },
+      { label: "Family", to: "/patient/family", icon: UserRound, permission: "patient:read" },
+    ],
+  },
+  {
     label: "Overview",
     items: [
       { label: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
