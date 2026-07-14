@@ -10,7 +10,6 @@ import {
   canRevealSuperAdminIdentity,
   sanitizeActorPayload,
   sanitizeRoleMaster,
-  sanitizeUserList,
   sanitizeUserRoleRows,
 } from "@/lib/security/superadmin-stealth.server";
 
