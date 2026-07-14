@@ -27,7 +27,8 @@ export const updateProfileSchema = z.object({
 export const upsertPreferenceSchema = z.object({
   category: z.string().min(1),
   key: z.string().min(1),
-  value: z.unknown(),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: z.any() as z.ZodType<any>,
 });
 export const updateSettingsSchema = z.object({
   settings: jsonRecord,
