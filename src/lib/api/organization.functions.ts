@@ -286,27 +286,26 @@ export const listUsers = createServerFn({ method: "GET" })
       });
       rMap.set(r.user_id, list);
     }
-    const HIDDEN = new Set(["super_admin"]);
-    return authUsers.users
-      .map((u) => {
-        const p = pMap.get(u.id);
-        return {
-          id: u.id,
-          email: u.email ?? p?.email ?? null,
-          full_name: p?.full_name ?? null,
-          avatar_url: p?.avatar_url ?? null,
-          is_active: !u.banned_until || new Date(u.banned_until) < new Date(),
-          created_at: u.created_at,
-          roles: rMap.get(u.id) ?? [],
-        };
-      })
-      .filter((u) => {
-        if (isSuper) return true;
-        // Hide users whose every role is a hidden platform-owner role
-        const roles = u.roles;
-        if (roles.length === 0) return true;
-        return roles.some((r) => !HIDDEN.has(r.role_code));
-      });
+    const HIDDEN = new Set([SUPER_ADMIN_ROLE_CODE]);
+    const rawUsers = authUsers.users.map((u) => {
+      const p = pMap.get(u.id);
+      return {
+        id: u.id,
+        email: u.email ?? p?.email ?? null,
+        full_name: p?.full_name ?? null,
+        avatar_url: p?.avatar_url ?? null,
+        is_active: !u.banned_until || new Date(u.banned_until) < new Date(),
+        created_at: u.created_at,
+        roles: (rMap.get(u.id) ?? []).filter((r) => !HIDDEN.has(r.role_code)),
+      };
+    });
+    // Stealth rule (§8): even Super Admins do not see Super Admin identities
+    // in normal user lists. Real forensic access is service_role only.
+    const filtered = rawUsers.filter((u) => {
+      const raw = rMap.get(u.id) ?? [];
+      return !raw.some((r) => HIDDEN.has(r.role_code));
+    });
+    return filtered;
   });
 
 // biome-ignore lint/suspicious/noExplicitAny: broadly-typed context to accept auth-middleware ctx
