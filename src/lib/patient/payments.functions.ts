@@ -31,7 +31,8 @@ export const requestPaymentLink = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => paymentLinkRequestSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new PaymentPortalEngine(context.supabase);
-    return await engine.requestPaymentLink({ viewerUserId: context.userId, ...data });
+    const result = await engine.requestPaymentLink({ viewerUserId: context.userId, ...data });
+    return result as never;
   });
 
 export const getRefundStatus = createServerFn({ method: "POST" })
@@ -39,5 +40,6 @@ export const getRefundStatus = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => refundStatusSchema.parse(d))
   .handler(async ({ context, data }) => {
     const engine = new PaymentPortalEngine(context.supabase);
-    return await engine.getRefundStatus({ viewerUserId: context.userId, ...data });
+    const result = await engine.getRefundStatus({ viewerUserId: context.userId, ...data });
+    return result as never;
   });
