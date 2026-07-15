@@ -14,7 +14,7 @@ import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as PublicTrycare360RouteImport } from './routes/_public.trycare360'
 import { Route as PublicFranchiseRouteImport } from './routes/_public.franchise'
 import { Route as PublicDrHairRouteImport } from './routes/_public.dr-hair'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
@@ -432,9 +432,9 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PublicIndexRoute = PublicIndexRouteImport.update({
-  id: '/',
-  path: '/',
+const PublicTrycare360Route = PublicTrycare360RouteImport.update({
+  id: '/trycare360',
+  path: '/trycare360',
   getParentRoute: () => PublicRoute,
 } as any)
 const PublicFranchiseRoute = PublicFranchiseRouteImport.update({
@@ -2729,7 +2729,7 @@ const AuthenticatedSettingsIntegrationsConnectionsProviderCodeRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof PublicIndexRoute
+  '/': typeof PublicRouteWithChildren
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -2760,6 +2760,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof PublicContactRoute
   '/dr-hair': typeof PublicDrHairRouteWithChildren
   '/franchise': typeof PublicFranchiseRoute
+  '/trycare360': typeof PublicTrycare360Route
   '/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
   '/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
   '/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
@@ -3128,7 +3129,7 @@ export interface FileRoutesByFullPath {
   '/settings/integrations/connections/': typeof AuthenticatedSettingsIntegrationsConnectionsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof PublicIndexRoute
+  '/': typeof PublicRouteWithChildren
   '/auth': typeof AuthRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -3139,6 +3140,7 @@ export interface FileRoutesByTo {
   '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
   '/franchise': typeof PublicFranchiseRoute
+  '/trycare360': typeof PublicTrycare360Route
   '/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
   '/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
   '/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
@@ -3533,7 +3535,7 @@ export interface FileRoutesById {
   '/_public/contact': typeof PublicContactRoute
   '/_public/dr-hair': typeof PublicDrHairRouteWithChildren
   '/_public/franchise': typeof PublicFranchiseRoute
-  '/_public/': typeof PublicIndexRoute
+  '/_public/trycare360': typeof PublicTrycare360Route
   '/_authenticated/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
   '/_authenticated/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
   '/_authenticated/analytics/operational': typeof AuthenticatedAnalyticsOperationalRoute
@@ -3935,6 +3937,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/dr-hair'
     | '/franchise'
+    | '/trycare360'
     | '/analytics/commission'
     | '/analytics/marketing'
     | '/analytics/operational'
@@ -4314,6 +4317,7 @@ export interface FileRouteTypes {
     | '/consultation'
     | '/contact'
     | '/franchise'
+    | '/trycare360'
     | '/analytics/commission'
     | '/analytics/marketing'
     | '/analytics/operational'
@@ -4707,7 +4711,7 @@ export interface FileRouteTypes {
     | '/_public/contact'
     | '/_public/dr-hair'
     | '/_public/franchise'
-    | '/_public/'
+    | '/_public/trycare360'
     | '/_authenticated/analytics/commission'
     | '/_authenticated/analytics/marketing'
     | '/_authenticated/analytics/operational'
@@ -5128,11 +5132,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_public/': {
-      id: '/_public/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof PublicIndexRouteImport
+    '/_public/trycare360': {
+      id: '/_public/trycare360'
+      path: '/trycare360'
+      fullPath: '/trycare360'
+      preLoaderRoute: typeof PublicTrycare360RouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/franchise': {
@@ -9222,7 +9226,7 @@ interface PublicRouteChildren {
   PublicContactRoute: typeof PublicContactRoute
   PublicDrHairRoute: typeof PublicDrHairRouteWithChildren
   PublicFranchiseRoute: typeof PublicFranchiseRoute
-  PublicIndexRoute: typeof PublicIndexRoute
+  PublicTrycare360Route: typeof PublicTrycare360Route
   PublicBlogSlugRoute: typeof PublicBlogSlugRoute
   PublicDoctorsSlugRoute: typeof PublicDoctorsSlugRoute
   PublicProductsSlugRoute: typeof PublicProductsSlugRoute
@@ -9241,7 +9245,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicContactRoute: PublicContactRoute,
   PublicDrHairRoute: PublicDrHairRouteWithChildren,
   PublicFranchiseRoute: PublicFranchiseRoute,
-  PublicIndexRoute: PublicIndexRoute,
+  PublicTrycare360Route: PublicTrycare360Route,
   PublicBlogSlugRoute: PublicBlogSlugRoute,
   PublicDoctorsSlugRoute: PublicDoctorsSlugRoute,
   PublicProductsSlugRoute: PublicProductsSlugRoute,
