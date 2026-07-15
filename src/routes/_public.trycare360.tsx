@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { listTreatments, listDoctors, listPublishedPosts } from "@/lib/api/cms.functions";
 
-export const Route = createFileRoute("/_public/")({
+export const Route = createFileRoute("/_public/trycare360")({
   component: HomePage,
   head: () => ({
     meta: [
@@ -15,9 +15,9 @@ export const Route = createFileRoute("/_public/")({
       { property: "og:title", content: "TryCare360 — Integrated Healthcare Network" },
       { property: "og:description", content: "Expert doctors, science-backed treatments and personalised care under one trusted network." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://trycare360.lovable.app/" },
+      { property: "og:url", content: "https://trycare360.lovable.app/trycare360" },
     ],
-    links: [{ rel: "canonical", href: "https://trycare360.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://trycare360.lovable.app/trycare360" }],
     scripts: [
       {
         type: "application/ld+json",
