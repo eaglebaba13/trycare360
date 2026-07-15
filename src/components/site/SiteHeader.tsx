@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 const NAV = [
   { to: "/treatments", label: "Treatments" },
   { to: "/doctors", label: "Doctors" },
+  { to: "/dr-hair", label: "Dr Hair" },
   { to: "/products", label: "Products" },
   { to: "/franchise", label: "Franchise" },
   { to: "/academy", label: "Academy" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
 ] as const;
+
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
