@@ -16,6 +16,7 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as PublicFranchiseRouteImport } from './routes/_public.franchise'
+import { Route as PublicDrHairRouteImport } from './routes/_public.dr-hair'
 import { Route as PublicContactRouteImport } from './routes/_public.contact'
 import { Route as PublicConsultationRouteImport } from './routes/_public.consultation'
 import { Route as PublicBookRouteImport } from './routes/_public.book'
@@ -43,6 +44,7 @@ import { Route as AuthenticatedAutomationRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAnalyticsRouteImport } from './routes/_authenticated/analytics'
 import { Route as PublicTreatmentsIndexRouteImport } from './routes/_public.treatments.index'
 import { Route as PublicProductsIndexRouteImport } from './routes/_public.products.index'
+import { Route as PublicDrHairIndexRouteImport } from './routes/_public.dr-hair.index'
 import { Route as PublicDoctorsIndexRouteImport } from './routes/_public.doctors.index'
 import { Route as PublicBlogIndexRouteImport } from './routes/_public.blog.index'
 import { Route as AuthenticatedTelecallerIndexRouteImport } from './routes/_authenticated/telecaller.index'
@@ -66,6 +68,15 @@ import { Route as AuthenticatedAutomationIndexRouteImport } from './routes/_auth
 import { Route as AuthenticatedAnalyticsIndexRouteImport } from './routes/_authenticated/analytics.index'
 import { Route as PublicTreatmentsSlugRouteImport } from './routes/_public.treatments.$slug'
 import { Route as PublicProductsSlugRouteImport } from './routes/_public.products.$slug'
+import { Route as PublicDrHairTreatmentRouteImport } from './routes/_public.dr-hair.treatment'
+import { Route as PublicDrHairProgressRouteImport } from './routes/_public.dr-hair.progress'
+import { Route as PublicDrHairPricingRouteImport } from './routes/_public.dr-hair.pricing'
+import { Route as PublicDrHairDashboardRouteImport } from './routes/_public.dr-hair.dashboard'
+import { Route as PublicDrHairCoachRouteImport } from './routes/_public.dr-hair.coach'
+import { Route as PublicDrHairCheckoutSuccessRouteImport } from './routes/_public.dr-hair.checkout-success'
+import { Route as PublicDrHairAssessmentRouteImport } from './routes/_public.dr-hair.assessment'
+import { Route as PublicDrHairAnalysisRouteImport } from './routes/_public.dr-hair.analysis'
+import { Route as PublicDrHairAdminRouteImport } from './routes/_public.dr-hair.admin'
 import { Route as PublicDoctorsSlugRouteImport } from './routes/_public.doctors.$slug'
 import { Route as PublicConsultationCategoryRouteImport } from './routes/_public.consultation.$category'
 import { Route as PublicBlogSlugRouteImport } from './routes/_public.blog.$slug'
@@ -431,6 +442,11 @@ const PublicFranchiseRoute = PublicFranchiseRouteImport.update({
   path: '/franchise',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicDrHairRoute = PublicDrHairRouteImport.update({
+  id: '/dr-hair',
+  path: '/dr-hair',
+  getParentRoute: () => PublicRoute,
+} as any)
 const PublicContactRoute = PublicContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -568,6 +584,11 @@ const PublicProductsIndexRoute = PublicProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => PublicRoute,
 } as any)
+const PublicDrHairIndexRoute = PublicDrHairIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
 const PublicDoctorsIndexRoute = PublicDoctorsIndexRouteImport.update({
   id: '/doctors/',
   path: '/doctors/',
@@ -697,6 +718,52 @@ const PublicProductsSlugRoute = PublicProductsSlugRouteImport.update({
   id: '/products/$slug',
   path: '/products/$slug',
   getParentRoute: () => PublicRoute,
+} as any)
+const PublicDrHairTreatmentRoute = PublicDrHairTreatmentRouteImport.update({
+  id: '/treatment',
+  path: '/treatment',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairProgressRoute = PublicDrHairProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairPricingRoute = PublicDrHairPricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairDashboardRoute = PublicDrHairDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairCoachRoute = PublicDrHairCoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairCheckoutSuccessRoute =
+  PublicDrHairCheckoutSuccessRouteImport.update({
+    id: '/checkout-success',
+    path: '/checkout-success',
+    getParentRoute: () => PublicDrHairRoute,
+  } as any)
+const PublicDrHairAssessmentRoute = PublicDrHairAssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairAnalysisRoute = PublicDrHairAnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
+  getParentRoute: () => PublicDrHairRoute,
+} as any)
+const PublicDrHairAdminRoute = PublicDrHairAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => PublicDrHairRoute,
 } as any)
 const PublicDoctorsSlugRoute = PublicDoctorsSlugRouteImport.update({
   id: '/doctors/$slug',
@@ -2691,6 +2758,7 @@ export interface FileRoutesByFullPath {
   '/book': typeof PublicBookRoute
   '/consultation': typeof PublicConsultationRouteWithChildren
   '/contact': typeof PublicContactRoute
+  '/dr-hair': typeof PublicDrHairRouteWithChildren
   '/franchise': typeof PublicFranchiseRoute
   '/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
   '/analytics/marketing': typeof AuthenticatedAnalyticsMarketingRoute
@@ -2921,6 +2989,15 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/dr-hair/admin': typeof PublicDrHairAdminRoute
+  '/dr-hair/analysis': typeof PublicDrHairAnalysisRoute
+  '/dr-hair/assessment': typeof PublicDrHairAssessmentRoute
+  '/dr-hair/checkout-success': typeof PublicDrHairCheckoutSuccessRoute
+  '/dr-hair/coach': typeof PublicDrHairCoachRoute
+  '/dr-hair/dashboard': typeof PublicDrHairDashboardRoute
+  '/dr-hair/pricing': typeof PublicDrHairPricingRoute
+  '/dr-hair/progress': typeof PublicDrHairProgressRoute
+  '/dr-hair/treatment': typeof PublicDrHairTreatmentRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/analytics/': typeof AuthenticatedAnalyticsIndexRoute
@@ -2944,6 +3021,7 @@ export interface FileRoutesByFullPath {
   '/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/blog/': typeof PublicBlogIndexRoute
   '/doctors/': typeof PublicDoctorsIndexRoute
+  '/dr-hair/': typeof PublicDrHairIndexRoute
   '/products/': typeof PublicProductsIndexRoute
   '/treatments/': typeof PublicTreatmentsIndexRoute
   '/clinical/analytics/ai': typeof AuthenticatedClinicalAnalyticsAiRoute
@@ -3283,6 +3361,15 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof PublicBlogSlugRoute
   '/consultation/$category': typeof PublicConsultationCategoryRoute
   '/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/dr-hair/admin': typeof PublicDrHairAdminRoute
+  '/dr-hair/analysis': typeof PublicDrHairAnalysisRoute
+  '/dr-hair/assessment': typeof PublicDrHairAssessmentRoute
+  '/dr-hair/checkout-success': typeof PublicDrHairCheckoutSuccessRoute
+  '/dr-hair/coach': typeof PublicDrHairCoachRoute
+  '/dr-hair/dashboard': typeof PublicDrHairDashboardRoute
+  '/dr-hair/pricing': typeof PublicDrHairPricingRoute
+  '/dr-hair/progress': typeof PublicDrHairProgressRoute
+  '/dr-hair/treatment': typeof PublicDrHairTreatmentRoute
   '/products/$slug': typeof PublicProductsSlugRoute
   '/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/analytics': typeof AuthenticatedAnalyticsIndexRoute
@@ -3306,6 +3393,7 @@ export interface FileRoutesByTo {
   '/telecaller': typeof AuthenticatedTelecallerIndexRoute
   '/blog': typeof PublicBlogIndexRoute
   '/doctors': typeof PublicDoctorsIndexRoute
+  '/dr-hair': typeof PublicDrHairIndexRoute
   '/products': typeof PublicProductsIndexRoute
   '/treatments': typeof PublicTreatmentsIndexRoute
   '/clinical/analytics/ai': typeof AuthenticatedClinicalAnalyticsAiRoute
@@ -3443,6 +3531,7 @@ export interface FileRoutesById {
   '/_public/book': typeof PublicBookRoute
   '/_public/consultation': typeof PublicConsultationRouteWithChildren
   '/_public/contact': typeof PublicContactRoute
+  '/_public/dr-hair': typeof PublicDrHairRouteWithChildren
   '/_public/franchise': typeof PublicFranchiseRoute
   '/_public/': typeof PublicIndexRoute
   '/_authenticated/analytics/commission': typeof AuthenticatedAnalyticsCommissionRoute
@@ -3674,6 +3763,15 @@ export interface FileRoutesById {
   '/_public/blog/$slug': typeof PublicBlogSlugRoute
   '/_public/consultation/$category': typeof PublicConsultationCategoryRoute
   '/_public/doctors/$slug': typeof PublicDoctorsSlugRoute
+  '/_public/dr-hair/admin': typeof PublicDrHairAdminRoute
+  '/_public/dr-hair/analysis': typeof PublicDrHairAnalysisRoute
+  '/_public/dr-hair/assessment': typeof PublicDrHairAssessmentRoute
+  '/_public/dr-hair/checkout-success': typeof PublicDrHairCheckoutSuccessRoute
+  '/_public/dr-hair/coach': typeof PublicDrHairCoachRoute
+  '/_public/dr-hair/dashboard': typeof PublicDrHairDashboardRoute
+  '/_public/dr-hair/pricing': typeof PublicDrHairPricingRoute
+  '/_public/dr-hair/progress': typeof PublicDrHairProgressRoute
+  '/_public/dr-hair/treatment': typeof PublicDrHairTreatmentRoute
   '/_public/products/$slug': typeof PublicProductsSlugRoute
   '/_public/treatments/$slug': typeof PublicTreatmentsSlugRoute
   '/_authenticated/analytics/': typeof AuthenticatedAnalyticsIndexRoute
@@ -3697,6 +3795,7 @@ export interface FileRoutesById {
   '/_authenticated/telecaller/': typeof AuthenticatedTelecallerIndexRoute
   '/_public/blog/': typeof PublicBlogIndexRoute
   '/_public/doctors/': typeof PublicDoctorsIndexRoute
+  '/_public/dr-hair/': typeof PublicDrHairIndexRoute
   '/_public/products/': typeof PublicProductsIndexRoute
   '/_public/treatments/': typeof PublicTreatmentsIndexRoute
   '/_authenticated/clinical/analytics/ai': typeof AuthenticatedClinicalAnalyticsAiRoute
@@ -3834,6 +3933,7 @@ export interface FileRouteTypes {
     | '/book'
     | '/consultation'
     | '/contact'
+    | '/dr-hair'
     | '/franchise'
     | '/analytics/commission'
     | '/analytics/marketing'
@@ -4064,6 +4164,15 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/consultation/$category'
     | '/doctors/$slug'
+    | '/dr-hair/admin'
+    | '/dr-hair/analysis'
+    | '/dr-hair/assessment'
+    | '/dr-hair/checkout-success'
+    | '/dr-hair/coach'
+    | '/dr-hair/dashboard'
+    | '/dr-hair/pricing'
+    | '/dr-hair/progress'
+    | '/dr-hair/treatment'
     | '/products/$slug'
     | '/treatments/$slug'
     | '/analytics/'
@@ -4087,6 +4196,7 @@ export interface FileRouteTypes {
     | '/telecaller/'
     | '/blog/'
     | '/doctors/'
+    | '/dr-hair/'
     | '/products/'
     | '/treatments/'
     | '/clinical/analytics/ai'
@@ -4426,6 +4536,15 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/consultation/$category'
     | '/doctors/$slug'
+    | '/dr-hair/admin'
+    | '/dr-hair/analysis'
+    | '/dr-hair/assessment'
+    | '/dr-hair/checkout-success'
+    | '/dr-hair/coach'
+    | '/dr-hair/dashboard'
+    | '/dr-hair/pricing'
+    | '/dr-hair/progress'
+    | '/dr-hair/treatment'
     | '/products/$slug'
     | '/treatments/$slug'
     | '/analytics'
@@ -4449,6 +4568,7 @@ export interface FileRouteTypes {
     | '/telecaller'
     | '/blog'
     | '/doctors'
+    | '/dr-hair'
     | '/products'
     | '/treatments'
     | '/clinical/analytics/ai'
@@ -4585,6 +4705,7 @@ export interface FileRouteTypes {
     | '/_public/book'
     | '/_public/consultation'
     | '/_public/contact'
+    | '/_public/dr-hair'
     | '/_public/franchise'
     | '/_public/'
     | '/_authenticated/analytics/commission'
@@ -4816,6 +4937,15 @@ export interface FileRouteTypes {
     | '/_public/blog/$slug'
     | '/_public/consultation/$category'
     | '/_public/doctors/$slug'
+    | '/_public/dr-hair/admin'
+    | '/_public/dr-hair/analysis'
+    | '/_public/dr-hair/assessment'
+    | '/_public/dr-hair/checkout-success'
+    | '/_public/dr-hair/coach'
+    | '/_public/dr-hair/dashboard'
+    | '/_public/dr-hair/pricing'
+    | '/_public/dr-hair/progress'
+    | '/_public/dr-hair/treatment'
     | '/_public/products/$slug'
     | '/_public/treatments/$slug'
     | '/_authenticated/analytics/'
@@ -4839,6 +4969,7 @@ export interface FileRouteTypes {
     | '/_authenticated/telecaller/'
     | '/_public/blog/'
     | '/_public/doctors/'
+    | '/_public/dr-hair/'
     | '/_public/products/'
     | '/_public/treatments/'
     | '/_authenticated/clinical/analytics/ai'
@@ -5009,6 +5140,13 @@ declare module '@tanstack/react-router' {
       path: '/franchise'
       fullPath: '/franchise'
       preLoaderRoute: typeof PublicFranchiseRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/dr-hair': {
+      id: '/_public/dr-hair'
+      path: '/dr-hair'
+      fullPath: '/dr-hair'
+      preLoaderRoute: typeof PublicDrHairRouteImport
       parentRoute: typeof PublicRoute
     }
     '/_public/contact': {
@@ -5200,6 +5338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicProductsIndexRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_public/dr-hair/': {
+      id: '/_public/dr-hair/'
+      path: '/'
+      fullPath: '/dr-hair/'
+      preLoaderRoute: typeof PublicDrHairIndexRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
     '/_public/doctors/': {
       id: '/_public/doctors/'
       path: '/doctors'
@@ -5360,6 +5505,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/products/$slug'
       preLoaderRoute: typeof PublicProductsSlugRouteImport
       parentRoute: typeof PublicRoute
+    }
+    '/_public/dr-hair/treatment': {
+      id: '/_public/dr-hair/treatment'
+      path: '/treatment'
+      fullPath: '/dr-hair/treatment'
+      preLoaderRoute: typeof PublicDrHairTreatmentRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/progress': {
+      id: '/_public/dr-hair/progress'
+      path: '/progress'
+      fullPath: '/dr-hair/progress'
+      preLoaderRoute: typeof PublicDrHairProgressRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/pricing': {
+      id: '/_public/dr-hair/pricing'
+      path: '/pricing'
+      fullPath: '/dr-hair/pricing'
+      preLoaderRoute: typeof PublicDrHairPricingRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/dashboard': {
+      id: '/_public/dr-hair/dashboard'
+      path: '/dashboard'
+      fullPath: '/dr-hair/dashboard'
+      preLoaderRoute: typeof PublicDrHairDashboardRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/coach': {
+      id: '/_public/dr-hair/coach'
+      path: '/coach'
+      fullPath: '/dr-hair/coach'
+      preLoaderRoute: typeof PublicDrHairCoachRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/checkout-success': {
+      id: '/_public/dr-hair/checkout-success'
+      path: '/checkout-success'
+      fullPath: '/dr-hair/checkout-success'
+      preLoaderRoute: typeof PublicDrHairCheckoutSuccessRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/assessment': {
+      id: '/_public/dr-hair/assessment'
+      path: '/assessment'
+      fullPath: '/dr-hair/assessment'
+      preLoaderRoute: typeof PublicDrHairAssessmentRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/analysis': {
+      id: '/_public/dr-hair/analysis'
+      path: '/analysis'
+      fullPath: '/dr-hair/analysis'
+      preLoaderRoute: typeof PublicDrHairAnalysisRouteImport
+      parentRoute: typeof PublicDrHairRoute
+    }
+    '/_public/dr-hair/admin': {
+      id: '/_public/dr-hair/admin'
+      path: '/admin'
+      fullPath: '/dr-hair/admin'
+      preLoaderRoute: typeof PublicDrHairAdminRouteImport
+      parentRoute: typeof PublicDrHairRoute
     }
     '/_public/doctors/$slug': {
       id: '/_public/doctors/$slug'
@@ -8976,12 +9184,43 @@ const PublicConsultationRouteChildren: PublicConsultationRouteChildren = {
 const PublicConsultationRouteWithChildren =
   PublicConsultationRoute._addFileChildren(PublicConsultationRouteChildren)
 
+interface PublicDrHairRouteChildren {
+  PublicDrHairAdminRoute: typeof PublicDrHairAdminRoute
+  PublicDrHairAnalysisRoute: typeof PublicDrHairAnalysisRoute
+  PublicDrHairAssessmentRoute: typeof PublicDrHairAssessmentRoute
+  PublicDrHairCheckoutSuccessRoute: typeof PublicDrHairCheckoutSuccessRoute
+  PublicDrHairCoachRoute: typeof PublicDrHairCoachRoute
+  PublicDrHairDashboardRoute: typeof PublicDrHairDashboardRoute
+  PublicDrHairPricingRoute: typeof PublicDrHairPricingRoute
+  PublicDrHairProgressRoute: typeof PublicDrHairProgressRoute
+  PublicDrHairTreatmentRoute: typeof PublicDrHairTreatmentRoute
+  PublicDrHairIndexRoute: typeof PublicDrHairIndexRoute
+}
+
+const PublicDrHairRouteChildren: PublicDrHairRouteChildren = {
+  PublicDrHairAdminRoute: PublicDrHairAdminRoute,
+  PublicDrHairAnalysisRoute: PublicDrHairAnalysisRoute,
+  PublicDrHairAssessmentRoute: PublicDrHairAssessmentRoute,
+  PublicDrHairCheckoutSuccessRoute: PublicDrHairCheckoutSuccessRoute,
+  PublicDrHairCoachRoute: PublicDrHairCoachRoute,
+  PublicDrHairDashboardRoute: PublicDrHairDashboardRoute,
+  PublicDrHairPricingRoute: PublicDrHairPricingRoute,
+  PublicDrHairProgressRoute: PublicDrHairProgressRoute,
+  PublicDrHairTreatmentRoute: PublicDrHairTreatmentRoute,
+  PublicDrHairIndexRoute: PublicDrHairIndexRoute,
+}
+
+const PublicDrHairRouteWithChildren = PublicDrHairRoute._addFileChildren(
+  PublicDrHairRouteChildren,
+)
+
 interface PublicRouteChildren {
   PublicAboutRoute: typeof PublicAboutRoute
   PublicAcademyRoute: typeof PublicAcademyRoute
   PublicBookRoute: typeof PublicBookRoute
   PublicConsultationRoute: typeof PublicConsultationRouteWithChildren
   PublicContactRoute: typeof PublicContactRoute
+  PublicDrHairRoute: typeof PublicDrHairRouteWithChildren
   PublicFranchiseRoute: typeof PublicFranchiseRoute
   PublicIndexRoute: typeof PublicIndexRoute
   PublicBlogSlugRoute: typeof PublicBlogSlugRoute
@@ -9000,6 +9239,7 @@ const PublicRouteChildren: PublicRouteChildren = {
   PublicBookRoute: PublicBookRoute,
   PublicConsultationRoute: PublicConsultationRouteWithChildren,
   PublicContactRoute: PublicContactRoute,
+  PublicDrHairRoute: PublicDrHairRouteWithChildren,
   PublicFranchiseRoute: PublicFranchiseRoute,
   PublicIndexRoute: PublicIndexRoute,
   PublicBlogSlugRoute: PublicBlogSlugRoute,
