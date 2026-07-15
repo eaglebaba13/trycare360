@@ -49,7 +49,7 @@ export const Route = createFileRoute("/_public/dr-hair/")({
 
 const CAUSE_ICONS = [Dna, Brain, Salad, Activity, HeartPulse, Activity, Bug, Moon];
 
-function DrHairLanding() {
+export function DrHairLanding() {
   return (
     <div>
       {/* HERO */}
