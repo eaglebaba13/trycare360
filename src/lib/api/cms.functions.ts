@@ -295,8 +295,29 @@ export const submitAppointmentRequest = createServerFn({ method: "POST" })
       .parse(d),
   )
   .handler(async ({ data }) => {
-    const sb = publicClient();
-    const { data: row, error } = await sb
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // Only accept requests for an active site of the given tenant.
+    const { data: site } = await supabaseAdmin
+      .from("cms_sites")
+      .select("id")
+      .eq("tenant_id", data.tenant_id)
+      .eq("is_active", true)
+      .limit(1)
+      .maybeSingle();
+    if (!site) throw new Error("Invalid request");
+
+    // Basic abuse guard: cap submissions per phone per tenant per hour.
+    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const { count } = await supabaseAdmin
+      .from("cms_appointment_requests")
+      .select("id", { count: "exact", head: true })
+      .eq("tenant_id", data.tenant_id)
+      .eq("phone", data.phone)
+      .gte("created_at", since);
+    if ((count ?? 0) >= 5) throw new Error("Too many requests, please try again later");
+
+    const { data: row, error } = await supabaseAdmin
       .from("cms_appointment_requests")
       .insert({
         tenant_id: data.tenant_id,
@@ -310,12 +331,14 @@ export const submitAppointmentRequest = createServerFn({ method: "POST" })
         message: data.message ?? null,
         source: data.source ?? "website",
         utm: data.utm ?? {},
+        status: "new",
       })
       .select("id")
       .single();
-    if (error) throw new Error(error.message);
+    if (error) throw new Error("Could not submit request");
     return { id: row.id };
   });
+
 
 // =====================================================================
 // ADMIN CRUD (auth-gated)
