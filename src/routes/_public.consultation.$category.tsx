@@ -44,6 +44,7 @@ export const Route = createFileRoute("/_public/consultation/$category")({
   }),
   beforeLoad: ({ params }) => {
     if (!CATEGORY_CODES[params.category]) throw notFound();
+    return undefined as never;
   },
   component: Wizard,
 });
